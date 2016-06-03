@@ -29,7 +29,7 @@
 //    }
 //    
 //    /**
-//     * Constructor of a staffApplication class.
+//     * Constructor of a staffAttribution class.
 //     * 
 //     * @param application staffAttribution's application
 //     * @param staffMember staffAttribution's staffMember
@@ -40,10 +40,61 @@
 //    }
 //    
 //    /**
+//     * Constructor that receives an instance of this class as parameter.
 //     * 
+//     * @param application StaffAttribution application
+//     * @param staffMember StaffAttribution staffMember
 //     */
 //    public StaffAttribution(StaffAttribution staffAttribution){
 //        this.application = new Application(staffAttribution.application);
 //        this.staffMember = new StaffMember(staffAttribution.staffMember);
 //    }
+//    
+//    /**
+//     * Obtain the staffAttribution's application.
+//     * 
+//     * @return staffAttribution application
+//     */
+//    public Application getApplication(){
+//        return this.application;
+//    }
+//    
+//    /**
+//     * Set the staffApplication's application.
+//     * 
+//     * @param application the staffAttribution application to set
+//     */
+//    public void setApplication(Application application){
+//        this.application = application();
+//    }
+//    
+//    /**
+//     * Obtain the staffAttribution's staffMember.
+//     * 
+//     * @return staffAttribution staffMember
+//     */
+//    public StaffMember getStaffMember(){
+//        return this.staffMember;
+//    }
+//    
+//    /**
+//     * Set the staffApplication's staffMember.
+//     * 
+//     * @param staffMember the staffAttribution staffMember to set
+//     */
+//    public void setStaffMember(StaffMember staffMember){
+//        this.staffMember = staffMember;
+//    }
+//    
+//    /**
+//     * Return the textual representation of a StaffAttribution.
+//     * 
+//     * @return the textual representation of a StaffAttribution
+//     */
+//    @Override
+//    public String toString(){
+//        return String.format("StaffAttribution{%napplication=%s%nstaffMember=%s%n}", this.application, this.staffMember);
+//    }
+//    
+//    
 //}
