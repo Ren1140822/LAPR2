@@ -56,7 +56,7 @@ public class UsersRegister {
      * @return the users list
      */
     public List<User> getUsersList() {
-        return usersList;
+        return new ArrayList<>(this.usersList);
     }
 
     /**
@@ -65,13 +65,13 @@ public class UsersRegister {
      * @param usersList the users list to set
      */
     public void setUsersList(List<User> usersList) {
-        this.usersList = usersList;
+        this.usersList = new ArrayList<>(usersList);
     }
 
     /**
-     * Return the textual representation of a user.
+     * Return the textual representation of a usersRegister.
      *
-     * @return the textual representation of a user
+     * @return the textual representation of a usersRegister
      */
     @Override
     public String toString() {
