@@ -4,7 +4,12 @@
 //package lapr.project.model;
 //
 ///**
-// *
+// * Represents a exhibitions manager.
+// * 
+// * @author Daniel Gonçalves 1151452
+// * @author Eric Amaral 1141570
+// * @author Ivo Ferro 1151159
+// * @author Renato Oliveira 1140822
 // * @author Ricardo Correia 1151231
 // */
 //public class ExhibitionsManager {
