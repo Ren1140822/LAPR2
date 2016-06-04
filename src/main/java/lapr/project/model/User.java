@@ -81,6 +81,18 @@ public class User {
     }
 
     /**
+     * Copy constructor of a UsersRegister class.
+     *
+     * @param user User to copy
+     */
+    public User(User user) {
+        this.name = user.name;
+        this.username = user.username;
+        this.email = user.email;
+        this.password = user.password;
+    }
+
+    /**
      * Obtain the user's name.
      *
      * @return the user's name
