@@ -2,37 +2,43 @@
  * Package location for Model concepts.
  */
 package lapr.project.model;
+
 /**
  * Represents an Exhibitor
  *
- * @author Eric Jorge Schipper Ferreira do Amaral 1141570@isep.ipp.pt TurmaDN
+ * @author Daniel Gonçalves 1151452
+ * @author Eric Amaral 1141570
+ * @author Ivo Ferro 1151159
+ * @author Renato Oliveira 1140822
+ * @author Ricardo Correia 1151231
  */
 public class Exhibitor {
+
     /**
      * The exhibitor´s name.
      */
     private String name;
-    
+
     /**
      * The exhibitor´s address.
      */
     private String address;
-    
+
     /**
      * The exhibitor´s mobile number.
      */
     private String mobileNumber;
-    
+
     /**
      * The exhibitor´s name by default.
      */
     private static final String DEFAULT_NAME = "no name";
-    
+
     /**
      * The exhibitor´s address by default.
      */
     private static final String DEFAULT_ADDRESS = "address";
-    
+
     /**
      * The exhibitor´s mobile number by default.
      */
@@ -46,10 +52,10 @@ public class Exhibitor {
         this.mobileNumber = DEFAULT_MOBILE_NUMBER;
         this.name = DEFAULT_NAME;
     }
-    
+
     /**
      * Constructor of a exhibitor class.
-     * 
+     *
      * @param name exhibitor's name
      * @param address exhibitor's address
      * @param mobileNumber exhibitor's mobile number
@@ -61,8 +67,9 @@ public class Exhibitor {
     }
 
     /**
-     * Constructor of a exhibitor class copying another instance of exhibitor class.
-     * 
+     * Constructor of a exhibitor class copying another instance of exhibitor
+     * class.
+     *
      * @param exhibitor
      */
     public Exhibitor(Exhibitor exhibitor) {
@@ -71,7 +78,6 @@ public class Exhibitor {
         this.name = exhibitor.name;
     }
 
-    
     /**
      * Obtain the exhibitor's name.
      *
@@ -125,7 +131,7 @@ public class Exhibitor {
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
-    
+
     /**
      * Return the textual representation of an exhibitor.
      *
@@ -135,8 +141,5 @@ public class Exhibitor {
     public String toString() {
         return String.format("Exhibitor{%nname=%s%naddress=%s%nmobile number=%s}", this.name, this.address, this.mobileNumber);
     }
-    
-    
-    
-    
+
 }

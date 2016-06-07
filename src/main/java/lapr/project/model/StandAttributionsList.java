@@ -74,8 +74,8 @@ public class StandAttributionsList {
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append("StandsAttributionsList{");
-        for (Stand stand : this.standAttributionsList) {
-            s.append(String.format("%s%n", stand));
+        for (StandAttribution standAttribution : this.standAttributionsList) {
+            s.append(String.format("%s%n", standAttribution));
         }
         s.append("}");
         return s.toString();

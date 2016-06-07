@@ -1,7 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Package location for Model concepts.
  */
 package lapr.project.model;
 
@@ -9,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents an  exhibition application
+ * Represents an exhibition application
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
  * @author Ivo Ferro 1151159
  * @author Renato Oliveira 1140822
- * @author Ricardo Amaral 1151231
+ * @author Ricardo Correia 1151231
  */
 public class ExhibitionApplication {
 
@@ -42,15 +40,15 @@ public class ExhibitionApplication {
     /**
      * the list of products the company wishes to expose
      */
-//    private List<Product> productList;
+    private List<Product> productList;
     /**
      * the list of demonstrations the company wishes to participate
      */
     private List<Demonstration> demonstrationsList;
     /**
-     * the avaliation lists of this application
+     * the evaluation lists of this application
      */
-//    private List<Application> applicationsList;
+    private List<ExhibitionEvaluation> applicationEvaluationsList;
 
     /**
      * the default company name of this application
@@ -82,37 +80,41 @@ public class ExhibitionApplication {
         this.companyCellphone = DEFAULT_COMPANY_CELLPHONE;
         this.exhibitorArea = DEFAULT_EXHIBITOR_AREA;
         this.numberInvitations = DEFAULT_NUMBER_INVITATION;
-//        this.productList = new ArrayList<Product>();
+        this.productList = new ArrayList<Product>();
         this.demonstrationsList = new ArrayList<Demonstration>();
-//        this.applicationsList = new ArrayList<Application>();
+        this.applicationEvaluationsList = new ArrayList<ExhibitionEvaluation>();
     }
 
     /**
      * the constructor with parameters
      */
-// public ExhibitionApplication(String companyName, String companyAddress,String companyCellphone,float exhibitorArea,int numberInvitations,List<Product> productList,List<Demonstration> demonstrationsList,List<Application> applicationsList){
-//     this.companyName = companyName;
-//     this.companyAddress = companyAddress;
-//     this.companyCellphone=companyCellphone;
-//     this.exhibitorArea = exhibitorArea;
-//     this.numberInvitations = numberInvitations;
-//     this.productList = new ArrayList(productList);
-//     this.demonstrationsList = new ArrayList(demonstrationsList);
-//     this.applicationsList = new ArrayList(applicationsList);
-//     
-// }
+    public ExhibitionApplication(String companyName, String companyAddress, String companyCellphone, float exhibitorArea,
+            int numberInvitations, List<Product> productList, List<Demonstration> demonstrationsList, List<ExhibitionEvaluation> applicationsList) {
+        this.companyName = companyName;
+        this.companyAddress = companyAddress;
+        this.companyCellphone = companyCellphone;
+        this.exhibitorArea = exhibitorArea;
+        this.numberInvitations = numberInvitations;
+        this.productList = new ArrayList(productList);
+        this.demonstrationsList = new ArrayList(demonstrationsList);
+        this.applicationEvaluationsList = new ArrayList(applicationsList);
+
+    }
+
     /**
      * the copy constructor receiving instance of this class as parameter
+     *
+     * @param exhApplication
      */
     public ExhibitionApplication(ExhibitionApplication exhApplication) {
-        //     this.companyName = exhApplication.companyName;
-        //     this.companyAddress = exhApplication.companyAddress;
-        //     this.companyCellphone=exhApplication.companyCellphone;
-        //     this.exhibitorArea = exhApplication.exhibitorArea;
-        //     this.numberInvitations = exhApplication.numberInvitations;
-        //     this.productList = new ArrayList(exhApplication.productList);
-        //     this.demonstrationsList = new ArrayList(exhApplication.demonstrationsList);
-        //     this.applicationsList = new ArrayList(exhApplication.applicationsList);
+        this.companyName = exhApplication.companyName;
+        this.companyAddress = exhApplication.companyAddress;
+        this.companyCellphone = exhApplication.companyCellphone;
+        this.exhibitorArea = exhApplication.exhibitorArea;
+        this.numberInvitations = exhApplication.numberInvitations;
+        this.productList = new ArrayList(exhApplication.productList);
+        this.demonstrationsList = new ArrayList(exhApplication.demonstrationsList);
+        this.applicationEvaluationsList = new ArrayList(exhApplication.applicationEvaluationsList);
     }
 
     /**
@@ -167,16 +169,18 @@ public class ExhibitionApplication {
      *
      * @return the product list
      */
-//      public List<Product> getProductList() {
-//        return this.productList;
-//    }
+    public List<Product> getProductList() {
+        return this.productList;
+    }
+
     /**
      *
      * @return the applications list
      */
-    //      public List<Application> getApplicationsList() {
-//        return this.applicationsList;
-//    }
+    public List<ExhibitionEvaluation> getApplicationEvaluationsList() {
+        return this.applicationEvaluationsList;
+    }
+
     /**
      *
      * @param companyName sets the company name
@@ -228,39 +232,40 @@ public class ExhibitionApplication {
     /**
      * @param productList sets the products list
      */
-//     public void setProductsList(List<Product> productsList) {
-//        this.productList =   new ArrayList(productsList);
-//    }
+    public void setProductsList(List<Product> productsList) {
+        this.productList = new ArrayList(productsList);
+    }
+
     /**
-     * @param applicationsList sets the applications list
+     * @param applicationEvaluationsList sets the applications list
      */
-//      public void setApplicationsList(List<Application> applicationsList) {
-//        this.applicationsList = new ArrayList(applicationsList);
-//    }
-    
+    public void setApplicationEvaluationsList(List<ExhibitionEvaluation> applicationEvaluationsList) {
+        this.applicationEvaluationsList = new ArrayList(applicationEvaluationsList);
+    }
+
     /**
      * Returns the textual interpretation of the objects and attributes of this
      * class
      */
-//    @Override
-//    public String toString() {
-//        StringBuilder s = new StringBuilder();
-//        s.append("ExhibitionApplication{");
-//        s.append(String.format("%s%n", this.companyName));
-//        s.append(String.format("%s%n", this.companyAddress));
-//        s.append(String.format("%s%n", this.companyCellphone));
-//        s.append(String.format("%f%n", this.exhibitorArea));
-//        s.append(String.format("%d%n", this.numberInvitations));
-//        for (Demonstration demo : demonstrationsList) {
-//            s.append(String.format("%s%n", demo));
-//        }
-//         for (Product prod : productList) {
-//            s.append(String.format("%s%n", prod));
-//        }
-//           for (Application appl : applicationsList) {
-//            s.append(String.format("%s%n", app));
-//        }
-//        s.append("}");
-//        return s.toString();
-//    }
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append("ExhibitionApplication{");
+        s.append(String.format("%s%n", this.companyName));
+        s.append(String.format("%s%n", this.companyAddress));
+        s.append(String.format("%s%n", this.companyCellphone));
+        s.append(String.format("%f%n", this.exhibitorArea));
+        s.append(String.format("%d%n", this.numberInvitations));
+        for (Demonstration demo : demonstrationsList) {
+            s.append(String.format("%s%n", demo));
+        }
+        for (Product prod : productList) {
+            s.append(String.format("%s%n", prod));
+        }
+        for (ExhibitionEvaluation appl : applicationEvaluationsList) {
+            s.append(String.format("%s%n", appl));
+        }
+        s.append("}");
+        return s.toString();
+    }
 }
