@@ -17,48 +17,74 @@ public class Demonstration implements Submittable {
     /**
      * the descriptive text of this demonstration
      */
-    private String descriptiveText;
+    private String description;
+    
+    /**
+     * the demonstration's staff list.
+     */
+    private StaffList staffList;
+    
     /**
      * the default value of the descriptive text ( when using no args
      * constructor)
      */
-    private static final String DESCRIPTIVE_TEXT_BY_DEFAULT = "No description.";
+    private static final String DEFAULT_DESCRIPTION = "No description.";
 
     /**
      * empty constructor, assigns the default value to attributes
      */
     public Demonstration() {
-        this.descriptiveText = DESCRIPTIVE_TEXT_BY_DEFAULT;
+        this.description = DEFAULT_DESCRIPTION;
     }
 
     /**
      * builds instance of demonstration with a string as param
      */
     public Demonstration(String descriptiveText) {
-        this.descriptiveText = descriptiveText;
+        this.description = descriptiveText;
     }
 
     /**
      * Builds instance of demonstration using another demonstration as copy
      */
     public Demonstration(Demonstration d) {
-        this.descriptiveText = new String(d.descriptiveText);
+        this.description = new String(d.description);
     }
 
     /**
      * returns the current value of the descriptive text
      */
-    public String getDescriptiveText() {
-        return this.descriptiveText;
+    public String getDescription() {
+        return this.description;
     }
 
     /**
      * sets the current value of the descriptive text
      */
-    public void setDescriptiveText(String text) {
-        this.descriptiveText = text;
+    public void setDescription(String text) {
+        this.description = text;
     }
 
+    /**
+     * Gets the staff list.
+     * 
+     * @return staff list
+     */
+    public StaffList getStaffList() {
+        return staffList;
+    }
+
+    /**
+     * Sets the staff list.
+     * 
+     * @param staffList staff list
+     */
+    public void setStaffList(StaffList staffList) {
+        this.staffList = staffList;
+    }
+
+    
+    
     /**
      * Returns the textual representation of the attributes of this class.
      */
@@ -66,7 +92,7 @@ public class Demonstration implements Submittable {
         StringBuilder s = new StringBuilder();
         s.append("Demonstration{");
 
-        s.append(String.format("%s%n", this.descriptiveText));
+        s.append(String.format("%s%n", this.description));
 
         s.append("}");
         return s.toString();
