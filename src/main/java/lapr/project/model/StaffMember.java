@@ -10,7 +10,7 @@ package lapr.project.model;
  * @author Eric Amaral 1141570
  * @author Ivo Ferro 1151159
  * @author Renato Oliveira 1140822
- * @author Ricardo Amaral 1151231
+ * @author Ricardo Correia 1151231
  */
 public class StaffMember {
 
@@ -60,6 +60,15 @@ public class StaffMember {
      */
     public void setUser(User user) {
         this.user = user;
+    }
+    
+    /**
+     * Validates the User's user.
+     * 
+     * @return true is valid
+     */
+    public boolean validate(){
+        return this.user.validate();
     }
 
     /**

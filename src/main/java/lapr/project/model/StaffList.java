@@ -64,6 +64,18 @@ public class StaffList {
     public void setStaffList(List<StaffMember> staffList) {
         this.staffList = new ArrayList<>(staffList);
     }
+    
+    /**
+     * Creates a new instance of staff member.
+     *
+     * @return staffMember staff member
+     */
+    public StaffMember newStaffMember(User user){
+        StaffMember staffMember = new StaffMember();
+        staffMember.setUser(user);
+        staffMember.validate();
+        return staffMember;
+    }
 
     @Override
     public String toString() {

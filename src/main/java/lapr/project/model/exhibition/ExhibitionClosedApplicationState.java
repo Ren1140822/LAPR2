@@ -1,5 +1,7 @@
-/**
- * Package location for Model and concepts.
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package lapr.project.model.exhibition;
 
@@ -7,15 +9,10 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionState;
 
 /**
- * Represents the ExhibitionState.
  *
- * @author Daniel Gonçalves 1151452
- * @author Eric Amaral 1141570
- * @author Ivo Ferro 1151159
- * @author Renato Oliveira 1140822
- * @author Ricardo Correia 1151231
+ * @author Renato Oliveira 1140822@isep.ipp.pt
  */
-public class ExhibitionOpenApplicationState implements ExhibitionState {
+public class ExhibitionClosedApplicationState implements ExhibitionState {
 
     /**
      * This instance's exhibition
@@ -27,11 +24,11 @@ public class ExhibitionOpenApplicationState implements ExhibitionState {
      *
      * @param exhibition the exhibition received
      */
-    public ExhibitionOpenApplicationState(Exhibition exhibition) {
+    public ExhibitionClosedApplicationState(Exhibition exhibition) {
         this.exhibition = new Exhibition(exhibition);
     }
 
-    /**
+     /**
      * Sets exhibiton created state
      *
      * @return if its possible to set this state
@@ -124,7 +121,7 @@ public class ExhibitionOpenApplicationState implements ExhibitionState {
      */
     @Override
     public boolean isExhibitionOpenApplication() {
-        return true;
+        return false;
     }
 /**
      * Sets exhibiton closed application state.
@@ -133,8 +130,8 @@ public class ExhibitionOpenApplicationState implements ExhibitionState {
      */
     @Override
     public boolean setExhibitionClosedApplication() {
-        //TODO: IMPLEMENT THE NEW STATE CODE
-        return true;
+     
+        return false;
     }
 /**
      * Returns if the exhibition state is this state.
@@ -143,7 +140,7 @@ public class ExhibitionOpenApplicationState implements ExhibitionState {
      */
     @Override
     public boolean isExhibitionClosedApplication() {
-        return false;
+        return true;
     }
 /**
      * Sets exhibiton c detected conflicts state.
@@ -152,7 +149,8 @@ public class ExhibitionOpenApplicationState implements ExhibitionState {
      */
     @Override
     public boolean setExhibitionDetectedConficts() {
-        return false;
+        //TODO IMPLEMENTS THE NEXT STATE CHANGE
+        return true;
     }
 /**
      * Returns if the exhibition state is this state.
