@@ -47,10 +47,20 @@ public class ExhibitionsRegister {
      * param.
      *
      *
-     * @param exhReg a instance of this class, copy constructor
+     * @param exhibitionRegister a instance of this class, copy constructor
      */
-    public ExhibitionsRegister(ExhibitionsRegister exhReg) {
-        this.exhibitionsList = new ArrayList<>(exhReg.exhibitionsList);
+    public ExhibitionsRegister(ExhibitionsRegister exhibitionRegister) {
+        this.exhibitionsList = new ArrayList<>(exhibitionRegister.exhibitionsList);
+    }
+    
+    /**
+     * Creates a new instance of a Exhibition.
+     * 
+     * @return a new instance of a Exhibition
+     */
+    public Exhibition newExhibition() {
+        
+        return new Exhibition();
     }
 
     /**

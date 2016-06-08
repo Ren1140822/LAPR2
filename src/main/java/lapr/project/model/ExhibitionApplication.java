@@ -15,7 +15,7 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ExhibitionApplication {
+public class ExhibitionApplication implements Application {
 
     /**
      * the company name of this application
