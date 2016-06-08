@@ -1,7 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Package location for Model concept tests.
  */
 package lapr.project.model;
 
@@ -12,15 +10,20 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+ * Tests an evaluation.
  *
- * @author IvoFerro
+ * @author Daniel Gonçalves 1151452
+ * @author Eric Amaral 1141570
+ * @author Ivo Ferro 1151159
+ * @author Renato Oliveira 1140822
+ * @author Ricardo Correia 1151231
  */
 public class EvaluationTest {
     
     /**
-     * The instance to be tested.
+     * The evaluation to be tested.
      */
-    private Evaluation instance;
+    private Evaluation evaluation;
     
     @Before
     public void setUp() {
@@ -30,7 +33,7 @@ public class EvaluationTest {
         answers.add(4);
         answers.add(1);
         answers.add(3);
-        instance = new Evaluation(answers, new StaffAttribution());
+        evaluation = new Evaluation(answers, new StaffAttribution());
     }
 
     /**
@@ -39,11 +42,11 @@ public class EvaluationTest {
     @Test
     public void testValidate() {
         System.out.println("validate");
-        assertTrue(instance.validate());
+        assertTrue(evaluation.validate());
     }
     
     /**
-     * Test of validate method with an invalida instance.
+     * Test of validate method with an invalida evaluation.
      */
     @Test
     public void testValidateWithInvalidValue() {

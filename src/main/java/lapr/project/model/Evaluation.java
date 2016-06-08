@@ -190,7 +190,8 @@ public class Evaluation {
         }
         Evaluation otherEvaluation = (Evaluation) otherObject;
 
-        return this.questionsList.equals(otherEvaluation.questionsList) && this.answersList.equals(otherEvaluation.answersList) && this.staffAttribution.equals(otherEvaluation.staffAttribution);
+        return this.questionsList.equals(otherEvaluation.questionsList) && this.answersList.equals(otherEvaluation.answersList)
+                && this.staffAttribution.equals(otherEvaluation.staffAttribution);
     }
 
 }

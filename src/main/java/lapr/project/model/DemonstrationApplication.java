@@ -251,4 +251,58 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         s.append("}");
         return s.toString();
     }
+
+    /**
+     * Compares if this object is equal to otherObject.
+     *
+     * @param otherObject other object to compare with
+     * @return true if it repreents the same object, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+        DemonstrationApplication otherDemonstrationApplication = (DemonstrationApplication) otherObject;
+
+        return this.companyName.equals(otherDemonstrationApplication.companyName) && this.companyCellphone.equals(otherDemonstrationApplication.companyCellphone)
+                && this.companyAddress.equals(otherDemonstrationApplication.companyAddress) && this.evaluationsList.equals(otherDemonstrationApplication.evaluationsList)
+                && this.productList.equals(otherDemonstrationApplication.productList) && this.exhibitorArea == otherDemonstrationApplication.exhibitorArea
+                && this.numberInvitations == otherDemonstrationApplication.numberInvitations;
+    }
+
+    /**
+     * Returns a new evaluation.
+     *
+     * @return new evaluation
+     */
+    @Override
+    public Evaluation newEvaluation() {
+        return new Evaluation();
+    }
+
+    /**
+     * Validate if a evaluation is valid.
+     *
+     * @param evaluation evaluation to be validated
+     * @return true if it is valid, false otherwise
+     */
+    @Override
+    public boolean validateEvaluation(Evaluation evaluation) {
+        return !this.evaluationsList.contains(evaluation) && evaluation.validate();
+    }
+
+    /**
+     * Register an evaluation.
+     *
+     * @param evaluation evaluation to be registered
+     * @return true if it is registered with success, false otherwise
+     */
+    @Override
+    public boolean registerEvaluation(Evaluation evaluation) {
+        return this.evaluationsList.add(evaluation);
+    }
 }

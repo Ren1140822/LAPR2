@@ -268,4 +268,58 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         s.append("}");
         return s.toString();
     }
+
+    /**
+     * Compares if this object is equal to otherObject.
+     *
+     * @param otherObject other object to compare with
+     * @return true if it repreents the same object, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+        ExhibitionApplication otherExhibitionApplication = (ExhibitionApplication) otherObject;
+
+        return this.companyName.equals(otherExhibitionApplication.companyName) && this.companyCellphone.equals(otherExhibitionApplication.companyCellphone)
+                && this.companyAddress.equals(otherExhibitionApplication.companyAddress) && this.demonstrationsList.equals(otherExhibitionApplication.demonstrationsList)
+                && this.evaluationsList.equals(otherExhibitionApplication.evaluationsList) && this.productList.equals(otherExhibitionApplication.productList)
+                && this.exhibitorArea == otherExhibitionApplication.exhibitorArea && this.numberInvitations == otherExhibitionApplication.numberInvitations;
+    }
+
+    /**
+     * Returns a new evaluation.
+     *
+     * @return new evaluation
+     */
+    @Override
+    public Evaluation newEvaluation() {
+        return new Evaluation();
+    }
+
+    /**
+     * Validate if a evaluation is valid.
+     *
+     * @param evaluation evaluation to be validated
+     * @return true if it is valid, false otherwise
+     */
+    @Override
+    public boolean validateEvaluation(Evaluation evaluation) {
+        return !this.evaluationsList.contains(evaluation) && evaluation.validate();
+    }
+
+    /**
+     * Register an evaluation.
+     *
+     * @param evaluation evaluation to be registered
+     * @return true if it is registered with success, false otherwise
+     */
+    @Override
+    public boolean registerEvaluation(Evaluation evaluation) {
+        return this.evaluationsList.add(evaluation);
+    }
 }
