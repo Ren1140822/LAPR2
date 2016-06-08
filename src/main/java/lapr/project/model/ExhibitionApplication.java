@@ -48,7 +48,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     /**
      * the evaluation lists of this application
      */
-    private List<ExhibitionEvaluation> applicationEvaluationsList;
+    private List<Evaluation> evaluationsList;
 
     /**
      * the default company name of this application
@@ -82,14 +82,14 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.numberInvitations = DEFAULT_NUMBER_INVITATION;
         this.productList = new ArrayList<Product>();
         this.demonstrationsList = new ArrayList<Demonstration>();
-        this.applicationEvaluationsList = new ArrayList<ExhibitionEvaluation>();
+        this.evaluationsList = new ArrayList<Evaluation>();
     }
 
     /**
      * the constructor with parameters
      */
     public ExhibitionApplication(String companyName, String companyAddress, String companyCellphone, float exhibitorArea,
-            int numberInvitations, List<Product> productList, List<Demonstration> demonstrationsList, List<ExhibitionEvaluation> applicationsList) {
+            int numberInvitations, List<Product> productList, List<Demonstration> demonstrationsList, List<Evaluation> evaluationsList) {
         this.companyName = companyName;
         this.companyAddress = companyAddress;
         this.companyCellphone = companyCellphone;
@@ -97,7 +97,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.numberInvitations = numberInvitations;
         this.productList = new ArrayList(productList);
         this.demonstrationsList = new ArrayList(demonstrationsList);
-        this.applicationEvaluationsList = new ArrayList(applicationsList);
+        this.evaluationsList = new ArrayList(evaluationsList);
 
     }
 
@@ -114,7 +114,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.numberInvitations = exhApplication.numberInvitations;
         this.productList = new ArrayList(exhApplication.productList);
         this.demonstrationsList = new ArrayList(exhApplication.demonstrationsList);
-        this.applicationEvaluationsList = new ArrayList(exhApplication.applicationEvaluationsList);
+        this.evaluationsList = new ArrayList(exhApplication.evaluationsList);
     }
 
     /**
@@ -175,10 +175,10 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
 
     /**
      *
-     * @return the applications list
+     * @return the evaluation list
      */
-    public List<ExhibitionEvaluation> getApplicationEvaluationsList() {
-        return this.applicationEvaluationsList;
+    public List<Evaluation> getApplicationEvaluationsList() {
+        return this.evaluationsList;
     }
 
     /**
@@ -237,10 +237,10 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
-     * @param applicationEvaluationsList sets the applications list
+     * @param evaluationsList sets the evaluation's list
      */
-    public void setApplicationEvaluationsList(List<ExhibitionEvaluation> applicationEvaluationsList) {
-        this.applicationEvaluationsList = new ArrayList(applicationEvaluationsList);
+    public void setApplicationEvaluationsList(List<Evaluation> evaluationsList) {
+        this.evaluationsList = new ArrayList(evaluationsList);
     }
 
     /**
@@ -262,8 +262,8 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         for (Product prod : productList) {
             s.append(String.format("%s%n", prod));
         }
-        for (ExhibitionEvaluation appl : applicationEvaluationsList) {
-            s.append(String.format("%s%n", appl));
+        for (Evaluation ev : evaluationsList) {
+            s.append(String.format("%s%n", ev));
         }
         s.append("}");
         return s.toString();

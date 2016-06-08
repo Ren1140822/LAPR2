@@ -99,5 +99,24 @@ public class StaffAttribution {
     public String toString() {
         return String.format("StaffAttribution{%napplication=%s%nstaffMember=%s%n}", this.application, this.staffMember);
     }
+    
+    /**
+     * Compares if this object is equal to otherObject.
+     *
+     * @param otherObject other object to compare with
+     * @return true if it repreents the same object, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+        StaffAttribution otherStaffAttribution = (StaffAttribution) otherObject;
+
+        return this.application.equals(otherStaffAttribution.application) && this.staffMember.equals(otherStaffAttribution.staffMember);
+    }
 
 }

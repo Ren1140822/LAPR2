@@ -45,7 +45,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     /**
      * the evaluation lists of this application
      */
-    private List<DemonstrationEvaluation> applicationEvaluationsList;
+    private List<Evaluation> evaluationsList;
 
     /**
      * the default company name of this application
@@ -78,7 +78,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         this.exhibitorArea = DEFAULT_EXHIBITOR_AREA;
         this.numberInvitations = DEFAULT_NUMBER_INVITATION;
         this.productList = new ArrayList<Product>();
-        this.applicationEvaluationsList = new ArrayList<DemonstrationEvaluation>();
+        this.evaluationsList = new ArrayList<Evaluation>();
     }
 
     /**
@@ -90,10 +90,10 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      * @param exhibitorArea
      * @param numberInvitations
      * @param productList
-     * @param applicationsList
+     * @param evaluationsList
      */
     public DemonstrationApplication(String companyName, String companyAddress, String companyCellphone, float exhibitorArea,
-            int numberInvitations, List<Product> productList, List<DemonstrationApplication> applicationsList) {
+            int numberInvitations, List<Product> productList, List<Evaluation> evaluationsList) {
         this.companyName = companyName;
         this.companyAddress = companyAddress;
         this.companyCellphone = companyCellphone;
@@ -101,7 +101,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         this.numberInvitations = numberInvitations;
         this.productList = new ArrayList(productList);
 
-        this.applicationEvaluationsList = new ArrayList(applicationsList);
+        this.evaluationsList = new ArrayList(evaluationsList);
 
     }
 
@@ -115,7 +115,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         this.exhibitorArea = exhApplication.exhibitorArea;
         this.numberInvitations = exhApplication.numberInvitations;
         this.productList = new ArrayList(exhApplication.productList);
-        this.applicationEvaluationsList = new ArrayList(exhApplication.applicationEvaluationsList);
+        this.evaluationsList = new ArrayList(exhApplication.evaluationsList);
     }
 
     /**
@@ -170,8 +170,8 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @return the applications list
      */
-    public List<DemonstrationEvaluation> getApplicationEvaluationsList() {
-        return this.applicationEvaluationsList;
+    public List<Evaluation> getEvaluationsList() {
+        return this.evaluationsList;
     }
 
     /**
@@ -226,7 +226,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      * @param applicationsList sets the applications list
      */
     public void setApplicationEvaluationsList(List<DemonstrationApplication> applicationsList) {
-        this.applicationEvaluationsList = new ArrayList(applicationsList);
+        this.evaluationsList = new ArrayList(applicationsList);
     }
 
     /**
@@ -245,7 +245,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         for (Product prod : productList) {
             s.append(String.format("%s%n", prod));
         }
-        for (DemonstrationEvaluation appl : applicationEvaluationsList) {
+        for (Evaluation appl : evaluationsList) {
             s.append(String.format("%s%n", appl));
         }
         s.append("}");
