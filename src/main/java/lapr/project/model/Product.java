@@ -63,4 +63,23 @@ public class Product {
         return String.format("Product{%ndesignation=%s%n", this.designation);
     }
 
+    /**
+     * Compares if this object is equal to otherObject.
+     *
+     * @param otherObject other object to compare with
+     * @return true if it repreents the same object, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+        Product otherProduct = (Product) otherObject;
+
+        return this.designation.equals(otherProduct.designation);
+    }
+
 }

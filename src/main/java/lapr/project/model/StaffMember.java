@@ -80,4 +80,23 @@ public class StaffMember {
     public String toString() {
         return String.format("StaffMember{%nuser=%s}", this.user);
     }
+
+    /**
+     * Compares if this object is equal to otherObject.
+     *
+     * @param otherObject other object to compare with
+     * @return true if it repreents the same object, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+        StaffMember otherStaffMember = (StaffMember) otherObject;
+
+        return this.user.equals(otherStaffMember.user);
+    }
 }
