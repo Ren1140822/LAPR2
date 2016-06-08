@@ -4,15 +4,11 @@
 package lapr.project.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import lapr.project.model.Demonstration;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
-import lapr.project.model.OrganizersList;
-import lapr.project.model.Place;
-import lapr.project.model.StaffAttributionsList;
-import lapr.project.model.StaffList;
+import lapr.project.model.ExhibitionsRegister;
+import lapr.project.model.exhibition.ExhibitionClosedApplicationState;
 import lapr.project.model.exhibition.ExhibitionOpenApplicationState;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -22,7 +18,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Represents the ExhibitionState.
+ * Represents the ExhibitionApplicationController test class.
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
@@ -32,14 +28,11 @@ import static org.junit.Assert.*;
  */
 public class ExhibitionApplicationControllerTest {
 
-    private ExhibitionApplicationController exhibitionApplicationController;
+    private ExhibitionApplicationController controller;
     private ExhibitionCenter exhibitionCenter;
-    private    Exhibition exhibition;
 
     public ExhibitionApplicationControllerTest() {
-        this.exhibitionCenter = new ExhibitionCenter();
-        this.exhibitionApplicationController = new ExhibitionApplicationController(exhibitionCenter);
-        testGetExhibitionList();
+        
     }
 
     @BeforeClass
@@ -52,22 +45,18 @@ public class ExhibitionApplicationControllerTest {
 
     @Before
     public void setUp() {
-        Date startDate = new Date(2016, 5, 23);
-        Date endDate = new Date(2016, 6, 23);
-        Date subStartDate = new Date(2016, 5, 22);
-        Date subEndDate = new Date(2016, 6, 22);
-        Place place = new Place("PlaceTest");
-        StaffList staffList = new StaffList();
-        OrganizersList organizersList = new OrganizersList();
-        List<Demonstration> demonstrationList = new ArrayList();
-        StaffAttributionsList staffAttributionList = new StaffAttributionsList();
-       exhibition = new Exhibition("TitleTest","DescriptionTest",startDate,endDate,subStartDate,subEndDate,place,staffList,organizersList,demonstrationList,staffAttributionList);
-        exhibition.setCurrentExhibitionState(new ExhibitionOpenApplicationState(exhibition));
-        exhibitionCenter.getExhibitionsRegister().getExhibitionList().add(exhibition);
-         Exhibition exhibitionDifferentState = new Exhibition(exhibition);
-         exhibitionDifferentState.setCurrentExhibitionState(null);
-          exhibitionCenter.getExhibitionsRegister().getExhibitionList().add(exhibitionDifferentState);
         
+        this.exhibitionCenter = new ExhibitionCenter();
+        this.controller = new ExhibitionApplicationController(exhibitionCenter);
+        Exhibition exhibition1 = new Exhibition();
+        exhibition1.setCurrentExhibitionState(new ExhibitionOpenApplicationState(exhibition1));
+        Exhibition exhibition2 = new Exhibition();
+        exhibition2.setCurrentExhibitionState(new ExhibitionClosedApplicationState(exhibition2));
+        List<Exhibition> exhibitionList = new ArrayList<>();
+        exhibitionList.add(exhibition1);
+        exhibitionList.add(exhibition2);
+        ExhibitionsRegister exhibitionRegister = new ExhibitionsRegister(exhibitionList);
+        exhibitionCenter.setExhibitionsRegister(exhibitionRegister);
     }
 
     @After
@@ -81,13 +70,14 @@ public class ExhibitionApplicationControllerTest {
     @Test
     public void testGetExhibitionList() {
         System.out.println("getExhibitionList");
-        ExhibitionApplicationController instance = exhibitionApplicationController;
-        List<Exhibition> expResult = new ArrayList<Exhibition>();
-        expResult.add(new Exhibition(exhibition));//change the memory reference
-        List<Exhibition> result = instance.getExhibitionList();
-        assertArrayEquals(expResult.toArray(), result.toArray());
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        List<Exhibition> expResult = new ArrayList<>();
+        Exhibition exhibition1 = new Exhibition();
+        exhibition1.setCurrentExhibitionState(new ExhibitionOpenApplicationState(exhibition1));
+        expResult.add(exhibition1);
+        
+        List<Exhibition> result = this.controller.getExhibitionList();
+        
+        assertEquals(expResult, result);
     }
 
 }
