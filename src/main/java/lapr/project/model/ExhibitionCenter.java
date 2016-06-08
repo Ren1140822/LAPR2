@@ -178,4 +178,25 @@ public class ExhibitionCenter {
         return String.format("ExhibitionCenter{%n%s%n%s%n%s%n%s%n%s%n}", exhibitionsRegister, usersRegister, resourcesRegister, standsRegister, mechanismsRegister);
     }
 
+    /**
+     * Compares two ExhibitionCenters objects.
+     *
+     * @param otherObject Object to compare
+     * @return true if the objects are equals.
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || getClass() != otherObject.getClass()) {
+            return false;
+        }
+        ExhibitionCenter otherExhibitionCenter = (ExhibitionCenter) otherObject;
+
+        return this.exhibitionsRegister.equals(otherExhibitionCenter.exhibitionsRegister) 
+                // TODO : Implement all equals related to ExhibitionCenter attributes
+                ;
+    }
 }
