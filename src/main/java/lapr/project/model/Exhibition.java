@@ -49,6 +49,16 @@ public class Exhibition implements Submittable {
     private Date subEndDate;
 
     /**
+     * Exhibition's attribution conflicts resolution limit date.
+     */
+    private Date conflictLimitDate;
+
+    /**
+     * Exhibition's evaluations limite date.
+     */
+    private Date evaluationLimitDate;
+
+    /**
      * Exhibition's location.
      */
     private Place place;
@@ -78,10 +88,10 @@ public class Exhibition implements Submittable {
      */
     private StaffAttributionsList staffAttributionsList;
     /**
-    * The exhibition current state.
-    */
+     * The exhibition current state.
+     */
     private ExhibitionState currentExhibitionState;
-     /**
+    /**
      * Exhibition's default title.
      */
     private static final String DEFAULT_TITLE = "no title";
@@ -112,6 +122,16 @@ public class Exhibition implements Submittable {
     private static final Date DEFAULT_SUB_END_DATE = new Date(2016, 1, 1);
 
     /**
+     * Exhibition's default attribution conflicts resolution limit date.
+     */
+    private static final Date DEFAUL_CONFLICT_LIMITE_DATE = new Date(2016, 1, 1);
+
+    /**
+     * Exhibition's default evaluations limite date.
+     */
+    private static final Date DEFAUL_EVALUATION_LIMITE_DATE = new Date(2016, 1, 1);
+
+    /**
      * Exhibition's default location.
      */
     private static final Place DEFAULT_PLACE = new Place();
@@ -126,6 +146,8 @@ public class Exhibition implements Submittable {
         this.endDate = DEFAULT_END_DATE;
         this.subStartDate = DEFAULT_SUB_START_DATE;
         this.subEndDate = DEFAULT_SUB_END_DATE;
+        this.conflictLimitDate = DEFAUL_CONFLICT_LIMITE_DATE;
+        this.evaluationLimitDate = DEFAUL_EVALUATION_LIMITE_DATE;
         this.place = DEFAULT_PLACE;
         this.staffList = new StaffList();
         this.organizersList = new OrganizersList();
@@ -145,13 +167,17 @@ public class Exhibition implements Submittable {
      * @param endDate Exhibition's end date
      * @param subStartDate Exhibition's application submissions sart date
      * @param subEndDate Exhibition's application submissions end date
+     * @param conflictsLimiteDate Exhibition's conflict limite date
+     * @param evaluationLimitDate Exhibition's evaluations limite date
      * @param place Exhibition's location
      * @param staffList Exhibition's staff list
      * @param organizersList Exhibition's organizers list
      * @param demonstrationsList Exhibition's demonstrations list
      * @param staffAttributionsList Exhibition's staff attributions list
      */
-    public Exhibition(String title, String description, Date startDate, Date endDate, Date subStartDate, Date subEndDate, Place place, StaffList staffList, OrganizersList organizersList, List<Demonstration> demonstrationsList, StaffAttributionsList staffAttributionsList) {
+    public Exhibition(String title, String description, Date startDate, Date endDate, Date subStartDate,
+            Date subEndDate, Date conflictsLimiteDate, Date evaluationLimitDate, Place place, StaffList staffList, OrganizersList organizersList,
+            List<Demonstration> demonstrationsList, StaffAttributionsList staffAttributionsList) {
         this.title = title;
         this.description = description;
         this.startDate = startDate;
@@ -159,11 +185,12 @@ public class Exhibition implements Submittable {
         this.subStartDate = subStartDate;
         this.subEndDate = subEndDate;
         this.place = place;
-        // TODO: Once all classes are setup modify construction of lists using composition.
-        this.staffList = staffList;
-        this.organizersList = organizersList;
+        this.conflictLimitDate = conflictsLimiteDate;
+        this.evaluationLimitDate = evaluationLimitDate;
+        this.staffList = new StaffList(staffList);
+        this.organizersList = new OrganizersList(organizersList);
         this.demonstrationsList = new ArrayList<>(demonstrationsList);
-        this.staffAttributionsList = staffAttributionsList;
+        this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
     }
 
     /**
@@ -179,11 +206,12 @@ public class Exhibition implements Submittable {
         this.subStartDate = exhibition.subStartDate;
         this.subEndDate = exhibition.subEndDate;
         this.place = exhibition.place;
-        // TODO: Once all classes are setup modify construction of lists using composition.
-        this.staffList = exhibition.staffList;
-        this.organizersList = exhibition.organizersList;
-        this.demonstrationsList = new ArrayList<>(exhibition.getDemonstrationsList());
-        this.staffAttributionsList = exhibition.staffAttributionsList;
+        this.conflictLimitDate = exhibition.conflictLimitDate;
+        this.evaluationLimitDate = exhibition.evaluationLimitDate;
+        this.staffList = new StaffList(exhibition.staffList);
+        this.organizersList = new OrganizersList(exhibition.organizersList);
+        this.demonstrationsList = new ArrayList<>(exhibition.demonstrationsList);
+        this.staffAttributionsList = new StaffAttributionsList(exhibition.staffAttributionsList);
     }
 
     /**
@@ -297,6 +325,42 @@ public class Exhibition implements Submittable {
     }
 
     /**
+     * Obtain the conflicts limite date.
+     * 
+     * @return the conflicts limite date
+     */
+    public Date getConflictLimitDate() {
+        return conflictLimitDate;
+    }
+
+    /**
+     * Set the conflicts limite date.
+     * 
+     * @param conflictLimitDate the conflicts limite date to set
+     */
+    public void setConflictLimitDate(Date conflictLimitDate) {
+        this.conflictLimitDate = conflictLimitDate;
+    }
+
+    /**
+     * Obtain the evaluations limite date.
+     * 
+     * @return the evaluations Limite Date
+     */
+    public Date getEvaluationLimitDate() {
+        return evaluationLimitDate;
+    }
+
+    /**
+     * Set the evaluations limite date.
+     * 
+     * @param evaluationLimitDate the evaluations limite date to set
+     */
+    public void setEvaluationLimitDate(Date evaluationLimitDate) {
+        this.evaluationLimitDate = evaluationLimitDate;
+    }
+
+    /**
      * Obtain the Exhibition's place.
      *
      * @return the Exhibition's place
@@ -407,6 +471,7 @@ public class Exhibition implements Submittable {
 
     /**
      * Returns the current exhibition state.
+     *
      * @return the actual state of the exhibition
      */
     public ExhibitionState getCurrentExhibitionState() {
@@ -415,15 +480,13 @@ public class Exhibition implements Submittable {
 
     /**
      * Sets the new exhibition state.
-     * @param currentExhibitionState  the new exhibition state
+     *
+     * @param currentExhibitionState the new exhibition state
      */
     public void setCurrentExhibitionState(ExhibitionState currentExhibitionState) {
         this.currentExhibitionState = currentExhibitionState;
     }
 
-    
-    
-    
     /**
      * Return the textual representation of a exhibition.
      *

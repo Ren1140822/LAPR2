@@ -3,10 +3,12 @@
  */
 package lapr.project.controller;
 
+import java.util.Date;
 import java.util.List;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
+import lapr.project.model.Place;
 import lapr.project.model.User;
 import lapr.project.model.UsersRegister;
 
@@ -81,4 +83,18 @@ public class CreateExhibitionController {
         return usersRegister.getUsersList();
     }
     
+    public void setExhibitionData(String title, String description, Place place,
+    Date startDate, Date endDate, Date startSubDate, Date endSubDate, 
+    Date conflictLimitDate, Date evaluationLimiteDate) {
+        
+        this.exhibition.setTitle(title);
+        this.exhibition.setDescription(description);
+        this.exhibition.setPlace(place);
+        this.exhibition.setStartDate(startDate);
+        this.exhibition.setEndDate(endDate);
+        this.exhibition.setSubStartDate(startDate);
+        this.exhibition.setSubEndDate(endDate);
+        this.exhibition.setConflictLimitDate(conflictLimitDate);
+        this.exhibition.setEvaluationLimitDate(evaluationLimiteDate);
+    }
 }
