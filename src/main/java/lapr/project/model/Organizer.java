@@ -62,9 +62,42 @@ public class Organizer {
         this.user = user;
     }
 
+    /**
+     * Validate the Organizer's user.
+     *
+     * @return true if user is valid
+     */
+    public boolean validate() {
+        return this.user.validate();
+    }
+
+    /**
+     * Return the textual representation of a organizer.
+     *
+     * @return the textual representation of a organizer
+     */
     @Override
     public String toString() {
         return String.format("Organizer{%n%s%n}", user);
     }
 
+    /**
+     * Compares two Organizer objects.
+     *
+     * @param otherObject Object to compare
+     * @return true if the objects are equals.
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || getClass() != otherObject.getClass()) {
+            return false;
+        }
+        Organizer otherOrganizer = (Organizer) otherObject;
+
+        return this.user.equals(otherOrganizer.user);
+    }
 }

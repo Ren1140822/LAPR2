@@ -5,10 +5,8 @@ package lapr.project.controller;
 
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
-import org.junit.After;
-import org.junit.AfterClass;
+import lapr.project.model.User;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -28,26 +26,11 @@ public class CreateExhibitionControllerTest {
      */
     private CreateExhibitionController controller;
     
-    public CreateExhibitionControllerTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
     public void setUp() {
         this.controller = new CreateExhibitionController(new ExhibitionCenter());
     }
     
-    @After
-    public void tearDown() {
-    }
-
     /**
      * Test of newExhibition method, of class CreateExhibitionController.
      */
@@ -58,6 +41,19 @@ public class CreateExhibitionControllerTest {
         this.controller.newExhibition();
         
         assertEquals(this.controller.getExhibition(), expResult);
+    }
+
+    /**
+     * Test of newOrganizer method, of class CreateExhibitionController.
+     */
+    @Test
+    public void testNewOrganizer() {
+        System.out.println("newOrganizer");
+        User user = new User();
+        this.controller.newExhibition(); // TODO: Verify if this is correct.
+        
+        boolean result = this.controller.newOrganizer(user);
+        assertTrue(result);
     }
     
 }

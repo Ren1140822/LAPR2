@@ -438,7 +438,7 @@ public class Exhibition implements Submittable {
      * @return the Exhibition's demonstrations list
      */
     public List<Demonstration> getDemonstrationsList() {
-        return demonstrationsList;
+        return new ArrayList<>(this.demonstrationsList);
     }
 
     /**
@@ -447,7 +447,7 @@ public class Exhibition implements Submittable {
      * @param demonstrationsList the Exhibition's demonstrations list to set
      */
     public void setDemonstrationsList(List<Demonstration> demonstrationsList) {
-        this.demonstrationsList = demonstrationsList;
+        this.demonstrationsList = new ArrayList<>(demonstrationsList);
     }
 
     /**
@@ -495,6 +495,7 @@ public class Exhibition implements Submittable {
     @Override
     public String toString() {
 
+        // TODO : Redo toString with all new attributes.
         return String.format("Exhibition{%ntitle=%s%ndescription=%s%n"
                 + "startDate=%s%n"
                 + "endDate=%s%n"
