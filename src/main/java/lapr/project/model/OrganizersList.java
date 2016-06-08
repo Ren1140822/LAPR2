@@ -62,7 +62,7 @@ public class OrganizersList {
      *
      * @param organizersList list of organizers
      */
-    public void setOrganizersList(List<Organizer> organizerList) {
+    public void setOrganizersList(List<Organizer> organizersList) {
         this.organizersList = new ArrayList<>(organizersList);
     }
 
@@ -77,4 +77,23 @@ public class OrganizersList {
         return s.toString();
     }
 
+    /**
+     * Compares two OrganizersList objects.
+     *
+     * @param otherObject Object to compare
+     * @return true if the objects are equals.
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || getClass() != otherObject.getClass()) {
+            return false;
+        }
+        OrganizersList otherOrgsList = (OrganizersList) otherObject;
+
+        return this.organizersList.equals(otherOrgsList.organizersList);
+    }
 }

@@ -6,6 +6,7 @@ package lapr.project.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents an Exhibition.
@@ -66,7 +67,7 @@ public class Exhibition {
     /**
      * Exhibition's applications list.
      */
-    private ExhibitionApplicationList applicationsList;
+    private ApplicationsList applicationsList;
 
     /**
      * Exhibition's demonstrations list.
@@ -91,22 +92,22 @@ public class Exhibition {
     /**
      * Exhibition's default start date.
      */
-    private static final Date DEFAULT_START_DATE = new Date();
+    private static final Date DEFAULT_START_DATE = new Date(2016, 1, 1);
 
     /**
      * Exhibition's default end date.
      */
-    private static final Date DEFAULT_END_DATE = new Date();
+    private static final Date DEFAULT_END_DATE = new Date(2016, 1, 1);
 
     /**
      * Exhibition's default application submissions start date.
      */
-    private static final Date DEFAULT_SUB_START_DATE = new Date();
+    private static final Date DEFAULT_SUB_START_DATE = new Date(2016, 1, 1);
 
     /**
      * Exhibition's default application submissions end date.
      */
-    private static final Date DEFAULT_SUB_END_DATE = new Date();
+    private static final Date DEFAULT_SUB_END_DATE = new Date(2016, 1, 1);
 
     /**
      * Exhibition's default location.
@@ -126,9 +127,11 @@ public class Exhibition {
         this.place = DEFAULT_PLACE;
         this.staffList = new StaffList();
         this.organizersList = new OrganizersList();
-        this.applicationsList = new ExhibitionApplicationList();
+        this.applicationsList = new ApplicationsList();
         this.demonstrationsList = new ArrayList<>();
         this.staffAttributionsList = new StaffAttributionsList();
+
+        // TODO : Develop State functionality
     }
 
     /**
@@ -350,7 +353,7 @@ public class Exhibition {
      *
      * @return the Exhibition's applications list
      */
-    public ExhibitionApplicationList getApplicationsList() {
+    public ApplicationsList getApplicationsList() {
         return applicationsList;
     }
 
@@ -359,7 +362,7 @@ public class Exhibition {
      *
      * @param applicationsList the Exhibition's applications list to set
      */
-    public void setApplicationsList(ExhibitionApplicationList applicationsList) {
+    public void setApplicationsList(ApplicationsList applicationsList) {
         this.applicationsList = applicationsList;
     }
 
@@ -424,4 +427,35 @@ public class Exhibition {
                 this.demonstrationsList, this.staffAttributionsList);
     }
 
+    /**
+     * Compares two Exhibition objects.
+     *
+     * @param otherObject Object to compare
+     * @return true if the objects are equals.
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || getClass() != otherObject.getClass()) {
+            return false;
+        }
+        Exhibition otherExhibition = (Exhibition) otherObject;
+
+        return this.title.equals(otherExhibition.title)
+                && this.description.equals(otherExhibition.description)
+                && this.startDate.equals(otherExhibition.startDate)
+                && this.endDate.equals(otherExhibition.endDate)
+                && this.subStartDate.equals(otherExhibition.subStartDate)
+                && this.subEndDate.equals(otherExhibition.subEndDate)
+                && this.place.equals(otherExhibition.place)
+                && this.organizersList.equals(otherExhibition.organizersList)
+                && this.staffList.equals(otherExhibition.staffList)
+                && this.applicationsList.equals(otherExhibition.applicationsList)
+                // TODO: Update to class demonstrations list
+                && this.demonstrationsList.equals(otherExhibition.demonstrationsList)
+                && this.staffAttributionsList.equals(otherExhibition.staffAttributionsList);
+    }
 }
