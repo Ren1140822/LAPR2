@@ -6,7 +6,6 @@ package lapr.project.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Represents an Exhibition.
@@ -17,7 +16,7 @@ import java.util.Objects;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class Exhibition {
+public class Exhibition implements Submittable {
 
     /**
      * Exhibition's title.

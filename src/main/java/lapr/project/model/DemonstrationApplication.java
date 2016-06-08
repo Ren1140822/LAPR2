@@ -15,7 +15,7 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Amaral 1151231
  */
-public class DemonstrationApplication {
+public class DemonstrationApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable {
 
     /**
      * the company name of this application
