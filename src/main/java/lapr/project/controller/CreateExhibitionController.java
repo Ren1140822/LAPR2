@@ -3,9 +3,12 @@
  */
 package lapr.project.controller;
 
+import java.util.List;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
+import lapr.project.model.User;
+import lapr.project.model.UsersRegister;
 
 /**
  * Represents the controller to create exhibitions.
@@ -64,6 +67,18 @@ public class CreateExhibitionController {
      */
     public Exhibition getExhibition() {
         return this.exhibition;
+    }
+    
+    /**
+     * Obtain users list.
+     * 
+     * @return users list
+     */
+    public List<User> getUsersList() {
+        
+        UsersRegister usersRegister = exhibitionCenter.getUsersRegister();
+        
+        return usersRegister.getUsersList();
     }
     
 }
