@@ -3,9 +3,15 @@
  */
 package lapr.project.controller;
 
+import java.util.Date;
+import java.util.List;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
+import lapr.project.model.Organizer;
+import lapr.project.model.Place;
+import lapr.project.model.User;
+import lapr.project.model.UsersRegister;
 
 /**
  * Represents the controller to create exhibitions.
@@ -22,35 +28,35 @@ public class CreateExhibitionController {
      * The exhibition center.
      */
     private final ExhibitionCenter exhibitionCenter;
-    
+
     /**
      * The new exhibition object.
      */
     private Exhibition exhibition;
-    
+
     /**
      * Constructs a CreateExhibitionController Class.
-     * 
+     *
      * @param exhibitionCenter Exhibition Center
      */
     public CreateExhibitionController(ExhibitionCenter exhibitionCenter) {
-        
+
         this.exhibitionCenter = exhibitionCenter;
     }
-    
+
     /**
      * Creates a new exhibition object.
      */
     public void newExhibition() {
-        
+
         ExhibitionsRegister exhibitionRegister = getExhibitionCenter().getExhibitionsRegister();
-        
+
         this.exhibition = exhibitionRegister.newExhibition();
     }
 
     /**
      * Obtain the Exhibition Center.
-     * 
+     *
      * @return the Exhibition Center
      */
     public ExhibitionCenter getExhibitionCenter() {
@@ -59,11 +65,64 @@ public class CreateExhibitionController {
 
     /**
      * Obtain the new Exhibition.
-     * 
+     *
      * @return the Exhibition
      */
     public Exhibition getExhibition() {
         return this.exhibition;
     }
-    
+
+    /**
+     * Obtain users list.
+     *
+     * @return users list
+     */
+    public List<User> getUsersList() {
+
+        UsersRegister usersRegister = exhibitionCenter.getUsersRegister();
+
+        return usersRegister.getUsersList();
+    }
+
+    /**
+     * Set the exhibition data.
+     *
+     * @param title Exhibition's title
+     * @param description Exhibition's description
+     * @param place Exhibition's location
+     * @param startDate Exhibition's start date
+     * @param endDate Exhibition's end date
+     * @param startSubDate Exhibition's applications submission start date
+     * @param endSubDate Exhibition's applications submission end date
+     * @param conflictLimitDate Exhibition's conflicts limit date
+     * @param evaluationLimiteDate Exhibition's applications evaluation limit
+     * date
+     */
+    public void setExhibitionData(String title, String description, Place place,
+            Date startDate, Date endDate, Date startSubDate, Date endSubDate,
+            Date conflictLimitDate, Date evaluationLimiteDate) {
+
+        this.exhibition.setTitle(title);
+        this.exhibition.setDescription(description);
+        this.exhibition.setPlace(place);
+        this.exhibition.setStartDate(startDate);
+        this.exhibition.setEndDate(endDate);
+        this.exhibition.setSubStartDate(startDate);
+        this.exhibition.setSubEndDate(endDate);
+        this.exhibition.setConflictLimitDate(conflictLimitDate);
+        this.exhibition.setEvaluationLimitDate(evaluationLimiteDate);
+    }
+
+    /**
+     * Create, validate & add a new organizer object to the Exhibition's organizersList.
+     * 
+     * @param user associated to the new organizer
+     * @return true if organizer is added to list.
+     */
+    public boolean newOrganizer(User user) {
+
+        Organizer newOrganizer = exhibition.getOrganizersList().newOrganizer(user);
+
+        return exhibition.getOrganizersList().addAndValidateOrganizer(newOrganizer);
+    }
 }

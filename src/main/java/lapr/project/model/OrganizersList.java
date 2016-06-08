@@ -65,7 +65,56 @@ public class OrganizersList {
     public void setOrganizersList(List<Organizer> organizersList) {
         this.organizersList = new ArrayList<>(organizersList);
     }
+    
+    /**
+     * Create a new organizer object.
+     * 
+     * @param user associated to the new organizer
+     * @return a new organizer object
+     */
+    public Organizer newOrganizer(User user) {
+        
+        return new Organizer(user);
+    }
 
+    /**
+     * Add & validate an organizer to the list.
+     *
+     * @param organizer the organizer to validate
+     * @return true if the organizer is sucessfully added.
+     */
+    public boolean addAndValidateOrganizer(Organizer organizer) {
+
+        return (organizer.validate() && validateOrganizer(organizer)) ? addOrganizer(organizer) : false;
+    }
+
+    /**
+     * Validate if the list doesn't contain an organizer.
+     *
+     * @param organizer the organizer to validate
+     * @return true if list doesn't contain the organizer
+     */
+    private boolean validateOrganizer(Organizer organizer) {
+
+        return !this.organizersList.contains(organizer);
+    }
+
+    /**
+     * Add an organizer to the list.
+     *
+     * @param organizer the organizer to validate
+     * @return true if the organizer is sucessfully added.
+     */
+    private boolean addOrganizer(Organizer organizer) {
+
+        return this.organizersList.add(organizer);
+    }
+
+    /**
+     * Return the textual representation of a organizers list.
+     *
+     * @return the textual representation of a organizers list
+     */
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
