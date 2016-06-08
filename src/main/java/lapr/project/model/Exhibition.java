@@ -77,8 +77,11 @@ public class Exhibition {
      * Exhibition's staff attributions list.
      */
     private StaffAttributionsList staffAttributionsList;
-
     /**
+    * The exhibition current state.
+    */
+    private ExhibitionState currentExhibitionState;
+     /**
      * Exhibition's default title.
      */
     private static final String DEFAULT_TITLE = "no title";
@@ -400,6 +403,25 @@ public class Exhibition {
         this.staffAttributionsList = staffAttributionsList;
     }
 
+    /**
+     * Returns the current exhibition state.
+     * @return the actual state of the exhibition
+     */
+    public ExhibitionState getCurrentExhibitionState() {
+        return currentExhibitionState;
+    }
+
+    /**
+     * Sets the new exhibition state.
+     * @param currentExhibitionState  the new exhibition state
+     */
+    public void setCurrentExhibitionState(ExhibitionState currentExhibitionState) {
+        this.currentExhibitionState = currentExhibitionState;
+    }
+
+    
+    
+    
     /**
      * Return the textual representation of a exhibition.
      *

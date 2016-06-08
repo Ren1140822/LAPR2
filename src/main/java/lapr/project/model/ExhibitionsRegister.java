@@ -53,9 +53,46 @@ public class ExhibitionsRegister {
         this.exhibitionsList = new ArrayList<>(exhReg.exhibitionsList);
     }
 
+  
+    
     /**
-     * Returns the list of exhibits referring to an organizer
+     * Returns the whole exhibitions list referring to this instance.
+     * @return the list of exhibitions referring to this instance
      */
+    public List<Exhibition> getExhibitionList(){
+        return new ArrayList(exhibitionsList);
+    }
+    
+    
+    
+    
+    /**
+     * Returns the exhibitions list with application in submitting state.
+     * @return returns the exhibitions list with application in submitting state
+     */
+    public List<Exhibition>getExhibitionListWithApplicationInSubmittingState(){
+        
+         List<Exhibition> exhibitionListInRightState = new ArrayList();
+         boolean validated;
+         for(Exhibition exhibition : this.exhibitionsList){
+          
+             validated= exhibition.getCurrentExhibitionState().isExhibitionOpenApplication();
+        
+             if(validated){
+                 exhibitionListInRightState.add(exhibition);
+             }
+         }
+         return exhibitionListInRightState;
+         
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * Returns the textual interpretation of the objects and attributes of this
      * class
