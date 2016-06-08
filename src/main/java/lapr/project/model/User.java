@@ -165,6 +165,15 @@ public class User {
     }
 
     /**
+     *  Validates the user.
+     * 
+     * @return true if the user is valid, false otherwise
+     */
+    boolean validate() {
+        return !this.username.isEmpty() && this.username.length() > 3 && !this.email.isEmpty() && this.email.length() > 5;
+    }
+
+    /**
      * Return the textual representation of a user.
      *
      * @return the textual representation of a user
@@ -172,5 +181,24 @@ public class User {
     @Override
     public String toString() {
         return String.format("User{%nname=%s%nusername=%s%nemail=%s}", this.name, this.username, this.email);
+    }
+
+    /**
+     * Compares if this object is equal to otherObject.
+     *
+     * @param otherObject other object to compare with
+     * @return true if it represents the same object, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+        User otherUser = (User) otherObject;
+
+        return this.username.equals(otherUser.username) || this.email.equals(otherUser.email);
     }
 }
