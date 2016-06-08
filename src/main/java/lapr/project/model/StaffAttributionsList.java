@@ -18,56 +18,83 @@ import java.util.List;
 public class StaffAttributionsList {
 
     /**
-     * the list of staff instances
+     * the list of staff attributions instances
      */
-    private List<StaffMember> staffList;
+    private List<StaffAttribution> staffAttributionsList;
 
     /**
      * empty constructor of this class
      */
     public StaffAttributionsList() {
-        staffList = new ArrayList<>();
+        staffAttributionsList = new ArrayList<>();
     }
 
     /**
-     * constructor receiving a list of staff as param
+     * constructor receiving a list of staff attribution as param.
+     * 
+     * @param staffAttributionsList Staff Attributions List 
      */
-    public StaffAttributionsList(List<StaffMember> staffList) {
-        this.staffList = new ArrayList(staffList);
+    public StaffAttributionsList(List<StaffAttribution> staffAttributionsList) {
+        this.staffAttributionsList = new ArrayList(staffAttributionsList);
     }
 
     /**
      * constructor receiving a instance of this class as param
+     * 
+     * @param staffAttributionsList StaffAttributionList to copy
      */
-    public StaffAttributionsList(StaffAttributionsList staffAtt) {
-        this.staffList = new ArrayList(staffAtt.staffList);
+    public StaffAttributionsList(StaffAttributionsList staffAttributionsList) {
+        this.staffAttributionsList = new ArrayList(staffAttributionsList.staffAttributionsList);
     }
 
     /**
-     *
-     * @return the list of staff of this instance
+     * Obtain the list of staff attributions.
+     * 
+     * @return the list of staff attributions
      */
-    public List<StaffMember> getStaffList() {
-        return this.staffList;
+    public List<StaffAttribution> getStaffAttributionsList() {
+        return this.staffAttributionsList;
     }
 
     /**
-     * sets the staff list
+     * sets the staff attributions list.
+     * 
+     * @param staffAttributionsList staff attributions list to set
      */
-    public void setStaffList(List<StaffMember> staffList) {
-        this.staffList = new ArrayList<>(staffList);
+    public void setStaffAttributionsList(List<StaffAttribution> staffAttributionsList) {
+        this.staffAttributionsList = new ArrayList<>(staffAttributionsList);
     }
 
     /**
-     * Returns the textual representation of the attributes of this class.
+     * Returns the textual representation of the attributes of a staff attributions list class.
      */
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append("StaffAttributionsList{");
-        for (StaffMember staffMember : staffList) {
-            s.append(String.format("%s%n", staffMember));
+        for (StaffAttribution staffAttribution : staffAttributionsList) {
+            s.append(String.format("%s%n", staffAttribution));
         }
         s.append("}");
         return s.toString();
+    }
+
+    /**
+     * Compares two StaffAttributionsList objects.
+     *
+     * @param otherObject Object to compare
+     * @return true if the objects are equals.
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || getClass() != otherObject.getClass()) {
+            return false;
+        }
+        StaffAttributionsList otherStaffAttributionsList = (StaffAttributionsList) otherObject;
+
+        return this.staffAttributionsList.equals(otherStaffAttributionsList.staffAttributionsList);
     }
 }

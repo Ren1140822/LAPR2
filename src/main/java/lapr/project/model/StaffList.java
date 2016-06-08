@@ -76,4 +76,24 @@ public class StaffList {
         return s.toString();
     }
 
+    /**
+     * Compares two StaffList objects.
+     *
+     * @param otherObject Object to compare
+     * @return true if the objects are equals.
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || getClass() != otherObject.getClass()) {
+            return false;
+        }
+        StaffList otherStaffList = (StaffList) otherObject;
+
+        return this.staffList.equals(otherStaffList.staffList);
+    }
+
 }

@@ -67,4 +67,24 @@ public class Place {
     public String toString() {
         return String.format("Place{%nlocation=%s%n", this.location);
     }
+
+    /**
+     * Compares two Place objects.
+     *
+     * @param otherObject Object to compare
+     * @return true if the objects are equals.
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || getClass() != otherObject.getClass()) {
+            return false;
+        }
+        Place otherPlace = (Place) otherObject;
+
+        return this.location.equalsIgnoreCase(otherPlace.location);
+    }
 }

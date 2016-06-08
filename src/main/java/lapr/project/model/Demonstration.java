@@ -12,7 +12,7 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Amaral 1151231
  */
-public class Demonstration {
+public class Demonstration implements Submittable {
 
     /**
      * the descriptive text of this demonstration
