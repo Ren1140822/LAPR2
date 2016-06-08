@@ -1,7 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Package location for Model concepts.
  */
 package lapr.project.model;
 
@@ -10,11 +8,19 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+ * Tests the StaffAttribution class.
  *
- * @author IvoFerro
+ * @author Daniel Gonçalves 1151452
+ * @author Eric Amaral 1141570
+ * @author Ivo Ferro 1151159
+ * @author Renato Oliveira 1140822
+ * @author Ricardo Correia 1151231
  */
 public class StaffAttributionTest {
 
+    /**
+     * The staff attribution to be tested.
+     */
     private StaffAttribution staffAttribution;
 
     @Before

@@ -5,7 +5,7 @@ package lapr.project.model;
 
 /**
  * Interface for submittable applications.
- * 
+ *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
  * @author Ivo Ferro 1151159
@@ -13,5 +13,11 @@ package lapr.project.model;
  * @author Ricardo Correia 1151231
  */
 public interface Submittable {
-    
+
+    /**
+     * Returns the staff attribtions list.
+     *
+     * @return staff attribtions list
+     */
+    StaffAttributionsList getStaffAttributionsList();
 }

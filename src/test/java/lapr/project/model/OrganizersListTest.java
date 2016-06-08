@@ -5,7 +5,6 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import static jdk.nashorn.internal.objects.Global.instance;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

@@ -87,10 +87,12 @@ public class Exhibition implements Submittable {
      * Exhibition's staff attributions list.
      */
     private StaffAttributionsList staffAttributionsList;
+
     /**
      * The exhibition current state.
      */
     private ExhibitionState currentExhibitionState;
+
     /**
      * Exhibition's default title.
      */
@@ -326,7 +328,7 @@ public class Exhibition implements Submittable {
 
     /**
      * Obtain the conflicts limite date.
-     * 
+     *
      * @return the conflicts limite date
      */
     public Date getConflictLimitDate() {
@@ -335,7 +337,7 @@ public class Exhibition implements Submittable {
 
     /**
      * Set the conflicts limite date.
-     * 
+     *
      * @param conflictLimitDate the conflicts limite date to set
      */
     public void setConflictLimitDate(Date conflictLimitDate) {
@@ -344,7 +346,7 @@ public class Exhibition implements Submittable {
 
     /**
      * Obtain the evaluations limite date.
-     * 
+     *
      * @return the evaluations Limite Date
      */
     public Date getEvaluationLimitDate() {
@@ -353,7 +355,7 @@ public class Exhibition implements Submittable {
 
     /**
      * Set the evaluations limite date.
-     * 
+     *
      * @param evaluationLimitDate the evaluations limite date to set
      */
     public void setEvaluationLimitDate(Date evaluationLimitDate) {
@@ -451,15 +453,6 @@ public class Exhibition implements Submittable {
     }
 
     /**
-     * Obtain the Exhibition's staff attributions list.
-     *
-     * @return the Exhibition's staff attributions list
-     */
-    public StaffAttributionsList getStaffAttributionsList() {
-        return staffAttributionsList;
-    }
-
-    /**
      * Set the Exhibition's staff attributions list.
      *
      * @param staffAttributionsList the Exhibition's staff attributions list to
@@ -542,5 +535,15 @@ public class Exhibition implements Submittable {
                 // TODO: Update to class demonstrations list
                 && this.demonstrationsList.equals(otherExhibition.demonstrationsList)
                 && this.staffAttributionsList.equals(otherExhibition.staffAttributionsList);
+    }
+
+    /**
+     * Returns the staff attribtions list.
+     *
+     * @return staff attribtions list
+     */
+    @Override
+    public StaffAttributionsList getStaffAttributionsList() {
+        return staffAttributionsList;
     }
 }

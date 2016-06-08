@@ -68,8 +68,17 @@ public class ExhibitionsRegister {
      *
      * @return the list of exhibitions referring to this instance
      */
-    public List<Exhibition> getExhibitionList() {
+    public List<Exhibition> getExhibitionsList() {
         return new ArrayList(exhibitionsList);
+    }
+
+    /**
+     * Sets the exhibitions list.
+     *
+     * @param exhibitionsList exhibitions list
+     */
+    public void setExhibitionsList(List<Exhibition> exhibitionsList) {
+        this.exhibitionsList = new ArrayList(exhibitionsList);
     }
 
     /**

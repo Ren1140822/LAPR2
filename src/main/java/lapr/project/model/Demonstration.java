@@ -18,12 +18,17 @@ public class Demonstration implements Submittable {
      * the descriptive text of this demonstration
      */
     private String description;
-    
+
     /**
      * the demonstration's staff list.
      */
     private StaffList staffList;
-    
+
+    /**
+     * Demonstration's staff attributions list.
+     */
+    private StaffAttributionsList staffAttributionsList;
+
     /**
      * the default value of the descriptive text ( when using no args
      * constructor)
@@ -67,7 +72,7 @@ public class Demonstration implements Submittable {
 
     /**
      * Gets the staff list.
-     * 
+     *
      * @return staff list
      */
     public StaffList getStaffList() {
@@ -76,15 +81,13 @@ public class Demonstration implements Submittable {
 
     /**
      * Sets the staff list.
-     * 
+     *
      * @param staffList staff list
      */
     public void setStaffList(StaffList staffList) {
         this.staffList = staffList;
     }
 
-    
-    
     /**
      * Returns the textual representation of the attributes of this class.
      */
@@ -97,4 +100,15 @@ public class Demonstration implements Submittable {
         s.append("}");
         return s.toString();
     }
+
+    /**
+     * Returns the staff attribtions list.
+     *
+     * @return staff attribtions list
+     */
+    @Override
+    public StaffAttributionsList getStaffAttributionsList() {
+        return new StaffAttributionsList(this.staffAttributionsList);
+    }
+
 }

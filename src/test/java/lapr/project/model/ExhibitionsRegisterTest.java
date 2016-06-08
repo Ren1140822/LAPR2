@@ -3,12 +3,11 @@
  */
 package lapr.project.model;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests a exhibitions register.
@@ -20,30 +19,15 @@ import org.junit.Test;
  * @author Ricardo Correia 1151231
  */
 public class ExhibitionsRegisterTest {
-    
+
     /**
      * Exhibition Register object.
      */
     private ExhibitionsRegister exhibitionsRegister;
-    
-    public ExhibitionsRegisterTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+
     @Before
     public void setUp() {
         this.exhibitionsRegister = new ExhibitionsRegister();
-    }
-    
-    @After
-    public void tearDown() {
     }
 
     /**
@@ -56,5 +40,32 @@ public class ExhibitionsRegisterTest {
         Exhibition result = exhibitionsRegister.newExhibition();
         assertEquals(expResult, result);
     }
-    
+
+    /**
+     * Test of getSubmittablesByStaff method, of class ExhibitionsRegister.
+     */
+    @Test
+    public void testGetSubmittablesByStaff() {
+        System.out.println("getSubmittablesByStaff");
+
+        StaffMember staffMember = new StaffMember();
+        List<StaffMember> staffsList = new ArrayList<>();
+        staffsList.add(staffMember);
+
+        Exhibition firstExhibition = new Exhibition();
+        Exhibition secondExhibition = new Exhibition();
+        secondExhibition.setStaffList(new StaffList(staffsList));
+
+        List<Exhibition> exhibitionsListTotal = new ArrayList();
+        exhibitionsListTotal.add(firstExhibition);
+        exhibitionsListTotal.add(secondExhibition);
+
+        List<Exhibition> exhibitionsListExpected = new ArrayList();
+        exhibitionsListExpected.add(secondExhibition);
+
+        exhibitionsRegister.setExhibitionsList(exhibitionsListTotal);
+
+        assertEquals(exhibitionsRegister.getSubmittablesByStaff(staffMember), exhibitionsListExpected);
+    }
+
 }
