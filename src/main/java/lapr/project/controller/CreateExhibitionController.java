@@ -43,9 +43,27 @@ public class CreateExhibitionController {
      */
     public void newExhibition() {
         
-        ExhibitionsRegister exhibitionRegister = exhibitionCenter.getExhibitionsRegister();
+        ExhibitionsRegister exhibitionRegister = getExhibitionCenter().getExhibitionsRegister();
         
         this.exhibition = exhibitionRegister.newExhibition();
+    }
+
+    /**
+     * Obtain the Exhibition Center.
+     * 
+     * @return the Exhibition Center
+     */
+    public ExhibitionCenter getExhibitionCenter() {
+        return this.exhibitionCenter;
+    }
+
+    /**
+     * Obtain the new Exhibition.
+     * 
+     * @return the Exhibition
+     */
+    public Exhibition getExhibition() {
+        return this.exhibition;
     }
     
 }
