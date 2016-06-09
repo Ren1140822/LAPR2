@@ -17,19 +17,7 @@ import java.util.List;
  */
 public class ExhibitionApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable {
 
-    /**
-     * the company name of this application
-     */
-    private String companyName;
-    /**
-     * the address of the company
-     */
-    private String companyAddress;
-    /**
-     * the cellphone of the company
-     */
-    private String companyCellphone;
-    /**
+    /*
      * the areain float asked by the company
      */
     private float exhibitorArea;
@@ -128,7 +116,6 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         return this.numberInvitations;
     }
 
-    
     /**
      *
      * @return the demonstrationList
@@ -145,7 +132,6 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         return this.productList;
     }
 
-    
     /**
      *
      * @return the evaluation list
@@ -154,8 +140,20 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         return this.evaluationsList;
     }
 
+    
     /**
-     *
+     * Returns the list of keywords.
+     * @return the list of keywords
+     */
+    public List<KeyWord> getKeyWordList() {
+        return keyWordList;
+    }
+
+    
+    
+    
+    /**
+     *Sets the area of the exhibitor
      * @param exhibitorArea sets exhibitor area
      */
     public void setExhibitorArea(float exhibitorArea) {
@@ -213,6 +211,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
 
     /**
      * Creates new product.
+     *
      * @param designation the product name
      */
     public void newProduct(String designation) {
@@ -224,6 +223,50 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
 
         }
     }
+
+    /**
+     * Adds a demonstration to the list if it doenst contain it
+     *
+     * @param demonstration the demonstration going to be added to the list
+     */
+    public void newDemonstration(Demonstration demonstration) {
+        if (!validateDemonstration(demonstration)) {
+            this.demonstrationsList.add(demonstration);
+        }
+    }
+
+    
+    /**
+     * Creates a new Keyword and adds it to the list
+     * @param description the value of the keyword
+     */
+    public void newKeyword(String description){
+        KeyWord keyWord  = new KeyWord(description);
+        keyWord.validate();
+        keyWordList.add(keyWord);
+    }
+    
+    
+    
+    
+    /**
+     * Checks if this demonstration is already on the list
+     *
+     * @param demonstration the demonstration to check if exists on current list
+     * @return true the list already has this object
+     */
+    public boolean validateDemonstration(Demonstration demonstration) {
+        return (this.demonstrationsList.contains(demonstration));
+    }
+
+    /**
+     * Validates if the mininum parameters are filled with data
+     * @param exhibitionApplication the application to check for
+     * @return true if all O.K.
+     */
+//    public boolean validateApplication() {
+//        return (this.exhibitor.validate()&&this.demonstrationsList.isEmpty()&&this.productList.isEmpty()&&this.keyWordList.size()>1&&this.keyWordList.size()<=5&&this.numberInvitations!=0&&this.exhibitorArea!=0);
+//    }
 
     /**
      * Equals method to verify if two objects are equal.

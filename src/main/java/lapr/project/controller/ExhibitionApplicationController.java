@@ -6,11 +6,11 @@ package lapr.project.controller;
 import java.util.ArrayList;
 import java.util.List;
 import lapr.project.model.ApplicationsList;
+import lapr.project.model.Demonstration;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
-import lapr.project.model.Product;
 
 /**
  * Represents the controller of exhibition application.
@@ -48,7 +48,7 @@ public class ExhibitionApplicationController {
      */
     private ExhibitionApplication exhibitionApplication;
     
-    
+ 
     
     /**
      * Constructor receiving a ExhibitionCenter as parameter.
@@ -103,5 +103,47 @@ public class ExhibitionApplicationController {
      
         this.exhibitionApplication.newProduct(designation);
     }
+    
+    /**
+     * Lists the demonstrations on a exhibition
+     * @param exhibition the exhibition you want the demonstrations from
+     * @return a copy of the demonstrations arraylist
+     */
+    public List<Demonstration> getDemonstrationsList(Exhibition exhibition){
+        return new ArrayList<>(exhibition.getDemonstrationsList());
+    }
+    
+    /**
+     * Adds a demonstration to this application.
+     * @param demonstration the demonstration that is going to be added to the list on the application
+     */
+    public void newDemonstrationApplication(Demonstration demonstration){
+        this.exhibitionApplication.newDemonstration(demonstration);
+    }
+    
+    /**
+     * Creates a new keyword and adds it to the list.
+     * @param description the value for the keyword
+     */
+    public void newKeyword(String description){
+        this.exhibitionApplication.newKeyword(description);
+    }
+    
+    
+    /**
+     * Validates this exhibition application locally and globally.
+     * @return true if all conditions to add the applications are fulfilled
+     */
+//    public boolean validateExhibitionApplication(){
+//         return (this.exhibitionApplication.validateApplication()&&!this.applicationList.getApplicationsList().contains(this.exhibitionApplication));
+//        
+//    }
+//     public boolean validateExhibitionApplication(){
+//         if(this.exhibitionApplication.validateApplication()&&!this.applicationList.getApplicationsList().contains(this.exhibitionApplication)){
+//             this.applicationList.getApplicationsList().add(exhibitionApplication);
+//             return true;
+//         }
+//         return false;
+//    }
 
 }
