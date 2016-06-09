@@ -102,7 +102,7 @@ public class OrganizersList {
     /**
      * Add an organizer to the list.
      *
-     * @param organizer the organizer to validate
+     * @param organizer the organizer to add
      * @return true if the organizer is sucessfully added.
      */
     private boolean addOrganizer(Organizer organizer) {

@@ -486,6 +486,26 @@ public class Exhibition implements Submittable {
     public void setCurrentExhibitionState(ExhibitionState currentExhibitionState) {
         this.currentExhibitionState = currentExhibitionState;
     }
+    
+    /**
+     * Validate the Exhibition.
+     *
+     * @return true if the exhibition is valid
+     */
+    public boolean validate() {
+        
+        // TODO: Create Validate Util Class
+        
+        return !this.title.trim().isEmpty() 
+                && !this.description.trim().isEmpty()
+                // TODO : Insert validate method in Place class
+                && this.startDate.before(this.endDate)
+                && this.subStartDate.after(this.startDate)
+                && this.subEndDate.after(this.subStartDate)
+                && this.conflictLimitDate.after(this.subEndDate)
+                && this.evaluationLimitDate.after(this.conflictLimitDate)
+                && this.organizersList.getOrganizersList().size() >= 2;
+    }
 
     /**
      * Return the textual representation of a exhibition.

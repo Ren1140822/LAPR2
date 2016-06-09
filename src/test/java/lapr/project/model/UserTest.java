@@ -18,6 +18,9 @@ import static org.junit.Assert.*;
  */
 public class UserTest {
 
+    /**
+     * Instance of user.
+     */
     private User user;
 
     @Before

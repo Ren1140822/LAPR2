@@ -20,17 +20,17 @@ import static org.junit.Assert.*;
  * @author Ricardo Correia 1151231
  */
 public class CreateExhibitionControllerTest {
-    
+
     /**
      * Instance of CreateExhibitionController.
      */
     private CreateExhibitionController controller;
-    
+
     @Before
     public void setUp() {
         this.controller = new CreateExhibitionController(new ExhibitionCenter());
     }
-    
+
     /**
      * Test of newExhibition method, of class CreateExhibitionController.
      */
@@ -39,7 +39,7 @@ public class CreateExhibitionControllerTest {
         System.out.println("newExhibition");
         Exhibition expResult = new Exhibition();
         this.controller.newExhibition();
-        
+
         assertEquals(this.controller.getExhibition(), expResult);
     }
 
@@ -51,9 +51,19 @@ public class CreateExhibitionControllerTest {
         System.out.println("newOrganizer");
         User user = new User();
         this.controller.newExhibition(); // TODO: Verify if this is correct.
-        
+
         boolean result = this.controller.newOrganizer(user);
         assertTrue(result);
     }
-    
+
+    /**
+     * Test of registerExhibition method, of class CreateExhibitionController.
+     */
+    @Test
+    public void testRegisterExhibition() {
+
+        System.out.println("registerExhibition");
+        boolean result = this.controller.registerExhibition();
+        assertTrue(result);
+    }
 }

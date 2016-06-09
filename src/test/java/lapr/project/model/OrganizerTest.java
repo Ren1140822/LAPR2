@@ -18,6 +18,9 @@ import static org.junit.Assert.*;
  */
 public class OrganizerTest {
 
+    /**
+     * Instance of Organizer.
+     */
     private Organizer organizer;
     
     @Before

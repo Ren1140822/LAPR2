@@ -21,8 +21,19 @@ import static org.junit.Assert.*;
  */
 public class OrganizersListTest {
 
+    /**
+     * Instance of OrganizersList.
+     */
     private OrganizersList organizersList;
+    
+    /**
+     * Instance of Organizer.
+     */
     private Organizer organizer;
+    
+    /**
+     * Instance of User.
+     */
     private User user;
 
     @Before

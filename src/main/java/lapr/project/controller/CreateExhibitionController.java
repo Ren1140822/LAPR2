@@ -114,8 +114,9 @@ public class CreateExhibitionController {
     }
 
     /**
-     * Create, validate & add a new organizer object to the Exhibition's organizersList.
-     * 
+     * Create, validate & add a new organizer object to the Exhibition's
+     * organizersList.
+     *
      * @param user associated to the new organizer
      * @return true if organizer is added to list.
      */
@@ -124,5 +125,24 @@ public class CreateExhibitionController {
         Organizer newOrganizer = exhibition.getOrganizersList().newOrganizer(user);
 
         return exhibition.getOrganizersList().addAndValidateOrganizer(newOrganizer);
+    }
+
+    /**
+     * Validate the Exhibition.
+     *
+     * @return true if the exhibition is valid
+     */
+    public boolean validateExhibition() {
+        return this.exhibition.validate();
+    }
+
+    /**
+     * Register exhibition.
+     *
+     * @return true if exhibition is successfully added & validated.
+     */
+    public boolean registerExhibition() {
+
+        return this.exhibitionCenter.getExhibitionsRegister().registerExhibition(this.exhibition);
     }
 }

@@ -52,57 +52,81 @@ public class ExhibitionsRegister {
     public ExhibitionsRegister(ExhibitionsRegister exhibitionRegister) {
         this.exhibitionsList = new ArrayList<>(exhibitionRegister.exhibitionsList);
     }
-    
+
     /**
      * Creates a new instance of a Exhibition.
-     * 
+     *
      * @return a new instance of a Exhibition
      */
     public Exhibition newExhibition() {
-        
+
         return new Exhibition();
     }
 
-  
-    
     /**
      * Returns the whole exhibitions list referring to this instance.
+     *
      * @return the list of exhibitions referring to this instance
      */
-    public List<Exhibition> getExhibitionList(){
+    public List<Exhibition> getExhibitionList() {
         return new ArrayList(exhibitionsList);
     }
-    
-    
-    
-    
+
+    /**
+     * Validate if the list doesn't contain an exhibition.
+     *
+     * @param exhibition the exhibition to validate
+     * @return true if list doesn't contain the exhibition
+     */
+    private boolean validateExhibition(Exhibition exhibition) {
+
+        return !this.exhibitionsList.contains(exhibition);
+    }
+
+    /**
+     * Add an exhibition to the list.
+     *
+     * @param exhibition the exhibition to add
+     * @return true if the exhibition is sucessfully added.
+     */
+    private boolean addExhibition(Exhibition exhibition) {
+
+        return this.exhibitionsList.add(exhibition);
+    }
+
+    /**
+     * Register exhibition.
+     *
+     * @param exhibition Exhibition to add
+     * @return true if exhibition is successfully added.
+     */
+    public boolean registerExhibition(Exhibition exhibition) {
+
+        // TODO : Implement State functionality
+        return (validateExhibition(exhibition)) ? addExhibition(exhibition) : false;
+    }
+
     /**
      * Returns the exhibitions list with application in submitting state.
+     *
      * @return returns the exhibitions list with application in submitting state
      */
-    public List<Exhibition>getExhibitionListWithApplicationInSubmittingState(){
-        
-         List<Exhibition> exhibitionListInRightState = new ArrayList();
-         boolean validated;
-         for(Exhibition exhibition : this.exhibitionsList){
-          
-             validated= exhibition.getCurrentExhibitionState().isExhibitionOpenApplication();
-        
-             if(validated){
-                 exhibitionListInRightState.add(exhibition);
-             }
-         }
-         return exhibitionListInRightState;
-         
+    public List<Exhibition> getExhibitionListWithApplicationInSubmittingState() {
+
+        List<Exhibition> exhibitionListInRightState = new ArrayList();
+        boolean validated;
+        for (Exhibition exhibition : this.exhibitionsList) {
+
+            validated = exhibition.getCurrentExhibitionState().isExhibitionOpenApplication();
+
+            if (validated) {
+                exhibitionListInRightState.add(exhibition);
+            }
+        }
+        return exhibitionListInRightState;
+
     }
-    
-    
-    
-    
-    
-    
-    
-    
+
     /**
      * Returns the textual interpretation of the objects and attributes of this
      * class
