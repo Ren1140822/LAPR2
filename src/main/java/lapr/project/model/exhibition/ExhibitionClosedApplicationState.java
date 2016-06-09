@@ -1,7 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Package location for Model and concepts.
  */
 package lapr.project.model.exhibition;
 
@@ -9,8 +7,13 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionState;
 
 /**
+ * Represents the state of exhibition closed application.
  *
- * @author Renato Oliveira 1140822@isep.ipp.pt
+ * @author Daniel Gonçalves 1151452
+ * @author Eric Amaral 1141570
+ * @author Ivo Ferro 1151159
+ * @author Renato Oliveira 1140822
+ * @author Ricardo Correia 1151231
  */
 public class ExhibitionClosedApplicationState implements ExhibitionState {
 

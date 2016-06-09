@@ -71,6 +71,15 @@ public class CreateExhibitionController {
     public Exhibition getExhibition() {
         return this.exhibition;
     }
+    
+    /**
+     * Set the Exhibition.
+     *
+     * @param exhibition the exhibtion to set
+     */
+    public void setExhibition(Exhibition exhibition) {
+        this.exhibition = exhibition;
+    }
 
     /**
      * Obtain users list.

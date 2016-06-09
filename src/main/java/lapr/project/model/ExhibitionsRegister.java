@@ -113,7 +113,7 @@ public class ExhibitionsRegister {
     public boolean registerExhibition(Exhibition exhibition) {
 
         // TODO : Implement State functionality
-        return (validateExhibition(exhibition)) ? addExhibition(exhibition) : false;
+        return (exhibition.validate() && validateExhibition(exhibition)) ? addExhibition(exhibition) : false;
     }
 
     /**

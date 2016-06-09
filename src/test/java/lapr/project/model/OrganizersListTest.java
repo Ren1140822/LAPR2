@@ -24,12 +24,12 @@ public class OrganizersListTest {
      * Instance of OrganizersList.
      */
     private OrganizersList organizersList;
-    
+
     /**
      * Instance of Organizer.
      */
     private Organizer organizer;
-    
+
     /**
      * Instance of User.
      */
@@ -55,8 +55,8 @@ public class OrganizersListTest {
     }
 
     /**
-     * Test if addAndValidateOrganizer method, of class OrganizersList, it adds
-     * the organizer to the list & returns true when added to list.
+     * Test if addAndValidateOrganizer method, of class OrganizersList, adds the
+     * organizer to the list.
      */
     @Test
     public void testAddAndValidateOrganizer() {
@@ -65,8 +65,33 @@ public class OrganizersListTest {
         testList.add(this.organizer);
 
         OrganizersList expResult = new OrganizersList(testList);
-        boolean result = this.organizersList.addAndValidateOrganizer(organizer);
+        this.organizersList.addAndValidateOrganizer(organizer);
         assertEquals(expResult, this.organizersList);
+    }
+
+    /**
+     * Test if addAndValidateOrganizer method, of class OrganizersList, returns
+     * true when added to list.
+     */
+    @Test
+    public void testAddAndValidateOrganizerReturnsTrue() {
+        System.out.println("addAndValidateOrganizer");
+
+        boolean result = this.organizersList.addAndValidateOrganizer(organizer);
         assertTrue(result);
+    }
+
+    /**
+     * Test if addAndValidateOrganizer method, of class OrganizersList, returns
+     * false when added to list.
+     */
+    @Test
+    public void testAddAndValidateOrganizerReturnsFalse() {
+        System.out.println("addAndValidateOrganizer");
+
+        Organizer invalidOrganizer = new Organizer(new User("John Doe", "jd", "jd@", "password"));
+
+        boolean result = this.organizersList.addAndValidateOrganizer(invalidOrganizer);
+        assertFalse(result);
     }
 }

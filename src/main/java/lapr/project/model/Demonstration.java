@@ -121,6 +121,22 @@ public class Demonstration implements Submittable {
     }
 
     /**
+     * Equals method to check if two objects are the same
+     * @param otherObject the demonstration to compare to
+     * @return true if equal
+     */
+    public boolean equals(Object otherObject){
+        
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || getClass() != otherObject.getClass()) {
+            return false;
+        }
+        Demonstration otherDemonstration = (Demonstration)otherObject;
+        return (this.description.equals(otherDemonstration.description));
+    }
+    /**
      * Returns the textual representation of the attributes of this class.
      */
     public String toString() {

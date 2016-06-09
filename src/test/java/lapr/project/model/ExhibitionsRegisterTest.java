@@ -11,6 +11,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 
@@ -47,8 +48,15 @@ public class ExhibitionsRegisterTest {
     public void setUp() {
         this.exhibitionsRegister = new ExhibitionsRegister();
 
-        this.exhibition = new Exhibition("title", "description", new Date(2016, 0, 1), new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 1, 1), new Date(2016, 1, 10), new Date(2016, 2, 1),
-                new Place(), new StaffList(), new OrganizersList(), new ArrayList<Demonstration>(), new StaffAttributionsList());
+        List<Organizer> organizerslist = new ArrayList<>();
+        organizerslist.add(new Organizer());
+        organizerslist.add(new Organizer());
+        
+        this.exhibition = new Exhibition("title", "description", new Date(2016, 0, 1),
+                new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 1, 1),
+                new Date(2016, 1, 10), new Date(2016, 2, 1),
+                new Place(), new StaffList(), new OrganizersList(organizerslist),
+                new ArrayList<Demonstration>(), new StaffAttributionsList());
 
     }
 
@@ -95,17 +103,17 @@ public class ExhibitionsRegisterTest {
     }
 
     /**
-     * Test of registerExhibition method, of class ExhibitionsRegister.
+     * Test of registerExhibition method, of class ExhibitionsRegister, returns
+     * true.
      */
     @Test
-    public void testRegisterExhibition() {
+    public void testRegisterExhibitionReturnTrue() {
 
         System.out.println("registerExhibition");
         
         boolean result = exhibitionsRegister.registerExhibition(this.exhibition);
         assertTrue(result);
     }
-
     
 
 //    /**
@@ -123,4 +131,15 @@ public class ExhibitionsRegisterTest {
 //    }
 
     
+    /**
+     * Test of registerExhibition method, of class ExhibitionsRegister, returns
+     * false.
+     */
+    @Test
+    public void testRegisterExhibitionReturnFalse() {
+
+        System.out.println("registerExhibition");
+        boolean result = exhibitionsRegister.registerExhibition(new Exhibition());
+        assertFalse(result);
+    }
 }
