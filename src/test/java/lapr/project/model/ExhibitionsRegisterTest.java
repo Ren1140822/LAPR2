@@ -4,10 +4,12 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests a exhibitions register.
@@ -24,7 +26,7 @@ public class ExhibitionsRegisterTest {
      * Exhibition Register object.
      */
     private ExhibitionsRegister exhibitionsRegister;
-    
+
     /**
      * Exhibition object.
      */
@@ -33,7 +35,7 @@ public class ExhibitionsRegisterTest {
     @Before
     public void setUp() {
         this.exhibitionsRegister = new ExhibitionsRegister();
-        
+
         this.exhibition = new Exhibition("title", "description", new Date(2016, 0, 1), new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 1, 1), new Date(2016, 1, 10), new Date(2016, 2, 1),
                 new Place(), new StaffList(), new OrganizersList(), new ArrayList<Demonstration>(), new StaffAttributionsList());
 
@@ -46,7 +48,7 @@ public class ExhibitionsRegisterTest {
     public void testNewExhibition() {
         System.out.println("newExhibition");
         Exhibition expResult = new Exhibition();
-        Exhibition result = exhibitionsRegister.newExhibition();
+        Exhibition result = this.exhibitionsRegister.newExhibition();
         assertEquals(expResult, result);
     }
 
@@ -77,6 +79,7 @@ public class ExhibitionsRegisterTest {
         assertEquals(exhibitionsRegister.getSubmittablesByStaff(staffMember), exhibitionsListExpected);
     }
 
+    /**
      * Test of registerExhibition method, of class ExhibitionsRegister.
      */
     @Test
