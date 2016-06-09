@@ -46,8 +46,7 @@ public class StaffAttribution {
     /**
      * Constructor that receives an instance of this class as parameter.
      *
-     * @param application StaffAttribution application
-     * @param staffMember StaffAttribution staffMember
+     * @param staffAttribution staff attribution
      */
     public StaffAttribution(StaffAttribution staffAttribution) {
         this.application = new ExhibitionApplication(staffAttribution.application);
@@ -91,6 +90,17 @@ public class StaffAttribution {
     }
 
     /**
+     * Verify if a received staff member is the staff member of this
+     * attribution.
+     *
+     * @param staffMember staff member to verify
+     * @return true if he/she is, false otherwise
+     */
+    public boolean isStaffMember(StaffMember staffMember) {
+        return this.staffMember.equals(staffMember);
+    }
+
+    /**
      * Return the textual representation of a StaffAttribution.
      *
      * @return the textual representation of a StaffAttribution
@@ -99,7 +109,7 @@ public class StaffAttribution {
     public String toString() {
         return String.format("StaffAttribution{%napplication=%s%nstaffMember=%s%n}", this.application, this.staffMember);
     }
-    
+
     /**
      * Compares if this object is equal to otherObject.
      *

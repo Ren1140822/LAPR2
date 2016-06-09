@@ -19,12 +19,12 @@ import static org.junit.Assert.*;
  * @author Ricardo Correia 1151231
  */
 public class EvaluationTest {
-    
+
     /**
      * The evaluation to be tested.
      */
     private Evaluation evaluation;
-    
+
     @Before
     public void setUp() {
         List<Integer> answers = new ArrayList<>();
@@ -44,7 +44,7 @@ public class EvaluationTest {
         System.out.println("validate");
         assertTrue(evaluation.validate());
     }
-    
+
     /**
      * Test of validate method with an invalida evaluation.
      */
@@ -59,5 +59,5 @@ public class EvaluationTest {
         Evaluation invalidInstance = new Evaluation(answers, new StaffAttribution());
         assertFalse(invalidInstance.validate());
     }
-    
+
 }

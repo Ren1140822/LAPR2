@@ -68,8 +68,18 @@ public class ExhibitionsRegister {
      *
      * @return the list of exhibitions referring to this instance
      */
-    public List<Exhibition> getExhibitionList() {
+    public List<Exhibition> getExhibitionsList() {
+
         return new ArrayList(exhibitionsList);
+    }
+
+    /**
+     * Sets the exhibitions list.
+     *
+     * @param exhibitionsList exhibitions list
+     */
+    public void setExhibitionsList(List<Exhibition> exhibitionsList) {
+        this.exhibitionsList = new ArrayList(exhibitionsList);
     }
 
     /**
@@ -104,6 +114,30 @@ public class ExhibitionsRegister {
 
         // TODO : Implement State functionality
         return (validateExhibition(exhibition)) ? addExhibition(exhibition) : false;
+    }
+
+    /**
+     * Gets the submittables filtering by a staff member.
+     *
+     * @param staffMember staff member to be filtered
+     * @return the list of the staff member's submittables
+     */
+    public List<Submittable> getSubmittablesByStaff(StaffMember staffMember) {
+        List<Submittable> submittableList = new ArrayList<>();
+
+        for (Exhibition exhibition : exhibitionsList) {
+            if (exhibition.getStaffList().isStaffMember(staffMember)) {
+                submittableList.add(exhibition);
+            }
+
+            for (Demonstration demonstration : exhibition.getDemonstrationsList()) {
+                if (demonstration.getStaffList().isStaffMember(staffMember)) {
+                    submittableList.add(demonstration);
+                }
+            }
+        }
+
+        return submittableList;
     }
 
     /**

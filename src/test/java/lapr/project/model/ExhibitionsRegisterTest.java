@@ -4,13 +4,10 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
-import java.util.Date;
-import org.junit.After;
-import org.junit.AfterClass;
-import static org.junit.Assert.*;
+import java.util.List;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests a exhibitions register.
@@ -54,6 +51,32 @@ public class ExhibitionsRegisterTest {
     }
 
     /**
+     * Test of getSubmittablesByStaff method, of class ExhibitionsRegister.
+     */
+    @Test
+    public void testGetSubmittablesByStaff() {
+        System.out.println("getSubmittablesByStaff");
+
+        StaffMember staffMember = new StaffMember();
+        List<StaffMember> staffsList = new ArrayList<>();
+        staffsList.add(staffMember);
+
+        Exhibition firstExhibition = new Exhibition();
+        Exhibition secondExhibition = new Exhibition();
+        secondExhibition.setStaffList(new StaffList(staffsList));
+
+        List<Exhibition> exhibitionsListTotal = new ArrayList();
+        exhibitionsListTotal.add(firstExhibition);
+        exhibitionsListTotal.add(secondExhibition);
+
+        List<Exhibition> exhibitionsListExpected = new ArrayList();
+        exhibitionsListExpected.add(secondExhibition);
+
+        exhibitionsRegister.setExhibitionsList(exhibitionsListTotal);
+
+        assertEquals(exhibitionsRegister.getSubmittablesByStaff(staffMember), exhibitionsListExpected);
+    }
+
      * Test of registerExhibition method, of class ExhibitionsRegister.
      */
     @Test

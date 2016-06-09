@@ -64,8 +64,8 @@ public class ExhibitionApplicationControllerTest {
     }
 
     /**
-     * Test of getExhibitionList method, of class
-     * ExhibitionApplicationController.
+     * Test of getExhibitionsList method, of class
+ ExhibitionApplicationController.
      */
     @Test
     public void testGetExhibitionList() {

@@ -76,6 +76,16 @@ public class StaffList {
         staffMember.validate();
         return staffMember;
     }
+    
+    /**
+     * Verify if a given staff member is on the staff member's list.
+     * 
+     * @param staffMember staff member to be verified
+     * @return true if it is contained, false otherwise
+     */
+    public boolean isStaffMember(StaffMember staffMember){
+        return this.staffList.contains(staffMember);
+    }
 
     @Override
     public String toString() {

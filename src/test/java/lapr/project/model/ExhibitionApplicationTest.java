@@ -5,10 +5,7 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -22,12 +19,12 @@ import static org.junit.Assert.*;
  * @author Ricardo Correia 1151231
  */
 public class ExhibitionApplicationTest {
-    
+
     /**
      * The exhibition application to be tested.
      */
     private ExhibitionApplication exhibitionApplication;
-    
+
     @Before
     public void setUp() {
         exhibitionApplication = new ExhibitionApplication();
@@ -78,5 +75,5 @@ public class ExhibitionApplicationTest {
         Evaluation evaluation = new Evaluation();
         assertTrue(exhibitionApplication.registerEvaluation(evaluation));
     }
-    
+
 }

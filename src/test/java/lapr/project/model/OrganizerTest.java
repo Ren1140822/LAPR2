@@ -4,8 +4,6 @@
 package lapr.project.model;
 
 import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Tests a organizer class.
@@ -22,11 +20,11 @@ public class OrganizerTest {
      * Instance of Organizer.
      */
     private Organizer organizer;
-    
+
     @Before
     public void setUp() {
         this.organizer = new Organizer();
     }
-    
+
     // TODO : Test validate method? It is already tested in UserTest Class.
 }
