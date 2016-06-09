@@ -189,6 +189,13 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     public void setApplicationEvaluationsList(List<Evaluation> evaluationsList) {
         this.evaluationsList = new ArrayList(evaluationsList);
     }
+/**
+ * Sets exhibitor
+ * @param exhibitor  the exhibitor to copy
+ */
+    public void setExhibitor(Exhibitor exhibitor) {
+        this.exhibitor = exhibitor;
+    }
 
     /**
      * Creates a new Exhibitor.

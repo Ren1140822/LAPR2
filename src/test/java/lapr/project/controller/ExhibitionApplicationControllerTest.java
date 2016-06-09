@@ -9,6 +9,7 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
+import lapr.project.model.Exhibitor;
 import lapr.project.model.exhibition.ExhibitionClosedApplicationState;
 import lapr.project.model.exhibition.ExhibitionOpenApplicationState;
 import org.junit.After;
@@ -33,7 +34,7 @@ public class ExhibitionApplicationControllerTest {
     private ExhibitionCenter exhibitionCenter;
 
     public ExhibitionApplicationControllerTest() {
-        
+
     }
 
     @BeforeClass
@@ -46,7 +47,7 @@ public class ExhibitionApplicationControllerTest {
 
     @Before
     public void setUp() {
-        
+
         this.exhibitionCenter = new ExhibitionCenter();
         this.controller = new ExhibitionApplicationController(exhibitionCenter);
         Exhibition exhibition1 = new Exhibition();
@@ -66,7 +67,7 @@ public class ExhibitionApplicationControllerTest {
 
     /**
      * Test of getExhibitionsList method, of class
- ExhibitionApplicationController.
+     * ExhibitionApplicationController.
      */
     @Test
     public void testGetExhibitionList() {
@@ -75,9 +76,9 @@ public class ExhibitionApplicationControllerTest {
         Exhibition exhibition1 = new Exhibition();
         exhibition1.setCurrentExhibitionState(new ExhibitionOpenApplicationState(exhibition1));
         expResult.add(exhibition1);
-        
+
         List<Exhibition> result = this.controller.getExhibitionList();
-        
+
         assertEquals(expResult, result);
     }
 
@@ -91,24 +92,30 @@ public class ExhibitionApplicationControllerTest {
         ExhibitionApplicationController instance = controller;
         instance.newApplication(exhibition);
         ExhibitionApplication defaultExhibition = new ExhibitionApplication();
-        assertEquals( instance.getExhibitionApplication(),defaultExhibition);
+        assertEquals(instance.getExhibitionApplication(), defaultExhibition);
     }
 
     /**
      * Test of setData method, of class ExhibitionApplicationController.
      */
-//    @Test
-//    public void testSetData() {
-//        System.out.println("setData");
-//        String companyName = "Test";
-//        String companyAddress = "Test";
-//        String companyCellphone = "Test";
-//        float exhibitorArea = 0.0F;
-//        int numberInvitations = 0;
-//        ExhibitionApplicationController instance = controller;
-//        instance.setData(companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
-//        
-//    }
+    @Test
+    public void testSetData() {
+        System.out.println("setData");
+        String companyName = "Test";
+        String companyAddress = "Test";
+        String companyCellphone = "Test";
+        float exhibitorArea = 0.0F;
+        int numberInvitations = 0;
+        ExhibitionApplicationController instance = controller;
+        Exhibition exhibition = new Exhibition();
+        instance.newApplication(exhibition);
+        instance.setData(companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
+        ExhibitionApplication defaultExhibitionApplication = new ExhibitionApplication();
+        defaultExhibitionApplication.setExhibitorArea(exhibitorArea);
+        defaultExhibitionApplication.setNumberInvitations(numberInvitations);
+        defaultExhibitionApplication.setExhibitor(new Exhibitor(companyName,companyAddress,companyCellphone));
+        assertEquals(instance.getExhibitionApplication(), defaultExhibitionApplication);
+    }
 
     /**
      * Test of newProduct method, of class ExhibitionApplicationController.
@@ -121,5 +128,4 @@ public class ExhibitionApplicationControllerTest {
 //        instance.newProduct(description);
 //       
 //    }
-
 }

@@ -102,7 +102,7 @@ public class Demonstration implements Submittable {
             return false;
         }
         Demonstration otherDemonstration = (Demonstration)otherObject;
-        return (this.descriptiveText.equals(otherDemonstration.descriptiveText));
+        return (this.description.equals(otherDemonstration.description));
     }
     /**
      * Returns the textual representation of the attributes of this class.

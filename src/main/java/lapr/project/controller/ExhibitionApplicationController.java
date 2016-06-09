@@ -86,11 +86,11 @@ public class ExhibitionApplicationController {
     /**
      * Sets the data of the new application.
      */
-//    public void setData(String companyName, String companyAddress, String companyCellphone, float exhibitorArea, int numberInvitations) {
-//        this.exhibitionApplication.newExhibitor(companyName, companyAddress, companyCellphone);
-//        this.exhibitionApplication.setExhibitorArea(exhibitorArea);
-//        this.exhibitionApplication.setNumberInvitations(numberInvitations);
-//    }
+    public void setData(String companyName, String companyAddress, String companyCellphone, float exhibitorArea, int numberInvitations) {
+        this.exhibitionApplication.newExhibitor(companyName, companyAddress, companyCellphone);
+        this.exhibitionApplication.setExhibitorArea(exhibitorArea);
+        this.exhibitionApplication.setNumberInvitations(numberInvitations);
+    }
 
     /**
      * Creates a new product.
