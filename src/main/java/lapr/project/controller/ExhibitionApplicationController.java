@@ -134,10 +134,10 @@ public class ExhibitionApplicationController {
      * Validates this exhibition application locally and globally.
      * @return true if all conditions to add the applications are fulfilled
      */
-//    public boolean validateExhibitionApplication(){
-//         return (this.exhibitionApplication.validateApplication()&&!this.applicationList.getApplicationsList().contains(this.exhibitionApplication));
-//        
-//    }
+    public boolean validateExhibitionApplication(){
+         return (this.exhibitionApplication.validateApplication()&&!this.applicationList.getApplicationsList().contains(this.exhibitionApplication));
+        
+    }
 //     public boolean validateExhibitionApplication(){
 //         if(this.exhibitionApplication.validateApplication()&&!this.applicationList.getApplicationsList().contains(this.exhibitionApplication)){
 //             this.applicationList.getApplicationsList().add(exhibitionApplication);

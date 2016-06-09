@@ -264,9 +264,9 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @param exhibitionApplication the application to check for
      * @return true if all O.K.
      */
-//    public boolean validateApplication() {
-//        return (this.exhibitor.validate()&&this.demonstrationsList.isEmpty()&&this.productList.isEmpty()&&this.keyWordList.size()>1&&this.keyWordList.size()<=5&&this.numberInvitations!=0&&this.exhibitorArea!=0);
-//    }
+    public boolean validateApplication() {
+        return (this.exhibitor.validate()&&this.demonstrationsList.isEmpty()&&this.productList.isEmpty()&&this.keyWordList.size()>1&&this.keyWordList.size()<=5&&this.numberInvitations!=0&&this.exhibitorArea!=0);
+    }
 
     /**
      * Equals method to verify if two objects are equal.
