@@ -109,6 +109,16 @@ public class OrganizersList {
 
         return this.organizersList.add(organizer);
     }
+    
+    /**
+     * Verify if a given organizer is on the organizer's list.
+     * 
+     * @param organizer organizer to be verified
+     * @return true if it is contained, false otherwise
+     */
+    public boolean isOrganizer(Organizer organizer){
+        return this.organizersList.contains(organizer);
+    }
 
     /**
      * Return the textual representation of a organizers list.

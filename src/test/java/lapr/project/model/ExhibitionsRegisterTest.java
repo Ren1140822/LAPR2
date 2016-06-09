@@ -6,10 +6,13 @@ package lapr.project.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import org.junit.BeforeClass;
 
 /**
  * Tests a exhibitions register.
@@ -32,6 +35,14 @@ public class ExhibitionsRegisterTest {
      */
     private Exhibition exhibition;
 
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
     @Before
     public void setUp() {
         this.exhibitionsRegister = new ExhibitionsRegister();
@@ -39,6 +50,10 @@ public class ExhibitionsRegisterTest {
         this.exhibition = new Exhibition("title", "description", new Date(2016, 0, 1), new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 1, 1), new Date(2016, 1, 10), new Date(2016, 2, 1),
                 new Place(), new StaffList(), new OrganizersList(), new ArrayList<Demonstration>(), new StaffAttributionsList());
 
+    }
+
+    @After
+    public void tearDown() throws Exception {
     }
 
     /**
@@ -86,7 +101,26 @@ public class ExhibitionsRegisterTest {
     public void testRegisterExhibition() {
 
         System.out.println("registerExhibition");
+        
         boolean result = exhibitionsRegister.registerExhibition(this.exhibition);
         assertTrue(result);
     }
+
+    
+
+//    /**
+//     * Test of getSubmittablesInChangedConflictsByOrganizer method, of class ExhibitionsRegister.
+//     */
+//    @Test
+//    public void testGetSubmittablesInChangedConflictsByOrganizer() {
+//        System.out.println("getSubmittablesInChangedConflictsByOrganizer");
+//        Organizer organizer = null;
+//        ExhibitionsRegister instance = new ExhibitionsRegister();
+//        List<Submittable> expResult = null;
+//        List<Submittable> result = instance.getSubmittablesInChangedConflictsByOrganizer(organizer);
+//        assertEquals(expResult, result);
+//       
+//    }
+
+    
 }

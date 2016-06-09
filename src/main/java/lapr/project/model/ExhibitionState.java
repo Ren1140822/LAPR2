@@ -179,6 +179,18 @@ public interface ExhibitionState {
      * checks if current state is closed applications and demonstrations.
      */
     boolean isExhibitionWithClosedApplicationsAndDemonstations();
+    
+    /**
+     * sets the exhibition state as attributed confirmed stands.
+     * @return true or false
+     */
+    boolean setExhibitionAttributedStandsConfirmed();
+
+    /**
+     * checks if current state is attributed confirmed stands.
+     * @return true or false
+     */
+    boolean isExhibitionAttributedStandsConfirmed();
 
     /**
      * Validate if the the state gathers all necessary information to transit to
