@@ -172,6 +172,6 @@ public class ExhibitionCreatedState implements ExhibitionState {
     public boolean validateDemos() {
 
         // Verifies if at least one Staff Member is defined.
-        return !this.exhibition.getDemonstrationsList().isEmpty();
+        return !this.exhibition.getDemonstrationsList().getDemonstrationsList().isEmpty();
     }
 }

@@ -151,10 +151,10 @@ public class ExhibitionsRegister {
         List<Submittable> submittablesList = new ArrayList<>();
 
         for (Exhibition exhibition : exhibitionsList) {
-            if ((exhibition.getOrganizersList().isOrganizer(organizer)) && (exhibition.getCurrentExhibitionState().isExhibitionChangedConflitcts())) {
+            if ((exhibition.getOrganizersList().isOrganizer(organizer)) && (exhibition.getState().isChangedConflitcts())) {
                 submittablesList.add(exhibition);
             }
-            if (exhibition.getCurrentExhibitionState().isExhibitionAttributedStandsConfirmed()) {
+            if (exhibition.getState().isApplicationsDecided()) {
                 List<Demonstration> demoListInChangedConflicts = exhibition.getDemonstrationsList().getDemonstrationsListInChangedConflicts();
                 submittablesList.addAll(demoListInChangedConflicts);
             }
