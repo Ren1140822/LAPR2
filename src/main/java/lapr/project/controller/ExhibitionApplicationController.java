@@ -12,6 +12,7 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
+import lapr.project.model.application.ApplicationInSubmissionState;
 
 /**
  * Represents the controller of exhibition application.
@@ -139,12 +140,16 @@ public class ExhibitionApplicationController {
          return (this.exhibitionApplication.validateApplication()&&!this.applicationList.getApplicationsList().contains(this.exhibitionApplication));
         
     }
-//     public boolean validateExhibitionApplication(){
-//         if(this.exhibitionApplication.validateApplication()&&!this.applicationList.getApplicationsList().contains(this.exhibitionApplication)){
-//             this.applicationList.getApplicationsList().add(exhibitionApplication);
-//             return true;
-//         }
-//         return false;
-//    }
+    /**
+     * Sets the new state and adds the application to the list.
+     * @return  true if all O.K.
+     */
+     public boolean registerExhibitionApplication(){
+         if(validateExhibitionApplication()&&this.exhibitionApplication.getCurrentState().setInSubmission()){     
+             this.applicationList.getApplicationsList().add(exhibitionApplication);
+             return true;
+         }
+         return false;
+    }
 
 }

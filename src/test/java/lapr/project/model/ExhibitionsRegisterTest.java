@@ -51,7 +51,7 @@ public class ExhibitionsRegisterTest {
         List<Organizer> organizerslist = new ArrayList<>();
         organizerslist.add(new Organizer());
         organizerslist.add(new Organizer());
-        
+
         this.exhibition = new Exhibition("title", "description", new Date(2016, 0, 1),
                 new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 1, 1),
                 new Date(2016, 1, 10), new Date(2016, 2, 1),
@@ -100,6 +100,22 @@ public class ExhibitionsRegisterTest {
         exhibitionsRegister.setExhibitionsList(exhibitionsListTotal);
 
         assertEquals(exhibitionsRegister.getSubmittablesByStaff(staffMember), exhibitionsListExpected);
+    }
+
+    /**
+     * Test of registerExhibition method, of class ExhibitionsRegister,
+     * registers the exhibition.
+     */
+    @Test
+    public void testRegisterExhibition() {
+
+        System.out.println("registerExhibition");
+        this.exhibitionsRegister.registerExhibition(this.exhibition);
+        List<Exhibition> expResult = new ArrayList<>();
+        expResult.add(this.exhibition);
+        
+        List<Exhibition> result = this.exhibitionsRegister.getExhibitionsList();
+        assertEquals(expResult, result);
     }
 
     /**

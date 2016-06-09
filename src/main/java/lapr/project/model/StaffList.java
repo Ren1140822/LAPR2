@@ -86,6 +86,33 @@ public class StaffList {
     public boolean isStaffMember(StaffMember staffMember){
         return this.staffList.contains(staffMember);
     }
+    
+    /**
+     * Adds a staff member.
+     * 
+     * @staffMember
+     */
+    public void addStaffMember(StaffMember staffMember){
+        validadeStaffMember(staffMember);
+    }
+    
+    
+    
+    
+    /**
+     * Validates a staff member.
+     * 
+     * @return true if the staff list does not contain the staff member
+     */
+    public boolean validadeStaffMember(StaffMember staffMember){
+        if(!this.staffList.contains(staffMember)){
+            this.staffList.add(staffMember);
+            return true;
+       }
+        return false;
+    }
+    
+    
 
     @Override
     public String toString() {

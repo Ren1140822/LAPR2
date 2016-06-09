@@ -112,8 +112,8 @@ public class ExhibitionsRegister {
      */
     public boolean registerExhibition(Exhibition exhibition) {
 
-        // TODO : Implement State functionality
-        return (exhibition.validate() && validateExhibition(exhibition)) ? addExhibition(exhibition) : false;
+        
+        return (exhibition.setCreated() && validateExhibition(exhibition)) ? addExhibition(exhibition) : false;
     }
 
     /**
@@ -151,10 +151,10 @@ public class ExhibitionsRegister {
         List<Submittable> submittablesList = new ArrayList<>();
 
         for (Exhibition exhibition : exhibitionsList) {
-            if ((exhibition.getOrganizersList().isOrganizer(organizer)) && (exhibition.getCurrentExhibitionState().isExhibitionChangedConflitcts())) {
+            if ((exhibition.getOrganizersList().isOrganizer(organizer)) && (exhibition.getState().isChangedConflitcts())) {
                 submittablesList.add(exhibition);
             }
-            if (exhibition.getCurrentExhibitionState().isExhibitionAttributedStandsConfirmed()) {
+            if (exhibition.getState().isApplicationsDecided()) {
                 List<Demonstration> demoListInChangedConflicts = exhibition.getDemonstrationsList().getDemonstrationsListInChangedConflicts();
                 submittablesList.addAll(demoListInChangedConflicts);
             }
@@ -173,7 +173,7 @@ public class ExhibitionsRegister {
         boolean validated;
         for (Exhibition exhibition : this.exhibitionsList) {
 
-            validated = exhibition.getCurrentExhibitionState().isExhibitionOpenApplication();
+            validated = exhibition.getState().isOpenApplications();
 
             if (validated) {
                 exhibitionListInRightState.add(exhibition);

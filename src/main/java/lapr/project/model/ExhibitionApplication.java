@@ -143,6 +143,15 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
+     * Gets the current state of the application.
+     *
+     * @return the application state
+     */
+    public ApplicationState getCurrentState() {
+        return currentState;
+    }
+
+    /**
      *
      * @return the product list
      */
@@ -278,7 +287,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @return true if all O.K.
      */
     public boolean validateApplication() {
-        return (this.exhibitor.validate() && this.demonstrationsList.isEmpty() && this.productList.isEmpty() && this.keyWordList.size() > 1 && this.keyWordList.size() <= 5 && this.numberInvitations != 0 && this.exhibitorArea != 0);
+        return (this.exhibitor.validate() && this.demonstrationsList.isEmpty() && this.productList.isEmpty() && this.keyWordList.size() > 1 && this.keyWordList.size() <= 5 && this.numberInvitations > 0 && this.exhibitorArea > 0);
     }
 
     /**
@@ -368,9 +377,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
 
     @Override
     public boolean isValid() {
-        //TODO review this
-        return this.currentState != null && this.demonstrationsList != null
-                && this.evaluationsList != null && this.exhibitorArea > 0
-                && this.numberInvitations > 0 && this.productList != null;
+
+        return this.currentState != null && validateApplication();
     }
 }

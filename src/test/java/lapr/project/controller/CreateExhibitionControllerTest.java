@@ -77,7 +77,8 @@ public class CreateExhibitionControllerTest {
         organizerslist.add(new Organizer());
         organizerslist.add(new Organizer());
 
-        Exhibition exhibition = new Exhibition("title", "description", new Date(2016, 0, 1),
+        Exhibition exhibition;
+        exhibition = new Exhibition("title", "description", new Date(2016, 0, 1),
                 new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 1, 1),
                 new Date(2016, 1, 10), new Date(2016, 2, 1),
                 new Place(), new StaffList(), new OrganizersList(organizerslist),

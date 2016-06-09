@@ -1,5 +1,7 @@
-/**
- * Package location for Model related to application.
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package lapr.project.model.application;
 
@@ -7,17 +9,11 @@ import lapr.project.model.Application;
 import lapr.project.model.ApplicationState;
 
 /**
- * Represents the in evaluation state for application.
  *
- * @author Daniel Gonçalves 1151452
- * @author Eric Amaral 1141570
- * @author Ivo Ferro 1151159
- * @author Renato Oliveira 1140822
- * @author Ricardo Correia 1151231
+ * @author Renato Oliveira 1140822@isep.ipp.pt
  */
-public class ApplicationInitialState implements ApplicationState{
-
-    /**
+public class ApplicationInSubmissionState implements ApplicationState {
+       /**
      * The application to be manipulated.
      */
     private final Application application;
@@ -27,34 +23,35 @@ public class ApplicationInitialState implements ApplicationState{
      * 
      * @param application application to be manipulated
      */
-    public ApplicationInitialState(Application application){
+    public ApplicationInSubmissionState(Application application){
         this.application = application;
     }
 
     @Override
     public boolean isInitial() {
-        return true;
+        return false;
     }
     
     @Override
     public boolean setInSubmission() {
-        if (validate()) {
-             
-            ApplicationInSubmissionState newState = new  ApplicationInSubmissionState(application);
-            application.setState(newState);
-            return true;
-        }
+      
         return false;
     }
 
     @Override
     public boolean isInSubmission() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean setRemoved() {
-        return false;
+//         if (validate()) {
+//             TODO:IMPLEMENT THE NEW CLASS
+//            ApplicationRemovedState newState = new  ApplicationRemovedState(application);
+//            application.setState(newState);
+//            return true;
+//        }
+         return false;
     }
 
     @Override
@@ -64,6 +61,12 @@ public class ApplicationInitialState implements ApplicationState{
 
     @Override
     public boolean setInAttribution() {
+        //         if (validate()) {
+//             TODO:IMPLEMENT THE NEW CLASS
+//            ApplicationInAttributionState newState = new  ApplicationInAttributionState(application);
+//            application.setState(newState);
+//            return true;
+//        }
         return false;
     }
 

@@ -7,7 +7,7 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionState;
 
 /**
- * Represents the open applications state of a Exhibition.
+ * Represents the created state of a exhibition.
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
@@ -15,7 +15,7 @@ import lapr.project.model.ExhibitionState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ExhibitionOpenApplicationState implements ExhibitionState {
+public class ExhibitionCreatedState implements ExhibitionState {
 
     /**
      * The exhibition to change state.
@@ -27,7 +27,7 @@ public class ExhibitionOpenApplicationState implements ExhibitionState {
      *
      * @param exhibition Exhibition to change state
      */
-    public ExhibitionOpenApplicationState(Exhibition exhibition) {
+    public ExhibitionCreatedState(Exhibition exhibition) {
 
         this.exhibition = exhibition;
     }
@@ -45,12 +45,19 @@ public class ExhibitionOpenApplicationState implements ExhibitionState {
 
     @Override
     public boolean isCreated() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean setStaffDefined() {
-        return false;
+
+        if (validate()) {
+            // TODO : Implement next state
+//            this.exhibition.setState(this);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -60,7 +67,14 @@ public class ExhibitionOpenApplicationState implements ExhibitionState {
 
     @Override
     public boolean setDemonstrationsDefined() {
-        return false;
+
+        if (validateDemos()) {
+            // TODO : Implement next state
+//            this.exhibition.setState(this);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -75,18 +89,12 @@ public class ExhibitionOpenApplicationState implements ExhibitionState {
 
     @Override
     public boolean isOpenApplications() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean setClosedApplications() {
-        if (validate()) {
-            // TODO : Implement next state
-//            this.exhibition.setState(this);
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     @Override
@@ -144,11 +152,26 @@ public class ExhibitionOpenApplicationState implements ExhibitionState {
         return false;
     }
 
+    /**
+     * Validates if at least one staff member is defined.
+     *
+     * @return true if staff is defined.
+     */
     @Override
     public boolean validate() {
 
-        //TODO
-        return true;
+        // Verifies if at least one Staff Member is defined.
+        return !this.exhibition.getStaffList().getStaffList().isEmpty();
     }
 
+    /**
+     * Validates if at least one demonstration is defined.
+     *
+     * @return true if staff is defined.
+     */
+    public boolean validateDemos() {
+
+        // Verifies if at least one Staff Member is defined.
+        return !this.exhibition.getDemonstrationsList().getDemonstrationsList().isEmpty();
+    }
 }
