@@ -57,11 +57,11 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     /**
      * the default area in float asked by the company
      */
-    private float DEFAULT_EXHIBITOR_AREA = 100.0f;
+    private static final float DEFAULT_EXHIBITOR_AREA = 100.0f;
     /**
      * the default number of invitations asked for
      */
-    private int DEFAULT_NUMBER_INVITATION = 10;
+    private static final int DEFAULT_NUMBER_INVITATION = 10;
 
     /**
      * the default constructor with no params
@@ -119,6 +119,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
+     * Returns the exhibitor area.
      *
      * @return the exhibitor's area
      */
@@ -127,6 +128,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
+     * Returns number of invites.
      *
      * @return the number of invitations
      */
@@ -135,6 +137,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
+     * Returns list of demonstrations
      *
      * @return the demonstrationList
      */
@@ -152,6 +155,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
+     * Returns the product list
      *
      * @return the product list
      */
@@ -160,6 +164,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
+     * Returns the evaluation list
      *
      * @return the evaluation list
      */
@@ -186,30 +191,36 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
+     * Sets the number of invitations
      *
-     * @param numberInvitations sets number of invitations
+     * @param numberInvitations number of invitations
      */
     public void setNumberInvitations(int numberInvitations) {
         this.numberInvitations = numberInvitations;
     }
 
     /**
+     * Sets the list of demonstrations
      *
-     * @param demonstrationsList sets the demonstration list
+     * @param demonstrationsList the demonstration list
      */
     public void setDemonstrationsList(List<Demonstration> demonstrationsList) {
         this.demonstrationsList = new ArrayList(demonstrationsList);
     }
 
     /**
-     * @param productList sets the products list
+     * Sets the products list.
+     *
+     * @param productList the products list
      */
     public void setProductsList(List<Product> productsList) {
         this.productList = new ArrayList(productsList);
     }
 
     /**
-     * @param evaluationsList sets the evaluation's list
+     * Sets the evaluations list
+     *
+     * @param evaluationsList the evaluation's list
      */
     public void setEvaluationsList(List<Evaluation> evaluationsList) {
         this.evaluationsList = new ArrayList(evaluationsList);
@@ -289,54 +300,8 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     public boolean validateApplication() {
         return (this.exhibitor.validate() && this.demonstrationsList.isEmpty() && this.productList.isEmpty() && this.keyWordList.size() > 1 && this.keyWordList.size() <= 5 && this.numberInvitations > 0 && this.exhibitorArea > 0);
     }
-
-    /**
-     * Equals method to verify if two objects are equal.
-     *
-     * @param otherObject the other exhibition application to compare to
-     * @return true if equal
-     */
-    @Override
-    public boolean equals(Object otherObject) {
-        if (this == otherObject) {
-            return true;
-        }
-        if (otherObject == null || this.getClass() != otherObject.getClass()) {
-            return false;
-        }
-        ExhibitionApplication otherExhibitionApplication = (ExhibitionApplication) otherObject;
-        return (this.exhibitor.equals(otherExhibitionApplication.exhibitor) && this.exhibitorArea == otherExhibitionApplication.exhibitorArea && this.numberInvitations == otherExhibitionApplication.numberInvitations && this.demonstrationsList.equals(otherExhibitionApplication.demonstrationsList) && this.productList.equals(otherExhibitionApplication.productList) && this.evaluationsList.equals(otherExhibitionApplication.evaluationsList) && this.keyWordList.equals(otherExhibitionApplication.keyWordList));
-
-    }
-
-    /**
-     * Returns the textual interpretation of the objects and attributes of this
-     * class
-     */
-    @Override
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        s.append("ExhibitionApplication{");
-        s.append(String.format("%s%n", this.exhibitor));
-        s.append(String.format("%f%n", this.exhibitorArea));
-        s.append(String.format("%d%n", this.numberInvitations));
-        for (Demonstration demonstration : demonstrationsList) {
-            s.append(String.format("%s%n", demonstration));
-        }
-        for (Product product : productList) {
-            s.append(String.format("%s%n", product));
-        }
-        for (Evaluation evaluation : evaluationsList) {
-            s.append(String.format("%s%n", evaluation));
-        }
-        for (KeyWord keyword : keyWordList) {
-            s.append(String.format("%s%n", keyword));
-        }
-        s.append("}");
-        return s.toString();
-    }
-
-    /**
+    
+       /**
      * Returns a new evaluation.
      *
      * @return new evaluation
@@ -370,14 +335,75 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         return this.evaluationsList.add(evaluation);
     }
 
+    /**
+     * Sets the state of the application.
+     * @param newState the new state to set
+     */
     @Override
     public void setState(ApplicationState newState) {
         this.currentState = newState;
     }
 
+    /**
+     * Checks if all conditions are valid to change state
+     * @return true if all is valid
+     */
     @Override
     public boolean isValid() {
 
         return this.currentState != null && validateApplication();
     }
+    
+    /**
+     * Equals method to verify if two objects are equal.
+     *
+     * @param otherObject the other exhibition application to compare to
+     * @return true if equal
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+        ExhibitionApplication otherExhibitionApplication = (ExhibitionApplication) otherObject;
+        return (this.exhibitor.equals(otherExhibitionApplication.exhibitor) && this.exhibitorArea == otherExhibitionApplication.exhibitorArea
+                && this.numberInvitations == otherExhibitionApplication.numberInvitations
+                && this.demonstrationsList.equals(otherExhibitionApplication.demonstrationsList) 
+                && this.productList.equals(otherExhibitionApplication.productList) 
+                && this.evaluationsList.equals(otherExhibitionApplication.evaluationsList) 
+                && this.keyWordList.equals(otherExhibitionApplication.keyWordList));
+
+    }
+
+    /**
+     * Returns the textual interpretation of the objects and attributes of this
+     * class
+     */
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append("ExhibitionApplication{");
+        s.append(String.format("%s%n", this.exhibitor));
+        s.append(String.format("%f%n", this.exhibitorArea));
+        s.append(String.format("%d%n", this.numberInvitations));
+        for (Demonstration demonstration : demonstrationsList) {
+            s.append(String.format("%s%n", demonstration));
+        }
+        for (Product product : productList) {
+            s.append(String.format("%s%n", product));
+        }
+        for (Evaluation evaluation : evaluationsList) {
+            s.append(String.format("%s%n", evaluation));
+        }
+        for (KeyWord keyword : keyWordList) {
+            s.append(String.format("%s%n", keyword));
+        }
+        s.append("}");
+        return s.toString();
+    }
+
+ 
 }
