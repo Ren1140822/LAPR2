@@ -82,7 +82,7 @@ public class Exhibition implements Submittable {
     /**
      * Exhibition's demonstrations list.
      */
-    private List<Demonstration> demonstrationsList;
+    private DemonstrationsList demonstrationsList;
 
     /**
      * Exhibition's staff attributions list.
@@ -155,7 +155,7 @@ public class Exhibition implements Submittable {
         this.staffList = new StaffList();
         this.organizersList = new OrganizersList();
         this.applicationsList = new ApplicationsList();
-        this.demonstrationsList = new ArrayList<>();
+        this.demonstrationsList = new DemonstrationsList();
         this.staffAttributionsList = new StaffAttributionsList();
         this.currentState = new ExhibitionInicialState(this);
     }
@@ -191,7 +191,7 @@ public class Exhibition implements Submittable {
         this.evaluationLimitDate = evaluationLimitDate;
         this.staffList = new StaffList(staffList);
         this.organizersList = new OrganizersList(organizersList);
-        this.demonstrationsList = new ArrayList<>(demonstrationsList);
+        this.demonstrationsList = new DemonstrationsList(demonstrationsList);
         this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
         this.currentState = new ExhibitionInicialState(this);
     }
@@ -213,7 +213,7 @@ public class Exhibition implements Submittable {
         this.evaluationLimitDate = exhibition.evaluationLimitDate;
         this.staffList = new StaffList(exhibition.staffList);
         this.organizersList = new OrganizersList(exhibition.organizersList);
-        this.demonstrationsList = new ArrayList<>(exhibition.demonstrationsList);
+        this.demonstrationsList = new DemonstrationsList(exhibition.demonstrationsList);
         this.staffAttributionsList = new StaffAttributionsList(exhibition.staffAttributionsList);
         this.currentState = exhibition.currentState;
     }
@@ -441,8 +441,8 @@ public class Exhibition implements Submittable {
      *
      * @return the Exhibition's demonstrations list
      */
-    public List<Demonstration> getDemonstrationsList() {
-        return new ArrayList<>(this.demonstrationsList);
+    public DemonstrationsList getDemonstrationsList() {
+        return new DemonstrationsList(this.demonstrationsList);
     }
 
     /**
@@ -450,8 +450,8 @@ public class Exhibition implements Submittable {
      *
      * @param demonstrationsList the Exhibition's demonstrations list to set
      */
-    public void setDemonstrationsList(List<Demonstration> demonstrationsList) {
-        this.demonstrationsList = new ArrayList<>(demonstrationsList);
+    public void setDemonstrationsList(DemonstrationsList demonstrationsList) {
+        this.demonstrationsList = new DemonstrationsList(demonstrationsList);
     }
 
     /**

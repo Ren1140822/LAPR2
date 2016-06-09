@@ -5,6 +5,7 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import lapr.project.model.application.ApplicationInitialState;
 
 /**
  * Represents an exhibition application
@@ -17,19 +18,7 @@ import java.util.List;
  */
 public class ExhibitionApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable {
 
-    /**
-     * the company name of this application
-     */
-    private String companyName;
-    /**
-     * the address of the company
-     */
-    private String companyAddress;
-    /**
-     * the cellphone of the company
-     */
-    private String companyCellphone;
-    /**
+    /*
      * the areain float asked by the company
      */
     private float exhibitorArea;
@@ -49,6 +38,11 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * the evaluation lists of this application
      */
     private List<Evaluation> evaluationsList;
+
+    /**
+     * The state of the application.
+     */
+    private ApplicationState currentState;
 
     /**
      * This instance's exhibitor.
@@ -81,12 +75,22 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.keyWordList = new ArrayList<KeyWord>();
         this.exhibitor = new Exhibitor();
         this.evaluationsList = new ArrayList<Evaluation>();
+        this.currentState = new ApplicationInitialState(this);
     }
 
     /**
-     * the constructor with parameters
+     * Constructs an instance of exhibition application receivong its
+     * parameters.
+     *
+     * @param exhibitorArea echibition area
+     * @param numberInvitations number of invites
+     * @param productList products list
+     * @param demonstrationsList demonstrations list
+     * @param evaluationsList evaluations list
+     * @param keyWordList keywords list
+     * @param applicationState aplication current state
      */
-    public ExhibitionApplication(float exhibitorArea, int numberInvitations, List<Product> productList, List<Demonstration> demonstrationsList, List<Evaluation> evaluationsList, List<KeyWord> keyWordList) {
+    public ExhibitionApplication(float exhibitorArea, int numberInvitations, List<Product> productList, List<Demonstration> demonstrationsList, List<Evaluation> evaluationsList, List<KeyWord> keyWordList, ApplicationState applicationState) {
         this.exhibitorArea = exhibitorArea;
         this.numberInvitations = numberInvitations;
         this.productList = new ArrayList(productList);
@@ -94,13 +98,14 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.keyWordList = keyWordList;
         this.exhibitor = new Exhibitor();
         this.evaluationsList = new ArrayList(evaluationsList);
+        this.currentState = applicationState;
 
     }
 
     /**
      * the copy constructor receiving instance of this class as parameter
      *
-     * @param exhApplication
+     * @param exhibitionApplication another exhibition
      */
     public ExhibitionApplication(ExhibitionApplication exhibitionApplication) {
         this.exhibitorArea = exhibitionApplication.exhibitorArea;
@@ -110,6 +115,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.evaluationsList = new ArrayList(exhibitionApplication.evaluationsList);
         this.keyWordList = new ArrayList(exhibitionApplication.keyWordList);
         this.exhibitor = new Exhibitor();
+        this.currentState = exhibitionApplication.currentState;
     }
 
     /**
@@ -128,13 +134,21 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         return this.numberInvitations;
     }
 
-    
     /**
      *
      * @return the demonstrationList
      */
     public List<Demonstration> getDemonstrationsList() {
         return this.demonstrationsList;
+    }
+
+    /**
+     * Gets the current state of the application.
+     *
+     * @return the application state
+     */
+    public ApplicationState getCurrentState() {
+        return currentState;
     }
 
     /**
@@ -145,16 +159,25 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         return this.productList;
     }
 
-    
     /**
      *
      * @return the evaluation list
      */
-    public List<Evaluation> getApplicationEvaluationsList() {
+    public List<Evaluation> getEvaluationsList() {
         return this.evaluationsList;
     }
 
     /**
+     * Returns the list of keywords.
+     *
+     * @return the list of keywords
+     */
+    public List<KeyWord> getKeyWordList() {
+        return keyWordList;
+    }
+
+    /**
+     * Sets the area of the exhibitor
      *
      * @param exhibitorArea sets exhibitor area
      */
@@ -188,7 +211,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     /**
      * @param evaluationsList sets the evaluation's list
      */
-    public void setApplicationEvaluationsList(List<Evaluation> evaluationsList) {
+    public void setEvaluationsList(List<Evaluation> evaluationsList) {
         this.evaluationsList = new ArrayList(evaluationsList);
     }
 
@@ -213,6 +236,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
 
     /**
      * Creates new product.
+     *
      * @param designation the product name
      */
     public void newProduct(String designation) {
@@ -223,6 +247,47 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
             productList.add(product);
 
         }
+    }
+
+    /**
+     * Adds a demonstration to the list if it doenst contain it
+     *
+     * @param demonstration the demonstration going to be added to the list
+     */
+    public void newDemonstration(Demonstration demonstration) {
+        if (!validateDemonstration(demonstration)) {
+            this.demonstrationsList.add(demonstration);
+        }
+    }
+
+    /**
+     * Creates a new Keyword and adds it to the list
+     *
+     * @param description the value of the keyword
+     */
+    public void newKeyword(String description) {
+        KeyWord keyWord = new KeyWord(description);
+        keyWord.validate();
+        keyWordList.add(keyWord);
+    }
+
+    /**
+     * Checks if this demonstration is already on the list
+     *
+     * @param demonstration the demonstration to check if exists on current list
+     * @return true the list already has this object
+     */
+    public boolean validateDemonstration(Demonstration demonstration) {
+        return (this.demonstrationsList.contains(demonstration));
+    }
+
+    /**
+     * Validates if the mininum parameters are filled with data
+     *
+     * @return true if all O.K.
+     */
+    public boolean validateApplication() {
+        return (this.exhibitor.validate() && this.demonstrationsList.isEmpty() && this.productList.isEmpty() && this.keyWordList.size() > 1 && this.keyWordList.size() <= 5 && this.numberInvitations > 0 && this.exhibitorArea > 0);
     }
 
     /**
@@ -303,5 +368,16 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     public boolean registerEvaluation(Evaluation evaluation
     ) {
         return this.evaluationsList.add(evaluation);
+    }
+
+    @Override
+    public void setState(ApplicationState newState) {
+        this.currentState = newState;
+    }
+
+    @Override
+    public boolean isValid() {
+
+        return this.currentState != null && validateApplication();
     }
 }

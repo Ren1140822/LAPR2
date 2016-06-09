@@ -64,10 +64,21 @@ public class StaffAttributionsList {
     public void setStaffAttributionsList(List<StaffAttribution> staffAttributionsList) {
         this.staffAttributionsList = new ArrayList<>(staffAttributionsList);
     }
+    
+    public List<StaffAttribution> getStaffAtributionsApplicationsInEvaluationByStaff(StaffMember staffMember){
+        List<StaffAttribution> staffAtributionsApplicationsInEvaluationBystaff = new ArrayList<>();
+        
+        //TODO fulfill the list with some logic
+        
+        return staffAtributionsApplicationsInEvaluationBystaff;
+    }
 
     /**
-     * Returns the textual representation of the attributes of a staff attributions list class.
+     * Return the textual representation of a staff attribution list.
+     *
+     * @return the textual representation of a staff attribution list
      */
+    @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append("StaffAttributionsList{");

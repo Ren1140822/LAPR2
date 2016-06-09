@@ -28,6 +28,11 @@ public class Demonstration implements Submittable {
      * Demonstration's staff attributions list.
      */
     private StaffAttributionsList staffAttributionsList;
+    
+    /**
+     * The demonstration current state.
+     */
+    private DemonstrationState currentDemonstrationState;
 
     /**
      * the default value of the descriptive text ( when using no args
@@ -86,6 +91,33 @@ public class Demonstration implements Submittable {
      */
     public void setStaffList(StaffList staffList) {
         this.staffList = staffList;
+    }
+    
+    /**
+     * Returns the current demonstration state.
+     *
+     * @return the actual state of the demonstration
+     */
+    public DemonstrationState getCurrentDemonstrationState() {
+        return this.currentDemonstrationState;
+    }
+
+    /**
+     * Sets the new demonstration state.
+     *
+     * @param currentDemonstrationState the new demonstration state
+     */
+    public void setCurrentDemonstrationState(DemonstrationState currentDemonstrationState) {
+        this.currentDemonstrationState = currentDemonstrationState;
+    }
+    
+     /**
+     *  Validates the demonstration.
+     * 
+     * @return true if the description is valid, false otherwise
+     */
+    boolean validate() {
+        return !this.description.isEmpty();
     }
 
     /**

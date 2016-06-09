@@ -148,7 +148,9 @@ public class Exhibitor {
         return(this.mobileNumber.equals(otherExhibitor.mobileNumber)&&this.address.equals(otherExhibitor.address)&&this.name.equals(otherExhibitor.name));
     }
     
-    
+    public boolean validate(){
+        return (!this.name.isEmpty()&&!this.address.isEmpty()&&!this.mobileNumber.isEmpty());
+    }
     
     /**
      * Return the textual representation of an exhibitor.
