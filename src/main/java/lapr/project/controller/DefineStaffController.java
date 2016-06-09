@@ -47,6 +47,11 @@ public class DefineStaffController {
     private StaffMember staffMember;
     
     /**
+     *  The Staff List
+     */
+    private StaffList staffList;
+    
+    /**
      * Constructs a DefineStaffController Class.
      * 
      * @param organizer Organizer
@@ -80,7 +85,7 @@ public class DefineStaffController {
      */
     public void newStaffMember(User user){
         
-        StaffList staffList = exhibition.getStaffList();
+        this.staffList = exhibition.getStaffList();
         this.staffMember = staffList.newStaffMember(user);
     }
 
@@ -91,6 +96,13 @@ public class DefineStaffController {
      */
     public void setExhibition(Exhibition exhibition) {
         this.exhibition = exhibition;
+    }
+    
+    /**
+     * Adds staff member.
+     */
+    public void addStaffMember(){
+        this.staffList.addStaffMember(staffMember);
     }
     
 }
