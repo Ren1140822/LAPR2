@@ -132,6 +132,24 @@ public class Exhibitor {
         this.mobileNumber = mobileNumber;
     }
 
+   /**
+    * Compares two objects
+    * @param otherObject the other object to compare with
+    * @return  true if equal
+    */
+    public boolean equals(Object otherObject){
+           if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+        Exhibitor otherExhibitor = (Exhibitor)otherObject;
+        return(this.mobileNumber.equals(otherExhibitor.mobileNumber)&&this.address.equals(otherExhibitor.address)&&this.name.equals(otherExhibitor.name));
+    }
+    
+    
+    
     /**
      * Return the textual representation of an exhibitor.
      *

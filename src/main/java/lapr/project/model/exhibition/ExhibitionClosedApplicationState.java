@@ -1,7 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Package location for Model and concepts.
  */
 package lapr.project.model.exhibition;
 
@@ -9,8 +7,13 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionState;
 
 /**
+ * Represents the state of exhibition closed application.
  *
- * @author Renato Oliveira 1140822@isep.ipp.pt
+ * @author Daniel Gonçalves 1151452
+ * @author Eric Amaral 1141570
+ * @author Ivo Ferro 1151159
+ * @author Renato Oliveira 1140822
+ * @author Ricardo Correia 1151231
  */
 public class ExhibitionClosedApplicationState implements ExhibitionState {
 
@@ -28,7 +31,7 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
         this.exhibition = new Exhibition(exhibition);
     }
 
-     /**
+    /**
      * Sets exhibiton created state
      *
      * @return if its possible to set this state
@@ -57,7 +60,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean setExhibitionStaffMemberWithoutDemonstration() {
         return false;
     }
-/**
+
+    /**
      * Returns if the exhibition state is this state.
      *
      * @return true if this instance's state is this one
@@ -68,7 +72,7 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     }
 
     /**
-     * Sets  exhibition demonstration without staff member state.
+     * Sets exhibition demonstration without staff member state.
      *
      * @return if its possible to set this state
      */
@@ -76,7 +80,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean setExhibitionDemonstrationWithoutStaffMember() {
         return false;
     }
-/**
+
+    /**
      * Returns if the exhibition state is this state.
      *
      * @return true if this instance's state is this one
@@ -95,7 +100,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean setExhibitionInformationComplete() {
         return false;
     }
-/**
+
+    /**
      * Returns if the exhibition state is this state.
      *
      * @return true if this instance's state is this one
@@ -104,7 +110,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean isExhibitionInformationComplete() {
         return false;
     }
-/**
+
+    /**
      * Sets exhibiton open application state.
      *
      * @return if its possible to set this state
@@ -114,7 +121,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
 
         return false;
     }
-/**
+
+    /**
      * Returns if the exhibition state is this state.
      *
      * @return true if this instance's state is this one
@@ -123,17 +131,19 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean isExhibitionOpenApplication() {
         return false;
     }
-/**
+
+    /**
      * Sets exhibiton closed application state.
      *
      * @return if its possible to set this state
      */
     @Override
     public boolean setExhibitionClosedApplication() {
-     
+
         return false;
     }
-/**
+
+    /**
      * Returns if the exhibition state is this state.
      *
      * @return true if this instance's state is this one
@@ -142,7 +152,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean isExhibitionClosedApplication() {
         return true;
     }
-/**
+
+    /**
      * Sets exhibiton c detected conflicts state.
      *
      * @return if its possible to set this state
@@ -152,7 +163,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
         //TODO IMPLEMENTS THE NEXT STATE CHANGE
         return true;
     }
-/**
+
+    /**
      * Returns if the exhibition state is this state.
      *
      * @return true if this instance's state is this one
@@ -161,7 +173,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean isExhibitionDetectedConficts() {
         return false;
     }
-/**
+
+    /**
      * Sets exhibiton changed conflicts state.
      *
      * @return if its possible to set this state
@@ -170,7 +183,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean setExhibitionChangedConflitcts() {
         return false;
     }
-/**
+
+    /**
      * Returns if the exhibition state is this state.
      *
      * @return true if this instance's state is this one
@@ -179,8 +193,9 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean isExhibitionChangedConflitcts() {
         return false;
     }
-/**
-     * Sets exhibiton  applications in evaluation state.
+
+    /**
+     * Sets exhibiton applications in evaluation state.
      *
      * @return if its possible to set this state
      */
@@ -188,7 +203,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean setExhibitionApplicationsInEvaluation() {
         return false;
     }
-/**
+
+    /**
      * Returns if the exhibition state is this state.
      *
      * @return true if this instance's state is this one
@@ -197,7 +213,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean isExhibitionApplicationsInEvaluation() {
         return false;
     }
-/**
+
+    /**
      * Sets exhibiton application in decision period state
      *
      * @return if its possible to set this state
@@ -206,7 +223,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean setExhibitionApplicationInDecisionPeriod() {
         return false;
     }
-/**
+
+    /**
      * Returns if the exhibition state is this state.
      *
      * @return true if this instance's state is this one
@@ -215,7 +233,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean isExhibitionApplicationInDecisionPeriod() {
         return false;
     }
-/**
+
+    /**
      * Sets exhibiton with evaluated application state.
      *
      * @return if its possible to set this state
@@ -224,7 +243,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean setExhibitionWithEvaluatedApplication() {
         return false;
     }
-/**
+
+    /**
      * Returns if the exhibition state is this state.
      *
      * @return true if this instance's state is this one
@@ -233,8 +253,10 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean isExhibitionWithEvaluatedApplication() {
         return false;
     }
-/**
-     * Sets exhibiton with attributed stands without demonstrations decided state.
+
+    /**
+     * Sets exhibiton with attributed stands without demonstrations decided
+     * state.
      *
      * @return if its possible to set this state
      */
@@ -242,7 +264,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean setExhibitionWithAttributedStandsWithoutDemonstrationsDecided() {
         return false;
     }
-/**
+
+    /**
      * Returns if the exhibition state is this state.
      *
      * @return true if this instance's state is this one
@@ -251,7 +274,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean isExhibitionWithAttributedStandsWithoutDemonstrationsDecided() {
         return false;
     }
-/**
+
+    /**
      * Sets exhibiton demonstration decided without attributed stands.
      *
      * @return if its possible to set this state
@@ -260,7 +284,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean setExhibitionDemonstrationsDecidedWithoutAttributedStands() {
         return false;
     }
-/**
+
+    /**
      * Returns if the exhibition state is this state.
      *
      * @return true if this instance's state is this one
@@ -269,7 +294,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean isExhibitionDemonstrationsDecidedWithoutAttributedStands() {
         return false;
     }
-/**
+
+    /**
      * Sets exhibiton with demonstrations decided and attributed stands
      *
      * @return if its possible to set this state
@@ -278,7 +304,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean setExhibitionWithDemonstrationsDecidedAndAttributedStands() {
         return false;
     }
-/**
+
+    /**
      * Returns if the exhibition state is this state.
      *
      * @return true if this instance's state is this one
@@ -287,8 +314,9 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean isExhibitionWithDemonstrationsDecidedAndAttributedStands() {
         return false;
     }
-/**
-     * Sets exhibiton  with open applications and demonstrations
+
+    /**
+     * Sets exhibiton with open applications and demonstrations
      *
      * @return if its possible to set this state
      */
@@ -296,7 +324,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean setExhibitionWithOpenApplicationsAndDemonstrations() {
         return false;
     }
-/**
+
+    /**
      * Returns if the exhibition state is this state.
      *
      * @return true if this instance's state is this one
@@ -305,8 +334,9 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean isExhibitionWithOpenApplicationsAndDemonstrations() {
         return false;
     }
-/**
-     * Sets exhibiton  with closed applications and demonstrations
+
+    /**
+     * Sets exhibiton with closed applications and demonstrations
      *
      * @return if its possible to set this state
      */
@@ -314,7 +344,8 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
     public boolean setExhibitionWithClosedApplicationsAndDemonstations() {
         return false;
     }
-/**
+
+    /**
      * Returns if the exhibition state is this state.
      *
      * @return true if this instance's state is this one

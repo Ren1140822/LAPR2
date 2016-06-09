@@ -6,6 +6,7 @@ package lapr.project.controller;
 import java.util.ArrayList;
 import java.util.List;
 import lapr.project.model.Exhibition;
+import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
 import lapr.project.model.exhibition.ExhibitionClosedApplicationState;
@@ -79,5 +80,46 @@ public class ExhibitionApplicationControllerTest {
         
         assertEquals(expResult, result);
     }
+
+    /**
+     * Test of newApplication method, of class ExhibitionApplicationController.
+     */
+    @Test
+    public void testNewApplication() {
+        System.out.println("newApplication");
+        Exhibition exhibition = new Exhibition();
+        ExhibitionApplicationController instance = controller;
+        instance.newApplication(exhibition);
+        ExhibitionApplication defaultExhibition = new ExhibitionApplication();
+        assertEquals( instance.getExhibitionApplication(),defaultExhibition);
+    }
+
+    /**
+     * Test of setData method, of class ExhibitionApplicationController.
+     */
+//    @Test
+//    public void testSetData() {
+//        System.out.println("setData");
+//        String companyName = "Test";
+//        String companyAddress = "Test";
+//        String companyCellphone = "Test";
+//        float exhibitorArea = 0.0F;
+//        int numberInvitations = 0;
+//        ExhibitionApplicationController instance = controller;
+//        instance.setData(companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
+//        
+//    }
+
+    /**
+     * Test of newProduct method, of class ExhibitionApplicationController.
+     */
+//    @Test
+//    public void testNewProduct() {
+//        System.out.println("newProduct");
+//        String description = "";
+//        ExhibitionApplicationController instance = null;
+//        instance.newProduct(description);
+//       
+//    }
 
 }

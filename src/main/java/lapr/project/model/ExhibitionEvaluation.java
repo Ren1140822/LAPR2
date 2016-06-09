@@ -131,6 +131,25 @@ public class ExhibitionEvaluation {
     }
 
     /**
+     * Checks if two objects are the same
+     * @param otherObject the other object to compare to
+     * @return true if equal
+     */
+    public boolean equals(Object otherObject){
+           if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+        ExhibitionEvaluation otherExhibitionEvaluation = (ExhibitionEvaluation)otherObject;
+        return (this.decision==otherExhibitionEvaluation.decision&&this.attribution.equals(otherExhibitionEvaluation.attribution)&&this.txtJustification.equals(otherExhibitionEvaluation.txtJustification));
+    }
+    
+    
+    
+    
+    /**
      * Return the textual representation of an ExhibitionEvaluation.
      *
      * @return the textual representation of an ExhibitionEvaluation
