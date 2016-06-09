@@ -3,12 +3,14 @@
  */
 package lapr.project.model;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests a exhibitions register.
@@ -20,30 +22,31 @@ import org.junit.Test;
  * @author Ricardo Correia 1151231
  */
 public class ExhibitionsRegisterTest {
-    
+
     /**
      * Exhibition Register object.
      */
     private ExhibitionsRegister exhibitionsRegister;
-    
-    public ExhibitionsRegisterTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+
+    /**
+     * Exhibition object.
+     */
+    private Exhibition exhibition;
+
     @Before
     public void setUp() {
         this.exhibitionsRegister = new ExhibitionsRegister();
-    }
-    
-    @After
-    public void tearDown() {
+
+        List<Organizer> organizerslist = new ArrayList<>();
+        organizerslist.add(new Organizer());
+        organizerslist.add(new Organizer());
+        
+        this.exhibition = new Exhibition("title", "description", new Date(2016, 0, 1),
+                new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 1, 1),
+                new Date(2016, 1, 10), new Date(2016, 2, 1),
+                new Place(), new StaffList(), new OrganizersList(organizerslist),
+                new ArrayList<Demonstration>(), new StaffAttributionsList());
+
     }
 
     /**
@@ -53,8 +56,58 @@ public class ExhibitionsRegisterTest {
     public void testNewExhibition() {
         System.out.println("newExhibition");
         Exhibition expResult = new Exhibition();
-        Exhibition result = exhibitionsRegister.newExhibition();
+        Exhibition result = this.exhibitionsRegister.newExhibition();
         assertEquals(expResult, result);
     }
-    
+
+    /**
+     * Test of getSubmittablesByStaff method, of class ExhibitionsRegister.
+     */
+    @Test
+    public void testGetSubmittablesByStaff() {
+        System.out.println("getSubmittablesByStaff");
+
+        StaffMember staffMember = new StaffMember();
+        List<StaffMember> staffsList = new ArrayList<>();
+        staffsList.add(staffMember);
+
+        Exhibition firstExhibition = new Exhibition();
+        Exhibition secondExhibition = new Exhibition();
+        secondExhibition.setStaffList(new StaffList(staffsList));
+
+        List<Exhibition> exhibitionsListTotal = new ArrayList();
+        exhibitionsListTotal.add(firstExhibition);
+        exhibitionsListTotal.add(secondExhibition);
+
+        List<Exhibition> exhibitionsListExpected = new ArrayList();
+        exhibitionsListExpected.add(secondExhibition);
+
+        exhibitionsRegister.setExhibitionsList(exhibitionsListTotal);
+
+        assertEquals(exhibitionsRegister.getSubmittablesByStaff(staffMember), exhibitionsListExpected);
+    }
+
+    /**
+     * Test of registerExhibition method, of class ExhibitionsRegister, returns
+     * true.
+     */
+    @Test
+    public void testRegisterExhibitionReturnTrue() {
+
+        System.out.println("registerExhibition");
+        boolean result = exhibitionsRegister.registerExhibition(this.exhibition);
+        assertTrue(result);
+    }
+
+    /**
+     * Test of registerExhibition method, of class ExhibitionsRegister, returns
+     * false.
+     */
+    @Test
+    public void testRegisterExhibitionReturnFalse() {
+
+        System.out.println("registerExhibition");
+        boolean result = exhibitionsRegister.registerExhibition(new Exhibition());
+        assertFalse(result);
+    }
 }

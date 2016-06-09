@@ -48,7 +48,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     /**
      * the evaluation lists of this application
      */
-    private List<ExhibitionEvaluation> applicationEvaluationsList;
+    private List<Evaluation> evaluationsList;
 
     /**
      * This instance's exhibitor.
@@ -78,23 +78,23 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.numberInvitations = DEFAULT_NUMBER_INVITATION;
         this.productList = new ArrayList<Product>();
         this.demonstrationsList = new ArrayList<Demonstration>();
-        this.applicationEvaluationsList = new ArrayList<ExhibitionEvaluation>();
         this.keyWordList = new ArrayList<KeyWord>();
         this.exhibitor = new Exhibitor();
+        this.evaluationsList = new ArrayList<Evaluation>();
     }
 
     /**
      * the constructor with parameters
      */
-    public ExhibitionApplication(float exhibitorArea, int numberInvitations, List<Product> productList, List<Demonstration> demonstrationsList, List<ExhibitionEvaluation> applicationsList, List<KeyWord> keyWordList) {
-
+    public ExhibitionApplication(float exhibitorArea, int numberInvitations, List<Product> productList, List<Demonstration> demonstrationsList, List<Evaluation> evaluationsList, List<KeyWord> keyWordList) {
         this.exhibitorArea = exhibitorArea;
         this.numberInvitations = numberInvitations;
         this.productList = new ArrayList(productList);
         this.demonstrationsList = new ArrayList(demonstrationsList);
-        this.applicationEvaluationsList = new ArrayList(applicationsList);
         this.keyWordList = keyWordList;
         this.exhibitor = new Exhibitor();
+        this.evaluationsList = new ArrayList(evaluationsList);
+
     }
 
     /**
@@ -107,7 +107,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.numberInvitations = exhibitionApplication.numberInvitations;
         this.productList = new ArrayList(exhibitionApplication.productList);
         this.demonstrationsList = new ArrayList(exhibitionApplication.demonstrationsList);
-        this.applicationEvaluationsList = new ArrayList(exhibitionApplication.applicationEvaluationsList);
+        this.evaluationsList = new ArrayList(exhibitionApplication.evaluationsList);
         this.keyWordList = new ArrayList(exhibitionApplication.keyWordList);
         this.exhibitor = new Exhibitor();
     }
@@ -146,10 +146,10 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
 
     /**
      *
-     * @return the applications list
+     * @return the evaluation list
      */
-    public List<ExhibitionEvaluation> getApplicationEvaluationsList() {
-        return this.applicationEvaluationsList;
+    public List<Evaluation> getApplicationEvaluationsList() {
+        return this.evaluationsList;
     }
 
     /**
@@ -184,10 +184,10 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
-     * @param applicationEvaluationsList sets the applications list
+     * @param evaluationsList sets the evaluation's list
      */
-    public void setApplicationEvaluationsList(List<ExhibitionEvaluation> applicationEvaluationsList) {
-        this.applicationEvaluationsList = new ArrayList(applicationEvaluationsList);
+    public void setApplicationEvaluationsList(List<Evaluation> evaluationsList) {
+        this.evaluationsList = new ArrayList(evaluationsList);
     }
 
     /**
@@ -215,7 +215,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
             return false;
         }
         ExhibitionApplication otherExhibitionApplication = (ExhibitionApplication) otherObject;
-        return (this.exhibitor.equals(otherExhibitionApplication.exhibitor) && this.exhibitorArea == otherExhibitionApplication.exhibitorArea && this.numberInvitations == otherExhibitionApplication.numberInvitations && this.demonstrationsList.equals(otherExhibitionApplication.demonstrationsList) && this.productList.equals(otherExhibitionApplication.productList) && this.applicationEvaluationsList.equals(otherExhibitionApplication.applicationEvaluationsList) && this.keyWordList.equals(otherExhibitionApplication.keyWordList));
+        return (this.exhibitor.equals(otherExhibitionApplication.exhibitor) && this.exhibitorArea == otherExhibitionApplication.exhibitorArea && this.numberInvitations == otherExhibitionApplication.numberInvitations && this.demonstrationsList.equals(otherExhibitionApplication.demonstrationsList) && this.productList.equals(otherExhibitionApplication.productList) && this.evaluationsList.equals(otherExhibitionApplication.evaluationsList) && this.keyWordList.equals(otherExhibitionApplication.keyWordList));
 
     }
 
@@ -236,13 +236,48 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         for (Product product : productList) {
             s.append(String.format("%s%n", product));
         }
-        for (ExhibitionEvaluation applicationEvaluationsList : applicationEvaluationsList) {
-            s.append(String.format("%s%n", applicationEvaluationsList));
+        for(Evaluation evaluation: evaluationsList){
+            s.append(String.format("%s%n", evaluation));
         }
         for (KeyWord keyword : keyWordList) {
             s.append(String.format("%s%n", keyword));
         }
         s.append("}");
         return s.toString();
+    }
+
+
+/**
+ * Returns a new evaluation.
+ *
+ * @return new evaluation
+ */
+@Override
+        public Evaluation newEvaluation() {
+        return new Evaluation();
+    }
+
+    /**
+     * Validate if a evaluation is valid.
+     *
+     * @param evaluation evaluation to be validated
+     * @return true if it is valid, false otherwise
+     */
+    @Override
+        public boolean validateEvaluation(Evaluation evaluation
+    ) {
+        return !this.evaluationsList.contains(evaluation) && evaluation.validate();
+    }
+
+    /**
+     * Register an evaluation.
+     *
+     * @param evaluation evaluation to be registered
+     * @return true if it is registered with success, false otherwise
+     */
+    @Override
+        public boolean registerEvaluation(Evaluation evaluation
+    ) {
+        return this.evaluationsList.add(evaluation);
     }
 }

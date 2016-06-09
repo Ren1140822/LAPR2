@@ -10,7 +10,7 @@ package lapr.project.model;
  * @author Eric Amaral 1141570
  * @author Ivo Ferro 1151159
  * @author Renato Oliveira 1140822
- * @author Ricardo Amaral 1151231
+ * @author Ricardo Correia 1151231
  */
 public class StaffMember {
 
@@ -61,6 +61,15 @@ public class StaffMember {
     public void setUser(User user) {
         this.user = user;
     }
+    
+    /**
+     * Validates the User's user.
+     * 
+     * @return true is valid
+     */
+    public boolean validate(){
+        return this.user.validate();
+    }
 
     /**
      * Return the textual representation of a staff member.
@@ -70,5 +79,24 @@ public class StaffMember {
     @Override
     public String toString() {
         return String.format("StaffMember{%nuser=%s}", this.user);
+    }
+
+    /**
+     * Compares if this object is equal to otherObject.
+     *
+     * @param otherObject other object to compare with
+     * @return true if it repreents the same object, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+        StaffMember otherStaffMember = (StaffMember) otherObject;
+
+        return this.user.equals(otherStaffMember.user);
     }
 }

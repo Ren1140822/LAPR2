@@ -64,6 +64,28 @@ public class StaffList {
     public void setStaffList(List<StaffMember> staffList) {
         this.staffList = new ArrayList<>(staffList);
     }
+    
+    /**
+     * Creates a new instance of staff member.
+     *
+     * @return staffMember staff member
+     */
+    public StaffMember newStaffMember(User user){
+        StaffMember staffMember = new StaffMember();
+        staffMember.setUser(user);
+        staffMember.validate();
+        return staffMember;
+    }
+    
+    /**
+     * Verify if a given staff member is on the staff member's list.
+     * 
+     * @param staffMember staff member to be verified
+     * @return true if it is contained, false otherwise
+     */
+    public boolean isStaffMember(StaffMember staffMember){
+        return this.staffList.contains(staffMember);
+    }
 
     @Override
     public String toString() {

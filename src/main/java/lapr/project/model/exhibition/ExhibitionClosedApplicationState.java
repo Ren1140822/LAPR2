@@ -355,4 +355,10 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
         return false;
     }
 
+    @Override
+    public boolean validate() {
+        //TODO
+        return true;
+    }
+
 }
