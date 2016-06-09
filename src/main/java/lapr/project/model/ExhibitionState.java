@@ -15,170 +15,163 @@ package lapr.project.model;
 public interface ExhibitionState {
 
     /**
-     * sets the exhibition state as exhibition created.
-     * 
+     * Verify if the exhibition is in the initial state.
+     *
+     * @return true if the exhibition is in the initial state, false otherwise
      */
-    boolean setExhibitionCreated();
+    boolean isInicial();
 
     /**
-     * checks if current state is exhibition created.
+     * Changes the current exhibtion state to created state.
+     *
+     * @return true if the state is changed to created state, false otherwise
      */
-    boolean isExhibitionCreated();
+    boolean setCreated();
 
     /**
-     * sets the exhibition state as staff member without demonstration.
+     * Verify if the exhibition is in the created state.
+     *
+     * @return true if the exhibition is created, false otherwise
      */
-    boolean setExhibitionStaffMemberWithoutDemonstration();
+    boolean isCreated();
 
     /**
-     * checks if current state is staff member without demonstration.
+     * Changes the current exhibtion state to staff defined state.
+     *
+     * @return true if the state is changed to staff defined state, false
+     * otherwise
      */
-    boolean isExhibitionStaffMemberWithoutDemonstration();
+    boolean setStaffDefined();
 
     /**
-     * sets the exhibition state as exhibition created.
+     * Verify if the exhibition has staff defined.
+     *
+     * @return true if the staff is defined, false otherwise
      */
-    boolean setExhibitionDemonstrationWithoutStaffMember();
+    boolean isStaffDefined();
 
     /**
-     * checks if current state is demonstration without staff member.
+     * Changes the current exhibtion state to demonstrations defined state.
+     *
+     * @return true if the state is changed to demonstrations defined state,
+     * false otherwise
      */
-    boolean isExhibitionDemonstrationWithoutStaffMember();
+    boolean setDemonstrationsDefined();
 
     /**
-     * sets the exhibition state as information complete.
+     * Verify if the exhibition has demonstrations defined.
+     *
+     * @return true if the demonstrations are defined, false otherwise
      */
-    boolean setExhibitionInformationComplete();
+    boolean isDemonstrationsDefined();
 
     /**
-     * checks if current state is information complete.
+     * Changes the current exhibtion state to open applications state.
+     *
+     * @return true if the state is changed to open applications state, false
+     * otherwise
      */
-    boolean isExhibitionInformationComplete();
+    boolean setOpenApplication();
 
     /**
-     * sets the exhibition state as open application.
+     * Verify if the exhibition's applications are opened.
+     *
+     * @return true if the exhibition's applications are opened, false otherwise
      */
-    boolean setExhibitionOpenApplication();
+    boolean isOpenApplications();
 
     /**
-     * checks if current state is open application.
+     * Changes the current exhibtion state to closed applications state.
+     *
+     * @return true if the state is changed to closed applications state, false
+     * otherwise
      */
-    boolean isExhibitionOpenApplication();
+    boolean setClosedApplications();
 
     /**
-     * sets the exhibition state as closed application.
+     * Verify if the exhibition's applications are closed.
+     *
+     * @return true if the exhibition's applications are closed, false otherwise
      */
-    boolean setExhibitionClosedApplication();
+    boolean isClosedApplications();
 
     /**
-     * checks if current state is closed application.
+     * Changes the current exhibtion state to detected conflicts state.
+     *
+     * @return true if the state is changed to detected conflicts state, false
+     * otherwise
      */
-    boolean isExhibitionClosedApplication();
+    boolean setDetectedConficts();
 
     /**
-     * sets the exhibition state as detected conflicts.
+     * Verify if the exhibition has detected conflicts.
+     *
+     * @return true if the exhibition has detected conflicts, false otherwise
      */
-    boolean setExhibitionDetectedConficts();
+    boolean isDetectedConficts();
 
     /**
-     * checks if current state is detected conflicts.
+     * Changes the current exhibtion state to changed conflicts state.
+     *
+     * @return true if the state is changed to changed conflicts state, false
+     * otherwise
      */
-    boolean isExhibitionDetectedConficts();
+    boolean setChangedConflitcts();
 
     /**
-     * sets the exhibition state as changed conflicts.
+     * Verify if the exhibition has changed conflicts.
+     *
+     * @return true if the exhibition has changed conflicts, false otherwise
      */
-    boolean setExhibitionChangedConflitcts();
+    boolean isChangedConflitcts();
 
     /**
-     * checks if current state is changed conflicts.
+     * Changes the current exhibtion state to applications in evaluation state.
+     *
+     * @return true if the state is changed to applications in evaluation state,
+     * false otherwise
      */
-    boolean isExhibitionChangedConflitcts();
+    boolean setApplicationsInEvaluation();
 
     /**
-     * sets the exhibition state as applications in evaluation.
+     * Verify if the exhibition's applications are in evaluation.
+     *
+     * @return true if the exhibition's applications are in evaluation, false
+     * otherwise
      */
-    boolean setExhibitionApplicationsInEvaluation();
+    boolean isApplicationsInEvaluation();
 
     /**
-     * checks if current state is applications in evaluation.
+     * Changes the current exhibtion state to applications in decision state.
+     *
+     * @return true if the state is changed to applications in decision state,
+     * false otherwise
      */
-    boolean isExhibitionApplicationsInEvaluation();
+    boolean setApplicationsInDecision();
 
     /**
-     * sets the exhibition state as application in decision period.
+     * Verify if the exhibition's applications are in decision.
+     *
+     * @return true if the exhibition's applications are in decision, false
+     * otherwise
      */
-    boolean setExhibitionApplicationInDecisionPeriod();
+    boolean isApplicationsInDecision();
 
     /**
-     * checks if current state is application in decision period.
+     * Changes the current exhibtion state to applications decided state.
+     *
+     * @return true if the state is changed to applications decided state, false
+     * otherwise
      */
-    boolean isExhibitionApplicationInDecisionPeriod();
+    boolean setApplicationsDecided();
 
     /**
-     * sets the exhibition state as evaluated application.
+     * Verify if the exhibition's applications are decided.
+     *
+     * @return true if the exhibition's applications are decided, false
+     * otherwise
      */
-    boolean setExhibitionWithEvaluatedApplication();
-
-    /**
-     * checks if current state is evaluated application.
-     */
-    boolean isExhibitionWithEvaluatedApplication();
-
-    /**
-     * sets the exhibition state as attributed stands without demonstration
-     * decided.
-     */
-    boolean setExhibitionWithAttributedStandsWithoutDemonstrationsDecided();
-
-    /**
-     * checks if current state is attributed stands without demonstration
-     * decided.
-     */
-    boolean isExhibitionWithAttributedStandsWithoutDemonstrationsDecided();
-
-    /**
-     * sets the exhibition state as demonstration decided without attributed
-     * stands.
-     */
-    boolean setExhibitionDemonstrationsDecidedWithoutAttributedStands();
-
-    /**
-     * checks if current state is demonstration decided without attributed
-     * stands.
-     */
-    boolean isExhibitionDemonstrationsDecidedWithoutAttributedStands();
-
-    /**
-     * sets the exhibition state as demonstrations decided and attributed
-     * stands.
-     */
-    boolean setExhibitionWithDemonstrationsDecidedAndAttributedStands();
-
-    /**
-     * checks if current state is demonstrations decided and attributed stands.
-     */
-    boolean isExhibitionWithDemonstrationsDecidedAndAttributedStands();
-
-    /**
-     * sets the exhibition state as open applications and demonstrations.
-     */
-    boolean setExhibitionWithOpenApplicationsAndDemonstrations();
-
-    /**
-     * checks if current state is open applications and demonstrations.
-     */
-    boolean isExhibitionWithOpenApplicationsAndDemonstrations();
-
-    /**
-     * sets the exhibition state as closed applications and demonstrations.
-     */
-    boolean setExhibitionWithClosedApplicationsAndDemonstations();
-
-    /**
-     * checks if current state is closed applications and demonstrations.
-     */
-    boolean isExhibitionWithClosedApplicationsAndDemonstations();
+    boolean isApplicationsDecided();
 
     /**
      * Validate if the the state gathers all necessary information to transit to

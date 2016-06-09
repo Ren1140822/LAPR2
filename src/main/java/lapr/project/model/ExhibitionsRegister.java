@@ -112,8 +112,8 @@ public class ExhibitionsRegister {
      */
     public boolean registerExhibition(Exhibition exhibition) {
 
-        // TODO : Implement State functionality
-        return (exhibition.validate() && validateExhibition(exhibition)) ? addExhibition(exhibition) : false;
+        
+        return (exhibition.setCreated() && validateExhibition(exhibition)) ? addExhibition(exhibition) : false;
     }
 
     /**
@@ -151,7 +151,7 @@ public class ExhibitionsRegister {
         boolean validated;
         for (Exhibition exhibition : this.exhibitionsList) {
 
-            validated = exhibition.getCurrentExhibitionState().isExhibitionOpenApplication();
+            validated = exhibition.getState().isOpenApplications();
 
             if (validated) {
                 exhibitionListInRightState.add(exhibition);

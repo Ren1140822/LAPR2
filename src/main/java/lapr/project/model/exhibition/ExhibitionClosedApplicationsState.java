@@ -7,7 +7,7 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionState;
 
 /**
- * Represents the open applications state of a Exhibition.
+ * Represents the closed applications state of a exhibition.
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
@@ -15,7 +15,7 @@ import lapr.project.model.ExhibitionState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ExhibitionOpenApplicationState implements ExhibitionState {
+public class ExhibitionClosedApplicationsState implements ExhibitionState {
 
     /**
      * The exhibition to change state.
@@ -27,7 +27,7 @@ public class ExhibitionOpenApplicationState implements ExhibitionState {
      *
      * @param exhibition Exhibition to change state
      */
-    public ExhibitionOpenApplicationState(Exhibition exhibition) {
+    public ExhibitionClosedApplicationsState(Exhibition exhibition) {
 
         this.exhibition = exhibition;
     }
@@ -75,11 +75,21 @@ public class ExhibitionOpenApplicationState implements ExhibitionState {
 
     @Override
     public boolean isOpenApplications() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean setClosedApplications() {
+        return false;
+    }
+
+    @Override
+    public boolean isClosedApplications() {
+        return true;
+    }
+
+    @Override
+    public boolean setDetectedConficts() {
         if (validate()) {
             // TODO : Implement next state
 //            this.exhibition.setState(this);
@@ -87,16 +97,6 @@ public class ExhibitionOpenApplicationState implements ExhibitionState {
         } else {
             return false;
         }
-    }
-
-    @Override
-    public boolean isClosedApplications() {
-        return false;
-    }
-
-    @Override
-    public boolean setDetectedConficts() {
-        return false;
     }
 
     @Override

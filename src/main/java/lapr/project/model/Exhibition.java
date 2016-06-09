@@ -6,6 +6,7 @@ package lapr.project.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import lapr.project.model.exhibition.ExhibitionInicialState;
 
 /**
  * Represents an Exhibition.
@@ -89,9 +90,9 @@ public class Exhibition implements Submittable {
     private StaffAttributionsList staffAttributionsList;
 
     /**
-     * The exhibition current state.
+     * The exhibition's current state.
      */
-    private ExhibitionState currentExhibitionState;
+    private ExhibitionState currentState;
 
     /**
      * Exhibition's default title.
@@ -156,8 +157,7 @@ public class Exhibition implements Submittable {
         this.applicationsList = new ApplicationsList();
         this.demonstrationsList = new ArrayList<>();
         this.staffAttributionsList = new StaffAttributionsList();
-
-        // TODO : Develop State functionality
+        this.currentState = new ExhibitionInicialState(this);
     }
 
     /**
@@ -193,6 +193,7 @@ public class Exhibition implements Submittable {
         this.organizersList = new OrganizersList(organizersList);
         this.demonstrationsList = new ArrayList<>(demonstrationsList);
         this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
+        this.currentState = new ExhibitionInicialState(this);
     }
 
     /**
@@ -214,6 +215,7 @@ public class Exhibition implements Submittable {
         this.organizersList = new OrganizersList(exhibition.organizersList);
         this.demonstrationsList = new ArrayList<>(exhibition.demonstrationsList);
         this.staffAttributionsList = new StaffAttributionsList(exhibition.staffAttributionsList);
+        this.currentState = exhibition.currentState;
     }
 
     /**
@@ -453,6 +455,16 @@ public class Exhibition implements Submittable {
     }
 
     /**
+     * Returns the staff attribtions list.
+     *
+     * @return staff attribtions list
+     */
+    @Override
+    public StaffAttributionsList getStaffAttributionsList() {
+        return staffAttributionsList;
+    }
+
+    /**
      * Set the Exhibition's staff attributions list.
      *
      * @param staffAttributionsList the Exhibition's staff attributions list to
@@ -467,29 +479,38 @@ public class Exhibition implements Submittable {
      *
      * @return the actual state of the exhibition
      */
-    public ExhibitionState getCurrentExhibitionState() {
-        return currentExhibitionState;
+    public ExhibitionState getState() {
+        return this.currentState;
     }
 
     /**
      * Sets the new exhibition state.
      *
-     * @param currentExhibitionState the new exhibition state
+     * @param currentState the new exhibition state
      */
-    public void setCurrentExhibitionState(ExhibitionState currentExhibitionState) {
-        this.currentExhibitionState = currentExhibitionState;
+    public void setState(ExhibitionState currentState) {
+        this.currentState = currentState;
     }
-    
+
+    /**
+     * Changes to next state ExhibitionCreatedState.
+     *
+     * @return true if the state successfully changes
+     */
+    public boolean setCreated() {
+
+        return this.currentState.setCreated();
+    }
+
     /**
      * Validate the Exhibition.
      *
      * @return true if the exhibition is valid
      */
     public boolean validate() {
-        
+
         // TODO: Create Validate Util Class
-        
-        return !this.title.trim().isEmpty() 
+        return !this.title.trim().isEmpty()
                 && !this.description.trim().isEmpty()
                 // TODO : Insert validate method in Place class
                 && this.startDate.before(this.endDate)
@@ -555,15 +576,5 @@ public class Exhibition implements Submittable {
                 // TODO: Update to class demonstrations list
                 && this.demonstrationsList.equals(otherExhibition.demonstrationsList)
                 && this.staffAttributionsList.equals(otherExhibition.staffAttributionsList);
-    }
-
-    /**
-     * Returns the staff attribtions list.
-     *
-     * @return staff attribtions list
-     */
-    @Override
-    public StaffAttributionsList getStaffAttributionsList() {
-        return staffAttributionsList;
     }
 }

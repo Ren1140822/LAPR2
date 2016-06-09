@@ -7,7 +7,7 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionState;
 
 /**
- * Represents the open applications state of a Exhibition.
+ * Represents the inicial state of a exhibition.
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
@@ -15,7 +15,7 @@ import lapr.project.model.ExhibitionState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ExhibitionOpenApplicationState implements ExhibitionState {
+public class ExhibitionInicialState implements ExhibitionState {
 
     /**
      * The exhibition to change state.
@@ -23,24 +23,30 @@ public class ExhibitionOpenApplicationState implements ExhibitionState {
     private final Exhibition exhibition;
 
     /**
-     * Default constructor of an exhibition's created state.
+     * Default constructor of an exhibition's incial state.
      *
      * @param exhibition Exhibition to change state
      */
-    public ExhibitionOpenApplicationState(Exhibition exhibition) {
+    public ExhibitionInicialState(Exhibition exhibition) {
 
         this.exhibition = exhibition;
     }
 
     @Override
     public boolean isInicial() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean setCreated() {
 
-        return false;
+        if (validate()) {
+
+            this.exhibition.setState(new ExhibitionCreatedState(exhibition));
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -75,18 +81,12 @@ public class ExhibitionOpenApplicationState implements ExhibitionState {
 
     @Override
     public boolean isOpenApplications() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean setClosedApplications() {
-        if (validate()) {
-            // TODO : Implement next state
-//            this.exhibition.setState(this);
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     @Override
@@ -146,9 +146,7 @@ public class ExhibitionOpenApplicationState implements ExhibitionState {
 
     @Override
     public boolean validate() {
-
-        //TODO
-        return true;
+        return this.exhibition.validate();
     }
 
 }
