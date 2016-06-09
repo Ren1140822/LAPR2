@@ -68,7 +68,11 @@ public class StaffAttributionsList {
     public List<StaffAttribution> getStaffAtributionsApplicationsInEvaluationByStaff(StaffMember staffMember){
         List<StaffAttribution> staffAtributionsApplicationsInEvaluationBystaff = new ArrayList<>();
         
-        //TODO fulfill the list with some logic
+        for (StaffAttribution staffAttribution : this.staffAttributionsList) {
+            if (staffAttribution.isStaffMember(staffMember) && staffAttribution.getApplication().getCurrentState().isInEvaluation()) {
+                staffAtributionsApplicationsInEvaluationBystaff.add(staffAttribution);
+            }
+        }
         
         return staffAtributionsApplicationsInEvaluationBystaff;
     }

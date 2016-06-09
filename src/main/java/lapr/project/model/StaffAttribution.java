@@ -17,7 +17,7 @@ public class StaffAttribution {
     /**
      * The staffAttribution's application.
      */
-    private ExhibitionApplication application;
+    private Assingnable application;
 
     /**
      * The staffAttribution's staffMember.
@@ -38,8 +38,8 @@ public class StaffAttribution {
      * @param application staffAttribution's application
      * @param staffMember staffAttribution's staffMember
      */
-    public StaffAttribution(ExhibitionApplication application, StaffMember staffMember) {
-        this.application = new ExhibitionApplication(application);
+    public StaffAttribution(Assingnable application, StaffMember staffMember) {
+        this.application = application;
         this.staffMember = new StaffMember(staffMember);
     }
 
@@ -49,7 +49,7 @@ public class StaffAttribution {
      * @param staffAttribution staff attribution
      */
     public StaffAttribution(StaffAttribution staffAttribution) {
-        this.application = new ExhibitionApplication(staffAttribution.application);
+        this.application = staffAttribution.application;
         this.staffMember = new StaffMember(staffAttribution.staffMember);
     }
 
@@ -58,7 +58,7 @@ public class StaffAttribution {
      *
      * @return staffAttribution application
      */
-    public ExhibitionApplication getApplication() {
+    public Assingnable getApplication() {
         return this.application;
     }
 
@@ -67,7 +67,7 @@ public class StaffAttribution {
      *
      * @param application the staffAttribution application to set
      */
-    public void setApplication(ExhibitionApplication application) {
+    public void setApplication(Assingnable application) {
         this.application = application;
     }
 
