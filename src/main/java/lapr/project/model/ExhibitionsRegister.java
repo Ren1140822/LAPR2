@@ -130,7 +130,7 @@ public class ExhibitionsRegister {
                 submittableList.add(exhibition);
             }
 
-            for (Demonstration demonstration : exhibition.getDemonstrationsList()) {
+            for (Demonstration demonstration : exhibition.getDemonstrationsList().getDemonstrationsList()) {
                 if (demonstration.getStaffList().isStaffMember(staffMember)) {
                     submittableList.add(demonstration);
                 }
@@ -138,6 +138,28 @@ public class ExhibitionsRegister {
         }
 
         return submittableList;
+    }
+
+    /**
+     * Gets the submittables filtering by an Organizer and InChangedConflicts state.
+     *
+     * @param organizer organizer to filter submittables
+     * @return the list of the organizer's submittables which are
+     * InChangedConflicts state
+     */
+    public List<Submittable> getSubmittablesInChangedConflictsByOrganizer(Organizer organizer) {
+        List<Submittable> submittablesList = new ArrayList<>();
+
+        for (Exhibition exhibition : exhibitionsList) {
+            if ((exhibition.getOrganizersList().isOrganizer(organizer)) && (exhibition.getCurrentExhibitionState().isExhibitionChangedConflitcts())) {
+                submittablesList.add(exhibition);
+            }
+            if (exhibition.getCurrentExhibitionState().isExhibitionAttributedStandsConfirmed()) {
+                List<Demonstration> demoListInChangedConflicts = exhibition.getDemonstrationsList().getDemonstrationsListInChangedConflicts();
+                submittablesList.addAll(demoListInChangedConflicts);
+            }
+        }
+        return submittablesList;
     }
 
     /**
