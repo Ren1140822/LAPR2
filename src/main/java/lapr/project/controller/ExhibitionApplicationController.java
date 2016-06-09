@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lapr.project.model.ApplicationsList;
 import lapr.project.model.Demonstration;
+import lapr.project.model.DemonstrationsList;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
@@ -15,7 +16,7 @@ import lapr.project.model.ExhibitionsRegister;
 /**
  * Represents the controller of exhibition application.
  *
- * @author Daniel Gonçalves 1151452
+ * @author Daniel GonÃ§alves 1151452
  * @author Eric Amaral 1141570
  * @author Ivo Ferro 1151159
  * @author Renato Oliveira 1140822
@@ -109,8 +110,8 @@ public class ExhibitionApplicationController {
      * @param exhibition the exhibition you want the demonstrations from
      * @return a copy of the demonstrations arraylist
      */
-    public List<Demonstration> getDemonstrationsList(Exhibition exhibition){
-        return new ArrayList<>(exhibition.getDemonstrationsList());
+    public DemonstrationsList getDemonstrationsList(Exhibition exhibition){
+        return new DemonstrationsList(exhibition.getDemonstrationsList());
     }
     
     /**
