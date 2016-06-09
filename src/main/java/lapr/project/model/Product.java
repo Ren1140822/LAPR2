@@ -74,7 +74,9 @@ public class Product {
         return this.designation.equals(otherProduct.designation);
     }
     
-    
+    public boolean validate(){
+        return this.designation!=null;
+    }
     
     @Override
     public String toString() {

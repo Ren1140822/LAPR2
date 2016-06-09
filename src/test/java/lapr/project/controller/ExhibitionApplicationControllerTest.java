@@ -10,6 +10,7 @@ import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
 import lapr.project.model.Exhibitor;
+import lapr.project.model.Product;
 import lapr.project.model.exhibition.ExhibitionClosedApplicationState;
 import lapr.project.model.exhibition.ExhibitionOpenApplicationState;
 import org.junit.After;
@@ -113,19 +114,25 @@ public class ExhibitionApplicationControllerTest {
         ExhibitionApplication defaultExhibitionApplication = new ExhibitionApplication();
         defaultExhibitionApplication.setExhibitorArea(exhibitorArea);
         defaultExhibitionApplication.setNumberInvitations(numberInvitations);
-        defaultExhibitionApplication.setExhibitor(new Exhibitor(companyName,companyAddress,companyCellphone));
+        defaultExhibitionApplication.setExhibitor(new Exhibitor(companyName, companyAddress, companyCellphone));
         assertEquals(instance.getExhibitionApplication(), defaultExhibitionApplication);
     }
 
     /**
      * Test of newProduct method, of class ExhibitionApplicationController.
      */
-//    @Test
-//    public void testNewProduct() {
-//        System.out.println("newProduct");
-//        String description = "";
-//        ExhibitionApplicationController instance = null;
-//        instance.newProduct(description);
-//       
-//    }
+    @Test
+    public void testNewProduct() {
+        System.out.println("newProduct");
+        String designation = "test";
+        ExhibitionApplicationController instance = controller;
+        Exhibition exhibition = new Exhibition();
+        instance.newApplication(exhibition);
+        instance.newProduct(designation);
+        Product result = instance.getExhibitionApplication().getProductList().get(0);
+        Product productExpected = new Product(designation);
+        assertEquals(result, productExpected);
+
+    }
+
 }

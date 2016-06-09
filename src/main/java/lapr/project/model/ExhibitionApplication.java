@@ -128,6 +128,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         return this.numberInvitations;
     }
 
+    
     /**
      *
      * @return the demonstrationList
@@ -144,6 +145,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         return this.productList;
     }
 
+    
     /**
      *
      * @return the evaluation list
@@ -189,10 +191,12 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     public void setApplicationEvaluationsList(List<Evaluation> evaluationsList) {
         this.evaluationsList = new ArrayList(evaluationsList);
     }
-/**
- * Sets exhibitor
- * @param exhibitor  the exhibitor to copy
- */
+
+    /**
+     * Sets exhibitor
+     *
+     * @param exhibitor the exhibitor to copy
+     */
     public void setExhibitor(Exhibitor exhibitor) {
         this.exhibitor = exhibitor;
     }
@@ -208,12 +212,26 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
+     * Creates new product.
+     * @param designation the product name
+     */
+    public void newProduct(String designation) {
+        Product product = new Product();
+        product.setDesignation(designation);
+
+        if (product.validate()) {
+            productList.add(product);
+
+        }
+    }
+
+    /**
      * Equals method to verify if two objects are equal.
      *
-     * @param otherExhibitionApplication the other exhibition application to
-     * compare to
+     * @param otherObject the other exhibition application to compare to
      * @return true if equal
      */
+    @Override
     public boolean equals(Object otherObject) {
         if (this == otherObject) {
             return true;
@@ -243,7 +261,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         for (Product product : productList) {
             s.append(String.format("%s%n", product));
         }
-        for(Evaluation evaluation: evaluationsList){
+        for (Evaluation evaluation : evaluationsList) {
             s.append(String.format("%s%n", evaluation));
         }
         for (KeyWord keyword : keyWordList) {
@@ -253,14 +271,13 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         return s.toString();
     }
 
-
-/**
- * Returns a new evaluation.
- *
- * @return new evaluation
- */
-@Override
-        public Evaluation newEvaluation() {
+    /**
+     * Returns a new evaluation.
+     *
+     * @return new evaluation
+     */
+    @Override
+    public Evaluation newEvaluation() {
         return new Evaluation();
     }
 
@@ -271,7 +288,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @return true if it is valid, false otherwise
      */
     @Override
-        public boolean validateEvaluation(Evaluation evaluation
+    public boolean validateEvaluation(Evaluation evaluation
     ) {
         return !this.evaluationsList.contains(evaluation) && evaluation.validate();
     }
@@ -283,7 +300,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @return true if it is registered with success, false otherwise
      */
     @Override
-        public boolean registerEvaluation(Evaluation evaluation
+    public boolean registerEvaluation(Evaluation evaluation
     ) {
         return this.evaluationsList.add(evaluation);
     }

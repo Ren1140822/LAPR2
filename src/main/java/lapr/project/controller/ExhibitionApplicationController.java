@@ -10,6 +10,7 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
+import lapr.project.model.Product;
 
 /**
  * Represents the controller of exhibition application.
@@ -46,7 +47,9 @@ public class ExhibitionApplicationController {
      * A temporary exhibition application reference.
      */
     private ExhibitionApplication exhibitionApplication;
-
+    
+    
+    
     /**
      * Constructor receiving a ExhibitionCenter as parameter.
      *
@@ -94,9 +97,11 @@ public class ExhibitionApplicationController {
 
     /**
      * Creates a new product.
+     * @param designation the product designation
      */
-//    public void newProduct(String description) {
-//
-//    }
+    public void newProduct(String designation) {
+     
+        this.exhibitionApplication.newProduct(designation);
+    }
 
 }
