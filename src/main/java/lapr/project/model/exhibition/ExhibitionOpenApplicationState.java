@@ -326,4 +326,10 @@ public class ExhibitionOpenApplicationState implements ExhibitionState {
         return false;
     }
 
+    @Override
+    public boolean validate() {
+        //TODO
+        return true;
+    }
+
 }
