@@ -18,19 +18,7 @@ import lapr.project.model.application.ApplicationInitialState;
  */
 public class ExhibitionApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable {
 
-    /**
-     * the company name of this application
-     */
-    private String companyName;
-    /**
-     * the address of the company
-     */
-    private String companyAddress;
-    /**
-     * the cellphone of the company
-     */
-    private String companyCellphone;
-    /**
+    /*
      * the areain float asked by the company
      */
     private float exhibitorArea;
@@ -57,17 +45,15 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     private ApplicationState currentState;
 
     /**
-     * the default company name of this application
+     * This instance's exhibitor.
      */
-    private String DEFAULT_COMPANY_NAME = "No name";
+    private Exhibitor exhibitor;
+
     /**
-     * the default address of the company
+     * the list of keywords.
      */
-    private String DEFAULT_COMPANY_ADDRESS = "No address";
-    /**
-     * the cellphone of the company
-     */
-    private String DEFAULT_COMPANY_CELLPHONE = "No cellphone";
+    private List<KeyWord> keyWordList;
+
     /**
      * the default area in float asked by the company
      */
@@ -81,29 +67,36 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * the default constructor with no params
      */
     public ExhibitionApplication() {
-        this.companyName = DEFAULT_COMPANY_NAME;
-        this.companyAddress = DEFAULT_COMPANY_ADDRESS;
-        this.companyCellphone = DEFAULT_COMPANY_CELLPHONE;
+
         this.exhibitorArea = DEFAULT_EXHIBITOR_AREA;
         this.numberInvitations = DEFAULT_NUMBER_INVITATION;
         this.productList = new ArrayList<Product>();
         this.demonstrationsList = new ArrayList<Demonstration>();
+        this.keyWordList = new ArrayList<KeyWord>();
+        this.exhibitor = new Exhibitor();
         this.evaluationsList = new ArrayList<Evaluation>();
         this.currentState = new ApplicationInitialState(this);
     }
 
     /**
-     * the constructor with parameters
+     * Constructs an instance of exhibition application receivong its
+     * parameters.
+     *
+     * @param exhibitorArea echibition area
+     * @param numberInvitations number of invites
+     * @param productList products list
+     * @param demonstrationsList demonstrations list
+     * @param evaluationsList evaluations list
+     * @param keyWordList keywords list
+     * @param applicationState aplication current state
      */
-    public ExhibitionApplication(String companyName, String companyAddress, String companyCellphone, float exhibitorArea,
-            int numberInvitations, List<Product> productList, List<Demonstration> demonstrationsList, List<Evaluation> evaluationsList, ApplicationState applicationState) {
-        this.companyName = companyName;
-        this.companyAddress = companyAddress;
-        this.companyCellphone = companyCellphone;
+    public ExhibitionApplication(float exhibitorArea, int numberInvitations, List<Product> productList, List<Demonstration> demonstrationsList, List<Evaluation> evaluationsList, List<KeyWord> keyWordList, ApplicationState applicationState) {
         this.exhibitorArea = exhibitorArea;
         this.numberInvitations = numberInvitations;
         this.productList = new ArrayList(productList);
         this.demonstrationsList = new ArrayList(demonstrationsList);
+        this.keyWordList = keyWordList;
+        this.exhibitor = new Exhibitor();
         this.evaluationsList = new ArrayList(evaluationsList);
         this.currentState = applicationState;
 
@@ -112,42 +105,17 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     /**
      * the copy constructor receiving instance of this class as parameter
      *
-     * @param exhApplication
+     * @param exhibitionApplication another exhibition
      */
-    public ExhibitionApplication(ExhibitionApplication exhApplication) {
-        this.companyName = exhApplication.companyName;
-        this.companyAddress = exhApplication.companyAddress;
-        this.companyCellphone = exhApplication.companyCellphone;
-        this.exhibitorArea = exhApplication.exhibitorArea;
-        this.numberInvitations = exhApplication.numberInvitations;
-        this.productList = new ArrayList(exhApplication.productList);
-        this.demonstrationsList = new ArrayList(exhApplication.demonstrationsList);
-        this.evaluationsList = new ArrayList(exhApplication.evaluationsList);
-        this.currentState = exhApplication.currentState;
-    }
-
-    /**
-     *
-     * @return the company name
-     */
-    public String getCompanyName() {
-        return this.companyName;
-    }
-
-    /**
-     *
-     * @return the company address
-     */
-    public String getCompanyAddress() {
-        return this.companyAddress;
-    }
-
-    /**
-     *
-     * @return the company cellphone
-     */
-    public String getCompanyCellphone() {
-        return this.companyCellphone;
+    public ExhibitionApplication(ExhibitionApplication exhibitionApplication) {
+        this.exhibitorArea = exhibitionApplication.exhibitorArea;
+        this.numberInvitations = exhibitionApplication.numberInvitations;
+        this.productList = new ArrayList(exhibitionApplication.productList);
+        this.demonstrationsList = new ArrayList(exhibitionApplication.demonstrationsList);
+        this.evaluationsList = new ArrayList(exhibitionApplication.evaluationsList);
+        this.keyWordList = new ArrayList(exhibitionApplication.keyWordList);
+        this.exhibitor = new Exhibitor();
+        this.currentState = exhibitionApplication.currentState;
     }
 
     /**
@@ -191,30 +159,16 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
+     * Returns the list of keywords.
      *
-     * @param companyName sets the company name
+     * @return the list of keywords
      */
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public List<KeyWord> getKeyWordList() {
+        return keyWordList;
     }
 
     /**
-     *
-     * @param companyAddress sets company address
-     */
-    public void setCompanyAddress(String companyAddress) {
-        this.companyAddress = companyAddress;
-    }
-
-    /**
-     *
-     * @param companyCellphone sets company cellphone
-     */
-    public void setCompanyCellphone(String companyCellphone) {
-        this.companyCellphone = companyCellphone;
-    }
-
-    /**
+     * Sets the area of the exhibitor
      *
      * @param exhibitorArea sets exhibitor area
      */
@@ -253,36 +207,85 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
-     * Returns the textual interpretation of the objects and attributes of this
-     * class
+     * Sets exhibitor
+     *
+     * @param exhibitor the exhibitor to copy
      */
-    @Override
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        s.append("ExhibitionApplication{");
-        s.append(String.format("%s%n", this.companyName));
-        s.append(String.format("%s%n", this.companyAddress));
-        s.append(String.format("%s%n", this.companyCellphone));
-        s.append(String.format("%f%n", this.exhibitorArea));
-        s.append(String.format("%d%n", this.numberInvitations));
-        for (Demonstration demo : demonstrationsList) {
-            s.append(String.format("%s%n", demo));
-        }
-        for (Product prod : productList) {
-            s.append(String.format("%s%n", prod));
-        }
-        for (Evaluation ev : evaluationsList) {
-            s.append(String.format("%s%n", ev));
-        }
-        s.append("}");
-        return s.toString();
+    public void setExhibitor(Exhibitor exhibitor) {
+        this.exhibitor = exhibitor;
     }
 
     /**
-     * Compares if this object is equal to otherObject.
+     * Creates a new Exhibitor.
+     */
+    public void newExhibitor(String companyName, String companyAddress, String companyCellphone) {
+        this.exhibitor = new Exhibitor();
+        this.exhibitor.setName(companyName);
+        this.exhibitor.setAddress(companyAddress);
+        this.exhibitor.setMobileNumber(companyName);
+    }
+
+    /**
+     * Creates new product.
      *
-     * @param otherObject other object to compare with
-     * @return true if it repreents the same object, false otherwise
+     * @param designation the product name
+     */
+    public void newProduct(String designation) {
+        Product product = new Product();
+        product.setDesignation(designation);
+
+        if (product.validate()) {
+            productList.add(product);
+
+        }
+    }
+
+    /**
+     * Adds a demonstration to the list if it doenst contain it
+     *
+     * @param demonstration the demonstration going to be added to the list
+     */
+    public void newDemonstration(Demonstration demonstration) {
+        if (!validateDemonstration(demonstration)) {
+            this.demonstrationsList.add(demonstration);
+        }
+    }
+
+    /**
+     * Creates a new Keyword and adds it to the list
+     *
+     * @param description the value of the keyword
+     */
+    public void newKeyword(String description) {
+        KeyWord keyWord = new KeyWord(description);
+        keyWord.validate();
+        keyWordList.add(keyWord);
+    }
+
+    /**
+     * Checks if this demonstration is already on the list
+     *
+     * @param demonstration the demonstration to check if exists on current list
+     * @return true the list already has this object
+     */
+    public boolean validateDemonstration(Demonstration demonstration) {
+        return (this.demonstrationsList.contains(demonstration));
+    }
+
+    /**
+     * Validates if the mininum parameters are filled with data
+     *
+     * @return true if all O.K.
+     */
+    public boolean validateApplication() {
+        return (this.exhibitor.validate() && this.demonstrationsList.isEmpty() && this.productList.isEmpty() && this.keyWordList.size() > 1 && this.keyWordList.size() <= 5 && this.numberInvitations != 0 && this.exhibitorArea != 0);
+    }
+
+    /**
+     * Equals method to verify if two objects are equal.
+     *
+     * @param otherObject the other exhibition application to compare to
+     * @return true if equal
      */
     @Override
     public boolean equals(Object otherObject) {
@@ -293,11 +296,35 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
             return false;
         }
         ExhibitionApplication otherExhibitionApplication = (ExhibitionApplication) otherObject;
+        return (this.exhibitor.equals(otherExhibitionApplication.exhibitor) && this.exhibitorArea == otherExhibitionApplication.exhibitorArea && this.numberInvitations == otherExhibitionApplication.numberInvitations && this.demonstrationsList.equals(otherExhibitionApplication.demonstrationsList) && this.productList.equals(otherExhibitionApplication.productList) && this.evaluationsList.equals(otherExhibitionApplication.evaluationsList) && this.keyWordList.equals(otherExhibitionApplication.keyWordList));
 
-        return this.companyName.equals(otherExhibitionApplication.companyName) && this.companyCellphone.equals(otherExhibitionApplication.companyCellphone)
-                && this.companyAddress.equals(otherExhibitionApplication.companyAddress) && this.demonstrationsList.equals(otherExhibitionApplication.demonstrationsList)
-                && this.evaluationsList.equals(otherExhibitionApplication.evaluationsList) && this.productList.equals(otherExhibitionApplication.productList)
-                && this.exhibitorArea == otherExhibitionApplication.exhibitorArea && this.numberInvitations == otherExhibitionApplication.numberInvitations;
+    }
+
+    /**
+     * Returns the textual interpretation of the objects and attributes of this
+     * class
+     */
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append("ExhibitionApplication{");
+        s.append(String.format("%s%n", this.exhibitor));
+        s.append(String.format("%f%n", this.exhibitorArea));
+        s.append(String.format("%d%n", this.numberInvitations));
+        for (Demonstration demonstration : demonstrationsList) {
+            s.append(String.format("%s%n", demonstration));
+        }
+        for (Product product : productList) {
+            s.append(String.format("%s%n", product));
+        }
+        for (Evaluation evaluation : evaluationsList) {
+            s.append(String.format("%s%n", evaluation));
+        }
+        for (KeyWord keyword : keyWordList) {
+            s.append(String.format("%s%n", keyword));
+        }
+        s.append("}");
+        return s.toString();
     }
 
     /**
@@ -317,7 +344,8 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @return true if it is valid, false otherwise
      */
     @Override
-    public boolean validateEvaluation(Evaluation evaluation) {
+    public boolean validateEvaluation(Evaluation evaluation
+    ) {
         return !this.evaluationsList.contains(evaluation) && evaluation.validate();
     }
 
@@ -328,7 +356,8 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @return true if it is registered with success, false otherwise
      */
     @Override
-    public boolean registerEvaluation(Evaluation evaluation) {
+    public boolean registerEvaluation(Evaluation evaluation
+    ) {
         return this.evaluationsList.add(evaluation);
     }
 
@@ -340,10 +369,8 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     @Override
     public boolean isValid() {
         //TODO review this
-        return this.companyAddress != null && this.companyCellphone != null
-                && this.companyName != null && this.currentState != null
-                && this.demonstrationsList != null && this.evaluationsList != null
-                && this.exhibitorArea > 0 && this.numberInvitations > 0
-                && this.productList != null;
+        return this.currentState != null && this.demonstrationsList != null
+                && this.evaluationsList != null && this.exhibitorArea > 0
+                && this.numberInvitations > 0 && this.productList != null;
     }
 }

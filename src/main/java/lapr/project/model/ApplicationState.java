@@ -146,42 +146,48 @@ public interface ApplicationState {
     /**
      * Changes the current application state to assigned stand state.
      *
-     * @return true if the state is changed to assigned stand state, false otherwise
+     * @return true if the state is changed to assigned stand state, false
+     * otherwise
      */
     boolean setAssignedStand();
 
     /**
      * Verify if the current application state is assigned stand state.
      *
-     * @return true if the application state is assigned stand state, false otherwise
+     * @return true if the application state is assigned stand state, false
+     * otherwise
      */
     boolean isAssignedStand();
 
     /**
      * Changes the current application state to confirmed stand state.
-     * 
-     * @return true if the state is changed to confirmed stand state, false otherwise
+     *
+     * @return true if the state is changed to confirmed stand state, false
+     * otherwise
      */
     boolean setConfirmedStand();
 
     /**
      * Verify if the current application state is confirmed stand state.
      *
-     * @return true if the application state is confirmed stand state, false otherwise
+     * @return true if the application state is confirmed stand state, false
+     * otherwise
      */
     boolean isConfirmedStand();
 
     /**
      * Changes the current application state to not confirmed stand state.
-     * 
-     * @return true if the state is changed to not confirmed stand state, false otherwise
+     *
+     * @return true if the state is changed to not confirmed stand state, false
+     * otherwise
      */
     boolean setNotConfirmedStand();
 
     /**
      * Verify if the current application state is not confirmed stand state.
      *
-     * @return true if the application state is not confirmed stand state, false otherwise
+     * @return true if the application state is not confirmed stand state, false
+     * otherwise
      */
     boolean isNotConfirmedStand();
 

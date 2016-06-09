@@ -23,6 +23,11 @@ public class ApplicationsList {
     private List<Application> applicationsList;
 
     /**
+     * A temporary exhibition application reference.
+     */
+    private ExhibitionApplication exhibitionApplication;
+
+    /**
      * Creates an instance of ApplicationsList with its default values.
      */
     public ApplicationsList() {
@@ -67,6 +72,16 @@ public class ApplicationsList {
         this.applicationsList = new ArrayList<>(applicationsList);
     }
 
+    /**
+     * Creates a new exhibition application.
+     * @return the new exhibition application
+     */
+    public  ExhibitionApplication newExhibitionApplication() {
+        this.exhibitionApplication = new ExhibitionApplication();
+        return this.exhibitionApplication;
+    }
+
+   
     /**
      * Return the textual representation of a ApplicationsList.
      *

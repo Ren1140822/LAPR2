@@ -58,28 +58,31 @@ public class Product {
         this.designation = designation;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Product{%ndesignation=%s%n", this.designation);
-    }
-
     /**
-     * Compares if this object is equal to otherObject.
-     *
-     * @param otherObject other object to compare with
-     * @return true if it repreents the same object, false otherwise
+     * Equals method to check if two objects are the same.
+     * @param otherObject the other object to compare to
+     * @return true of equal
      */
-    @Override
-    public boolean equals(Object otherObject) {
-        if (this == otherObject) {
+    public boolean equals(Object otherObject){
+           if (this == otherObject) {
             return true;
         }
         if (otherObject == null || this.getClass() != otherObject.getClass()) {
             return false;
         }
-        Product otherProduct = (Product) otherObject;
-
+        Product otherProduct = (Product)otherObject;
         return this.designation.equals(otherProduct.designation);
     }
+    
+    public boolean validate(){
+        return this.designation!=null;
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("Product{%ndesignation=%s%n", this.designation);
+    }
+
+
 
 }
