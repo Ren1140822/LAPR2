@@ -3,6 +3,16 @@
  */
 package lapr.project.model;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import lapr.project.utils.Exportable;
+import lapr.project.utils.Importable;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 /**
  * Represents a KeyWord.
  *
@@ -25,6 +35,15 @@ public class KeyWord {
     private static final String DEFAULT_DESCRIPTION = "No description";
 
     /**
+     * TODO: CHECK WHAT THIS DOES
+     */
+    private static final String ROOT_ELEMENT_NAME = "keyword";
+    /**
+     * TODO: CHECK WHAT THIS DOES
+     */
+    private static final String VALUE_ELEMENT_NAME = "value";
+
+    /**
      * Empty constructor.
      */
     public KeyWord() {
@@ -42,6 +61,7 @@ public class KeyWord {
 
     /**
      * Copy constructor receiving another KeyWord instance.
+     *
      * @param k the instance of KeyWord to copy.
      */
     public KeyWord(KeyWord k) {
@@ -57,6 +77,7 @@ public class KeyWord {
 
     /**
      * sets the value of description
+     *
      * @param description the value to set.
      */
     public void setDescription(String description) {
@@ -64,6 +85,37 @@ public class KeyWord {
         this.description = new String(description);
     }
 
+    
+    /**
+     * Validates the keyword.
+     * @return true if is valid
+     */
+    public boolean validate(){
+        return !this.description.isEmpty();
+    }
+    
+    
+    
+    
+     /**
+     * Equals method to check if two objects are the same.
+     * @param otherObject the other object to compare to
+     * @return true of equal
+     */
+    public boolean equals(Object otherObject){
+           if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+       KeyWord otherKeyword = (KeyWord)otherObject;
+        return this.description.equals(otherKeyword.description);
+    }
+    
+  
+    
+    
     /**
      * Returns the textual interpretation of the objects and attributes of this
      * class

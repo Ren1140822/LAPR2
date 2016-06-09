@@ -5,6 +5,7 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import lapr.project.model.application.ApplicationInitialState;
 
 /**
  * Represents an demonstration application
@@ -48,6 +49,11 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     private List<Evaluation> evaluationsList;
 
     /**
+     * The state of the application.
+     */
+    private ApplicationState currentState;
+
+    /**
      * the default company name of this application
      */
     private String DEFAULT_COMPANY_NAME = "No name";
@@ -79,6 +85,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         this.numberInvitations = DEFAULT_NUMBER_INVITATION;
         this.productList = new ArrayList<Product>();
         this.evaluationsList = new ArrayList<Evaluation>();
+        this.currentState = new ApplicationInitialState(this);
     }
 
     /**
@@ -89,24 +96,27 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      * @param companyCellphone
      * @param exhibitorArea
      * @param numberInvitations
+     * @param applicationState
      * @param productList
      * @param evaluationsList
      */
     public DemonstrationApplication(String companyName, String companyAddress, String companyCellphone, float exhibitorArea,
-            int numberInvitations, List<Product> productList, List<Evaluation> evaluationsList) {
+            int numberInvitations, List<Product> productList, List<Evaluation> evaluationsList, ApplicationState applicationState) {
         this.companyName = companyName;
         this.companyAddress = companyAddress;
         this.companyCellphone = companyCellphone;
         this.exhibitorArea = exhibitorArea;
         this.numberInvitations = numberInvitations;
         this.productList = new ArrayList(productList);
-
         this.evaluationsList = new ArrayList(evaluationsList);
+        this.currentState = applicationState;
 
     }
 
     /**
      * the copy constructor receiving instance of this class as parameter
+     * 
+     * @param exhApplication
      */
     public DemonstrationApplication(DemonstrationApplication exhApplication) {
         this.companyName = exhApplication.companyName;
@@ -116,6 +126,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         this.numberInvitations = exhApplication.numberInvitations;
         this.productList = new ArrayList(exhApplication.productList);
         this.evaluationsList = new ArrayList(exhApplication.evaluationsList);
+        this.currentState = exhApplication.currentState;
     }
 
     /**
@@ -170,6 +181,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @return the applications list
      */
+    @Override
     public List<Evaluation> getEvaluationsList() {
         return this.evaluationsList;
     }
@@ -304,5 +316,19 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     @Override
     public boolean registerEvaluation(Evaluation evaluation) {
         return this.evaluationsList.add(evaluation);
+    }
+
+    @Override
+    public void setState(ApplicationState newState) {
+        this.currentState = newState;
+    }
+
+    @Override
+    public boolean isValid() {
+        //TODO review this
+        return this.companyAddress != null && this.companyCellphone != null
+                && this.companyName != null && this.currentState != null
+                && this.evaluationsList != null && this.exhibitorArea > 0
+                && this.numberInvitations > 0 && this.productList != null;
     }
 }

@@ -361,4 +361,24 @@ public class ExhibitionClosedApplicationState implements ExhibitionState {
         return true;
     }
 
+    /**
+     * Sets exhibiton with attributed stands confirmed
+     *
+     * @return if its possible to set this state
+     */
+    @Override
+    public boolean setExhibitionAttributedStandsConfirmed() {
+        return false;
+    }
+
+    /**
+     * Returns if the exhibition state is this state.
+     *
+     * @return true if this instance's state is this one
+     */
+    @Override
+    public boolean isExhibitionAttributedStandsConfirmed() {
+        return false;
+    }
+
 }

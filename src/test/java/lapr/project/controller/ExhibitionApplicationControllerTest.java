@@ -5,11 +5,13 @@ package lapr.project.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import lapr.project.model.Demonstration;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
 import lapr.project.model.Exhibitor;
+import lapr.project.model.KeyWord;
 import lapr.project.model.Product;
 import lapr.project.model.exhibition.ExhibitionClosedApplicationState;
 import lapr.project.model.exhibition.ExhibitionOpenApplicationState;
@@ -132,6 +134,88 @@ public class ExhibitionApplicationControllerTest {
         Product result = instance.getExhibitionApplication().getProductList().get(0);
         Product productExpected = new Product(designation);
         assertEquals(result, productExpected);
+
+    }
+
+    /**
+     * Test of newDemonstrationApplication method, of class
+     * ExhibitionApplicationController.
+     */
+    @Test
+    public void testNewDemonstrationApplication() {
+        System.out.println("newDemonstrationApplication");
+        Demonstration demonstration = new Demonstration();
+        ExhibitionApplicationController instance = controller;
+        Exhibition exhibition = new Exhibition();
+        instance.newApplication(exhibition);
+        instance.newDemonstrationApplication(demonstration);
+        Demonstration instanceDemonstration = instance.getExhibitionApplication().getDemonstrationsList().get(0);
+        instance.getExhibitionApplication().getDemonstrationsList().add(new Demonstration(demonstration));
+        assertEquals(instanceDemonstration, instance.getExhibitionApplication().getDemonstrationsList().get(1));
+
+    }
+
+    /**
+     * Test of newKeyword method, of class ExhibitionApplicationController.
+     */
+    @Test
+    public void testNewKeyword() {
+        System.out.println("newKeyword");
+        String description = "Test";
+        ExhibitionApplicationController instance = controller;
+        Exhibition exhibition = new Exhibition();
+        instance.newApplication(exhibition);
+        instance.newKeyword(description);
+        KeyWord keyword = new KeyWord(description);
+        assertEquals(instance.getExhibitionApplication().getKeyWordList().get(0), keyword);
+    }
+
+    /**
+     * Test of validateExhibitionApplication method, of class
+     * ExhibitionApplicationController.
+     */
+    @Test
+    public void testValidateExhibitionApplication() {
+        System.out.println("validateExhibitionApplication");
+        ExhibitionApplicationController instance = controller;
+        Exhibition exhibition = new Exhibition();
+        instance.newApplication(exhibition);
+        String companyName = "Test";
+        String companyAddress = "Test";
+        String companyCellphone = "Test";
+        float exhibitorArea = 0.0F;
+        int numberInvitations = 0;
+        instance.setData(companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
+        instance.newApplication(exhibition);
+        instance.newKeyword("test");
+        instance.newKeyword("test2");
+     
+        boolean result = instance.validateExhibitionApplication();
+        assertTrue(result);
+
+    }
+      /**
+     * Test of validateExhibitionApplication method, of class
+     * ExhibitionApplicationController.
+     */
+    @Test
+    public void testValidateExhibitionApplication2() {
+        System.out.println("validateExhibitionApplication");
+        ExhibitionApplicationController instance = controller;
+        Exhibition exhibition = new Exhibition();
+        instance.newApplication(exhibition);
+        String companyName = "Test";
+        String companyAddress = "Test";
+        String companyCellphone = "Test";
+        float exhibitorArea = 0.0F;
+        int numberInvitations = 0;
+        instance.setData(companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
+        instance.newApplication(exhibition);
+        instance.newKeyword("test");
+       //ONLY ONE KEYWORD
+     
+        boolean result = instance.validateExhibitionApplication();
+        assertFalse(result);
 
     }
 

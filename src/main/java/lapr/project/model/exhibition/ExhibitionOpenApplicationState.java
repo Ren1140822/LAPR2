@@ -332,4 +332,14 @@ public class ExhibitionOpenApplicationState implements ExhibitionState {
         return true;
     }
 
+    @Override
+    public boolean setExhibitionAttributedStandsConfirmed() {
+        return false;
+    }
+
+    @Override
+    public boolean isExhibitionAttributedStandsConfirmed() {
+       return false;
+    }
+
 }
