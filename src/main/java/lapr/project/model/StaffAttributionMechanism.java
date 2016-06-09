@@ -22,7 +22,14 @@ public interface StaffAttributionMechanism {
      * @param exhibition exhibition
      * @return returns list of attributions of the exhibition
      */
-    public abstract List<StaffAttribution> getAttributionsList(Exhibition exhibition);
+    List<StaffAttribution> getAttributionsList(Exhibition exhibition);
+    
+    /**
+     * 
+     * @param submittable
+     * @return 
+     */
+    List<Assingnable> toAssign(Submittable submittable);
 
     /**
      * Gets the description of the mechanism

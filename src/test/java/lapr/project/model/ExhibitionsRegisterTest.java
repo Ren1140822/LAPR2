@@ -115,7 +115,7 @@ public class ExhibitionsRegisterTest {
         assertTrue(result);
     }
     
-
+// // TODO : Implement when states are all defined.
 //    /**
 //     * Test of getSubmittablesInChangedConflictsByOrganizer method, of class ExhibitionsRegister.
 //     */
