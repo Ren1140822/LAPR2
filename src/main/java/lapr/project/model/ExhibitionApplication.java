@@ -5,6 +5,7 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import lapr.project.model.application.ApplicationInitialState;
 
 /**
  * Represents an exhibition application
@@ -51,6 +52,11 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     private List<Evaluation> evaluationsList;
 
     /**
+     * The state of the application.
+     */
+    private ApplicationState currentState;
+
+    /**
      * the default company name of this application
      */
     private String DEFAULT_COMPANY_NAME = "No name";
@@ -83,13 +89,14 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.productList = new ArrayList<Product>();
         this.demonstrationsList = new ArrayList<Demonstration>();
         this.evaluationsList = new ArrayList<Evaluation>();
+        this.currentState = new ApplicationInitialState(this);
     }
 
     /**
      * the constructor with parameters
      */
     public ExhibitionApplication(String companyName, String companyAddress, String companyCellphone, float exhibitorArea,
-            int numberInvitations, List<Product> productList, List<Demonstration> demonstrationsList, List<Evaluation> evaluationsList) {
+            int numberInvitations, List<Product> productList, List<Demonstration> demonstrationsList, List<Evaluation> evaluationsList, ApplicationState applicationState) {
         this.companyName = companyName;
         this.companyAddress = companyAddress;
         this.companyCellphone = companyCellphone;
@@ -98,6 +105,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.productList = new ArrayList(productList);
         this.demonstrationsList = new ArrayList(demonstrationsList);
         this.evaluationsList = new ArrayList(evaluationsList);
+        this.currentState = applicationState;
 
     }
 
@@ -115,6 +123,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.productList = new ArrayList(exhApplication.productList);
         this.demonstrationsList = new ArrayList(exhApplication.demonstrationsList);
         this.evaluationsList = new ArrayList(exhApplication.evaluationsList);
+        this.currentState = exhApplication.currentState;
     }
 
     /**
@@ -177,7 +186,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @return the evaluation list
      */
-    public List<Evaluation> getApplicationEvaluationsList() {
+    public List<Evaluation> getEvaluationsList() {
         return this.evaluationsList;
     }
 
@@ -239,7 +248,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     /**
      * @param evaluationsList sets the evaluation's list
      */
-    public void setApplicationEvaluationsList(List<Evaluation> evaluationsList) {
+    public void setEvaluationsList(List<Evaluation> evaluationsList) {
         this.evaluationsList = new ArrayList(evaluationsList);
     }
 
@@ -321,5 +330,20 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     @Override
     public boolean registerEvaluation(Evaluation evaluation) {
         return this.evaluationsList.add(evaluation);
+    }
+
+    @Override
+    public void setState(ApplicationState newState) {
+        this.currentState = newState;
+    }
+
+    @Override
+    public boolean isValid() {
+        //TODO review this
+        return this.companyAddress != null && this.companyCellphone != null
+                && this.companyName != null && this.currentState != null
+                && this.demonstrationsList != null && this.evaluationsList != null
+                && this.exhibitorArea > 0 && this.numberInvitations > 0
+                && this.productList != null;
     }
 }
