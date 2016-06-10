@@ -7,7 +7,8 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionState;
 
 /**
- * Represents the closed applications state of a exhibition.
+ * Represents the defined staff & not defined demonstrations state of a
+ * exhibition.
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
@@ -15,7 +16,7 @@ import lapr.project.model.ExhibitionState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ExhibitionClosedApplicationsState implements ExhibitionState {
+public class ExhibitionStaffWithoutDemosState implements ExhibitionState {
 
     /**
      * The exhibition to change state.
@@ -23,11 +24,11 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
     private final Exhibition exhibition;
 
     /**
-     * Default constructor of an closed applications state.
+     * Default constructor of an exhibition's staffWithoutDemos state.
      *
      * @param exhibition Exhibition to change state
      */
-    public ExhibitionClosedApplicationsState(Exhibition exhibition) {
+    public ExhibitionStaffWithoutDemosState(Exhibition exhibition) {
 
         this.exhibition = exhibition;
     }
@@ -50,17 +51,25 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
 
     @Override
     public boolean setStaffDefined() {
-        return false;
+
+        return true;
     }
 
     @Override
     public boolean isStaffDefined() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean setDemonstrationsDefined() {
-        return false;
+
+        if (validate()) {
+
+            this.exhibition.setState(new ExhibitionCompleteState(this.exhibition));
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -80,23 +89,17 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
 
     @Override
     public boolean setClosedApplications() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isClosedApplications() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean setDetectedConficts() {
-        if (validate()) {
-            // TODO : Implement next state
-//            this.exhibition.setState(this);
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     @Override
@@ -147,8 +150,7 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
     @Override
     public boolean validate() {
 
-        //TODO
-        return true;
+        return !exhibition.getState().isDemonstrationsDefined()
+                && exhibition.getState().isStaffDefined();
     }
-
 }

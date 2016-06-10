@@ -6,6 +6,7 @@ package lapr.project.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import lapr.project.model.exhibition.timers.ChangeToOpenApplications;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -50,12 +51,12 @@ public class ExhibitionTest {
     @Test
     public void testValidateTrue() {
         System.out.println("validate");
-        
+
         List<Organizer> organizersList = new ArrayList<>();
         organizersList.add(new Organizer());
         organizersList.add(new Organizer());
         this.exhibition.setOrganizersList(new OrganizersList(organizersList));
-        
+
         boolean result = this.exhibition.validate();
         assertTrue(result);
     }

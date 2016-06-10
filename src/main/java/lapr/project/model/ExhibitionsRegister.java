@@ -112,8 +112,9 @@ public class ExhibitionsRegister {
      */
     public boolean registerExhibition(Exhibition exhibition) {
 
+        exhibition.createTimers();
         
-        return (exhibition.setCreated() && validateExhibition(exhibition)) ? addExhibition(exhibition) : false;
+        return (exhibition.setCreatedState() && validateExhibition(exhibition)) ? addExhibition(exhibition) : false;
     }
 
     /**

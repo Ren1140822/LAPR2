@@ -1,25 +1,25 @@
 /**
  * Package location for Model concept tests.
  */
-package lapr.project.model.exhibition;
+package lapr.project.model.exhibition.timers;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import lapr.project.model.Demonstration;
 import lapr.project.model.Exhibition;
-import lapr.project.model.ExhibitionState;
 import lapr.project.model.Organizer;
 import lapr.project.model.OrganizersList;
 import lapr.project.model.Place;
 import lapr.project.model.StaffAttributionsList;
 import lapr.project.model.StaffList;
+import lapr.project.model.exhibition.ExhibitionDetectedConflictsState;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Tests a the initial state class.
+ * Tests change to changed conflicts timer task
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
@@ -27,8 +27,11 @@ import static org.junit.Assert.*;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ExhibitionInicialStateTest {
+public class ChangeToChangedConflictsTest {
 
+    /**
+     * exhibition to test.
+     */
     private Exhibition exhibition;
 
     @Before
@@ -46,39 +49,19 @@ public class ExhibitionInicialStateTest {
     }
 
     /**
-     * Test of setCreated method, of class ExhibitionInicialState, returns
-     * false.
+     * Test of run method, of class ChangedConflicts.
      */
     @Test
-    public void testSetCreatedReturnsFalse() {
-        System.out.println("setCreated");
-        Exhibition invalidExhibition = new Exhibition();
-        ExhibitionInicialState instance = new ExhibitionInicialState(invalidExhibition);
-        boolean result = instance.setCreated();
-        assertFalse(result);
-    }
+    public void testRun() {
+        System.out.println("run");
 
-    /**
-     * Test of setCreated method, of class ExhibitionInicialState, returns true.
-     */
-    @Test
-    public void testSetCreatedReturnsTrue() {
-        System.out.println("setCreated");
-        ExhibitionInicialState instance = new ExhibitionInicialState(this.exhibition);
-        boolean result = instance.setCreated();
+        this.exhibition.setState(new ExhibitionDetectedConflictsState(exhibition));
+
+        ChangeToChangedConflicts instance = new ChangeToChangedConflicts(exhibition);
+        instance.run();
+
+        boolean result = exhibition.getState().isChangedConflitcts();
         assertTrue(result);
     }
 
-    /**
-     * Test of setCreated method, of class ExhibitionInicialState, changes state.
-     */
-    @Test
-    public void testSetCreated() {
-        System.out.println("setCreated");
-        ExhibitionInicialState inicialState = new ExhibitionInicialState(this.exhibition);
-        inicialState.setCreated();
-        
-        ExhibitionState result = this.exhibition.getState();
-        assertTrue(result.isCreated());
-    }
 }

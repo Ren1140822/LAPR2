@@ -40,7 +40,7 @@ public class ExhibitionCreatedState implements ExhibitionState {
     @Override
     public boolean setCreated() {
 
-        return false;
+        return true;
     }
 
     @Override
@@ -52,8 +52,8 @@ public class ExhibitionCreatedState implements ExhibitionState {
     public boolean setStaffDefined() {
 
         if (validate()) {
-            // TODO : Implement next state
-//            this.exhibition.setState(this);
+            
+            this.exhibition.setState(new ExhibitionStaffWithoutDemosState(this.exhibition));
             return true;
         } else {
             return false;
@@ -161,7 +161,8 @@ public class ExhibitionCreatedState implements ExhibitionState {
     public boolean validate() {
 
         // Verifies if at least one Staff Member is defined.
-        return !this.exhibition.getStaffList().getStaffList().isEmpty();
+        return !this.exhibition.getStaffList().getStaffList().isEmpty()
+                && this.exhibition.getState().isCreated();
     }
 
     /**
@@ -172,6 +173,7 @@ public class ExhibitionCreatedState implements ExhibitionState {
     public boolean validateDemos() {
 
         // Verifies if at least one Staff Member is defined.
-        return !this.exhibition.getDemonstrationsList().getDemonstrationsList().isEmpty();
+        return !this.exhibition.getDemonstrationsList().getDemonstrationsList().isEmpty() 
+                && this.exhibition.getState().isCreated();
     }
 }

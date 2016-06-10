@@ -7,7 +7,7 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionState;
 
 /**
- * Represents the closed applications state of a exhibition.
+ * Represents the detected conflicts state of a exhibition.
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
@@ -15,7 +15,7 @@ import lapr.project.model.ExhibitionState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ExhibitionClosedApplicationsState implements ExhibitionState {
+public class ExhibitionDetectedConflictsState implements ExhibitionState {
 
     /**
      * The exhibition to change state.
@@ -23,11 +23,11 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
     private final Exhibition exhibition;
 
     /**
-     * Default constructor of an closed applications state.
+     * Default constructor of an exhibition's detected conflict state.
      *
      * @param exhibition Exhibition to change state
      */
-    public ExhibitionClosedApplicationsState(Exhibition exhibition) {
+    public ExhibitionDetectedConflictsState(Exhibition exhibition) {
 
         this.exhibition = exhibition;
     }
@@ -80,33 +80,33 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
 
     @Override
     public boolean setClosedApplications() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isClosedApplications() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean setDetectedConficts() {
-        if (validate()) {
-            // TODO : Implement next state
-//            this.exhibition.setState(this);
-            return true;
-        } else {
-            return false;
-        }
+        return true;
     }
 
     @Override
     public boolean isDetectedConficts() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean setChangedConflitcts() {
-        return false;
+        
+        if (validate()) {
+            this.exhibition.setState(new ExhibitionChangedConflictsState(exhibition));
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -147,8 +147,7 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
     @Override
     public boolean validate() {
 
-        //TODO
-        return true;
+        return this.exhibition.getState().isDetectedConficts();
     }
 
 }
