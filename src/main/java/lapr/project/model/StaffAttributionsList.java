@@ -72,6 +72,27 @@ public class StaffAttributionsList {
         
         return staffAtributionsApplicationsInEvaluationBystaff;
     }
+    
+    /**
+     * Creates new attribution.
+     *
+     * @param application application.
+     * @param staffMember staffMember to evaluate
+     * @return 
+     */
+    public StaffAttribution newAttribution(Application application, StaffMember staffMember) {
+
+        return new StaffAttribution(application, staffMember);
+    }
+    /**
+     * Verifies if the staffAttribution is valid
+     *
+     * @param staffAttribution staffAttribution being verified
+     * @return true if valid, false otherwise
+     */
+    public boolean validateAttribution(StaffAttribution staffAttribution){
+        return (!this.staffAttributionsList.contains(staffAttribution));
+    }
 
     /**
      * Return the textual representation of a staff attribution list.

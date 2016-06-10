@@ -33,6 +33,11 @@ public class Demonstration implements Submittable {
      * The demonstration current state.
      */
     private DemonstrationState currentDemonstrationState;
+    
+    /**
+     * The demonstration applications list
+     */
+    private ApplicationsList applicationsList;
 
     /**
      * the default value of the descriptive text ( when using no args
@@ -80,6 +85,7 @@ public class Demonstration implements Submittable {
      *
      * @return staff list
      */
+    @Override
     public StaffList getStaffList() {
         return staffList;
     }
@@ -157,6 +163,16 @@ public class Demonstration implements Submittable {
     @Override
     public StaffAttributionsList getStaffAttributionsList() {
         return new StaffAttributionsList(this.staffAttributionsList);
+    }
+
+    /**
+     * Returns the applications list of the demonstration.
+     * 
+     * @return applications list.
+     */
+    @Override
+    public ApplicationsList getApplicationsList() {
+        return new ApplicationsList(this.applicationsList);
     }
 
 }

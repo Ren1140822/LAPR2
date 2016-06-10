@@ -15,9 +15,24 @@ package lapr.project.model;
 public interface Submittable {
 
     /**
-     * Returns the staff attribtions list.
+     * Returns the staff attributions list.
      *
-     * @return staff attribtions list
+     * @return staff attributions list
      */
     StaffAttributionsList getStaffAttributionsList();
+
+    /**
+     * Return the applications list.
+     *
+     * @return applications list
+     */
+    ApplicationsList getApplicationsList();
+
+    /**
+     * Returns the staff list
+     *
+     * @return staff list
+     */
+    StaffList getStaffList();
+
 }

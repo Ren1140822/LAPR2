@@ -16,25 +16,20 @@ import java.util.List;
  */
 public interface StaffAttributionMechanism {
 
-    /**
-     * Creates attributions list
-     *
-     * @param exhibition exhibition
-     * @return returns list of attributions of the exhibition
-     */
-    List<StaffAttribution> getAttributionsList(Exhibition exhibition);
+    
     
     /**
+     * Creates attributions list
      * 
      * @param submittable
-     * @return 
+     * @return attributionsList
      */
-    List<Assingnable> toAssign(Submittable submittable);
+    List<StaffAttribution> toAssign(Submittable submittable);
 
     /**
      * Gets the description of the mechanism
      *
      * @return mechanism's description
      */
-    public String getDescription();
+    String getDescription();
 }

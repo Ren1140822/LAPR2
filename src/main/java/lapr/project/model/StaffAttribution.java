@@ -17,7 +17,7 @@ public class StaffAttribution {
     /**
      * The staffAttribution's application.
      */
-    private ExhibitionApplication application;
+    private Application application;
 
     /**
      * The staffAttribution's staffMember.
@@ -38,9 +38,17 @@ public class StaffAttribution {
      * @param application staffAttribution's application
      * @param staffMember staffAttribution's staffMember
      */
-    public StaffAttribution(ExhibitionApplication application, StaffMember staffMember) {
-        this.application = new ExhibitionApplication(application);
-        this.staffMember = new StaffMember(staffMember);
+    public StaffAttribution(Application application, StaffMember staffMember) {
+        if (application instanceof ExhibitionApplication) {
+            ExhibitionApplication exhibitionApplication = (ExhibitionApplication) application;
+            this.application = new ExhibitionApplication(exhibitionApplication);
+            this.staffMember = new StaffMember(staffMember);
+        }
+        if (application instanceof DemonstrationApplication) {
+            DemonstrationApplication demonstrationApplication = (DemonstrationApplication) application;
+            this.application = new DemonstrationApplication(demonstrationApplication);
+            this.staffMember = new StaffMember(staffMember);
+        }
     }
 
     /**
@@ -49,8 +57,17 @@ public class StaffAttribution {
      * @param staffAttribution staff attribution
      */
     public StaffAttribution(StaffAttribution staffAttribution) {
-        this.application = new ExhibitionApplication(staffAttribution.application);
-        this.staffMember = new StaffMember(staffAttribution.staffMember);
+        if (staffAttribution.getApplication() instanceof ExhibitionApplication) {
+            ExhibitionApplication exhibitionApplication = (ExhibitionApplication) staffAttribution.getApplication();
+            this.application = new ExhibitionApplication(exhibitionApplication);
+            this.staffMember = new StaffMember(staffAttribution.staffMember);
+        }
+        if (staffAttribution.getApplication() instanceof DemonstrationApplication) {
+            DemonstrationApplication demonstrationApplication = (DemonstrationApplication) staffAttribution.getApplication();
+            this.application = new DemonstrationApplication(demonstrationApplication);
+            this.staffMember = new StaffMember(staffAttribution.staffMember);
+        }
+
     }
 
     /**
@@ -58,7 +75,7 @@ public class StaffAttribution {
      *
      * @return staffAttribution application
      */
-    public ExhibitionApplication getApplication() {
+    public Application getApplication() {
         return this.application;
     }
 
@@ -67,7 +84,7 @@ public class StaffAttribution {
      *
      * @param application the staffAttribution application to set
      */
-    public void setApplication(ExhibitionApplication application) {
+    public void setApplication(Application application) {
         this.application = application;
     }
 
