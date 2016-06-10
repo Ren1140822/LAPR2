@@ -7,7 +7,7 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionState;
 
 /**
- * Represents the closed applications state of a exhibition.
+ * Represents the applications in decision state of a exhibition.
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
@@ -15,7 +15,7 @@ import lapr.project.model.ExhibitionState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ExhibitionClosedApplicationsState implements ExhibitionState {
+public class ExhibitionApplicationsInDecisionState implements ExhibitionState {
 
     /**
      * The exhibition to change state.
@@ -23,11 +23,11 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
     private final Exhibition exhibition;
 
     /**
-     * Default constructor of an closed applications state.
+     * Default constructor of an exhibition's applications in decision state.
      *
      * @param exhibition Exhibition to change state
      */
-    public ExhibitionClosedApplicationsState(Exhibition exhibition) {
+    public ExhibitionApplicationsInDecisionState(Exhibition exhibition) {
 
         this.exhibition = exhibition;
     }
@@ -80,23 +80,17 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
 
     @Override
     public boolean setClosedApplications() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isClosedApplications() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean setDetectedConficts() {
-        if (validate()) {
-            // TODO : Implement next state
-//            this.exhibition.setState(this);
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     @Override
@@ -126,17 +120,25 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
 
     @Override
     public boolean setApplicationsInDecision() {
-        return false;
+        
+        return true;
     }
 
     @Override
     public boolean isApplicationsInDecision() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean setApplicationsDecided() {
-        return false;
+        
+        if (validate()) {
+            // TODO : Implement next state
+//            this.exhibition.setState(this);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -147,8 +149,7 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
     @Override
     public boolean validate() {
 
-        //TODO
-        return true;
+        return this.exhibition.getState().isApplicationsInDecision();
     }
 
 }
