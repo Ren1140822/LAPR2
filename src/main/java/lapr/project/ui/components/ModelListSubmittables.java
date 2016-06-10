@@ -25,14 +25,13 @@ public class ModelListSubmittables extends AbstractListModel {
 
     /**
      * Constructs a model list for submittables.
-     * 
+     *
      * @param submittablesList submittables list
      */
     public ModelListSubmittables(List<Submittable> submittablesList) {
         this.submittablesList = submittablesList;
     }
 
-    
     @Override
     public int getSize() {
         return this.submittablesList.size();
