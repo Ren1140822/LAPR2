@@ -35,4 +35,11 @@ public interface Submittable {
      */
     StaffList getStaffList();
 
+    /**
+     * Set staff attributions list
+     *
+     * @param staffAttributionsList the new staff attributions list
+     */
+    void setStaffAttributionsList(StaffAttributionsList staffAttributionsList);
+
 }

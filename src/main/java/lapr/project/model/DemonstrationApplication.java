@@ -351,4 +351,13 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
                 && this.evaluationsList != null && this.exhibitorArea > 0
                 && this.numberInvitations > 0 && this.productList != null;
     }
+
+    /**
+     * Set the current state of the demonstration application to
+     * inEvaluationState
+     */
+    @Override
+    public void setInEvaluation() {
+        this.currentState.setInEvaluation();
+    }
 }

@@ -28,12 +28,12 @@ public class Demonstration implements Submittable {
      * Demonstration's staff attributions list.
      */
     private StaffAttributionsList staffAttributionsList;
-    
+
     /**
      * The demonstration current state.
      */
     private DemonstrationState currentDemonstrationState;
-    
+
     /**
      * The demonstration applications list
      */
@@ -98,7 +98,7 @@ public class Demonstration implements Submittable {
     public void setStaffList(StaffList staffList) {
         this.staffList = staffList;
     }
-    
+
     /**
      * Returns the current demonstration state.
      *
@@ -116,10 +116,10 @@ public class Demonstration implements Submittable {
     public void setCurrentDemonstrationState(DemonstrationState currentDemonstrationState) {
         this.currentDemonstrationState = currentDemonstrationState;
     }
-    
-     /**
-     *  Validates the demonstration.
-     * 
+
+    /**
+     * Validates the demonstration.
+     *
      * @return true if the description is valid, false otherwise
      */
     boolean validate() {
@@ -128,20 +128,22 @@ public class Demonstration implements Submittable {
 
     /**
      * Equals method to check if two objects are the same
+     *
      * @param otherObject the demonstration to compare to
      * @return true if equal
      */
-    public boolean equals(Object otherObject){
-        
+    public boolean equals(Object otherObject) {
+
         if (this == otherObject) {
             return true;
         }
         if (otherObject == null || getClass() != otherObject.getClass()) {
             return false;
         }
-        Demonstration otherDemonstration = (Demonstration)otherObject;
+        Demonstration otherDemonstration = (Demonstration) otherObject;
         return (this.description.equals(otherDemonstration.description));
     }
+
     /**
      * Returns the textual representation of the attributes of this class.
      */
@@ -167,12 +169,22 @@ public class Demonstration implements Submittable {
 
     /**
      * Returns the applications list of the demonstration.
-     * 
+     *
      * @return applications list.
      */
     @Override
     public ApplicationsList getApplicationsList() {
         return new ApplicationsList(this.applicationsList);
+    }
+
+    /**
+     * Set the staff attributions list
+     *
+     * @param staffAttributionsList the news staff attributions list
+     */
+    @Override
+    public void setStaffAttributionsList(StaffAttributionsList staffAttributionsList) {
+        this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
     }
 
 }

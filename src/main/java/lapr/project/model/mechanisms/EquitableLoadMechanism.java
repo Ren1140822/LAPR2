@@ -31,8 +31,8 @@ public class EquitableLoadMechanism implements StaffAttributionMechanism {
     private static final String MECHANISM_DESCRIPTION = "Equitable Load Mechanism";
 
     /**
-     * Creates a list of attributions 
-     * 
+     * Creates a list of attributions
+     *
      * @param submittable
      * @return attributionsList
      */
@@ -55,7 +55,7 @@ public class EquitableLoadMechanism implements StaffAttributionMechanism {
             if (countAssigneds > staffList.size() - 1) {
                 countAssigneds = 0;
             }
-            StaffAttribution attribution = staffAttributionsList.newAttribution((Assingnable)application, staffList.get(countAssigneds));
+            StaffAttribution attribution = staffAttributionsList.newAttribution((Assingnable) application, staffList.get(countAssigneds));
             countAssigneds++;
 
             if (staffAttributionsList.validateAttribution(attribution)) {
@@ -67,8 +67,8 @@ public class EquitableLoadMechanism implements StaffAttributionMechanism {
 
     /**
      * Returns Mechanism's description
-     * 
-     * @return 
+     *
+     * @return
      */
     @Override
     public String getDescription() {

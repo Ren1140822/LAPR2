@@ -20,4 +20,9 @@ public interface Assingnable {
      * @return application current state
      */
     ApplicationState getCurrentState();
+
+    /**
+     * set assignable in evaluation state
+     */
+    void setInEvaluation();
 }

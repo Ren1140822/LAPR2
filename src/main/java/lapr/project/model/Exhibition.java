@@ -3,7 +3,6 @@
  */
 package lapr.project.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import lapr.project.model.exhibition.ExhibitionInicialState;
@@ -470,8 +469,9 @@ public class Exhibition implements Submittable {
      * @param staffAttributionsList the Exhibition's staff attributions list to
      * set
      */
+    @Override
     public void setStaffAttributionsList(StaffAttributionsList staffAttributionsList) {
-        this.staffAttributionsList = staffAttributionsList;
+        this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
     }
 
     /**
