@@ -17,7 +17,8 @@ public class StaffAttribution {
     /**
      * The staffAttribution's application.
      */
-    private Application application;
+
+    private Assingnable application;
 
     /**
      * The staffAttribution's staffMember.
@@ -38,17 +39,10 @@ public class StaffAttribution {
      * @param application staffAttribution's application
      * @param staffMember staffAttribution's staffMember
      */
-    public StaffAttribution(Application application, StaffMember staffMember) {
-        if (application instanceof ExhibitionApplication) {
-            ExhibitionApplication exhibitionApplication = (ExhibitionApplication) application;
-            this.application = new ExhibitionApplication(exhibitionApplication);
-            this.staffMember = new StaffMember(staffMember);
-        }
-        if (application instanceof DemonstrationApplication) {
-            DemonstrationApplication demonstrationApplication = (DemonstrationApplication) application;
-            this.application = new DemonstrationApplication(demonstrationApplication);
-            this.staffMember = new StaffMember(staffMember);
-        }
+    public StaffAttribution(Assingnable application, StaffMember staffMember) {
+        this.application = application;
+        this.staffMember = new StaffMember(staffMember);
+
     }
 
     /**
@@ -57,17 +51,8 @@ public class StaffAttribution {
      * @param staffAttribution staff attribution
      */
     public StaffAttribution(StaffAttribution staffAttribution) {
-        if (staffAttribution.getApplication() instanceof ExhibitionApplication) {
-            ExhibitionApplication exhibitionApplication = (ExhibitionApplication) staffAttribution.getApplication();
-            this.application = new ExhibitionApplication(exhibitionApplication);
-            this.staffMember = new StaffMember(staffAttribution.staffMember);
-        }
-        if (staffAttribution.getApplication() instanceof DemonstrationApplication) {
-            DemonstrationApplication demonstrationApplication = (DemonstrationApplication) staffAttribution.getApplication();
-            this.application = new DemonstrationApplication(demonstrationApplication);
-            this.staffMember = new StaffMember(staffAttribution.staffMember);
-        }
-
+        this.application = staffAttribution.application;
+        this.staffMember = new StaffMember(staffAttribution.staffMember);
     }
 
     /**
@@ -75,7 +60,7 @@ public class StaffAttribution {
      *
      * @return staffAttribution application
      */
-    public Application getApplication() {
+    public Assingnable getApplication() {
         return this.application;
     }
 
@@ -84,7 +69,8 @@ public class StaffAttribution {
      *
      * @param application the staffAttribution application to set
      */
-    public void setApplication(Application application) {
+    public void setApplication(Assingnable application) {
+
         this.application = application;
     }
 
