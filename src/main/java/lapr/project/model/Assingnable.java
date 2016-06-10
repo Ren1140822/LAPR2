@@ -5,7 +5,7 @@ package lapr.project.model;
 
 /**
  * Interface for assignable applications.
- * 
+ *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
  * @author Ivo Ferro 1151159
@@ -13,5 +13,16 @@ package lapr.project.model;
  * @author Ricardo Correia 1151231
  */
 public interface Assingnable {
-    
+
+    /**
+     * Gets the current state of the application.
+     *
+     * @return application current state
+     */
+    ApplicationState getCurrentState();
+
+    /**
+     * set assignable in evaluation state
+     */
+    void setInEvaluation();
 }

@@ -142,9 +142,11 @@ public class ExhibitionsRegister {
     }
 
     /**
-     * Gets the submittables filtering by an Organizer and InChangedConflicts state.
+     * Gets the submittables filtering by an Organizer and InChangedConflicts
+     * state.
      *
      * @param organizer organizer to filter submittables
+     *
      * @return the list of the organizer's submittables which are
      * InChangedConflicts state
      */

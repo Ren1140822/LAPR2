@@ -150,6 +150,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @return the application state
      */
+    @Override
     public ApplicationState getCurrentState() {
         return currentState;
     }
@@ -168,6 +169,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @return the evaluation list
      */
+    @Override
     public List<Evaluation> getEvaluationsList() {
         return this.evaluationsList;
     }
@@ -211,7 +213,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     /**
      * Sets the products list.
      *
-     * @param productList the products list
+     * @param productsList procucts list
      */
     public void setProductsList(List<Product> productsList) {
         this.productList = new ArrayList(productsList);
@@ -237,6 +239,10 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
 
     /**
      * Creates a new Exhibitor.
+     *
+     * @param companyName the company name
+     * @param companyAddress the company address
+     * @param companyCellphone the company cellphone
      */
     public void newExhibitor(String companyName, String companyAddress, String companyCellphone) {
         this.exhibitor = new Exhibitor();
@@ -249,15 +255,28 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * Creates new product.
      *
      * @param designation the product name
+     * @return true if product is added
      */
-    public void newProduct(String designation) {
+    public boolean newProduct(String designation) {
         Product product = new Product();
         product.setDesignation(designation);
 
         if (product.validate()) {
             productList.add(product);
+            return true;
 
         }
+      return false;
+    }
+    
+    public boolean removeProduct(String designation){
+        for(Product p:productList){
+            if(p.getDesignation().equals(designation)){
+                productList.remove(p);
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -300,8 +319,8 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     public boolean validateApplication() {
         return (this.exhibitor.validate() && this.demonstrationsList.isEmpty() && this.productList.isEmpty() && this.keyWordList.size() > 1 && this.keyWordList.size() <= 5 && this.numberInvitations > 0 && this.exhibitorArea > 0);
     }
-    
-       /**
+
+    /**
      * Returns a new evaluation.
      *
      * @return new evaluation
@@ -337,6 +356,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
 
     /**
      * Sets the state of the application.
+     *
      * @param newState the new state to set
      */
     @Override
@@ -346,6 +366,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
 
     /**
      * Checks if all conditions are valid to change state
+     *
      * @return true if all is valid
      */
     @Override
@@ -353,7 +374,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
 
         return this.currentState != null && validateApplication();
     }
-    
+
     /**
      * Equals method to verify if two objects are equal.
      *
@@ -371,9 +392,9 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         ExhibitionApplication otherExhibitionApplication = (ExhibitionApplication) otherObject;
         return (this.exhibitor.equals(otherExhibitionApplication.exhibitor) && this.exhibitorArea == otherExhibitionApplication.exhibitorArea
                 && this.numberInvitations == otherExhibitionApplication.numberInvitations
-                && this.demonstrationsList.equals(otherExhibitionApplication.demonstrationsList) 
-                && this.productList.equals(otherExhibitionApplication.productList) 
-                && this.evaluationsList.equals(otherExhibitionApplication.evaluationsList) 
+                && this.demonstrationsList.equals(otherExhibitionApplication.demonstrationsList)
+                && this.productList.equals(otherExhibitionApplication.productList)
+                && this.evaluationsList.equals(otherExhibitionApplication.evaluationsList)
                 && this.keyWordList.equals(otherExhibitionApplication.keyWordList));
 
     }
@@ -381,6 +402,8 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     /**
      * Returns the textual interpretation of the objects and attributes of this
      * class
+     *
+     * @return textual representation for this object
      */
     @Override
     public String toString() {
@@ -405,5 +428,12 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         return s.toString();
     }
 
- 
+    /**
+     * Set exbibition application inEvaluationState
+     */
+    @Override
+    public void setInEvaluation() {
+        this.currentState.setInEvaluation();
+    }
+
 }

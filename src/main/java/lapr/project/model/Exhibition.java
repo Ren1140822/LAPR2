@@ -480,8 +480,9 @@ public class Exhibition implements Submittable {
      * @param staffAttributionsList the Exhibition's staff attributions list to
      * set
      */
+    @Override
     public void setStaffAttributionsList(StaffAttributionsList staffAttributionsList) {
-        this.staffAttributionsList = staffAttributionsList;
+        this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
     }
 
     /**
@@ -663,5 +664,10 @@ public class Exhibition implements Submittable {
                 // TODO: Update to class demonstrations list
                 && this.demonstrationsList.equals(otherExhibition.demonstrationsList)
                 && this.staffAttributionsList.equals(otherExhibition.staffAttributionsList);
+    }
+
+    @Override
+    public String getShortInfo() {
+        return String.format("Exhibition: %s (%s)", this.title, this.startDate);
     }
 }

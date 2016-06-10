@@ -115,7 +115,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
 
     /**
      * the copy constructor receiving instance of this class as parameter
-     * 
+     *
      * @param exhApplication
      */
     public DemonstrationApplication(DemonstrationApplication exhApplication) {
@@ -318,11 +318,31 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         return this.evaluationsList.add(evaluation);
     }
 
+    /**
+     * Gets the application current state.
+     *
+     * @return application current state
+     */
+    @Override
+    public ApplicationState getCurrentState() {
+        return currentState;
+    }
+
+    /**
+     * Sets the application current state.
+     *
+     * @param newState new stateto be setted
+     */
     @Override
     public void setState(ApplicationState newState) {
         this.currentState = newState;
     }
 
+    /**
+     * Verify if this demonstation is valid.
+     *
+     * @return true if it is valid, false otherwise
+     */
     @Override
     public boolean isValid() {
         //TODO review this
@@ -330,5 +350,14 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
                 && this.companyName != null && this.currentState != null
                 && this.evaluationsList != null && this.exhibitorArea > 0
                 && this.numberInvitations > 0 && this.productList != null;
+    }
+
+    /**
+     * Set the current state of the demonstration application to
+     * inEvaluationState
+     */
+    @Override
+    public void setInEvaluation() {
+        this.currentState.setInEvaluation();
     }
 }

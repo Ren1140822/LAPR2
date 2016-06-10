@@ -4,11 +4,11 @@
 package lapr.project.controller;
 
 import java.util.List;
-import lapr.project.model.Assingnable;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
 import lapr.project.model.MechanismsRegister;
 import lapr.project.model.Organizer;
+import lapr.project.model.StaffAttribution;
 import lapr.project.model.StaffAttributionMechanism;
 import lapr.project.model.StaffAttributionsList;
 import lapr.project.model.Submittable;
@@ -43,12 +43,12 @@ public class AssignApplicationController {
      * The staff attributions list.
      */
     private StaffAttributionsList staffAttributionsList;
-    
+
     /**
      * The mechanisms register
      */
     private MechanismsRegister mechanismsRegister;
-    
+
     /**
      * The staff attribution mechanism
      */
@@ -76,29 +76,82 @@ public class AssignApplicationController {
         return this.exhibitionCenter;
     }
 
+    /**
+     * Gets the submittables filtering by an Organizer and InChangedConflicts
+     * state.
+     *
+     * @param organizer organizer to filter submittables
+     *
+     * @return the list of the organizer's submittables which are
+     * InChangedConflicts state
+     */
     public List<Submittable> getSubmittablesInChangedConflictsByOrganizer(Organizer organizer) {
         ExhibitionsRegister exhibitionsRegister = this.exhibitionCenter.getExhibitionsRegister();
         return exhibitionsRegister.getSubmittablesInChangedConflictsByOrganizer(organizer);
     }
 
+    /**
+     * Set the submittable
+     *
+     * @param submittable the new submittable
+     */
     public void setSubmittable(Submittable submittable) {
         this.selectedSubmittable = submittable;
         this.staffAttributionsList = this.selectedSubmittable.getStaffAttributionsList();
     }
-    
-    public List<StaffAttributionMechanism> getStaffAttributionMechanism(){
+
+    /**
+     * Obtain the staff attributions list of the selected submittable
+     *
+     * @return the staff attributions list of the selected submittable
+     */
+    public StaffAttributionsList getStaffAttributionsList() {
+        return this.selectedSubmittable.getStaffAttributionsList();
+    }
+
+    /**
+     * Obtain the list of staff attribution mechanisms
+     *
+     * @return the list of staff attribution mechanisms
+     */
+    public List<StaffAttributionMechanism> getStaffAttributionMechanism() {
         this.mechanismsRegister = this.exhibitionCenter.getMechanismsRegister();
         return this.mechanismsRegister.getAttributionMechanismList();
     }
-    
-    public void setStaffAttributionMechanism(StaffAttributionMechanism staffAttributionMechanism){
+
+    /**
+     * Set the staffAttributionMechanism
+     *
+     * @param staffAttributionMechanism the new staffAttributionMechanism
+     */
+    public void setStaffAttributionMechanism(StaffAttributionMechanism staffAttributionMechanism) {
         this.staffAttributionMechanism = staffAttributionMechanism;
     }
-    
-    public List<Assingnable> getAttributionsList(){
+
+    /**
+     * Obtain the staff attributions list of the selected submittable
+     *
+     * @return the staff attributions list of the selected submittable
+     */
+    public List<StaffAttribution> getAttributionsList() {
         return this.staffAttributionMechanism.toAssign(this.selectedSubmittable);
     }
-    
-    
+
+    /**
+     * Saves list of staff attributions
+     *
+     * @param attributionsList the new attributionsList
+     */
+    public void staffAttributionsRegister(List<StaffAttribution> attributionsList) {
+        this.selectedSubmittable.setStaffAttributionsList(new StaffAttributionsList(attributionsList));
+        this.staffAttributionsList = this.selectedSubmittable.getStaffAttributionsList();
+    }
+
+    /**
+     * set applications in evaluation state
+     */
+    public void setApplicationsInEvaluationState() {
+        this.staffAttributionsList.setApplicationsInEvaluationState();
+    }
 
 }
