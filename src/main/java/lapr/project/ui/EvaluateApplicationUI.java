@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -110,6 +111,11 @@ public class EvaluateApplicationUI extends JFrame {
 
         this.exhibitionCenter = exhibitionCenter;
         this.staffMember = staffMember;
+
+        // TESTING Just for testing purposes, later will be substituted
+        this.submittablesList = new ArrayList<>();
+        this.staffAttributionsList = new ArrayList<>();
+        // END TESTING
 
         createComponents();
 
@@ -275,5 +281,16 @@ public class EvaluateApplicationUI extends JFrame {
         });
 
         return exitButton;
+    }
+
+    /**
+     * Starting method for testing purposes, later wil be removed.
+     * 
+     * @param args command line arguments.
+     */
+    public static void main(String[] args) {
+        ExhibitionCenter ec = new ExhibitionCenter();
+        StaffMember sm = new StaffMember();
+        new EvaluateApplicationUI(ec, sm);
     }
 }
