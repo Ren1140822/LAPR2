@@ -129,11 +129,11 @@ public interface ApplicationState {
      */
     boolean isDeclined();
 
-    /**
-     * Changes the current application state to accepted state.
-     *
-     * @return true if the state is changed to accepeted state, false otherwise
-     */
+        /**
+         * Changes the current application state to accepted state.
+         *
+         * @return true if the state is changed to accepeted state, false otherwise
+         */
     boolean setAccepted();
 
     /**

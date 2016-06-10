@@ -36,10 +36,16 @@ public interface Submittable {
     StaffList getStaffList();
 
     /**
+     * Set staff attributions list
+     *
+     * @param staffAttributionsList the new staff attributions list
+     */
+    void setStaffAttributionsList(StaffAttributionsList staffAttributionsList);
+
+    /**
      * Returns a short version info of the submittable.
      * 
      * @return a short representation
      */
     public String getShortInfo();
-
 }

@@ -469,8 +469,9 @@ public class Exhibition implements Submittable {
      * @param staffAttributionsList the Exhibition's staff attributions list to
      * set
      */
+    @Override
     public void setStaffAttributionsList(StaffAttributionsList staffAttributionsList) {
-        this.staffAttributionsList = staffAttributionsList;
+        this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
     }
 
     /**

@@ -428,4 +428,12 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         return s.toString();
     }
 
+    /**
+     * Set exbibition application inEvaluationState
+     */
+    @Override
+    public void setInEvaluation() {
+        this.currentState.setInEvaluation();
+    }
+
 }

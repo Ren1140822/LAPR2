@@ -31,8 +31,8 @@ public class StaffAttributionsList {
 
     /**
      * constructor receiving a list of staff attribution as param.
-     * 
-     * @param staffAttributionsList Staff Attributions List 
+     *
+     * @param staffAttributionsList Staff Attributions List
      */
     public StaffAttributionsList(List<StaffAttribution> staffAttributionsList) {
         this.staffAttributionsList = new ArrayList(staffAttributionsList);
@@ -40,7 +40,7 @@ public class StaffAttributionsList {
 
     /**
      * constructor receiving a instance of this class as param
-     * 
+     *
      * @param staffAttributionsList StaffAttributionList to copy
      */
     public StaffAttributionsList(StaffAttributionsList staffAttributionsList) {
@@ -49,7 +49,7 @@ public class StaffAttributionsList {
 
     /**
      * Obtain the list of staff attributions.
-     * 
+     *
      * @return the list of staff attributions
      */
     public List<StaffAttribution> getStaffAttributionsList() {
@@ -58,44 +58,56 @@ public class StaffAttributionsList {
 
     /**
      * sets the staff attributions list.
-     * 
+     *
      * @param staffAttributionsList staff attributions list to set
      */
     public void setStaffAttributionsList(List<StaffAttribution> staffAttributionsList) {
         this.staffAttributionsList = new ArrayList<>(staffAttributionsList);
     }
-    
-    public List<StaffAttribution> getStaffAtributionsApplicationsInEvaluationByStaff(StaffMember staffMember){
+
+    public List<StaffAttribution> getStaffAtributionsApplicationsInEvaluationByStaff(StaffMember staffMember) {
         List<StaffAttribution> staffAtributionsApplicationsInEvaluationBystaff = new ArrayList<>();
-        
+
         for (StaffAttribution staffAttribution : this.staffAttributionsList) {
             if (staffAttribution.isStaffMember(staffMember) && staffAttribution.getApplication().getCurrentState().isInEvaluation()) {
                 staffAtributionsApplicationsInEvaluationBystaff.add(staffAttribution);
             }
         }
-        
+
         return staffAtributionsApplicationsInEvaluationBystaff;
     }
-    
+
     /**
      * Creates new attribution.
      *
      * @param application application.
      * @param staffMember staffMember to evaluate
-     * @return 
+     * @return
      */
     public StaffAttribution newAttribution(Assingnable application, StaffMember staffMember) {
 
         return new StaffAttribution(application, staffMember);
     }
+
     /**
      * Verifies if the staffAttribution is valid
      *
      * @param staffAttribution staffAttribution being verified
      * @return true if valid, false otherwise
      */
-    public boolean validateAttribution(StaffAttribution staffAttribution){
+    public boolean validateAttribution(StaffAttribution staffAttribution) {
         return (!this.staffAttributionsList.contains(staffAttribution));
+    }
+
+    /**
+     * Set applications(Assignables)(exhibitions applications &&/||
+     * demonstrations applications) inEvaluationState
+     */
+    public void setApplicationsInEvaluationState() {
+        for (StaffAttribution attribution : this.staffAttributionsList) {
+            Assingnable assignable = attribution.getApplication();
+            assignable.setInEvaluation();
+        }
     }
 
     /**
