@@ -68,6 +68,17 @@ public class ExhibitionApplicationsInEvaluationState implements ExhibitionState 
         return false;
     }
 
+       @Override
+    public boolean setCompleted() {
+       return false;
+    }
+
+    @Override
+    public boolean isCompleted() {
+        return false;
+    }
+    
+    
     @Override
     public boolean setOpenApplication() {
         return false;
@@ -150,5 +161,7 @@ public class ExhibitionApplicationsInEvaluationState implements ExhibitionState 
 
         return this.exhibition.getState().isApplicationsInEvaluation();
     }
+
+ 
 
 }

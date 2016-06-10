@@ -68,6 +68,16 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
         return false;
     }
 
+      @Override
+    public boolean setCompleted() {
+       return false;
+    }
+
+    @Override
+    public boolean isCompleted() {
+        return false;
+    }
+    
     @Override
     public boolean setOpenApplication() {
         return false;
@@ -150,5 +160,7 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
         //TODO
         return true;
     }
+
+  
 
 }

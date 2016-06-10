@@ -142,6 +142,23 @@ public class ExhibitionsRegister {
     }
 
     /**
+     * Gets the exhibitions list without StaffMember by Organizer.
+     * @param organizer the organizer to check for
+     * @return the exhibition list
+     */
+    public List<Exhibition> getExhibitionsListWithoutStaffMemberByOrganizer(Organizer organizer){
+        List<Exhibition> tempExhibitionList = new ArrayList();
+        for(Exhibition exhibition:exhibitionsList){
+                    boolean isStaffMemberDefined = exhibition.getState().isStaffDefined();
+                    
+                    if(!isStaffMemberDefined&&exhibition.getOrganizersList().isOrganizer(organizer)){
+                        tempExhibitionList.add(exhibition);
+                    }
+            }
+        return tempExhibitionList;
+    }
+    
+    /**
      * Gets the submittables filtering by an Organizer and InChangedConflicts
      * state.
      *
