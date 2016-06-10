@@ -8,7 +8,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -111,11 +110,10 @@ public class EvaluateApplicationUI extends JFrame {
 
         this.exhibitionCenter = exhibitionCenter;
         this.staffMember = staffMember;
-
-        // TESTING Just for testing purposes, later will be substituted
-        this.submittablesList = new ArrayList<>();
-        this.staffAttributionsList = new ArrayList<>();
-        // END TESTING
+        
+        this.controller = new EvaluateApplicationsController(this.exhibitionCenter);
+        this.submittablesList = this.controller.getSubmittablesByStaff(staffMember);
+        
 
         createComponents();
 
