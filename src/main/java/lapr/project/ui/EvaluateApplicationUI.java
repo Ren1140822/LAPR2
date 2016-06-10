@@ -285,7 +285,7 @@ public class EvaluateApplicationUI extends JFrame {
 
     /**
      * Starting method for testing purposes, later wil be removed.
-     * 
+     *
      * @param args command line arguments.
      */
     public static void main(String[] args) {
