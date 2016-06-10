@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,6 +26,7 @@ import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.StaffAttribution;
 import lapr.project.model.StaffMember;
 import lapr.project.model.Submittable;
+import lapr.project.ui.components.ModelListStaffAttributions;
 import lapr.project.ui.components.ModelListSubmittables;
 
 /**
@@ -167,9 +169,15 @@ public class EvaluateApplicationUI extends JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (submittablesJList.getSelectedIndex() >= 0) {
-                    // TODO
+                    // TODO verify
+                    Submittable selectedSubmittable = submittablesList.get(submittablesJList.getSelectedIndex());
+                    EvaluateApplicationUI.this.controller.setSubmittable(selectedSubmittable);
+                    EvaluateApplicationUI.this.staffAttributionsList = EvaluateApplicationUI.this.controller.getAttributionsByStaff(EvaluateApplicationUI.this.staffMember);
+                    EvaluateApplicationUI.this.staffAttributionsJList.setModel(new ModelListStaffAttributions(EvaluateApplicationUI.this.staffAttributionsList));
                 } else {
-                    // TODO
+                    // TODO verify
+                    EvaluateApplicationUI.this.staffAttributionsList = new ArrayList<>();
+                    EvaluateApplicationUI.this.staffAttributionsJList.setModel(new ModelListStaffAttributions(EvaluateApplicationUI.this.staffAttributionsList));
                 }
             }
         });
@@ -198,6 +206,8 @@ public class EvaluateApplicationUI extends JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 // TODO enable butons
+                EvaluateApplicationUI.this.seeApplicationButton.setEnabled(!EvaluateApplicationUI.this.staffAttributionsJList.isSelectionEmpty());
+                EvaluateApplicationUI.this.evaluateApplicationButton.setEnabled(!EvaluateApplicationUI.this.staffAttributionsJList.isSelectionEmpty());
             }
         });
 
@@ -236,7 +246,7 @@ public class EvaluateApplicationUI extends JFrame {
         this.seeApplicationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
+                // TODO open the see application dialog
             }
         });
 
@@ -255,7 +265,7 @@ public class EvaluateApplicationUI extends JFrame {
         this.evaluateApplicationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
+                // TODO open the evaluate application dialog
             }
         });
 
@@ -274,7 +284,7 @@ public class EvaluateApplicationUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                // TODO
+                // TODO go to the last naviagble window
             }
         });
 
