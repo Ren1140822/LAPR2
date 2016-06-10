@@ -4,8 +4,12 @@
 package lapr.project.controller;
 
 import java.util.List;
+import lapr.project.model.Evaluable;
+import lapr.project.model.Evaluation;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
+import lapr.project.model.StaffAttribution;
+import lapr.project.model.StaffAttributionsList;
 import lapr.project.model.StaffMember;
 import lapr.project.model.Submittable;
 
@@ -24,11 +28,26 @@ public class EvaluateApplicationsController {
      * The exhibition center.
      */
     private final ExhibitionCenter exhibitionCenter;
-    
+
     /**
      * The selected submittable.
      */
     private Submittable submittable;
+
+    /**
+     * The staff attribution.
+     */
+    private StaffAttribution staffAttribution;
+
+    /**
+     * The evaluable.
+     */
+    private Evaluable evaluable;
+
+    /**
+     * The staff member evaluation.
+     */
+    private Evaluation evaluation;
 
     /**
      * Constructs a evaluate applications controller.
@@ -39,13 +58,79 @@ public class EvaluateApplicationsController {
 
         this.exhibitionCenter = exhibitionCenter;
     }
-    
-    public List<Submittable> getSubmittablesByStaff(StaffMember staffMember){
+
+    /**
+     * Gets the submittables filtering by a staff member.
+     *
+     * @param staffMember the staff member to be filtered
+     * @return the staff member's submittables
+     */
+    public List<Submittable> getSubmittablesByStaff(StaffMember staffMember) {
         ExhibitionsRegister exhibitionsRegister = exhibitionCenter.getExhibitionsRegister();
-        return exhibitionsRegister.getSubmittablesByStaff(staffMember); 
+        return exhibitionsRegister.getSubmittablesByStaff(staffMember);
     }
-    
-    public void setSubmittable(Submittable submittable){
+
+    /**
+     * Sets the submittable.
+     *
+     * @param submittable submittable to be setted
+     */
+    public void setSubmittable(Submittable submittable) {
         this.submittable = submittable;
     }
+
+    /**
+     * Gets the attributions by a staff
+     *
+     * @param staffMember staff member to be filtered
+     * @return list of attributions
+     */
+    public List<StaffAttribution> getAttributionsByStaff(StaffMember staffMember) {
+        StaffAttributionsList staffAttributionsList = this.submittable.getStaffAttributionsList();
+        return staffAttributionsList.getStaffAtributionsApplicationsInEvaluationByStaff(staffMember);
+    }
+
+    /**
+     * Gets the evaluable from an attribution
+     *
+     * @param staffAttribution attribution
+     * @return evaluable
+     */
+    public Evaluable getEvaluableByAttribution(StaffAttribution staffAttribution) {
+        this.staffAttribution = staffAttribution;
+        this.evaluable = (Evaluable) this.staffAttribution.getApplication();
+        return this.evaluable;
+    }
+
+    /**
+     * Creates the new evaluation and returns the questions list.
+     *
+     * @return questions list
+     */
+    public List<String> newEvaluation() {
+        this.evaluation = evaluable.newEvaluation();
+        return this.evaluation.getQuestionsList();
+    }
+
+    /**
+     * Sets the evaluation
+     *
+     * @param answersList the answers to the questions
+     * @return true if the evaluation is valida, false otherwise
+     */
+    public boolean setEvaluation(List<Integer> answersList) {
+        this.evaluation.setStaffAttribution(this.staffAttribution);
+        this.evaluation.setAnswersList(answersList);
+        return this.evaluation.validate();
+    }
+
+    /**
+     * Register the evaluation.
+     *
+     * @return true if the registration is successfull, false otherwise
+     */
+    public boolean registerEvaluation() {
+        return this.evaluable.registerEvaluation(evaluation);
+    }
+
 }
