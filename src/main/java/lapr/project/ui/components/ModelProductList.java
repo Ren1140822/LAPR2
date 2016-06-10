@@ -1,7 +1,7 @@
 /**
  * Package location for UI concepts.
  */
-package lapr.project.ui;
+package lapr.project.ui.components;
 
 
 import java.util.List;

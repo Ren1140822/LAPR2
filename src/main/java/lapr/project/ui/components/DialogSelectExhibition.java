@@ -1,8 +1,9 @@
 /**
  * Package location for UI concepts.
  */
-package lapr.project.ui;
+package lapr.project.ui.components;
 
+import lapr.project.ui.components.ModelTableExhibitionsList;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -22,6 +23,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
+import lapr.project.ui.ExhibitionApplicationUI;
 
 /**
  * Represents a select exhibition dialog

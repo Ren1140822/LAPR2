@@ -1,7 +1,7 @@
 /**
  * Package location for UI concepts.
  */
-package lapr.project.ui;
+package lapr.project.ui.components;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import lapr.project.ui.ExhibitionApplicationUI;
 
 /**
  * GUI for a new product
