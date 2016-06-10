@@ -12,7 +12,7 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
-import lapr.project.model.application.ApplicationInSubmissionState;
+import lapr.project.model.Product;
 
 /**
  * Represents the controller of exhibition application.
@@ -101,10 +101,19 @@ public class ExhibitionApplicationController {
      * Creates a new product.
      * @param designation the product designation
      */
-    public void newProduct(String designation) {
+    public boolean newProduct(String designation) {
      
-        this.exhibitionApplication.newProduct(designation);
+       return  this.exhibitionApplication.newProduct(designation);
     }
+    /**
+     * removes a product
+     * @param designation the product designation
+     * @return true if removed
+     */
+    public boolean removeProduct(String designation){
+        return this.exhibitionApplication.removeProduct(designation);
+    }
+    
     
     /**
      * Lists the demonstrations on a exhibition
@@ -114,6 +123,14 @@ public class ExhibitionApplicationController {
     public DemonstrationsList getDemonstrationsList(Exhibition exhibition){
         return new DemonstrationsList(exhibition.getDemonstrationsList());
     }
+    /**
+     * sets the demonstraitons list.
+     * @param demonstrationsList  the demonstrations list
+     */
+      public void  setDemonstrationsList(List<Demonstration>demonstrationsList){
+         this.exhibitionApplication.setDemonstrationsList(demonstrationsList);
+    }
+    
     
     /**
      * Adds a demonstration to this application.
@@ -152,4 +169,9 @@ public class ExhibitionApplicationController {
          return false;
     }
 
+     public List<Product> getProductsList(){
+         return this.exhibitionApplication.getProductList();
+     }
+     
+     
 }
