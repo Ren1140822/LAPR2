@@ -177,6 +177,7 @@ public class Demonstration implements Submittable {
         return new ApplicationsList(this.applicationsList);
     }
 
+
     /**
      * Set the staff attributions list
      *
@@ -185,6 +186,17 @@ public class Demonstration implements Submittable {
     @Override
     public void setStaffAttributionsList(StaffAttributionsList staffAttributionsList) {
         this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
+    }
+    
+    /**
+     * Returns a short version info of the demonstration.
+     * 
+     * @return a short representation
+     */
+    @Override
+    public String getShortInfo() {
+        return String.format("Demonstration: %s", this.description);
+
     }
 
 }

@@ -577,4 +577,9 @@ public class Exhibition implements Submittable {
                 && this.demonstrationsList.equals(otherExhibition.demonstrationsList)
                 && this.staffAttributionsList.equals(otherExhibition.staffAttributionsList);
     }
+
+    @Override
+    public String getShortInfo() {
+        return String.format("Exhibition: %s (%s)", this.title, this.startDate);
+    }
 }

@@ -255,15 +255,28 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * Creates new product.
      *
      * @param designation the product name
+     * @return true if product is added
      */
-    public void newProduct(String designation) {
+    public boolean newProduct(String designation) {
         Product product = new Product();
         product.setDesignation(designation);
 
         if (product.validate()) {
             productList.add(product);
+            return true;
 
         }
+      return false;
+    }
+    
+    public boolean removeProduct(String designation){
+        for(Product p:productList){
+            if(p.getDesignation().equals(designation)){
+                productList.remove(p);
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
