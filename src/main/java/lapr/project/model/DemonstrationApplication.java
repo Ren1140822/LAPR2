@@ -325,4 +325,5 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     public String getTitle() {
         return this.title;
     }
+    
 }

@@ -176,4 +176,14 @@ public class ExhibitionCreatedState implements ExhibitionState {
         return !this.exhibition.getDemonstrationsList().getDemonstrationsList().isEmpty() 
                 && this.exhibition.getState().isCreated();
     }
+
+    @Override
+    public boolean setCompleted() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isCompleted() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -602,7 +602,7 @@ public class Exhibition implements Submittable {
         ChangeToChangedConflicts taskChangeToChangedConflicts = new ChangeToChangedConflicts(this);
 
         this.timer.schedule(taskChangeToChangedConflicts, this.conflictLimitDate);
-        
+
         ChangeToApplicationsInDecision taskChangeToApplicationsInDecision = new ChangeToApplicationsInDecision(this);
 
         this.timer.schedule(taskChangeToApplicationsInDecision, this.evaluationLimitDate);
@@ -669,5 +669,14 @@ public class Exhibition implements Submittable {
     @Override
     public String getShortInfo() {
         return String.format("Exhibition: %s (%s)", this.title, this.startDate);
+    }
+
+    /**
+     * Set the current exhibition state of the exhibition to
+     * applicationsInEvaluation state
+     */
+    @Override
+    public void setSubmittableInApplicationsInEvaluationState() {
+        this.currentState.setApplicationsInEvaluation();
     }
 }
