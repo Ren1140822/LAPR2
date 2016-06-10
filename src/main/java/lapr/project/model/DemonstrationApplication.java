@@ -123,6 +123,33 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     }
 
     /**
+     * Sets the application's title.
+     *
+     * @param title application's title
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    /**
+     * Gets the exhibitor.
+     *
+     * @return exhibitor
+     */
+    public Exhibitor getExhibitor() {
+        return exhibitor;
+    }
+
+    /**
+     * Sets the exhibitor.
+     *
+     * @param exhibitor exhibitor
+     */
+    public void setExhibitor(Exhibitor exhibitor) {
+        this.exhibitor = exhibitor;
+    }
+
+    /**
      * Gets the exhibition area.
      *
      * @return the exhibition's area
@@ -325,5 +352,5 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     public String getTitle() {
         return this.title;
     }
-    
+
 }
