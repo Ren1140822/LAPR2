@@ -112,7 +112,7 @@ public class ExhibitionApplicationControllerTest {
         ExhibitionApplicationController instance = controller;
         Exhibition exhibition = new Exhibition();
         instance.newApplication(exhibition);
-        instance.setData(companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
+        instance.setData("",companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
         ExhibitionApplication defaultExhibitionApplication = new ExhibitionApplication();
         defaultExhibitionApplication.setExhibitorArea(exhibitorArea);
         defaultExhibitionApplication.setNumberInvitations(numberInvitations);
@@ -185,7 +185,7 @@ public class ExhibitionApplicationControllerTest {
         String companyCellphone = "Test";
         float exhibitorArea = 0.0F;
         int numberInvitations = 0;
-        instance.setData(companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
+        instance.setData("",companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
         instance.newApplication(exhibition);
         instance.newKeyword("test");
         instance.newKeyword("test2");
@@ -209,7 +209,7 @@ public class ExhibitionApplicationControllerTest {
         String companyCellphone = "Test";
         float exhibitorArea = 0.0F;
         int numberInvitations = 0;
-        instance.setData(companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
+        instance.setData("",companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
         instance.newApplication(exhibition);
         instance.newKeyword("test");
        //ONLY ONE KEYWORD

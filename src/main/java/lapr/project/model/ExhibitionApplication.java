@@ -341,10 +341,11 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param description the value of the keyword
      */
-    public void newKeyword(String description) {
+    public boolean newKeyword(String description) {
         KeyWord keyWord = new KeyWord(description);
         keyWord.validate();
         keyWordList.add(keyWord);
+        return true;
     }
 
     /**
@@ -363,7 +364,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @return true if all O.K.
      */
     public boolean validateApplication() {
-        return (this.exhibitor.validate() && this.demonstrationsList.isEmpty() && this.productList.isEmpty() && this.keyWordList.size() > 1 && this.keyWordList.size() <= 5 && this.numberInvitations > 0 && this.exhibitorArea > 0);
+        return (this.exhibitor.validate() && !this.demonstrationsList.isEmpty() && !this.productList.isEmpty() && this.keyWordList.size() > 1 && this.keyWordList.size() <= 5 && this.numberInvitations > 0 && this.exhibitorArea > 0);
     }
 
     /**
