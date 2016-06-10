@@ -5,7 +5,13 @@ package lapr.project.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
 import lapr.project.model.exhibition.ExhibitionInicialState;
+import lapr.project.model.exhibition.timers.ChangeToApplicationsInDecision;
+import lapr.project.model.exhibition.timers.ChangeToChangedConflicts;
+import lapr.project.model.exhibition.timers.ChangeToClosedApplications;
+import lapr.project.model.exhibition.timers.ChangeToOpenApplications;
+import lapr.project.model.exhibition.timers.DetectConflictsTask;
 
 /**
  * Represents an Exhibition.
@@ -93,6 +99,8 @@ public class Exhibition implements Submittable {
      */
     private ExhibitionState currentState;
 
+    private final Timer timer;
+
     /**
      * Exhibition's default title.
      */
@@ -157,6 +165,7 @@ public class Exhibition implements Submittable {
         this.demonstrationsList = new DemonstrationsList();
         this.staffAttributionsList = new StaffAttributionsList();
         this.currentState = new ExhibitionInicialState(this);
+        this.timer = new Timer();
     }
 
     /**
@@ -193,6 +202,7 @@ public class Exhibition implements Submittable {
         this.demonstrationsList = new DemonstrationsList(demonstrationsList);
         this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
         this.currentState = new ExhibitionInicialState(this);
+        this.timer = new Timer();
     }
 
     /**
@@ -215,6 +225,7 @@ public class Exhibition implements Submittable {
         this.demonstrationsList = new DemonstrationsList(exhibition.demonstrationsList);
         this.staffAttributionsList = new StaffAttributionsList(exhibition.staffAttributionsList);
         this.currentState = exhibition.currentState;
+        this.timer = new Timer();
     }
 
     /**
@@ -493,13 +504,63 @@ public class Exhibition implements Submittable {
     }
 
     /**
-     * Changes to next state ExhibitionCreatedState.
+     * Changes to state to created.
      *
      * @return true if the state successfully changes
      */
-    public boolean setCreated() {
+    public boolean setCreatedState() {
 
         return this.currentState.setCreated();
+    }
+
+    /**
+     * Changes to next state DemosWithoutStaff or Complete.
+     *
+     * @return true if the state successfully changes
+     */
+    public boolean setDefinedDemos() {
+
+        return this.currentState.setDemonstrationsDefined();
+    }
+
+    /**
+     * Changes to open applications state.
+     *
+     * @return true if the state successfully changes
+     */
+    public boolean setOpenApplications() {
+
+        return this.currentState.setOpenApplication();
+    }
+
+    /**
+     * Changes to closed applications state.
+     *
+     * @return true if the state successfully changes
+     */
+    public boolean setClosedApplications() {
+
+        return this.currentState.setClosedApplications();
+    }
+
+    /**
+     * Changes to changed conflicts state.
+     *
+     * @return true if the state successfully changes
+     */
+    public boolean setChangedConflicts() {
+
+        return this.currentState.setChangedConflitcts();
+    }
+
+    /**
+     * Changes to applications in decision state.
+     *
+     * @return true if the state successfully changes
+     */
+    public boolean setApplicationsInDecision() {
+
+        return this.currentState.setApplicationsInDecision();
     }
 
     /**
@@ -519,6 +580,33 @@ public class Exhibition implements Submittable {
                 && this.conflictLimitDate.after(this.subEndDate)
                 && this.evaluationLimitDate.after(this.conflictLimitDate)
                 && this.organizersList.getOrganizersList().size() >= 2;
+    }
+
+    /**
+     * Schedules the state changes.
+     */
+    public void createTimers() {
+
+        ChangeToOpenApplications taskOpenApplications = new ChangeToOpenApplications(this);
+
+        this.timer.schedule(taskOpenApplications, this.subStartDate);
+
+        ChangeToClosedApplications taskClosedApplications = new ChangeToClosedApplications(this);
+
+        this.timer.schedule(taskClosedApplications, this.subEndDate);
+
+        DetectConflictsTask taskDetectConflicts = new DetectConflictsTask(this);
+
+        this.timer.schedule(taskDetectConflicts, this.subEndDate);
+
+        ChangeToChangedConflicts taskChangeToChangedConflicts = new ChangeToChangedConflicts(this);
+
+        this.timer.schedule(taskChangeToChangedConflicts, this.conflictLimitDate);
+        
+        ChangeToApplicationsInDecision taskChangeToApplicationsInDecision = new ChangeToApplicationsInDecision(this);
+
+        this.timer.schedule(taskChangeToApplicationsInDecision, this.evaluationLimitDate);
+
     }
 
     /**

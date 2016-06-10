@@ -14,7 +14,7 @@ import lapr.project.model.Exhibitor;
 import lapr.project.model.KeyWord;
 import lapr.project.model.Product;
 import lapr.project.model.exhibition.ExhibitionClosedApplicationsState;
-import lapr.project.model.exhibition.ExhibitionOpenApplicationState;
+import lapr.project.model.exhibition.ExhibitionOpenApplicationsState;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -54,7 +54,7 @@ public class ExhibitionApplicationControllerTest {
         this.exhibitionCenter = new ExhibitionCenter();
         this.controller = new ExhibitionApplicationController(exhibitionCenter);
         Exhibition exhibition1 = new Exhibition();
-        exhibition1.setState(new ExhibitionOpenApplicationState(exhibition1));
+        exhibition1.setState(new ExhibitionOpenApplicationsState(exhibition1));
         Exhibition exhibition2 = new Exhibition();
         exhibition2.setState(new ExhibitionClosedApplicationsState(exhibition2));
         List<Exhibition> exhibitionList = new ArrayList<>();
@@ -77,7 +77,7 @@ public class ExhibitionApplicationControllerTest {
         System.out.println("getExhibitionList");
         List<Exhibition> expResult = new ArrayList<>();
         Exhibition exhibition1 = new Exhibition();
-        exhibition1.setState(new ExhibitionOpenApplicationState(exhibition1));
+        exhibition1.setState(new ExhibitionOpenApplicationsState(exhibition1));
         expResult.add(exhibition1);
 
         List<Exhibition> result = this.controller.getExhibitionList();
