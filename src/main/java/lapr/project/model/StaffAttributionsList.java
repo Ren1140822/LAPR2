@@ -84,7 +84,7 @@ public class StaffAttributionsList {
      * @param staffMember staffMember to evaluate
      * @return 
      */
-    public StaffAttribution newAttribution(Application application, StaffMember staffMember) {
+    public StaffAttribution newAttribution(Assingnable application, StaffMember staffMember) {
 
         return new StaffAttribution(application, staffMember);
     }

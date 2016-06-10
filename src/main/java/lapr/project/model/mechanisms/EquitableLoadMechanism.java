@@ -6,6 +6,7 @@ package lapr.project.model.mechanisms;
 import java.util.ArrayList;
 import java.util.List;
 import lapr.project.model.Application;
+import lapr.project.model.Assingnable;
 import lapr.project.model.StaffAttribution;
 import lapr.project.model.StaffAttributionMechanism;
 import lapr.project.model.StaffAttributionsList;
@@ -54,7 +55,7 @@ public class EquitableLoadMechanism implements StaffAttributionMechanism {
             if (countAssigneds > staffList.size() - 1) {
                 countAssigneds = 0;
             }
-            StaffAttribution attribution = staffAttributionsList.newAttribution(application, staffList.get(countAssigneds));
+            StaffAttribution attribution = staffAttributionsList.newAttribution((Assingnable)application, staffList.get(countAssigneds));
             countAssigneds++;
 
             if (staffAttributionsList.validateAttribution(attribution)) {
