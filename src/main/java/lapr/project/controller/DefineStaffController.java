@@ -101,10 +101,11 @@ public class DefineStaffController {
      * 
      * @param user 
      */
-    public void newStaffMember(User user){
+    public StaffMember newStaffMember(User user){
         
         this.staffList = exhibition.getStaffList();
         this.staffMember = staffList.newStaffMember(user);
+        return this.staffMember;
     }
 
     /**
