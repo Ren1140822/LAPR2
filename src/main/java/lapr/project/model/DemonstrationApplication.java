@@ -19,32 +19,32 @@ import lapr.project.model.application.ApplicationInitialState;
 public class DemonstrationApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable {
 
     /**
-     * the company name of this application
+     * The title of the application.
      */
-    private String companyName;
+    private String title;
+
     /**
-     * the address of the company
+     * The exhibitor.
      */
-    private String companyAddress;
+    private Exhibitor exhibitor;
+
     /**
-     * the cellphone of the company
-     */
-    private String companyCellphone;
-    /**
-     * the areain float asked by the company
+     * The area asked by the company.
      */
     private float exhibitorArea;
+
     /**
-     * the number of invitations asked for
+     * The number of invitations asked for.
      */
     private int numberInvitations;
+
     /**
-     * the list of products the company wishes to expose
+     * The list of products the company wishes to expose.
      */
     private List<Product> productList;
 
     /**
-     * the evaluation lists of this application
+     * The evaluation lists of this application.
      */
     private List<Evaluation> evaluationsList;
 
@@ -54,57 +54,50 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     private ApplicationState currentState;
 
     /**
-     * the default company name of this application
+     * The default title.
      */
-    private String DEFAULT_COMPANY_NAME = "No name";
-    /**
-     * the default address of the company
-     */
-    private String DEFAULT_COMPANY_ADDRESS = "No address";
-    /**
-     * the cellphone of the company
-     */
-    private String DEFAULT_COMPANY_CELLPHONE = "No cellphone";
-    /**
-     * the default area in float asked by the company
-     */
-    private float DEFAULT_EXHIBITOR_AREA = 100.0f;
-    /**
-     * the default number of invitations asked for
-     */
-    private int DEFAULT_NUMBER_INVITATION = 10;
+    private static final String DEFAULT_TITLE = "No Title";
 
     /**
-     * the default constructor with no params
+     * The default area in float asked by the company.
+     */
+    private static final float DEFAULT_EXHIBITOR_AREA = 100.0f;
+    /**
+     * The default number of invitations asked for.
+     */
+    private static final int DEFAULT_NUMBER_INVITATION = 10;
+
+    /**
+     * Creates an instance of demonstration application with its default values.
      */
     public DemonstrationApplication() {
-        this.companyName = DEFAULT_COMPANY_NAME;
-        this.companyAddress = DEFAULT_COMPANY_ADDRESS;
-        this.companyCellphone = DEFAULT_COMPANY_CELLPHONE;
+        this.title = DEFAULT_TITLE;
+        this.exhibitor = new Exhibitor();
         this.exhibitorArea = DEFAULT_EXHIBITOR_AREA;
         this.numberInvitations = DEFAULT_NUMBER_INVITATION;
-        this.productList = new ArrayList<Product>();
-        this.evaluationsList = new ArrayList<Evaluation>();
+        this.productList = new ArrayList<>();
+        this.evaluationsList = new ArrayList<>();
         this.currentState = new ApplicationInitialState(this);
     }
 
     /**
-     * the constructor with parameters
+     * Constructs an instance of exhibition application receivong its
+     * parameters.
      *
-     * @param companyName
-     * @param companyAddress
-     * @param companyCellphone
-     * @param exhibitorArea
-     * @param numberInvitations
-     * @param applicationState
-     * @param productList
-     * @param evaluationsList
+     * @param title title for the application
+     * @param exhibitor exhibitor repnsible
+     * @param exhibitorArea exhibition area
+     * @param numberInvitations number of invites
+     * @param productList products list
+     * @param evaluationsList evaluations list
+     * @param applicationState aplication current state
      */
-    public DemonstrationApplication(String companyName, String companyAddress, String companyCellphone, float exhibitorArea,
-            int numberInvitations, List<Product> productList, List<Evaluation> evaluationsList, ApplicationState applicationState) {
-        this.companyName = companyName;
-        this.companyAddress = companyAddress;
-        this.companyCellphone = companyCellphone;
+    public DemonstrationApplication(String title, Exhibitor exhibitor,
+            float exhibitorArea, int numberInvitations,
+            List<Product> productList, List<Evaluation> evaluationsList,
+            ApplicationState applicationState) {
+        this.title = title;
+        this.exhibitor = new Exhibitor(exhibitor);
         this.exhibitorArea = exhibitorArea;
         this.numberInvitations = numberInvitations;
         this.productList = new ArrayList(productList);
@@ -114,54 +107,32 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     }
 
     /**
-     * the copy constructor receiving instance of this class as parameter
+     * Constructs an instance of demonstration application copying another
+     * demonstration application.
      *
-     * @param exhApplication
+     * @param demonstrationApplication another demonstration application
      */
-    public DemonstrationApplication(DemonstrationApplication exhApplication) {
-        this.companyName = exhApplication.companyName;
-        this.companyAddress = exhApplication.companyAddress;
-        this.companyCellphone = exhApplication.companyCellphone;
-        this.exhibitorArea = exhApplication.exhibitorArea;
-        this.numberInvitations = exhApplication.numberInvitations;
-        this.productList = new ArrayList(exhApplication.productList);
-        this.evaluationsList = new ArrayList(exhApplication.evaluationsList);
-        this.currentState = exhApplication.currentState;
+    public DemonstrationApplication(DemonstrationApplication demonstrationApplication) {
+        this.title = demonstrationApplication.title;
+        this.exhibitor = demonstrationApplication.exhibitor;
+        this.exhibitorArea = demonstrationApplication.exhibitorArea;
+        this.numberInvitations = demonstrationApplication.numberInvitations;
+        this.productList = new ArrayList(demonstrationApplication.productList);
+        this.evaluationsList = new ArrayList(demonstrationApplication.evaluationsList);
+        this.currentState = demonstrationApplication.currentState;
     }
 
     /**
+     * Gets the exhibition area.
      *
-     * @return the company name
-     */
-    public String getCompanyName() {
-        return this.companyName;
-    }
-
-    /**
-     *
-     * @return the company address
-     */
-    public String getCompanyAddress() {
-        return this.companyAddress;
-    }
-
-    /**
-     *
-     * @return the company cellphone
-     */
-    public String getCompanyCellphone() {
-        return this.companyCellphone;
-    }
-
-    /**
-     *
-     * @return the exhibitor's area
+     * @return the exhibition's area
      */
     public float getExhibitorArea() {
         return this.exhibitorArea;
     }
 
     /**
+     * Gets the number of invitations.
      *
      * @return the number of invitations
      */
@@ -170,16 +141,18 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     }
 
     /**
+     * Gets the procuts list.
      *
-     * @return the product list
+     * @return the product's list
      */
     public List<Product> getProductList() {
         return this.productList;
     }
 
     /**
+     * Gets the evaluations list.
      *
-     * @return the applications list
+     * @return the evaluations list
      */
     @Override
     public List<Evaluation> getEvaluationsList() {
@@ -187,30 +160,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     }
 
     /**
-     *
-     * @param companyName sets the company name
-     */
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    /**
-     *
-     * @param companyAddress sets company address
-     */
-    public void setCompanyAddress(String companyAddress) {
-        this.companyAddress = companyAddress;
-    }
-
-    /**
-     *
-     * @param companyCellphone sets company cellphone
-     */
-    public void setCompanyCellphone(String companyCellphone) {
-        this.companyCellphone = companyCellphone;
-    }
-
-    /**
+     * Sets the exhibition's area.
      *
      * @param exhibitorArea sets exhibitor area
      */
@@ -219,6 +169,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     }
 
     /**
+     * Sets the number of invitations.
      *
      * @param numberInvitations sets number of invitations
      */
@@ -227,15 +178,18 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     }
 
     /**
-     * @param productsList
-     * @param productList sets the products list
+     * Sets the products list.
+     *
+     * @param productsList products list
      */
     public void setProductsList(List<Product> productsList) {
         this.productList = new ArrayList(productsList);
     }
 
     /**
-     * @param applicationsList sets the applications list
+     * Sets the application evaluations list.
+     *
+     * @param applicationsList the applications list
      */
     public void setApplicationEvaluationsList(List<DemonstrationApplication> applicationsList) {
         this.evaluationsList = new ArrayList(applicationsList);
@@ -244,14 +198,15 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     /**
      * Returns the textual interpretation of the objects and attributes of this
      * class
+     *
+     * @return textual representation of this application
      */
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append("DemonstrationApplication{");
-        s.append(String.format("%s%n", this.companyName));
-        s.append(String.format("%s%n", this.companyAddress));
-        s.append(String.format("%s%n", this.companyCellphone));
+        s.append(String.format("%f%n", this.title));
+        s.append(String.format("%f%n", this.exhibitor));
         s.append(String.format("%f%n", this.exhibitorArea));
         s.append(String.format("%d%n", this.numberInvitations));
         for (Product prod : productList) {
@@ -280,8 +235,8 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         }
         DemonstrationApplication otherDemonstrationApplication = (DemonstrationApplication) otherObject;
 
-        return this.companyName.equals(otherDemonstrationApplication.companyName) && this.companyCellphone.equals(otherDemonstrationApplication.companyCellphone)
-                && this.companyAddress.equals(otherDemonstrationApplication.companyAddress) && this.evaluationsList.equals(otherDemonstrationApplication.evaluationsList)
+        return this.title.equals(otherDemonstrationApplication.title) && this.exhibitor.equals(otherDemonstrationApplication.exhibitor)
+                && this.evaluationsList.equals(otherDemonstrationApplication.evaluationsList)
                 && this.productList.equals(otherDemonstrationApplication.productList) && this.exhibitorArea == otherDemonstrationApplication.exhibitorArea
                 && this.numberInvitations == otherDemonstrationApplication.numberInvitations;
     }
@@ -346,10 +301,10 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     @Override
     public boolean isValid() {
         //TODO review this
-        return this.companyAddress != null && this.companyCellphone != null
-                && this.companyName != null && this.currentState != null
-                && this.evaluationsList != null && this.exhibitorArea > 0
-                && this.numberInvitations > 0 && this.productList != null;
+        return this.title != null && this.exhibitor != null
+                && this.currentState != null && this.evaluationsList != null
+                && this.exhibitorArea > 0 && this.numberInvitations > 0
+                && this.productList != null;
     }
 
     /**
@@ -359,5 +314,15 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     @Override
     public void setInEvaluation() {
         this.currentState.setInEvaluation();
+    }
+
+    /**
+     * Gets the demonstation application title.
+     *
+     * @return title of the demonstration application
+     */
+    @Override
+    public String getTitle() {
+        return this.title;
     }
 }
