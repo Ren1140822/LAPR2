@@ -3,7 +3,6 @@
  */
 package lapr.project.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import lapr.project.model.exhibition.ExhibitionInicialState;
@@ -576,5 +575,10 @@ public class Exhibition implements Submittable {
                 // TODO: Update to class demonstrations list
                 && this.demonstrationsList.equals(otherExhibition.demonstrationsList)
                 && this.staffAttributionsList.equals(otherExhibition.staffAttributionsList);
+    }
+
+    @Override
+    public String getShortInfo() {
+        return String.format("Exhibition: %s (%s)", this.title, this.startDate);
     }
 }
