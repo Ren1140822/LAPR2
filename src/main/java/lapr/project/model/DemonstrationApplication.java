@@ -24,6 +24,11 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     private String title;
 
     /**
+     * The list of keywords.
+     */
+    private List<KeyWord> keyWordList;
+
+    /**
      * The exhibitor.
      */
     private Exhibitor exhibitor;
@@ -138,6 +143,24 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      */
     public Exhibitor getExhibitor() {
         return exhibitor;
+    }
+
+    /**
+     * Gets the keywords list.
+     *
+     * @return keywords list
+     */
+    public List<KeyWord> getKeyWordList() {
+        return keyWordList;
+    }
+
+    /**
+     * Sets the keywords list.
+     *
+     * @param keyWordList keywords list
+     */
+    public void setKeyWordList(List<KeyWord> keyWordList) {
+        this.keyWordList = keyWordList;
     }
 
     /**
