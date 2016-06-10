@@ -154,4 +154,11 @@ public class AssignApplicationController {
         this.staffAttributionsList.setApplicationsInEvaluationState();
     }
 
+    /**
+     * set submittables in applicationsInEvaluation State
+     */
+    public void setSubmittableSelectedInApplicationsInEvaluationState() {
+        this.selectedSubmittable.setSubmittableInApplicationsInEvaluationState();
+    }
+
 }

@@ -360,4 +360,5 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     public void setInEvaluation() {
         this.currentState.setInEvaluation();
     }
+
 }
