@@ -69,6 +69,16 @@ public class ExhibitionChangedConflictsState implements ExhibitionState {
     }
 
     @Override
+    public boolean setCompleted() {
+        return false;
+    }
+
+    @Override
+    public boolean isCompleted() {
+        return false;
+    }
+    
+    @Override
     public boolean setOpenApplication() {
         return false;
     }
@@ -151,5 +161,7 @@ public class ExhibitionChangedConflictsState implements ExhibitionState {
 
         return this.exhibition.getState().isChangedConflitcts();
     }
+
+    
 
 }
