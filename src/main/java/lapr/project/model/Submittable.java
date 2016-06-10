@@ -35,4 +35,11 @@ public interface Submittable {
      */
     StaffList getStaffList();
 
+    /**
+     * Returns a short version info of the submittable.
+     * 
+     * @return a short representation
+     */
+    public String getShortInfo();
+
 }
