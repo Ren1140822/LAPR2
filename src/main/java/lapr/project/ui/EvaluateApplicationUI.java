@@ -303,6 +303,11 @@ public class EvaluateApplicationUI extends JFrame {
 
         return exitButton;
     }
+    
+    public void updateStaffAtributionsList(){
+        this.staffAttributionsList = controller.getAttributionsByStaff(staffMember);
+        this.staffAttributionsJList.setModel(new ModelListStaffAttributions(EvaluateApplicationUI.this.staffAttributionsList));
+    }
 
     /**
      * Starting method for testing purposes, later wil be removed.

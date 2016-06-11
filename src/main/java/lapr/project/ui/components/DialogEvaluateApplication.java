@@ -12,7 +12,6 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -38,17 +37,22 @@ public class DialogEvaluateApplication extends JDialog {
     /**
      * The parent's frame.
      */
-    private JFrame parentFrame;
+    private EvaluateApplicationUI parentFrame;
 
     /**
      * The controller to evaluate applications.
      */
     private EvaluateApplicationsController evaluateApplicationsController;
-    
+
     /**
      * The evaluable.
      */
     private Evaluable evaluable;
+
+    /**
+     * The evaluation.
+     */
+    private Evaluation evaluation;
 
     /**
      * The answers list.
@@ -71,7 +75,7 @@ public class DialogEvaluateApplication extends JDialog {
      * @param evaluable the evaluable
      * @param parentFrame parent's frame
      */
-    public DialogEvaluateApplication(Evaluable evaluable, EvaluateApplicationsController evaluateApplicationsController, JFrame parentFrame) {
+    public DialogEvaluateApplication(Evaluable evaluable, EvaluateApplicationsController evaluateApplicationsController, EvaluateApplicationUI parentFrame) {
         super(parentFrame, WINDOW_TITLE, true);
 
         this.parentFrame = parentFrame;
@@ -107,15 +111,15 @@ public class DialogEvaluateApplication extends JDialog {
      */
     private JPanel createQuestionsAndAnswersLabel() {
 
-        Evaluation evaluation = new Evaluation();
+        List<String> questionsList = this.evaluateApplicationsController.newEvaluation();
 
-        JPanel questionsAndAnswersPanel = new JPanel(new GridLayout(evaluation.getQuestionsList().size(), 1));
+        JPanel questionsAndAnswersPanel = new JPanel(new GridLayout(questionsList.size(), 1));
 
         List<JLabel> questionsJList = new ArrayList<>();
         answersList = new ArrayList<>();
         Integer possibleAnswers[] = {0, 1, 2, 3, 4, 5};
 
-        for (String question : evaluation.getQuestionsList()) {
+        for (String question : questionsList) {
             questionsJList.add(new JLabel(String.format("Q: %s", question)));
             answersList.add(new JComboBox<Integer>(possibleAnswers));
         }
@@ -156,7 +160,20 @@ public class DialogEvaluateApplication extends JDialog {
         submitEvaluationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                // TODO register evaluation
+                List<Integer> answers = new ArrayList<>();
+                for (JComboBox answersComboBox : DialogEvaluateApplication.this.answersList) {
+                    answers.add((Integer) answersComboBox.getSelectedItem());
+                }
+
+                //Register the evaluation
+                if (DialogEvaluateApplication.this.evaluateApplicationsController.setEvaluation(answers)) {
+                    // TODO ask for confirmation.
+                    DialogEvaluateApplication.this.evaluateApplicationsController.registerEvaluation();
+                    if (DialogEvaluateApplication.this.evaluateApplicationsController.removeStaffAttributions()) {
+                        parentFrame.updateStaffAtributionsList();
+                    }
+                    dispose();
+                }
             }
         });
 
@@ -182,7 +199,7 @@ public class DialogEvaluateApplication extends JDialog {
     }
 
     public static void main(String[] args) {
-        new  DialogEvaluateApplication(new ExhibitionApplication(), new EvaluateApplicationsController(new ExhibitionCenter()), new EvaluateApplicationUI(new ExhibitionCenter(), new StaffMember()));
+        new DialogEvaluateApplication(new ExhibitionApplication(), new EvaluateApplicationsController(new ExhibitionCenter()), new EvaluateApplicationUI(new ExhibitionCenter(), new StaffMember()));
     }
 
 }

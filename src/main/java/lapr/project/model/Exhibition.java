@@ -681,4 +681,9 @@ public class Exhibition implements Submittable {
     public void setSubmittableInApplicationsInEvaluationState() {
         this.currentState.setApplicationsInEvaluation();
     }
+
+    @Override
+    public boolean removeAttribution(StaffAttribution staffAttribution) {
+        return this.staffAttributionsList.removeStaffAttribution(staffAttribution);
+    }
 }

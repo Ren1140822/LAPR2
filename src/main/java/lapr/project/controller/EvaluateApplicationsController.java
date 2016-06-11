@@ -132,5 +132,9 @@ public class EvaluateApplicationsController {
     public boolean registerEvaluation() {
         return this.evaluable.registerEvaluation(evaluation);
     }
+    
+    public boolean removeStaffAttributions(){
+        return this.submittable.removeAttribution(this.staffAttribution);
+    }
 
 }

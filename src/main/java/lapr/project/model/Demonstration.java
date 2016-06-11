@@ -207,4 +207,9 @@ public class Demonstration implements Submittable {
         this.currentDemonstrationState.setApplicationsInEvaluation();
     }
 
+    @Override
+    public boolean removeAttribution(StaffAttribution staffAttribution) {
+        return this.staffAttributionsList.removeStaffAttribution(staffAttribution);
+    }
+
 }
