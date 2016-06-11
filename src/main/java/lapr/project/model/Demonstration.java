@@ -218,4 +218,21 @@ public class Demonstration implements Submittable {
         this.currentDemonstrationState.setApplicationsInEvaluation();
     }
 
+    @Override
+
+    public String[] getInfo() {
+        String[] info = new String[2];
+        info[0] = this.getShortInfo();
+        //TODO info[1] = this.getStartDate().toString();
+        info[1] = "por definir";
+        //TODO info[2] = this.getEndDate().toString();
+        info[2] = "por definir";
+        return info;
+    }
+
+    public boolean removeAttribution(StaffAttribution staffAttribution) {
+        return this.staffAttributionsList.removeStaffAttribution(staffAttribution);
+
+    }
+
 }

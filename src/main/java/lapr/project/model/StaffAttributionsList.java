@@ -152,4 +152,8 @@ public class StaffAttributionsList {
 
         return this.staffAttributionsList.equals(otherStaffAttributionsList.staffAttributionsList);
     }
+
+    boolean removeStaffAttribution(StaffAttribution staffAttribution) {
+        return this.staffAttributionsList.remove(staffAttribution);
+    }
 }

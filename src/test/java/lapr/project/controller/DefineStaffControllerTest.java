@@ -82,9 +82,10 @@ public class DefineStaffControllerTest {
 //   
 //    }
 
-    /**
-     * Test of newStaffMember method, of class DefineStaffController.
-     */
+
+//    /**
+//     * Test of newStaffMember method, of class DefineStaffController.
+//     */
 //    @Test
 //    public void testNewStaffMember() {
 //        System.out.println("newStaffMember");

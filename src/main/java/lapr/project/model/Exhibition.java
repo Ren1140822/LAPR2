@@ -49,7 +49,7 @@ public class Exhibition implements Submittable {
     /**
      * Exhibition's start date.
      */
-   @XmlTransient
+    @XmlTransient
     private Date startDate;
 
     /**
@@ -123,7 +123,7 @@ public class Exhibition implements Submittable {
      */
     @XmlTransient
     private ExhibitionState currentState;
-   @XmlTransient
+    @XmlTransient
     private final Timer timer;
 
     /**
@@ -286,7 +286,6 @@ public class Exhibition implements Submittable {
      *
      * @param description the Exhibition's description to set
      */
-    
     public void setDescription(String description) {
         this.description = description;
     }
@@ -305,7 +304,6 @@ public class Exhibition implements Submittable {
      *
      * @param startDate the Exhibition's start date to set
      */
-    
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
@@ -324,7 +322,6 @@ public class Exhibition implements Submittable {
      *
      * @param endDate the Exhibition's end date to set
      */
-    
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
@@ -344,7 +341,6 @@ public class Exhibition implements Submittable {
      * @param subStartDate the Exhibition's application submissions start date
      * to set
      */
-    
     public void setSubStartDate(Date subStartDate) {
         this.subStartDate = subStartDate;
     }
@@ -364,7 +360,6 @@ public class Exhibition implements Submittable {
      * @param subEndDate the Exhibition's application submissions end date to
      * set
      */
-    
     public void setSubEndDate(Date subEndDate) {
         this.subEndDate = subEndDate;
     }
@@ -383,7 +378,6 @@ public class Exhibition implements Submittable {
      *
      * @param conflictLimitDate the conflicts limite date to set
      */
-    
     public void setConflictLimitDate(Date conflictLimitDate) {
         this.conflictLimitDate = conflictLimitDate;
     }
@@ -402,7 +396,6 @@ public class Exhibition implements Submittable {
      *
      * @param evaluationLimitDate the evaluations limite date to set
      */
-    
     public void setEvaluationLimitDate(Date evaluationLimitDate) {
         this.evaluationLimitDate = evaluationLimitDate;
     }
@@ -421,7 +414,6 @@ public class Exhibition implements Submittable {
      *
      * @param place the Exhibition's place to set
      */
-    
     public void setPlace(Place place) {
         this.place = place;
     }
@@ -441,7 +433,6 @@ public class Exhibition implements Submittable {
      *
      * @param staffList the Exhibition's staff list to set
      */
-
     public void setStaffList(StaffList staffList) {
         this.staffList = staffList;
     }
@@ -460,7 +451,6 @@ public class Exhibition implements Submittable {
      *
      * @param organizersList the Exhibition's organizers list to set
      */
-    
     public void setOrganizersList(OrganizersList organizersList) {
         this.organizersList = organizersList;
     }
@@ -479,7 +469,6 @@ public class Exhibition implements Submittable {
      *
      * @param applicationsList the Exhibition's applications list to set
      */
-
     public void setApplicationsList(ApplicationsList applicationsList) {
         this.applicationsList = applicationsList;
     }
@@ -498,7 +487,6 @@ public class Exhibition implements Submittable {
      *
      * @param demonstrationsList the Exhibition's demonstrations list to set
      */
- 
     public void setDemonstrationsList(DemonstrationsList demonstrationsList) {
         this.demonstrationsList = new DemonstrationsList(demonstrationsList);
     }
@@ -519,8 +507,6 @@ public class Exhibition implements Submittable {
      * @param staffAttributionsList the Exhibition's staff attributions list to
      * set
      */
-    
-
     @Override
     public void setStaffAttributionsList(StaffAttributionsList staffAttributionsList) {
         this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
@@ -540,7 +526,6 @@ public class Exhibition implements Submittable {
      *
      * @param currentState the new exhibition state
      */
-
     public void setState(ExhibitionState currentState) {
         this.currentState = currentState;
     }
@@ -722,12 +707,13 @@ public class Exhibition implements Submittable {
     public void setSubmittableInApplicationsInEvaluationState() {
         this.currentState.setApplicationsInEvaluation();
     }
-        public void xmlexp() {
+
+    public void xmlexp() {
 
         try {
 
             File file = new File("D:\\file2.xml");
-            JAXBContext jaxbContext = JAXBContext.newInstance(Exhibition.class,ExhibitionInicialState.class,ExhibitionApplication.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Exhibition.class, ExhibitionInicialState.class, ExhibitionApplication.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
             // output pretty printed
@@ -739,5 +725,19 @@ public class Exhibition implements Submittable {
         } catch (JAXBException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String[] getInfo() {
+        String[] info = new String[3];
+        info[0] = this.getTitle();
+        info[1] = this.getStartDate().toString();
+        info[2] = this.getEndDate().toString();
+        return info;
+    }
+
+    public boolean removeAttribution(StaffAttribution staffAttribution) {
+        return this.staffAttributionsList.removeStaffAttribution(staffAttribution);
+
     }
 }
