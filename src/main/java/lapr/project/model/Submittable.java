@@ -55,4 +55,12 @@ public interface Submittable {
     public void setSubmittableInApplicationsInEvaluationState();
     
     public String[]getInfo();
+
+    /**
+     * Remove a staff attribution.
+     * 
+     * @param staffAttribution staff attribution
+     * @return true if it is removed with successfull, false otherwise
+     */
+    public boolean removeAttribution(StaffAttribution staffAttribution);
 }

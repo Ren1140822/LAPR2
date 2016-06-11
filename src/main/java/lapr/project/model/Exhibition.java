@@ -690,4 +690,9 @@ public class Exhibition implements Submittable {
         info[2] = this.getEndDate().toString();
         return info;
     }
+
+    public boolean removeAttribution(StaffAttribution staffAttribution) {
+        return this.staffAttributionsList.removeStaffAttribution(staffAttribution);
+
+    }
 }

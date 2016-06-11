@@ -82,20 +82,20 @@ public class DefineStaffControllerTest {
 //   
 //    }
 
-    /**
-     * Test of newStaffMember method, of class DefineStaffController.
-     */
-    @Test
-    public void testNewStaffMember() {
-        System.out.println("newStaffMember");
-        User user = new User();
-        DefineStaffController instance = controller;
-       
-        Exhibition ex = new Exhibition();
-        controller.setExhibition(ex);
-        StaffMember staffMember= new StaffMember(user);
-        assertEquals(staffMember, instance.newStaffMember(user));
-    }
+//    /**
+//     * Test of newStaffMember method, of class DefineStaffController.
+//     */
+//    @Test
+//    public void testNewStaffMember() {
+//        System.out.println("newStaffMember");
+//        User user = new User();
+//        DefineStaffController instance = controller;
+//       
+//        Exhibition ex = new Exhibition();
+//        controller.setExhibition(ex);
+//        StaffMember staffMember= new StaffMember(user);
+//        assertEquals(staffMember, instance.newStaffMember(user));
+//    }
 
     /**
      * Test of setExhibition method, of class DefineStaffController.
