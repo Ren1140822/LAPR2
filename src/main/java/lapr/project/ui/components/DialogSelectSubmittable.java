@@ -1,5 +1,5 @@
 /**
- * Package location for UI concepts.
+ * Package location for UI components classes.
  */
 package lapr.project.ui.components;
 
@@ -20,11 +20,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.Submittable;
 import lapr.project.ui.AssignApplicationUI;
-import lapr.project.ui.DefineStaffMemberUI;
 
 /**
  * Represents a select exhibition dialog
@@ -93,13 +91,13 @@ public class DialogSelectSubmittable<T extends JFrame> extends JDialog {
      * Creates  the GUI components.
      */
     private void createComponents() {
-        JPanel p1 = createSelectExhibitionPanel();
-        JScrollPane p2 = criarPainelListaExposicoes();
-        JPanel p3 = criarPainelBotoes();
+        JPanel jPanel1 = createSelectExhibitionPanel();
+        JScrollPane jScrollPane2 = createJscrollPaneExhibitionsList();
+        JPanel jPanel3 = createJpanelBtns();
         
-        add(p1, BorderLayout.NORTH);
-        add(p2, BorderLayout.CENTER);
-        add(p3, BorderLayout.SOUTH);
+        add(jPanel1, BorderLayout.NORTH);
+        add(jScrollPane2, BorderLayout.CENTER);
+        add(jPanel3, BorderLayout.SOUTH);
     }
 
     /**
@@ -126,7 +124,7 @@ public class DialogSelectSubmittable<T extends JFrame> extends JDialog {
      *
      * @return the center panel
      */
-    private JScrollPane criarPainelListaExposicoes() {
+    private JScrollPane createJscrollPaneExhibitionsList() {
         exhibitionListJTable = new JTable(new ModelTableSubmittablesList(exhibitionList));
         exhibitionListJTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
@@ -157,7 +155,7 @@ public class DialogSelectSubmittable<T extends JFrame> extends JDialog {
      *
      * @return south panel
      */
-    private JPanel criarPainelBotoes() {
+    private JPanel createJpanelBtns() {
         this.btnSelectExhibition = criarBotaoSelecionarExposicao();
         getRootPane().setDefaultButton(this.btnSelectExhibition);
         
