@@ -14,7 +14,6 @@ import lapr.project.model.Place;
 import lapr.project.model.StaffAttributionsList;
 import lapr.project.model.StaffList;
 import lapr.project.model.exhibition.ExhibitionApplicationsInEvaluationState;
-import lapr.project.model.exhibition.ExhibitionDetectedConflictsState;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
