@@ -3,6 +3,7 @@
  */
 package lapr.project.controller;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.List;
 import lapr.project.model.Demonstration;
@@ -114,6 +115,7 @@ public class ExhibitionApplicationControllerTest {
         instance.newApplication(exhibition);
         instance.setData("",companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
         ExhibitionApplication defaultExhibitionApplication = new ExhibitionApplication();
+         defaultExhibitionApplication.setTitle("");
         defaultExhibitionApplication.setExhibitorArea(exhibitorArea);
         defaultExhibitionApplication.setNumberInvitations(numberInvitations);
         defaultExhibitionApplication.setExhibitor(new Exhibitor(companyName, companyAddress, companyCellphone));
@@ -185,11 +187,17 @@ public class ExhibitionApplicationControllerTest {
         String companyCellphone = "Test";
         float exhibitorArea = 0.0F;
         int numberInvitations = 0;
-        instance.setData("",companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
+        instance.setData("title",companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
         instance.newApplication(exhibition);
         instance.newKeyword("test");
         instance.newKeyword("test2");
-     
+        Demonstration demon = new Demonstration();
+        List<Demonstration> list = new ArrayList();
+        list.add(demon);
+        instance.setDemonstrationsList(list);
+        List<Product> listprod = new ArrayList();
+        listprod.add(new Product("Test"));
+        instance.getExhibitionApplication().setProductsList(listprod);
         boolean result = instance.validateExhibitionApplication();
         assertTrue(result);
 
