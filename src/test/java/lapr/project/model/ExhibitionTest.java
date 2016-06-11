@@ -6,7 +6,6 @@ package lapr.project.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import lapr.project.model.exhibition.timers.ChangeToOpenApplications;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -30,7 +29,7 @@ public class ExhibitionTest {
     @Before
     public void setUp() {
 
-        this.exhibition = new Exhibition("title", "description", new Date(2016, 0, 1), new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 1, 1), new Date(2016, 1, 10), new Date(2016, 2, 1),
+        this.exhibition = new Exhibition("title", "description", new Date(2016, 2, 1), new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 0, 20), new Date(2016, 1, 10), new Date(2016, 1, 20),
                 new Place(), new StaffList(), new OrganizersList(), new ArrayList<Demonstration>(), new StaffAttributionsList());
     }
 

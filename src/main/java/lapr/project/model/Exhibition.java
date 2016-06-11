@@ -397,6 +397,7 @@ public class Exhibition implements Submittable {
      *
      * @return the Exhibition's staff list
      */
+    @Override
     public StaffList getStaffList() {
         return staffList;
     }
@@ -575,11 +576,12 @@ public class Exhibition implements Submittable {
                 && !this.description.trim().isEmpty()
                 // TODO : Insert validate method in Place class
                 && this.startDate.before(this.endDate)
-                && this.subStartDate.after(this.startDate)
+                && this.subStartDate.before(this.startDate)
                 && this.subEndDate.after(this.subStartDate)
                 && this.conflictLimitDate.after(this.subEndDate)
                 && this.evaluationLimitDate.after(this.conflictLimitDate)
-                && this.organizersList.getOrganizersList().size() >= 2;
+                && this.evaluationLimitDate.before(this.endDate)
+                && this.organizersList.getOrganizersList().size() > 1;
     }
 
     /**

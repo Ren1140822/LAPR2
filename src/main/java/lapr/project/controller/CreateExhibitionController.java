@@ -116,8 +116,8 @@ public class CreateExhibitionController {
         this.exhibition.setPlace(place);
         this.exhibition.setStartDate(startDate);
         this.exhibition.setEndDate(endDate);
-        this.exhibition.setSubStartDate(startDate);
-        this.exhibition.setSubEndDate(endDate);
+        this.exhibition.setSubStartDate(startSubDate);
+        this.exhibition.setSubEndDate(endSubDate);
         this.exhibition.setConflictLimitDate(conflictLimitDate);
         this.exhibition.setEvaluationLimitDate(evaluationLimiteDate);
     }

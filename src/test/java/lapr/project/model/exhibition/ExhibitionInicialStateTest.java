@@ -14,6 +14,7 @@ import lapr.project.model.OrganizersList;
 import lapr.project.model.Place;
 import lapr.project.model.StaffAttributionsList;
 import lapr.project.model.StaffList;
+import lapr.project.model.User;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -35,13 +36,13 @@ public class ExhibitionInicialStateTest {
     public void setUp() {
 
         List<Organizer> organizerslist = new ArrayList<>();
-        organizerslist.add(new Organizer());
-        organizerslist.add(new Organizer());
+        organizerslist.add(new Organizer(new User("Daniel", "daniell", "email@dd2", "password")));
+        organizerslist.add(new Organizer(new User("Daniel2", "daniell2", "email@dd2", "password")));
 
-        this.exhibition = new Exhibition("title", "description", new Date(2016, 0, 1),
-                new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 1, 1),
-                new Date(2016, 1, 10), new Date(2016, 2, 1),
-                new Place(), new StaffList(), new OrganizersList(organizerslist),
+        this.exhibition = new Exhibition("title", "description", new Date(2016, 2, 1), 
+                new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 0, 20), 
+                new Date(2016, 1, 10), new Date(2016, 1, 20),
+                new Place(), new StaffList(), new OrganizersList(organizerslist), 
                 new ArrayList<Demonstration>(), new StaffAttributionsList());
     }
 

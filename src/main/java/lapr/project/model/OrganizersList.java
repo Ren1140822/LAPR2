@@ -84,7 +84,7 @@ public class OrganizersList {
      * @return true if the organizer is sucessfully added.
      */
     public boolean addAndValidateOrganizer(Organizer organizer) {
-
+        
         return (organizer.validate() && validateOrganizer(organizer)) ? addOrganizer(organizer) : false;
     }
 
