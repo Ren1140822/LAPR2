@@ -28,25 +28,25 @@ class Main {
 
 //		CalculatorExample calculatorExample = new CalculatorExample();
 //		System.out.println(calculatorExample.sum(3, 5));
-                                     Exhibition e = new Exhibition();
-                                      
-                                     ExhibitionApplication a = new ExhibitionApplication();
-                                     List<ExhibitionApplication> listApp = new ArrayList();
-                                     listApp.add(a);
-                                  
-                                     StaffAttributionsList staff = new StaffAttributionsList();
-                                     StaffAttribution sf = new StaffAttribution();
-                                     List<StaffAttribution> lstStaff = new ArrayList();
-                                     lstStaff.add(sf);
-                                      staff.setStaffAttributionsList(lstStaff);
-                                     e.setStaffAttributionsList(staff);
-                                     Demonstration b = new Demonstration();
-                                     b.setStaffAttributionsList(staff);
-                                     List<Demonstration> listDemos = new ArrayList();
-                                     listDemos.add(b);
-                                     DemonstrationsList demoList = new DemonstrationsList(listDemos);
-                                     e.setDemonstrationsList(demoList);
-                                     e.xmlexp();
+//                                     Exhibition e = new Exhibition();
+//                                      
+//                                     ExhibitionApplication a = new ExhibitionApplication();
+//                                     List<ExhibitionApplication> listApp = new ArrayList();
+//                                     listApp.add(a);
+//                                  
+//                                     StaffAttributionsList staff = new StaffAttributionsList();
+//                                     StaffAttribution sf = new StaffAttribution();
+//                                     List<StaffAttribution> lstStaff = new ArrayList();
+//                                     lstStaff.add(sf);
+//                                      staff.setStaffAttributionsList(lstStaff);
+//                                     e.setStaffAttributionsList(staff);
+//                                     Demonstration b = new Demonstration();
+//                                     b.setStaffAttributionsList(staff);
+//                                     List<Demonstration> listDemos = new ArrayList();
+//                                     listDemos.add(b);
+//                                     DemonstrationsList demoList = new DemonstrationsList(listDemos);
+//                                     e.setDemonstrationsList(demoList);
+//                                     e.xmlexp();
                                     //ureg.xmlexp();
                                
 	}
