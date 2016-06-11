@@ -136,17 +136,17 @@ public class AssignApplicationController {
     public List<StaffAttribution> getAttributionsList() {
         return this.staffAttributionMechanism.toAssign(this.selectedSubmittable);
     }
-
+    
     /**
      * Saves list of staff attributions
      *
-     * @param attributionsList the new attributionsList
      */
-    public void staffAttributionsRegister(List<StaffAttribution> attributionsList) {
-        this.selectedSubmittable.setStaffAttributionsList(new StaffAttributionsList(attributionsList));
+    public void staffAttributionsRegister() {
+        this.selectedSubmittable.setStaffAttributionsList(new StaffAttributionsList(getAttributionsList()));
         this.staffAttributionsList = this.selectedSubmittable.getStaffAttributionsList();
     }
-
+ 
+    
     /**
      * set applications in evaluation state
      */
