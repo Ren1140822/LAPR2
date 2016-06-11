@@ -681,4 +681,13 @@ public class Exhibition implements Submittable {
     public void setSubmittableInApplicationsInEvaluationState() {
         this.currentState.setApplicationsInEvaluation();
     }
+
+    @Override
+    public String[] getInfo() {
+        String[] info = new String[3];
+        info[0] = this.getTitle();
+        info[1] = this.getStartDate().toString();
+        info[2] = this.getEndDate().toString();
+        return info;
+    }
 }

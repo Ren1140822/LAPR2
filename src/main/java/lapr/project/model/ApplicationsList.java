@@ -25,7 +25,7 @@ public class ApplicationsList {
     /**
      * A temporary exhibition application reference.
      */
-    private ExhibitionApplication exhibitionApplication;
+    private Application application;
 
     /**
      * Creates an instance of ApplicationsList with its default values.
@@ -40,7 +40,7 @@ public class ApplicationsList {
      *
      * @param ApplicationsList list of applications
      */
-    public ApplicationsList(List<ExhibitionApplication> ApplicationsList) {
+    public ApplicationsList(List<Application> applicationsList) {
         this.applicationsList = new ArrayList<>(applicationsList);
     }
 
@@ -76,9 +76,9 @@ public class ApplicationsList {
      * Creates a new exhibition application.
      * @return the new exhibition application
      */
-    public  ExhibitionApplication newExhibitionApplication() {
-        this.exhibitionApplication = new ExhibitionApplication();
-        return this.exhibitionApplication;
+    public  Application newExhibitionApplication() {
+        this.application = new ExhibitionApplication();
+        return this.application;
     }
 
    

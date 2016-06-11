@@ -85,7 +85,7 @@ public class ExhibitionApplicationController {
      */
     public void newApplication(Exhibition exhibition) {
         this.applicationList = exhibition.getApplicationsList();
-        this.exhibitionApplication = applicationList.newExhibitionApplication();
+        this.exhibitionApplication = (ExhibitionApplication) applicationList.newExhibitionApplication();
     }
 
     /**

@@ -53,4 +53,6 @@ public interface Submittable {
      * Set submittable to InApplicationsInEvaluation state
      */
     public void setSubmittableInApplicationsInEvaluationState();
+    
+    public String[]getInfo();
 }

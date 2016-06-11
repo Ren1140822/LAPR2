@@ -141,9 +141,8 @@ public class AssignApplicationController {
      * Saves list of staff attributions
      *
      */
-    public void staffAttributionsRegister() {
-        this.selectedSubmittable.setStaffAttributionsList(new StaffAttributionsList(getAttributionsList()));
-        this.staffAttributionsList = this.selectedSubmittable.getStaffAttributionsList();
+    public void staffAttributionsRegister(List<StaffAttribution> staffAttributionsList) {
+        this.selectedSubmittable.setStaffAttributionsList(new StaffAttributionsList(staffAttributionsList));
     }
  
     
