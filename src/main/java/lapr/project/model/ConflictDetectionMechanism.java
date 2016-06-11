@@ -3,6 +3,9 @@
  */
 package lapr.project.model;
 
+import com.sun.xml.internal.bind.AnyTypeAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 /**
  * Mechanism to detect conflicts.
  *
@@ -12,6 +15,7 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+    @XmlJavaTypeAdapter(AnyTypeAdapter.class)
 public interface ConflictDetectionMechanism {
     
 }

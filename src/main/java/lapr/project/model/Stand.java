@@ -3,6 +3,9 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+
 /**
  * Represents a stands register to store stands.
  *
@@ -76,6 +79,7 @@ public class Stand {
      *
      * @param numberID the stand's number ID to set
      */
+    @XmlAttribute
     public void setNumberID(int numberID) {
         this.numberID = numberID;
     }
@@ -94,6 +98,7 @@ public class Stand {
      *
      * @param area the stand's area to set
      */
+    @XmlElement
     public void setArea(float area) {
         this.area = area;
     }

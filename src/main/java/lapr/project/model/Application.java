@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * A markup interface for an application.
@@ -14,6 +15,7 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+
 public interface Application {
 
     /**

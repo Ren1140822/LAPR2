@@ -3,9 +3,18 @@
  */
 package lapr.project.model;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import lapr.project.model.exhibition.ExhibitionInicialState;
 import lapr.project.model.exhibition.timers.ChangeToApplicationsInDecision;
 import lapr.project.model.exhibition.timers.ChangeToChangedConflicts;
@@ -22,83 +31,99 @@ import lapr.project.model.exhibition.timers.DetectConflictsTask;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
 public class Exhibition implements Submittable {
 
     /**
      * Exhibition's title.
      */
+    @XmlTransient
     private String title;
 
     /**
      * Exhibition's description.
      */
+    @XmlTransient
     private String description;
 
     /**
      * Exhibition's start date.
      */
+   @XmlTransient
     private Date startDate;
 
     /**
      * Exhibition's end date.
      */
+    @XmlTransient
     private Date endDate;
 
     /**
      * Exhibition's application submissions start date.
      */
+    @XmlTransient
     private Date subStartDate;
 
     /**
      * Exhibition's application submissions end date.
      */
+    @XmlTransient
     private Date subEndDate;
 
     /**
      * Exhibition's attribution conflicts resolution limit date.
      */
+    @XmlTransient
     private Date conflictLimitDate;
 
     /**
      * Exhibition's evaluations limite date.
      */
+    @XmlTransient
     private Date evaluationLimitDate;
 
     /**
      * Exhibition's location.
      */
+    @XmlTransient
     private Place place;
 
     /**
      * Exhibition's staff list.
      */
+    @XmlTransient
     private StaffList staffList;
 
     /**
      * Exhibition's organizers list.
      */
+    @XmlTransient
     private OrganizersList organizersList;
 
     /**
      * Exhibition's applications list.
      */
+    @XmlTransient
     private ApplicationsList applicationsList;
 
     /**
      * Exhibition's demonstrations list.
      */
+    @XmlTransient
     private DemonstrationsList demonstrationsList;
 
     /**
      * Exhibition's staff attributions list.
      */
+    @XmlTransient
     private StaffAttributionsList staffAttributionsList;
 
     /**
      * The exhibition's current state.
      */
+    @XmlTransient
     private ExhibitionState currentState;
-
+   @XmlTransient
     private final Timer timer;
 
     /**
@@ -242,6 +267,7 @@ public class Exhibition implements Submittable {
      *
      * @param title the Exhibition's title to set
      */
+    @XmlAttribute
     public void setTitle(String title) {
         this.title = title;
     }
@@ -260,6 +286,7 @@ public class Exhibition implements Submittable {
      *
      * @param description the Exhibition's description to set
      */
+    
     public void setDescription(String description) {
         this.description = description;
     }
@@ -278,6 +305,7 @@ public class Exhibition implements Submittable {
      *
      * @param startDate the Exhibition's start date to set
      */
+    
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
@@ -296,6 +324,7 @@ public class Exhibition implements Submittable {
      *
      * @param endDate the Exhibition's end date to set
      */
+    
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
@@ -315,6 +344,7 @@ public class Exhibition implements Submittable {
      * @param subStartDate the Exhibition's application submissions start date
      * to set
      */
+    
     public void setSubStartDate(Date subStartDate) {
         this.subStartDate = subStartDate;
     }
@@ -334,6 +364,7 @@ public class Exhibition implements Submittable {
      * @param subEndDate the Exhibition's application submissions end date to
      * set
      */
+    
     public void setSubEndDate(Date subEndDate) {
         this.subEndDate = subEndDate;
     }
@@ -352,6 +383,7 @@ public class Exhibition implements Submittable {
      *
      * @param conflictLimitDate the conflicts limite date to set
      */
+    
     public void setConflictLimitDate(Date conflictLimitDate) {
         this.conflictLimitDate = conflictLimitDate;
     }
@@ -370,6 +402,7 @@ public class Exhibition implements Submittable {
      *
      * @param evaluationLimitDate the evaluations limite date to set
      */
+    
     public void setEvaluationLimitDate(Date evaluationLimitDate) {
         this.evaluationLimitDate = evaluationLimitDate;
     }
@@ -388,6 +421,7 @@ public class Exhibition implements Submittable {
      *
      * @param place the Exhibition's place to set
      */
+    
     public void setPlace(Place place) {
         this.place = place;
     }
@@ -407,6 +441,7 @@ public class Exhibition implements Submittable {
      *
      * @param staffList the Exhibition's staff list to set
      */
+
     public void setStaffList(StaffList staffList) {
         this.staffList = staffList;
     }
@@ -425,6 +460,7 @@ public class Exhibition implements Submittable {
      *
      * @param organizersList the Exhibition's organizers list to set
      */
+    
     public void setOrganizersList(OrganizersList organizersList) {
         this.organizersList = organizersList;
     }
@@ -443,6 +479,7 @@ public class Exhibition implements Submittable {
      *
      * @param applicationsList the Exhibition's applications list to set
      */
+
     public void setApplicationsList(ApplicationsList applicationsList) {
         this.applicationsList = applicationsList;
     }
@@ -461,6 +498,7 @@ public class Exhibition implements Submittable {
      *
      * @param demonstrationsList the Exhibition's demonstrations list to set
      */
+ 
     public void setDemonstrationsList(DemonstrationsList demonstrationsList) {
         this.demonstrationsList = new DemonstrationsList(demonstrationsList);
     }
@@ -481,6 +519,8 @@ public class Exhibition implements Submittable {
      * @param staffAttributionsList the Exhibition's staff attributions list to
      * set
      */
+    
+
     @Override
     public void setStaffAttributionsList(StaffAttributionsList staffAttributionsList) {
         this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
@@ -500,6 +540,7 @@ public class Exhibition implements Submittable {
      *
      * @param currentState the new exhibition state
      */
+
     public void setState(ExhibitionState currentState) {
         this.currentState = currentState;
     }
@@ -680,5 +721,23 @@ public class Exhibition implements Submittable {
     @Override
     public void setSubmittableInApplicationsInEvaluationState() {
         this.currentState.setApplicationsInEvaluation();
+    }
+        public void xmlexp() {
+
+        try {
+
+            File file = new File("D:\\file2.xml");
+            JAXBContext jaxbContext = JAXBContext.newInstance(Exhibition.class,ExhibitionInicialState.class,ExhibitionApplication.class);
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+            // output pretty printed
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            jaxbMarshaller.marshal(this, file);
+            jaxbMarshaller.marshal(this, System.out);
+
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
     }
 }

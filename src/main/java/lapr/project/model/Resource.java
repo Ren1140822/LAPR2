@@ -3,6 +3,9 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Represents a resource
  *
@@ -12,6 +15,7 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+
 public class Resource {
 
     /**
@@ -54,6 +58,7 @@ public class Resource {
      *
      * @param designation the Resource's designation to set
      */
+    
     public void setDesignation(String designation) {
         this.designation = designation;
     }

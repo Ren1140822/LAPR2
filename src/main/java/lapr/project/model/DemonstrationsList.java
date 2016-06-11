@@ -5,6 +5,9 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Represents a demonstrations list.
@@ -15,11 +18,14 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
 public class DemonstrationsList {
 
     /**
      * List of demonstrations.
      */
+      @XmlElementWrapper(name="Demonstrations List")
+    @XmlElement(name="Demonstration")
     private List<Demonstration> demonstrationList;
 
     /**
@@ -63,6 +69,7 @@ public class DemonstrationsList {
      *
      * @param demonstrationList list of demonstrations
      */
+   
     public void setDemonstrationsList(List<Demonstration> demonstrationList) {
         this.demonstrationList = new ArrayList<>(demonstrationList);
     }

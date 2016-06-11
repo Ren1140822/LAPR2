@@ -177,5 +177,5 @@ public class XMLParserTest {
 		XMLUnit.setIgnoreWhitespace(true);
 		assertXMLEqual(expected.getOwnerDocument(), result.getOwnerDocument());
 	}
-
+                
 }

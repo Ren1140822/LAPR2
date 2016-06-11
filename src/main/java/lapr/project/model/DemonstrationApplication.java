@@ -5,6 +5,11 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import lapr.project.model.application.ApplicationInitialState;
 
 /**
@@ -16,46 +21,57 @@ import lapr.project.model.application.ApplicationInitialState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Amaral 1151231
  */
+@XmlRootElement
 public class DemonstrationApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable {
 
     /**
      * The title of the application.
      */
+    @XmlAttribute
     private String title;
 
     /**
      * The list of keywords.
      */
+      @XmlElementWrapper(name="Keywords List")
+    @XmlElement(name="Keyword")
     private List<KeyWord> keywordsList;
 
     /**
      * The exhibitor.
      */
+      @XmlElement
     private Exhibitor exhibitor;
 
     /**
      * The area asked by the company.
      */
+      @XmlElement
     private float exhibitorArea;
 
     /**
      * The number of invitations asked for.
      */
+      @XmlElement
     private int numberInvitations;
 
     /**
      * The list of products the company wishes to expose.
      */
+        @XmlElementWrapper(name="Products List")
+    @XmlElement(name="Products")
     private List<Product> productsList;
 
     /**
      * The evaluation lists of this application.
      */
+        @XmlAnyElement
     private List<Evaluation> evaluationsList;
 
     /**
      * The state of the application.
      */
+        @XmlAnyElement
     private ApplicationState currentState;
 
     /**
@@ -136,6 +152,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @param title application's title
      */
+    
     public void setTitle(String title) {
         this.title = title;
     }
@@ -165,6 +182,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @param keywordsList keywords list
      */
+     
     public void setKeywordsList(List<KeyWord> keywordsList) {
         this.keywordsList = keywordsList;
     }
@@ -174,6 +192,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @param exhibitor exhibitor
      */
+    
     public void setExhibitor(Exhibitor exhibitor) {
         this.exhibitor = exhibitor;
     }
@@ -222,6 +241,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @param exhibitorArea sets exhibitor area
      */
+   
     public void setExhibitorArea(float exhibitorArea) {
         this.exhibitorArea = exhibitorArea;
     }
@@ -231,6 +251,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @param numberInvitations sets number of invitations
      */
+   
     public void setNumberInvitations(int numberInvitations) {
         this.numberInvitations = numberInvitations;
     }
@@ -240,6 +261,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @param productsList products list
      */
+    
     public void setProductsList(List<Product> productsList) {
         this.productsList = new ArrayList(productsList);
     }
@@ -249,6 +271,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @param applicationsList the applications list
      */
+    
     public void setApplicationEvaluationsList(List<DemonstrationApplication> applicationsList) {
         this.evaluationsList = new ArrayList(applicationsList);
     }

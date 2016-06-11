@@ -5,6 +5,9 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import lapr.project.model.application.ApplicationInitialState;
 
 /**
@@ -16,51 +19,62 @@ import lapr.project.model.application.ApplicationInitialState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
 public class ExhibitionApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable {
 
     /**
      * The title of the application.
      */
+    @XmlTransient
     private String title;
 
     /**
      * The exhibitor.
      */
+    @XmlTransient
     private Exhibitor exhibitor;
 
     /**
      * The area asked by the company.
      */
+   @XmlTransient
     private float exhibitorArea;
 
     /**
      * The number of invitations asked for.
      */
+   @XmlTransient
     private int numberInvitations;
 
     /**
      * The list of products the company wishes to expose.
      */
+    @XmlTransient
     private List<Product> productsList;
 
     /**
      * The list of demonstrations the company wishes to participate.
      */
+   @XmlTransient
     private List<Demonstration> demonstrationsList;
 
     /**
      * The evaluation lists of this application.
      */
+    
+    @XmlTransient
     private List<Evaluation> evaluationsList;
 
     /**
      * The state of the application.
      */
+    @XmlTransient
     private ApplicationState currentState;
 
     /**
      * The list of keywords.
      */
+    @XmlTransient
     private List<KeyWord> keywordsList;
 
     /**
@@ -155,6 +169,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param title title of the application
      */
+    
     public void setTitle(String title) {
         this.title = title;
     }
@@ -232,6 +247,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param exhibitorArea sets exhibitor area
      */
+
     public void setExhibitorArea(float exhibitorArea) {
         this.exhibitorArea = exhibitorArea;
     }
@@ -241,6 +257,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param numberInvitations number of invitations
      */
+
     public void setNumberInvitations(int numberInvitations) {
         this.numberInvitations = numberInvitations;
     }
@@ -250,6 +267,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param demonstrationsList the demonstration list
      */
+    
     public void setDemonstrationsList(List<Demonstration> demonstrationsList) {
         this.demonstrationsList = new ArrayList(demonstrationsList);
     }
@@ -259,6 +277,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param productsList procucts list
      */
+     
     public void setProductsList(List<Product> productsList) {
         this.productsList = new ArrayList(productsList);
     }
@@ -268,6 +287,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param evaluationsList the evaluation's list
      */
+
     public void setEvaluationsList(List<Evaluation> evaluationsList) {
         this.evaluationsList = new ArrayList(evaluationsList);
     }
@@ -277,6 +297,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param exhibitor the exhibitor
      */
+    @XmlElement
     public void setExhibitor(Exhibitor exhibitor) {
         this.exhibitor = exhibitor;
     }
@@ -409,6 +430,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param newState the new state to set
      */
+ 
     @Override
     public void setState(ApplicationState newState) {
         this.currentState = newState;

@@ -5,6 +5,8 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Represents a applications list
@@ -15,16 +17,20 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
+
 public class ApplicationsList {
 
     /**
      * List of applications.
      */
+    
     private List<Application> applicationsList;
 
     /**
      * A temporary exhibition application reference.
      */
+    
     private ExhibitionApplication exhibitionApplication;
 
     /**
@@ -59,6 +65,7 @@ public class ApplicationsList {
      *
      * @return list of applications
      */
+    @XmlTransient
     public List<Application> getApplicationsList() {
         return new ArrayList<>(this.applicationsList);
     }
@@ -68,6 +75,7 @@ public class ApplicationsList {
      *
      * @param applicationsList list of applications
      */
+    
     public void setApplicationsList(List<Application> applicationsList) {
         this.applicationsList = new ArrayList<>(applicationsList);
     }

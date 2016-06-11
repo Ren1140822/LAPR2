@@ -3,6 +3,9 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  * Represents a staff attribution.
  *
@@ -12,17 +15,19 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
 public class StaffAttribution {
 
     /**
      * The staffAttribution's application.
      */
-
+    @XmlTransient
     private Assingnable application;
 
     /**
      * The staffAttribution's staffMember.
      */
+   @XmlTransient
     private StaffMember staffMember;
 
     /**
@@ -69,6 +74,7 @@ public class StaffAttribution {
      *
      * @param application the staffAttribution application to set
      */
+
     public void setApplication(Assingnable application) {
 
         this.application = application;
@@ -88,6 +94,7 @@ public class StaffAttribution {
      *
      * @param staffMember the staffAttribution staffMember to set
      */
+  
     public void setStaffMember(StaffMember staffMember) {
         this.staffMember = staffMember;
     }

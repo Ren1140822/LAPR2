@@ -3,6 +3,11 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Represents a conflict.
  *
@@ -12,21 +17,25 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
 public class Conflict {
 
     /**
      * The type of the conflict.
      */
+    
     private ConflictType conflictType;
 
     /**
      * The staff member which conflicts with.
      */
+    
     private StaffMember staffMember;
 
     /**
      * Where the conflict occurs.
      */
+   
     private Conflictable conflictable;
 
     /**
@@ -68,6 +77,7 @@ public class Conflict {
      *
      * @return conflict type
      */
+    @XmlElement
     public ConflictType getConflictType() {
         return new ConflictType(conflictType);
     }
@@ -77,6 +87,7 @@ public class Conflict {
      *
      * @param conflictType conflictType
      */
+ 
     public void setConflictType(ConflictType conflictType) {
         this.conflictType = new ConflictType(conflictType);
     }
@@ -86,6 +97,7 @@ public class Conflict {
      *
      * @return staff member
      */
+    @XmlElement
     public StaffMember getStaffMember() {
         return new StaffMember(staffMember);
     }
@@ -95,6 +107,7 @@ public class Conflict {
      *
      * @param staffMember staff member
      */
+    
     public void setStaffMember(StaffMember staffMember) {
         this.staffMember = new StaffMember(staffMember);
     }
@@ -104,6 +117,7 @@ public class Conflict {
      *
      * @return conflictable
      */
+    @XmlAnyElement
     public Conflictable getConflictable() {
         return conflictable;
     }
@@ -113,6 +127,7 @@ public class Conflict {
      *
      * @param conflictable conflictable
      */
+
     public void setConflictable(Conflictable conflictable) {
         this.conflictable = conflictable;
     }
