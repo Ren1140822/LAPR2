@@ -41,7 +41,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     /**
      * The list of products the company wishes to expose.
      */
-    private List<Product> productList;
+    private List<Product> productsList;
 
     /**
      * The list of demonstrations the company wishes to participate.
@@ -61,7 +61,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     /**
      * The list of keywords.
      */
-    private List<KeyWord> keyWordList;
+    private List<KeyWord> keywordsList;
 
     /**
      * The default title.
@@ -84,9 +84,9 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.exhibitor = new Exhibitor();
         this.exhibitorArea = DEFAULT_EXHIBITOR_AREA;
         this.numberInvitations = DEFAULT_NUMBER_INVITATION;
-        this.productList = new ArrayList<>();
+        this.productsList = new ArrayList<>();
         this.demonstrationsList = new ArrayList<>();
-        this.keyWordList = new ArrayList<>();
+        this.keywordsList = new ArrayList<>();
         this.evaluationsList = new ArrayList<>();
         this.currentState = new ApplicationInitialState(this);
     }
@@ -114,9 +114,9 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.exhibitor = new Exhibitor(exhibitor);
         this.exhibitorArea = exhibitorArea;
         this.numberInvitations = numberInvitations;
-        this.productList = new ArrayList(productList);
+        this.productsList = new ArrayList(productList);
         this.demonstrationsList = new ArrayList(demonstrationsList);
-        this.keyWordList = keyWordList;
+        this.keywordsList = keyWordList;
         this.evaluationsList = new ArrayList(evaluationsList);
         this.currentState = applicationState;
 
@@ -133,10 +133,10 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.exhibitor = exhibitionApplication.exhibitor;
         this.exhibitorArea = exhibitionApplication.exhibitorArea;
         this.numberInvitations = exhibitionApplication.numberInvitations;
-        this.productList = new ArrayList(exhibitionApplication.productList);
+        this.productsList = new ArrayList(exhibitionApplication.productsList);
         this.demonstrationsList = new ArrayList(exhibitionApplication.demonstrationsList);
         this.evaluationsList = new ArrayList(exhibitionApplication.evaluationsList);
-        this.keyWordList = new ArrayList(exhibitionApplication.keyWordList);
+        this.keywordsList = new ArrayList(exhibitionApplication.keywordsList);
         this.currentState = exhibitionApplication.currentState;
     }
 
@@ -173,6 +173,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @return the number of invitations
      */
+    @Override
     public int getNumberInvitations() {
         return this.numberInvitations;
     }
@@ -201,8 +202,9 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @return the product list
      */
-    public List<Product> getProductList() {
-        return this.productList;
+    @Override
+    public List<Product> getProductsList() {
+        return this.productsList;
     }
 
     /**
@@ -220,8 +222,9 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @return the list of keywords
      */
-    public List<KeyWord> getKeyWordList() {
-        return keyWordList;
+    @Override
+    public List<KeyWord> getKeywordsList() {
+        return keywordsList;
     }
 
     /**
@@ -257,7 +260,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @param productsList procucts list
      */
     public void setProductsList(List<Product> productsList) {
-        this.productList = new ArrayList(productsList);
+        this.productsList = new ArrayList(productsList);
     }
 
     /**
@@ -303,7 +306,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         product.setDesignation(designation);
 
         if (product.validate()) {
-            productList.add(product);
+            productsList.add(product);
             return true;
 
         }
@@ -317,9 +320,9 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @return true if it is successfull removed, false otherwise
      */
     public boolean removeProduct(String designation) {
-        for (Product p : productList) {
+        for (Product p : productsList) {
             if (p.getDesignation().equals(designation)) {
-                return productList.remove(p);
+                return productsList.remove(p);
             }
         }
         return false;
@@ -340,12 +343,12 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * Creates a new Keyword and adds it to the list
      *
      * @param description the value of the keyword
+     * @return true if it is successfull added, false otherwise
      */
     public boolean newKeyword(String description) {
         KeyWord keyWord = new KeyWord(description);
         keyWord.validate();
-        keyWordList.add(keyWord);
-        return true;
+        return keywordsList.add(keyWord);
     }
 
     /**
@@ -364,7 +367,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @return true if all O.K.
      */
     public boolean validateApplication() {
-        return (this.exhibitor.validate() && !this.demonstrationsList.isEmpty() && !this.productList.isEmpty() && this.keyWordList.size() > 1 && this.keyWordList.size() <= 5 && this.numberInvitations > 0 && this.exhibitorArea > 0);
+        return (this.exhibitor.validate() && !this.demonstrationsList.isEmpty() && !this.productsList.isEmpty() && this.keywordsList.size() > 1 && this.keywordsList.size() <= 5 && this.numberInvitations > 0 && this.exhibitorArea > 0);
     }
 
     /**
@@ -441,9 +444,9 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
                 && this.exhibitorArea == otherExhibitionApplication.exhibitorArea
                 && this.numberInvitations == otherExhibitionApplication.numberInvitations
                 && this.demonstrationsList.equals(otherExhibitionApplication.demonstrationsList)
-                && this.productList.equals(otherExhibitionApplication.productList)
+                && this.productsList.equals(otherExhibitionApplication.productsList)
                 && this.evaluationsList.equals(otherExhibitionApplication.evaluationsList)
-                && this.keyWordList.equals(otherExhibitionApplication.keyWordList));
+                && this.keywordsList.equals(otherExhibitionApplication.keywordsList));
 
     }
 
@@ -464,13 +467,13 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         for (Demonstration demonstration : demonstrationsList) {
             s.append(String.format("%s%n", demonstration));
         }
-        for (Product product : productList) {
+        for (Product product : productsList) {
             s.append(String.format("%s%n", product));
         }
         for (Evaluation evaluation : evaluationsList) {
             s.append(String.format("%s%n", evaluation));
         }
-        for (KeyWord keyword : keyWordList) {
+        for (KeyWord keyword : keywordsList) {
             s.append(String.format("%s%n", keyword));
         }
         s.append("}");
@@ -483,6 +486,21 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     @Override
     public void setInEvaluation() {
         this.currentState.setInEvaluation();
+    }
+
+    /**
+     * Gets the exhibitor.
+     *
+     * @return exhibitor
+     */
+    @Override
+    public Exhibitor getExhibitor() {
+        return this.exhibitor;
+    }
+
+    @Override
+    public float getArea() {
+        return this.exhibitorArea;
     }
 
 }

@@ -185,7 +185,7 @@ public class ExhibitionApplicationController {
      * @return the list of products
      */
     public List<Product> getProductsList() {
-        return this.exhibitionApplication.getProductList();
+        return this.exhibitionApplication.getProductsList();
     }
 
     /**
@@ -194,6 +194,6 @@ public class ExhibitionApplicationController {
      * @return the list of keyword
      */
     public List<KeyWord> getKeyWordList() {
-        return this.exhibitionApplication.getKeyWordList();
+        return this.exhibitionApplication.getKeywordsList();
     }
 }

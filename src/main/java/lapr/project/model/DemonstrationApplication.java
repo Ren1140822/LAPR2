@@ -26,7 +26,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     /**
      * The list of keywords.
      */
-    private List<KeyWord> keyWordList;
+    private List<KeyWord> keywordsList;
 
     /**
      * The exhibitor.
@@ -46,7 +46,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     /**
      * The list of products the company wishes to expose.
      */
-    private List<Product> productList;
+    private List<Product> productsList;
 
     /**
      * The evaluation lists of this application.
@@ -80,7 +80,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         this.exhibitor = new Exhibitor();
         this.exhibitorArea = DEFAULT_EXHIBITOR_AREA;
         this.numberInvitations = DEFAULT_NUMBER_INVITATION;
-        this.productList = new ArrayList<>();
+        this.productsList = new ArrayList<>();
         this.evaluationsList = new ArrayList<>();
         this.currentState = new ApplicationInitialState(this);
     }
@@ -105,7 +105,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         this.exhibitor = new Exhibitor(exhibitor);
         this.exhibitorArea = exhibitorArea;
         this.numberInvitations = numberInvitations;
-        this.productList = new ArrayList(productList);
+        this.productsList = new ArrayList(productList);
         this.evaluationsList = new ArrayList(evaluationsList);
         this.currentState = applicationState;
 
@@ -122,7 +122,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         this.exhibitor = demonstrationApplication.exhibitor;
         this.exhibitorArea = demonstrationApplication.exhibitorArea;
         this.numberInvitations = demonstrationApplication.numberInvitations;
-        this.productList = new ArrayList(demonstrationApplication.productList);
+        this.productsList = new ArrayList(demonstrationApplication.productsList);
         this.evaluationsList = new ArrayList(demonstrationApplication.evaluationsList);
         this.currentState = demonstrationApplication.currentState;
     }
@@ -141,6 +141,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @return exhibitor
      */
+    @Override
     public Exhibitor getExhibitor() {
         return exhibitor;
     }
@@ -150,17 +151,18 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @return keywords list
      */
-    public List<KeyWord> getKeyWordList() {
-        return keyWordList;
+    @Override
+    public List<KeyWord> getKeywordsList() {
+        return keywordsList;
     }
 
     /**
      * Sets the keywords list.
      *
-     * @param keyWordList keywords list
+     * @param keywordsList keywords list
      */
-    public void setKeyWordList(List<KeyWord> keyWordList) {
-        this.keyWordList = keyWordList;
+    public void setKeywordsList(List<KeyWord> keywordsList) {
+        this.keywordsList = keywordsList;
     }
 
     /**
@@ -186,6 +188,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @return the number of invitations
      */
+    @Override
     public int getNumberInvitations() {
         return this.numberInvitations;
     }
@@ -195,8 +198,9 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @return the product's list
      */
-    public List<Product> getProductList() {
-        return this.productList;
+    @Override
+    public List<Product> getProductsList() {
+        return this.productsList;
     }
 
     /**
@@ -233,7 +237,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      * @param productsList products list
      */
     public void setProductsList(List<Product> productsList) {
-        this.productList = new ArrayList(productsList);
+        this.productsList = new ArrayList(productsList);
     }
 
     /**
@@ -259,7 +263,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         s.append(String.format("%f%n", this.exhibitor));
         s.append(String.format("%f%n", this.exhibitorArea));
         s.append(String.format("%d%n", this.numberInvitations));
-        for (Product prod : productList) {
+        for (Product prod : productsList) {
             s.append(String.format("%s%n", prod));
         }
         for (Evaluation appl : evaluationsList) {
@@ -287,7 +291,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
 
         return this.title.equals(otherDemonstrationApplication.title) && this.exhibitor.equals(otherDemonstrationApplication.exhibitor)
                 && this.evaluationsList.equals(otherDemonstrationApplication.evaluationsList)
-                && this.productList.equals(otherDemonstrationApplication.productList) && this.exhibitorArea == otherDemonstrationApplication.exhibitorArea
+                && this.productsList.equals(otherDemonstrationApplication.productsList) && this.exhibitorArea == otherDemonstrationApplication.exhibitorArea
                 && this.numberInvitations == otherDemonstrationApplication.numberInvitations;
     }
 
@@ -354,7 +358,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         return this.title != null && this.exhibitor != null
                 && this.currentState != null && this.evaluationsList != null
                 && this.exhibitorArea > 0 && this.numberInvitations > 0
-                && this.productList != null;
+                && this.productsList != null;
     }
 
     /**
@@ -374,6 +378,11 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     @Override
     public String getTitle() {
         return this.title;
+    }
+
+    @Override
+    public float getArea() {
+        return this.exhibitorArea;
     }
 
 }

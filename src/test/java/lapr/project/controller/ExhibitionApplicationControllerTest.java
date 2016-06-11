@@ -131,7 +131,7 @@ public class ExhibitionApplicationControllerTest {
         Exhibition exhibition = new Exhibition();
         instance.newApplication(exhibition);
         instance.newProduct(designation);
-        Product result = instance.getExhibitionApplication().getProductList().get(0);
+        Product result = instance.getExhibitionApplication().getProductsList().get(0);
         Product productExpected = new Product(designation);
         assertEquals(result, productExpected);
 
@@ -167,7 +167,7 @@ public class ExhibitionApplicationControllerTest {
         instance.newApplication(exhibition);
         instance.newKeyword(description);
         KeyWord keyword = new KeyWord(description);
-        assertEquals(instance.getExhibitionApplication().getKeyWordList().get(0), keyword);
+        assertEquals(instance.getExhibitionApplication().getKeywordsList().get(0), keyword);
     }
 
     /**
