@@ -22,10 +22,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import lapr.project.controller.EvaluateApplicationsController;
+import lapr.project.model.Evaluable;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.StaffAttribution;
 import lapr.project.model.StaffMember;
 import lapr.project.model.Submittable;
+import lapr.project.ui.components.DialogEvaluateApplication;
+import lapr.project.ui.components.DialogSeeApplication;
 import lapr.project.ui.components.ModelListStaffAttributions;
 import lapr.project.ui.components.ModelListSubmittables;
 
@@ -54,6 +57,11 @@ public class EvaluateApplicationUI extends JFrame {
      * The logged staff member.
      */
     private StaffMember staffMember;
+
+    /**
+     * The evaluable.
+     */
+    private Evaluable evaluable;
 
     /**
      * The submittables list.
@@ -112,10 +120,9 @@ public class EvaluateApplicationUI extends JFrame {
 
         this.exhibitionCenter = exhibitionCenter;
         this.staffMember = staffMember;
-        
+
         this.controller = new EvaluateApplicationsController(this.exhibitionCenter);
         this.submittablesList = this.controller.getSubmittablesByStaff(staffMember);
-        
 
         createComponents();
 
@@ -208,6 +215,10 @@ public class EvaluateApplicationUI extends JFrame {
                 // TODO enable butons
                 EvaluateApplicationUI.this.seeApplicationButton.setEnabled(!EvaluateApplicationUI.this.staffAttributionsJList.isSelectionEmpty());
                 EvaluateApplicationUI.this.evaluateApplicationButton.setEnabled(!EvaluateApplicationUI.this.staffAttributionsJList.isSelectionEmpty());
+
+                if (submittablesJList.getSelectedIndex() >= 0) {
+                    evaluable = controller.getEvaluableByAttribution(staffAttributionsList.get(staffAttributionsJList.getSelectedIndex()));
+                }
             }
         });
 
@@ -247,6 +258,7 @@ public class EvaluateApplicationUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO open the see application dialog
+                new DialogSeeApplication(EvaluateApplicationUI.this.evaluable, EvaluateApplicationUI.this);
             }
         });
 
@@ -266,6 +278,7 @@ public class EvaluateApplicationUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO open the evaluate application dialog
+                new DialogEvaluateApplication(evaluable, controller, EvaluateApplicationUI.this);
             }
         });
 
