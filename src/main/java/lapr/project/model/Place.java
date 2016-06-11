@@ -3,6 +3,9 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  * Represents a place.
  *
@@ -12,11 +15,13 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
 public class Place {
 
     /**
      * The place location.
      */
+    @XmlTransient
     private String location;
 
     /**

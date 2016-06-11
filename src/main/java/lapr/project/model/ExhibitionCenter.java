@@ -3,6 +3,8 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Represents an exhibition center.
  *
@@ -12,6 +14,7 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+
 public class ExhibitionCenter {
 
     /**

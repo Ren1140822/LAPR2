@@ -3,6 +3,9 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  * Represents an organizer.
  *
@@ -12,11 +15,13 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
 public class Organizer {
 
     /**
      * The user for the organizer.
      */
+       @XmlTransient
     private User user;
 
     /**
@@ -58,6 +63,7 @@ public class Organizer {
      *
      * @param user user of the organizer
      */
+ 
     public void setUser(User user) {
         this.user = user;
     }
@@ -100,4 +106,5 @@ public class Organizer {
 
         return this.user.equals(otherOrganizer.user);
     }
+    
 }

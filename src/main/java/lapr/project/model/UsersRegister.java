@@ -3,8 +3,15 @@
  */
 package lapr.project.model;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Represents a users register to store users.
@@ -15,6 +22,7 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Amaral 1151231
  */
+
 public class UsersRegister {
 
     /**
@@ -64,6 +72,7 @@ public class UsersRegister {
      *
      * @param usersList the users list to set
      */
+ 
     public void setUsersList(List<User> usersList) {
         this.usersList = new ArrayList<>(usersList);
     }
@@ -83,4 +92,7 @@ public class UsersRegister {
         s.append("}");
         return s.toString();
     }
+    
+    
+   
 }

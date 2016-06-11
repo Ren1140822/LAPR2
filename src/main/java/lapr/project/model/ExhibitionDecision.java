@@ -3,6 +3,9 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Represents a decision to an exhibition application.
  *
@@ -12,6 +15,7 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+
 public class ExhibitionDecision {
 
     /**
@@ -74,6 +78,7 @@ public class ExhibitionDecision {
      *
      * @param exhibitionApplication exhibition application
      */
+ 
     public void setExhibitionApplication(ExhibitionApplication exhibitionApplication) {
         this.exhibitionApplication = new ExhibitionApplication(exhibitionApplication);
     }
@@ -92,6 +97,7 @@ public class ExhibitionDecision {
      *
      * @param decision exhibition decision
      */
+
     public void setDecision(boolean decision) {
         this.decision = decision;
     }

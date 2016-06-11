@@ -3,6 +3,9 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  * Represents a demonstration.
  *
@@ -12,31 +15,37 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Amaral 1151231
  */
+@XmlRootElement
 public class Demonstration implements Submittable {
 
     /**
      * the descriptive text of this demonstration
      */
+    @XmlTransient
     private String description;
 
     /**
      * the demonstration's staff list.
      */
+   @XmlTransient
     private StaffList staffList;
 
     /**
      * Demonstration's staff attributions list.
      */
+   @XmlTransient
     private StaffAttributionsList staffAttributionsList;
 
     /**
      * The demonstration current state.
      */
+   @XmlTransient
     private DemonstrationState currentDemonstrationState;
 
     /**
      * The demonstration applications list
      */
+   @XmlTransient
     private ApplicationsList applicationsList;
 
     /**
@@ -76,6 +85,7 @@ public class Demonstration implements Submittable {
     /**
      * sets the current value of the descriptive text
      */
+    
     public void setDescription(String text) {
         this.description = text;
     }
@@ -95,6 +105,7 @@ public class Demonstration implements Submittable {
      *
      * @param staffList staff list
      */
+   
     public void setStaffList(StaffList staffList) {
         this.staffList = staffList;
     }

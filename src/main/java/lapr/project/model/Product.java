@@ -3,6 +3,9 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  * Represents a product.
  *
@@ -12,11 +15,13 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
 public class Product {
 
     /**
      * The product's designation.
      */
+    @XmlTransient
     private String designation;
 
     /**
@@ -54,6 +59,7 @@ public class Product {
      *
      * @param designation the product's designation to set
      */
+    
     public void setDesignation(String designation) {
         this.designation = designation;
     }

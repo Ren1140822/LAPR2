@@ -3,15 +3,8 @@
  */
 package lapr.project.model;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import lapr.project.utils.Exportable;
-import lapr.project.utils.Importable;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Represents a KeyWord.
@@ -22,11 +15,13 @@ import org.w3c.dom.NodeList;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
 public class KeyWord {
 
     /**
      * the description of this keyword
      */
+    @XmlElement
     private String description;
 
     /**
@@ -80,6 +75,7 @@ public class KeyWord {
      *
      * @param description the value to set.
      */
+    
     public void setDescription(String description) {
 
         this.description = new String(description);

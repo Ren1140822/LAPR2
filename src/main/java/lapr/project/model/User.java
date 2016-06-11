@@ -3,6 +3,21 @@
  */
 package lapr.project.model;
 
+import java.io.File;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import lapr.project.utils.Exportable;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
 /**
  * Represents a user.
  *
@@ -12,7 +27,8 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class User {
+@XmlRootElement
+public class User  {
 
     /**
      * The user's name.
@@ -54,6 +70,26 @@ public class User {
      * The user's password by default.
      */
     private static final String DEFAULT_PASSWORD = "password";
+    /**
+     * Class name for exportable.
+     */
+    private static final String ROOT_ELEMENT_NAME = "User";
+    /**
+     * User name html tag.
+     */
+    private static final String NAME_ELEMENT_NAME = "Name";
+    /**
+     * Email html tag.
+     */
+    private static final String EMAIL_ELEMENT_NAME = "Email";
+    /**
+     * Username html tag.
+     */
+    private static final String USERNAME_ELEMENT_NAME = "Username";
+    /**
+     * Password html tag.
+     */
+    private static final String PASSWORD_ELEMENT_NAME = "Password";
 
     /**
      * Default constructor of a user class.
@@ -106,6 +142,7 @@ public class User {
      *
      * @param name the user's name to set
      */
+    @XmlElement
     public void setName(String name) {
         this.name = name;
     }
@@ -124,6 +161,7 @@ public class User {
      *
      * @param username the user's username to set
      */
+    @XmlAttribute
     public void setUsername(String username) {
         this.username = username;
     }
@@ -142,6 +180,7 @@ public class User {
      *
      * @param email the user's email to set
      */
+    @XmlElement
     public void setEmail(String email) {
         this.email = email;
     }
@@ -160,13 +199,14 @@ public class User {
      *
      * @param password the user's password to set
      */
+    @XmlElement
     public void setPassword(String password) {
         this.password = password;
     }
 
     /**
-     *  Validates the user.
-     * 
+     * Validates the user.
+     *
      * @return true if the user is valid, false otherwise
      */
     boolean validate() {
@@ -201,4 +241,8 @@ public class User {
 
         return this.username.equals(otherUser.username) || this.email.equals(otherUser.email);
     }
+
+    
+
+
 }

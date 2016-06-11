@@ -3,6 +3,9 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  * Represents an Exhibitor
  *
@@ -12,21 +15,25 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
 public class Exhibitor {
 
     /**
      * The exhibitor´s name.
      */
+    @XmlTransient
     private String name;
 
     /**
      * The exhibitor´s address.
      */
+    @XmlTransient
     private String address;
 
     /**
      * The exhibitor´s mobile number.
      */
+    @XmlTransient
     private String mobileNumber;
 
     /**
@@ -132,26 +139,27 @@ public class Exhibitor {
         this.mobileNumber = mobileNumber;
     }
 
-   /**
-    * Compares two objects
-    * @param otherObject the other object to compare with
-    * @return  true if equal
-    */
-    public boolean equals(Object otherObject){
-           if (this == otherObject) {
+    /**
+     * Compares two objects
+     *
+     * @param otherObject the other object to compare with
+     * @return true if equal
+     */
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
             return true;
         }
         if (otherObject == null || this.getClass() != otherObject.getClass()) {
             return false;
         }
-        Exhibitor otherExhibitor = (Exhibitor)otherObject;
-        return(this.mobileNumber.equals(otherExhibitor.mobileNumber)&&this.address.equals(otherExhibitor.address)&&this.name.equals(otherExhibitor.name));
+        Exhibitor otherExhibitor = (Exhibitor) otherObject;
+        return (this.mobileNumber.equals(otherExhibitor.mobileNumber) && this.address.equals(otherExhibitor.address) && this.name.equals(otherExhibitor.name));
     }
-    
-    public boolean validate(){
-        return (!this.name.isEmpty()&&!this.address.isEmpty()&&!this.mobileNumber.isEmpty());
+
+    public boolean validate() {
+        return (!this.name.isEmpty() && !this.address.isEmpty() && !this.mobileNumber.isEmpty());
     }
-    
+
     /**
      * Return the textual representation of an exhibitor.
      *

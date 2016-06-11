@@ -5,6 +5,9 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Represents a Resources Register.
@@ -15,6 +18,7 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+
 public class ResourcesRegister {
 
     /**
@@ -62,6 +66,7 @@ public class ResourcesRegister {
      *
      * @param resourcesList list of resources
      */
+  
     public void setResourcesList(List<Resource> resourcesList) {
         this.resourcesList = new ArrayList<>(resourcesList);
     }

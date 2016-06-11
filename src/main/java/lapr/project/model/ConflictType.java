@@ -3,6 +3,11 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Represents a conflict type.
  *
@@ -12,16 +17,19 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
 public class ConflictType {
 
     /**
      * The conflict detection mechanism.
      */
+    @XmlAnyElement
     private ConflictDetectionMechanism conflictDetectionMechanism;
 
     /**
      * The description os the conflict type.
      */
+    @XmlAttribute
     private String description;
 
     /**
@@ -74,6 +82,7 @@ public class ConflictType {
      *
      * @param conflictDetectionMechanism conflict detection mechanism
      */
+  
     public void setConflictDetectionMechanism(ConflictDetectionMechanism conflictDetectionMechanism) {
         this.conflictDetectionMechanism = conflictDetectionMechanism;
     }
@@ -92,6 +101,7 @@ public class ConflictType {
      *
      * @param description description
      */
+    
     public void setDescription(String description) {
         this.description = description;
     }

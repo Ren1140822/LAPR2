@@ -5,6 +5,9 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Represents a stands register to store stands.
@@ -15,6 +18,7 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Amaral 1151231
  */
+
 public class StandsRegister {
 
     /**
@@ -64,6 +68,8 @@ public class StandsRegister {
      *
      * @param standsList the stands list to set
      */
+    
+  
     public void setStandsList(List<Stand> standsList) {
         this.standsList = new ArrayList<>(standsList);
     }

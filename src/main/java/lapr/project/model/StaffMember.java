@@ -3,6 +3,9 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  * Represents a Staff Member.
  *
@@ -12,11 +15,13 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
 public class StaffMember {
 
     /**
      * The user information associated to this Staff Member.
      */
+    @XmlTransient
     private User user;
 
     /**
@@ -61,13 +66,13 @@ public class StaffMember {
     public void setUser(User user) {
         this.user = user;
     }
-    
+
     /**
      * Validates the User's user.
-     * 
+     *
      * @return true is valid
      */
-    public boolean validate(){
+    public boolean validate() {
         return this.user.validate();
     }
 

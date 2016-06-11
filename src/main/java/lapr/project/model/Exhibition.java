@@ -3,9 +3,18 @@
  */
 package lapr.project.model;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import lapr.project.model.exhibition.ExhibitionInicialState;
 import lapr.project.model.exhibition.timers.ChangeToApplicationsInDecision;
 import lapr.project.model.exhibition.timers.ChangeToChangedConflicts;
@@ -22,83 +31,99 @@ import lapr.project.model.exhibition.timers.DetectConflictsTask;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
 public class Exhibition implements Submittable {
 
     /**
      * Exhibition's title.
      */
+    @XmlTransient
     private String title;
 
     /**
      * Exhibition's description.
      */
+    @XmlTransient
     private String description;
 
     /**
      * Exhibition's start date.
      */
+    @XmlTransient
     private Date startDate;
 
     /**
      * Exhibition's end date.
      */
+    @XmlTransient
     private Date endDate;
 
     /**
      * Exhibition's application submissions start date.
      */
+    @XmlTransient
     private Date subStartDate;
 
     /**
      * Exhibition's application submissions end date.
      */
+    @XmlTransient
     private Date subEndDate;
 
     /**
      * Exhibition's attribution conflicts resolution limit date.
      */
+    @XmlTransient
     private Date conflictLimitDate;
 
     /**
      * Exhibition's evaluations limite date.
      */
+    @XmlTransient
     private Date evaluationLimitDate;
 
     /**
      * Exhibition's location.
      */
+    @XmlTransient
     private Place place;
 
     /**
      * Exhibition's staff list.
      */
+    @XmlTransient
     private StaffList staffList;
 
     /**
      * Exhibition's organizers list.
      */
+    @XmlTransient
     private OrganizersList organizersList;
 
     /**
      * Exhibition's applications list.
      */
+    @XmlTransient
     private ApplicationsList applicationsList;
 
     /**
      * Exhibition's demonstrations list.
      */
+    @XmlTransient
     private DemonstrationsList demonstrationsList;
 
     /**
      * Exhibition's staff attributions list.
      */
+    @XmlTransient
     private StaffAttributionsList staffAttributionsList;
 
     /**
      * The exhibition's current state.
      */
+    @XmlTransient
     private ExhibitionState currentState;
-
+    @XmlTransient
     private final Timer timer;
 
     /**
@@ -242,6 +267,7 @@ public class Exhibition implements Submittable {
      *
      * @param title the Exhibition's title to set
      */
+    @XmlAttribute
     public void setTitle(String title) {
         this.title = title;
     }
@@ -680,6 +706,25 @@ public class Exhibition implements Submittable {
     @Override
     public void setSubmittableInApplicationsInEvaluationState() {
         this.currentState.setApplicationsInEvaluation();
+    }
+
+    public void xmlexp() {
+
+        try {
+
+            File file = new File("D:\\file2.xml");
+            JAXBContext jaxbContext = JAXBContext.newInstance(Exhibition.class, ExhibitionInicialState.class, ExhibitionApplication.class);
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+            // output pretty printed
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            jaxbMarshaller.marshal(this, file);
+            jaxbMarshaller.marshal(this, System.out);
+
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

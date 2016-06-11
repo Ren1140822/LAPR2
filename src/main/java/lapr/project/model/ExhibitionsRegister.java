@@ -5,6 +5,9 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Represents a exhibitions register
@@ -15,6 +18,7 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+
 public class ExhibitionsRegister {
 
     /**
@@ -78,6 +82,7 @@ public class ExhibitionsRegister {
      *
      * @param exhibitionsList exhibitions list
      */
+   
     public void setExhibitionsList(List<Exhibition> exhibitionsList) {
         this.exhibitionsList = new ArrayList(exhibitionsList);
     }

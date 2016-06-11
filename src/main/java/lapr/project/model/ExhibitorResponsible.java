@@ -3,6 +3,9 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Represents an exhibitor responsible
  *
@@ -12,11 +15,13 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
 public class ExhibitorResponsible {
 
     /**
      * the instance of user in this class
      */
+    @XmlElement
     private User user;
 
     /**
@@ -51,6 +56,7 @@ public class ExhibitorResponsible {
     /**
      * sets the current value of this user
      */
+    
     public void setUSer(User u) {
         this.user = new User(u);
     }

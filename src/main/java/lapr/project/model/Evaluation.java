@@ -5,6 +5,8 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Represents an evaluation.
@@ -15,21 +17,25 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
 public class Evaluation {
 
     /**
      * The question's list.
      */
+    @XmlTransient
     private final List<String> questionsList;
 
     /**
      * The answer's list.
      */
+   @XmlTransient
     private List<Integer> answersList;
 
     /**
      * The evaluation´s attribution.
      */
+    @XmlTransient
     private StaffAttribution staffAttribution;
 
     /**

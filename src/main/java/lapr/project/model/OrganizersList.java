@@ -5,6 +5,8 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Represents a organizers list.
@@ -15,11 +17,13 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
 public class OrganizersList {
 
     /**
      * List of organizer users.
      */
+    @XmlTransient
     private List<Organizer> organizersList;
 
     /**
@@ -65,15 +69,15 @@ public class OrganizersList {
     public void setOrganizersList(List<Organizer> organizersList) {
         this.organizersList = new ArrayList<>(organizersList);
     }
-    
+
     /**
      * Create a new organizer object.
-     * 
+     *
      * @param user associated to the new organizer
      * @return a new organizer object
      */
     public Organizer newOrganizer(User user) {
-        
+
         return new Organizer(user);
     }
 
@@ -84,7 +88,7 @@ public class OrganizersList {
      * @return true if the organizer is sucessfully added.
      */
     public boolean addAndValidateOrganizer(Organizer organizer) {
-        
+
         return (organizer.validate() && validateOrganizer(organizer)) ? addOrganizer(organizer) : false;
     }
 
@@ -109,14 +113,14 @@ public class OrganizersList {
 
         return this.organizersList.add(organizer);
     }
-    
+
     /**
      * Verify if a given organizer is on the organizer's list.
-     * 
+     *
      * @param organizer organizer to be verified
      * @return true if it is contained, false otherwise
      */
-    public boolean isOrganizer(Organizer organizer){
+    public boolean isOrganizer(Organizer organizer) {
         return this.organizersList.contains(organizer);
     }
 

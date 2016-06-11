@@ -3,6 +3,10 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Represents a decision to a demonstration application.
  *
@@ -12,16 +16,19 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Amaral 1151231
  */
+@XmlRootElement
 public class DemonstrationDecision {
 
     /**
      * Demonstration application.
      */
+    @XmlElement
     private DemonstrationApplication demonstrationApplication;
 
     /**
      * Decision to the demonstration application.
      */
+    @XmlElement
     private boolean decision;
 
     /**
@@ -74,6 +81,7 @@ public class DemonstrationDecision {
      *
      * @param demonstrationApplication demonstration application
      */
+  
     public void setDemonstrationApplication(DemonstrationApplication demonstrationApplication) {
         this.demonstrationApplication = new DemonstrationApplication(demonstrationApplication);
     }
@@ -92,6 +100,7 @@ public class DemonstrationDecision {
      *
      * @param decision demonstration decision
      */
+    
     public void setDecision(boolean decision) {
         this.decision = decision;
     }
