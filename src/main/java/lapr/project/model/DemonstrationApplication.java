@@ -77,6 +77,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      */
     public DemonstrationApplication() {
         this.title = DEFAULT_TITLE;
+        this.keywordsList = new ArrayList<>();
         this.exhibitor = new Exhibitor();
         this.exhibitorArea = DEFAULT_EXHIBITOR_AREA;
         this.numberInvitations = DEFAULT_NUMBER_INVITATION;
@@ -90,6 +91,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      * parameters.
      *
      * @param title title for the application
+     * @param keyWords keywords list
      * @param exhibitor exhibitor repnsible
      * @param exhibitorArea exhibition area
      * @param numberInvitations number of invites
@@ -97,11 +99,12 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      * @param evaluationsList evaluations list
      * @param applicationState aplication current state
      */
-    public DemonstrationApplication(String title, Exhibitor exhibitor,
+    public DemonstrationApplication(String title, List<KeyWord> keyWords, Exhibitor exhibitor,
             float exhibitorArea, int numberInvitations,
             List<Product> productList, List<Evaluation> evaluationsList,
             ApplicationState applicationState) {
         this.title = title;
+        this.keywordsList = new ArrayList<>(keyWords);
         this.exhibitor = new Exhibitor(exhibitor);
         this.exhibitorArea = exhibitorArea;
         this.numberInvitations = numberInvitations;
@@ -119,6 +122,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      */
     public DemonstrationApplication(DemonstrationApplication demonstrationApplication) {
         this.title = demonstrationApplication.title;
+        this.keywordsList = demonstrationApplication.keywordsList;
         this.exhibitor = demonstrationApplication.exhibitor;
         this.exhibitorArea = demonstrationApplication.exhibitorArea;
         this.numberInvitations = demonstrationApplication.numberInvitations;

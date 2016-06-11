@@ -19,9 +19,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import lapr.project.model.DemonstrationApplication;
 import lapr.project.model.Evaluable;
 import lapr.project.model.ExhibitionApplication;
+import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.KeyWord;
+import lapr.project.model.StaffMember;
+import lapr.project.ui.EvaluateApplicationUI;
 
 /**
  * Dialog to see an application info.
@@ -243,8 +247,7 @@ public class DialogSeeApplication extends JDialog {
         JLabel titleLabel = new JLabel("Produtos:", SwingConstants.CENTER);
         JList productsJList = new JList();
 
-        // TODO create the list model
-        //productsJList.setModel(new ModelListProducts(this.evaluable.getProductsList()));
+        productsJList.setModel(new ModelListProducts(this.evaluable.getProductsList()));
         JScrollPane productsJScroll = new JScrollPane(productsJList);
 
         productsPanel.add(titleLabel, BorderLayout.NORTH);
@@ -264,13 +267,22 @@ public class DialogSeeApplication extends JDialog {
         JLabel titleLabel = new JLabel("Demonstrações:", SwingConstants.CENTER);
         JList demonstrationsJList = new JList();
 
-        // TODO create the list model
-        //demonstrationsJList.setModel(new ModelListDemonstrations(((ExhibitionApplication) this.evaluable).getDemonstrationsList()));
+        demonstrationsJList.setModel(new ModelListDemonstrations(((ExhibitionApplication) this.evaluable).getDemonstrationsList()));
         JScrollPane demonstrationsJScroll = new JScrollPane(demonstrationsJList);
 
         demonstrationsPanel.add(titleLabel, BorderLayout.NORTH);
         demonstrationsPanel.add(demonstrationsJScroll, BorderLayout.CENTER);
 
         return demonstrationsPanel;
+    }
+
+    /**
+     * This method is for testing purposes, later will be removed.
+     *
+     * @param args arguments of the command line
+     */
+    public static void main(String[] args) {
+        new DialogSeeApplication(new ExhibitionApplication(), new EvaluateApplicationUI(new ExhibitionCenter(), new StaffMember()));
+        new DialogSeeApplication(new DemonstrationApplication(), new EvaluateApplicationUI(new ExhibitionCenter(), new StaffMember()));
     }
 }
