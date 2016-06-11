@@ -16,7 +16,7 @@ import lapr.project.model.UsersRegister;
 
 
 /**
- * Represents the controller to create exhibitions.
+ * Represents the controller to define staff.
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
@@ -101,11 +101,11 @@ public class DefineStaffController {
      * 
      * @param user 
      */
-    public StaffMember newStaffMember(User user){
+    public boolean newStaffMember(User user){
         
         this.staffList = exhibition.getStaffList();
         this.staffMember = staffList.newStaffMember(user);
-        return this.staffMember;
+        return true;
     }
 
     /**
@@ -120,24 +120,16 @@ public class DefineStaffController {
     /**
      * Adds staff member.
      */
-    public void addStaffMember(){
-        this.staffList.addStaffMember(staffMember);
+    public boolean addStaffMember(){
+       return this.staffList.addStaffMember(staffMember);
     }
     
     /**
      * Sets the new state on the exhibition
      * @param exhibition the exhibition we want to set the state
-     * @return 
+     * @return true if state
      */
     public boolean setDefinedStaffMember(Exhibition exhibition){
-        boolean ret;
-        if(exhibition.getState().isCreated()){
-            ret=exhibition.getState().setStaffDefined();
-        }
-        else{
-            ret=exhibition.getState().setCompleted();
-        }
-        return ret;
+         return exhibition.getState().setStaffDefined();
     }
-    
 }

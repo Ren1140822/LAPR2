@@ -3,6 +3,7 @@
  */
 package lapr.project.controller;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.List;
 import lapr.project.model.Demonstration;
@@ -112,8 +113,9 @@ public class ExhibitionApplicationControllerTest {
         ExhibitionApplicationController instance = controller;
         Exhibition exhibition = new Exhibition();
         instance.newApplication(exhibition);
-        instance.setData(companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
+        instance.setData("",companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
         ExhibitionApplication defaultExhibitionApplication = new ExhibitionApplication();
+         defaultExhibitionApplication.setTitle("");
         defaultExhibitionApplication.setExhibitorArea(exhibitorArea);
         defaultExhibitionApplication.setNumberInvitations(numberInvitations);
         defaultExhibitionApplication.setExhibitor(new Exhibitor(companyName, companyAddress, companyCellphone));
@@ -131,7 +133,7 @@ public class ExhibitionApplicationControllerTest {
         Exhibition exhibition = new Exhibition();
         instance.newApplication(exhibition);
         instance.newProduct(designation);
-        Product result = instance.getExhibitionApplication().getProductList().get(0);
+        Product result = instance.getExhibitionApplication().getProductsList().get(0);
         Product productExpected = new Product(designation);
         assertEquals(result, productExpected);
 
@@ -167,7 +169,7 @@ public class ExhibitionApplicationControllerTest {
         instance.newApplication(exhibition);
         instance.newKeyword(description);
         KeyWord keyword = new KeyWord(description);
-        assertEquals(instance.getExhibitionApplication().getKeyWordList().get(0), keyword);
+        assertEquals(instance.getExhibitionApplication().getKeywordsList().get(0), keyword);
     }
 
     /**
@@ -185,11 +187,17 @@ public class ExhibitionApplicationControllerTest {
         String companyCellphone = "Test";
         float exhibitorArea = 0.0F;
         int numberInvitations = 0;
-        instance.setData(companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
+        instance.setData("title",companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
         instance.newApplication(exhibition);
         instance.newKeyword("test");
         instance.newKeyword("test2");
-     
+        Demonstration demon = new Demonstration();
+        List<Demonstration> list = new ArrayList();
+        list.add(demon);
+        instance.setDemonstrationsList(list);
+        List<Product> listprod = new ArrayList();
+        listprod.add(new Product("Test"));
+        instance.getExhibitionApplication().setProductsList(listprod);
         boolean result = instance.validateExhibitionApplication();
         assertTrue(result);
 
@@ -209,7 +217,7 @@ public class ExhibitionApplicationControllerTest {
         String companyCellphone = "Test";
         float exhibitorArea = 0.0F;
         int numberInvitations = 0;
-        instance.setData(companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
+        instance.setData("",companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
         instance.newApplication(exhibition);
         instance.newKeyword("test");
        //ONLY ONE KEYWORD

@@ -18,24 +18,38 @@ import lapr.project.model.application.ApplicationInitialState;
  */
 public class ExhibitionApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable {
 
-    /*
-     * the areain float asked by the company
+    /**
+     * The title of the application.
+     */
+    private String title;
+
+    /**
+     * The exhibitor.
+     */
+    private Exhibitor exhibitor;
+
+    /**
+     * The area asked by the company.
      */
     private float exhibitorArea;
+
     /**
-     * the number of invitations asked for
+     * The number of invitations asked for.
      */
     private int numberInvitations;
+
     /**
-     * the list of products the company wishes to expose
+     * The list of products the company wishes to expose.
      */
-    private List<Product> productList;
+    private List<Product> productsList;
+
     /**
-     * the list of demonstrations the company wishes to participate
+     * The list of demonstrations the company wishes to participate.
      */
     private List<Demonstration> demonstrationsList;
+
     /**
-     * the evaluation lists of this application
+     * The evaluation lists of this application.
      */
     private List<Evaluation> evaluationsList;
 
@@ -45,36 +59,35 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     private ApplicationState currentState;
 
     /**
-     * This instance's exhibitor.
+     * The list of keywords.
      */
-    private Exhibitor exhibitor;
+    private List<KeyWord> keywordsList;
 
     /**
-     * the list of keywords.
+     * The default title.
      */
-    private List<KeyWord> keyWordList;
-
+    private static final String DEFAULT_TITLE = "No Title";
     /**
-     * the default area in float asked by the company
+     * The default area in float asked by the company.
      */
     private static final float DEFAULT_EXHIBITOR_AREA = 100.0f;
     /**
-     * the default number of invitations asked for
+     * The default number of invitations asked for.
      */
     private static final int DEFAULT_NUMBER_INVITATION = 10;
 
     /**
-     * the default constructor with no params
+     * Creates an instance of exhibition application with its default values.
      */
     public ExhibitionApplication() {
-
+        this.title = DEFAULT_TITLE;
+        this.exhibitor = new Exhibitor();
         this.exhibitorArea = DEFAULT_EXHIBITOR_AREA;
         this.numberInvitations = DEFAULT_NUMBER_INVITATION;
-        this.productList = new ArrayList<Product>();
-        this.demonstrationsList = new ArrayList<Demonstration>();
-        this.keyWordList = new ArrayList<KeyWord>();
-        this.exhibitor = new Exhibitor();
-        this.evaluationsList = new ArrayList<Evaluation>();
+        this.productsList = new ArrayList<>();
+        this.demonstrationsList = new ArrayList<>();
+        this.keywordsList = new ArrayList<>();
+        this.evaluationsList = new ArrayList<>();
         this.currentState = new ApplicationInitialState(this);
     }
 
@@ -82,7 +95,9 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * Constructs an instance of exhibition application receivong its
      * parameters.
      *
-     * @param exhibitorArea echibition area
+     * @param title title for the application
+     * @param exhibitor exhibitor repnsible
+     * @param exhibitorArea exhibition area
      * @param numberInvitations number of invites
      * @param productList products list
      * @param demonstrationsList demonstrations list
@@ -90,32 +105,58 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @param keyWordList keywords list
      * @param applicationState aplication current state
      */
-    public ExhibitionApplication(float exhibitorArea, int numberInvitations, List<Product> productList, List<Demonstration> demonstrationsList, List<Evaluation> evaluationsList, List<KeyWord> keyWordList, ApplicationState applicationState) {
+    public ExhibitionApplication(String title, Exhibitor exhibitor,
+            float exhibitorArea, int numberInvitations,
+            List<Product> productList, List<Demonstration> demonstrationsList,
+            List<Evaluation> evaluationsList, List<KeyWord> keyWordList,
+            ApplicationState applicationState) {
+        this.title = title;
+        this.exhibitor = new Exhibitor(exhibitor);
         this.exhibitorArea = exhibitorArea;
         this.numberInvitations = numberInvitations;
-        this.productList = new ArrayList(productList);
+        this.productsList = new ArrayList(productList);
         this.demonstrationsList = new ArrayList(demonstrationsList);
-        this.keyWordList = keyWordList;
-        this.exhibitor = new Exhibitor();
+        this.keywordsList = keyWordList;
         this.evaluationsList = new ArrayList(evaluationsList);
         this.currentState = applicationState;
 
     }
 
     /**
-     * the copy constructor receiving instance of this class as parameter
+     * Creates an instance of exhibition application copying another exhibition
+     * application.
      *
-     * @param exhibitionApplication another exhibition
+     * @param exhibitionApplication another exhibition application
      */
     public ExhibitionApplication(ExhibitionApplication exhibitionApplication) {
+        this.title = exhibitionApplication.title;
+        this.exhibitor = exhibitionApplication.exhibitor;
         this.exhibitorArea = exhibitionApplication.exhibitorArea;
         this.numberInvitations = exhibitionApplication.numberInvitations;
-        this.productList = new ArrayList(exhibitionApplication.productList);
+        this.productsList = new ArrayList(exhibitionApplication.productsList);
         this.demonstrationsList = new ArrayList(exhibitionApplication.demonstrationsList);
         this.evaluationsList = new ArrayList(exhibitionApplication.evaluationsList);
-        this.keyWordList = new ArrayList(exhibitionApplication.keyWordList);
-        this.exhibitor = new Exhibitor();
+        this.keywordsList = new ArrayList(exhibitionApplication.keywordsList);
         this.currentState = exhibitionApplication.currentState;
+    }
+
+    /**
+     * Gets the title of the application.
+     *
+     * @return title of the application
+     */
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * Sets the title of the application.
+     *
+     * @param title title of the application
+     */
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     /**
@@ -132,12 +173,13 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @return the number of invitations
      */
+    @Override
     public int getNumberInvitations() {
         return this.numberInvitations;
     }
 
     /**
-     * Returns list of demonstrations
+     * Returns list of demonstrations.
      *
      * @return the demonstrationList
      */
@@ -156,16 +198,17 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
-     * Returns the product list
+     * Returns the product list.
      *
      * @return the product list
      */
-    public List<Product> getProductList() {
-        return this.productList;
+    @Override
+    public List<Product> getProductsList() {
+        return this.productsList;
     }
 
     /**
-     * Returns the evaluation list
+     * Returns the evaluation list.
      *
      * @return the evaluation list
      */
@@ -179,12 +222,13 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @return the list of keywords
      */
-    public List<KeyWord> getKeyWordList() {
-        return keyWordList;
+    @Override
+    public List<KeyWord> getKeywordsList() {
+        return keywordsList;
     }
 
     /**
-     * Sets the area of the exhibitor
+     * Sets the area of the exhibitor.
      *
      * @param exhibitorArea sets exhibitor area
      */
@@ -193,7 +237,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
-     * Sets the number of invitations
+     * Sets the number of invitations.
      *
      * @param numberInvitations number of invitations
      */
@@ -202,7 +246,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
-     * Sets the list of demonstrations
+     * Sets the list of demonstrations.
      *
      * @param demonstrationsList the demonstration list
      */
@@ -216,11 +260,11 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @param productsList procucts list
      */
     public void setProductsList(List<Product> productsList) {
-        this.productList = new ArrayList(productsList);
+        this.productsList = new ArrayList(productsList);
     }
 
     /**
-     * Sets the evaluations list
+     * Sets the evaluations list.
      *
      * @param evaluationsList the evaluation's list
      */
@@ -229,9 +273,9 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
-     * Sets exhibitor
+     * Sets the exhibitor.
      *
-     * @param exhibitor the exhibitor to copy
+     * @param exhibitor the exhibitor
      */
     public void setExhibitor(Exhibitor exhibitor) {
         this.exhibitor = exhibitor;
@@ -262,18 +306,23 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         product.setDesignation(designation);
 
         if (product.validate()) {
-            productList.add(product);
+            productsList.add(product);
             return true;
 
         }
-      return false;
+        return false;
     }
-    
-    public boolean removeProduct(String designation){
-        for(Product p:productList){
-            if(p.getDesignation().equals(designation)){
-                productList.remove(p);
-                return true;
+
+    /**
+     * Remove a product.
+     *
+     * @param designation prduct designation
+     * @return true if it is successfull removed, false otherwise
+     */
+    public boolean removeProduct(String designation) {
+        for (Product p : productsList) {
+            if (p.getDesignation().equals(designation)) {
+                return productsList.remove(p);
             }
         }
         return false;
@@ -294,11 +343,12 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * Creates a new Keyword and adds it to the list
      *
      * @param description the value of the keyword
+     * @return true if it is successfull added, false otherwise
      */
-    public void newKeyword(String description) {
+    public boolean newKeyword(String description) {
         KeyWord keyWord = new KeyWord(description);
         keyWord.validate();
-        keyWordList.add(keyWord);
+        return keywordsList.add(keyWord);
     }
 
     /**
@@ -317,7 +367,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @return true if all O.K.
      */
     public boolean validateApplication() {
-        return (this.exhibitor.validate() && this.demonstrationsList.isEmpty() && this.productList.isEmpty() && this.keyWordList.size() > 1 && this.keyWordList.size() <= 5 && this.numberInvitations > 0 && this.exhibitorArea > 0);
+        return (this.exhibitor.validate() && !this.demonstrationsList.isEmpty() && !this.productsList.isEmpty() && this.keywordsList.size() > 1 && this.keywordsList.size() <= 5 && this.numberInvitations > 0 && this.exhibitorArea > 0);
     }
 
     /**
@@ -390,12 +440,13 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
             return false;
         }
         ExhibitionApplication otherExhibitionApplication = (ExhibitionApplication) otherObject;
-        return (this.exhibitor.equals(otherExhibitionApplication.exhibitor) && this.exhibitorArea == otherExhibitionApplication.exhibitorArea
+        return (this.title.equals(otherExhibitionApplication.title) && this.exhibitor.equals(otherExhibitionApplication.exhibitor)
+                && this.exhibitorArea == otherExhibitionApplication.exhibitorArea
                 && this.numberInvitations == otherExhibitionApplication.numberInvitations
                 && this.demonstrationsList.equals(otherExhibitionApplication.demonstrationsList)
-                && this.productList.equals(otherExhibitionApplication.productList)
+                && this.productsList.equals(otherExhibitionApplication.productsList)
                 && this.evaluationsList.equals(otherExhibitionApplication.evaluationsList)
-                && this.keyWordList.equals(otherExhibitionApplication.keyWordList));
+                && this.keywordsList.equals(otherExhibitionApplication.keywordsList));
 
     }
 
@@ -409,19 +460,20 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append("ExhibitionApplication{");
+        s.append(String.format("%s%n", this.title));
         s.append(String.format("%s%n", this.exhibitor));
         s.append(String.format("%f%n", this.exhibitorArea));
         s.append(String.format("%d%n", this.numberInvitations));
         for (Demonstration demonstration : demonstrationsList) {
             s.append(String.format("%s%n", demonstration));
         }
-        for (Product product : productList) {
+        for (Product product : productsList) {
             s.append(String.format("%s%n", product));
         }
         for (Evaluation evaluation : evaluationsList) {
             s.append(String.format("%s%n", evaluation));
         }
-        for (KeyWord keyword : keyWordList) {
+        for (KeyWord keyword : keywordsList) {
             s.append(String.format("%s%n", keyword));
         }
         s.append("}");
@@ -434,6 +486,21 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     @Override
     public void setInEvaluation() {
         this.currentState.setInEvaluation();
+    }
+
+    /**
+     * Gets the exhibitor.
+     *
+     * @return exhibitor
+     */
+    @Override
+    public Exhibitor getExhibitor() {
+        return this.exhibitor;
+    }
+
+    @Override
+    public float getArea() {
+        return this.exhibitorArea;
     }
 
 }

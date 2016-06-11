@@ -12,6 +12,7 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
+import lapr.project.model.KeyWord;
 import lapr.project.model.Product;
 
 /**
@@ -49,9 +50,7 @@ public class ExhibitionApplicationController {
      * A temporary exhibition application reference.
      */
     private ExhibitionApplication exhibitionApplication;
-    
- 
-    
+
     /**
      * Constructor receiving a ExhibitionCenter as parameter.
      *
@@ -61,10 +60,11 @@ public class ExhibitionApplicationController {
         this.exhibitonCenter = exhibitionCenter;
     }
 
-   /**
-    * Gets this instance's exhibition application.
-    * @return the exhibiton application
-    */
+    /**
+     * Gets this instance's exhibition application.
+     *
+     * @return the exhibiton application
+     */
     public ExhibitionApplication getExhibitionApplication() {
         return exhibitionApplication;
     }
@@ -85,13 +85,14 @@ public class ExhibitionApplicationController {
      */
     public void newApplication(Exhibition exhibition) {
         this.applicationList = exhibition.getApplicationsList();
-        this.exhibitionApplication= applicationList.newExhibitionApplication();
+        this.exhibitionApplication = applicationList.newExhibitionApplication();
     }
 
     /**
      * Sets the data of the new application.
      */
-    public void setData(String companyName, String companyAddress, String companyCellphone, float exhibitorArea, int numberInvitations) {
+    public void setData(String title, String companyName, String companyAddress, String companyCellphone, float exhibitorArea, int numberInvitations) {
+        this.exhibitionApplication.setTitle(title);
         this.exhibitionApplication.newExhibitor(companyName, companyAddress, companyCellphone);
         this.exhibitionApplication.setExhibitorArea(exhibitorArea);
         this.exhibitionApplication.setNumberInvitations(numberInvitations);
@@ -99,79 +100,100 @@ public class ExhibitionApplicationController {
 
     /**
      * Creates a new product.
+     *
      * @param designation the product designation
      */
     public boolean newProduct(String designation) {
-     
-       return  this.exhibitionApplication.newProduct(designation);
+
+        return this.exhibitionApplication.newProduct(designation);
     }
+
     /**
      * removes a product
+     *
      * @param designation the product designation
      * @return true if removed
      */
-    public boolean removeProduct(String designation){
+    public boolean removeProduct(String designation) {
         return this.exhibitionApplication.removeProduct(designation);
     }
-    
-    
+
     /**
      * Lists the demonstrations on a exhibition
+     *
      * @param exhibition the exhibition you want the demonstrations from
      * @return a copy of the demonstrations arraylist
      */
-    public DemonstrationsList getDemonstrationsList(Exhibition exhibition){
+    public DemonstrationsList getDemonstrationsList(Exhibition exhibition) {
         return new DemonstrationsList(exhibition.getDemonstrationsList());
     }
+
     /**
      * sets the demonstraitons list.
-     * @param demonstrationsList  the demonstrations list
+     *
+     * @param demonstrationsList the demonstrations list
      */
-      public void  setDemonstrationsList(List<Demonstration>demonstrationsList){
-         this.exhibitionApplication.setDemonstrationsList(demonstrationsList);
-    }
-    
-    
-    /**
-     * Adds a demonstration to this application.
-     * @param demonstration the demonstration that is going to be added to the list on the application
-     */
-    public void newDemonstrationApplication(Demonstration demonstration){
-        this.exhibitionApplication.newDemonstration(demonstration);
-    }
-    
-    /**
-     * Creates a new keyword and adds it to the list.
-     * @param description the value for the keyword
-     */
-    public void newKeyword(String description){
-        this.exhibitionApplication.newKeyword(description);
-    }
-    
-    
-    /**
-     * Validates this exhibition application locally and globally.
-     * @return true if all conditions to add the applications are fulfilled
-     */
-    public boolean validateExhibitionApplication(){
-         return (this.exhibitionApplication.validateApplication()&&!this.applicationList.getApplicationsList().contains(this.exhibitionApplication));
-        
-    }
-    /**
-     * Sets the new state and adds the application to the list.
-     * @return  true if all O.K.
-     */
-     public boolean registerExhibitionApplication(){
-         if(validateExhibitionApplication()&&this.exhibitionApplication.getCurrentState().setInSubmission()){     
-             this.applicationList.getApplicationsList().add(exhibitionApplication);
-             return true;
-         }
-         return false;
+    public void setDemonstrationsList(List<Demonstration> demonstrationsList) {
+        this.exhibitionApplication.setDemonstrationsList(demonstrationsList);
     }
 
-     public List<Product> getProductsList(){
-         return this.exhibitionApplication.getProductList();
-     }
-     
-     
+    /**
+     * Adds a demonstration to this application.
+     *
+     * @param demonstration the demonstration that is going to be added to the
+     * list on the application
+     */
+    public void newDemonstrationApplication(Demonstration demonstration) {
+        this.exhibitionApplication.newDemonstration(demonstration);
+    }
+
+    /**
+     * Creates a new keyword and adds it to the list.
+     *
+     * @param description the value for the keyword
+     */
+    public boolean newKeyword(String description) {
+        return this.exhibitionApplication.newKeyword(description);
+    }
+
+    /**
+     * Validates this exhibition application locally and globally.
+     *
+     * @return true if all conditions to add the applications are fulfilled
+     */
+    public boolean validateExhibitionApplication() {
+        return (this.exhibitionApplication.validateApplication() && !this.applicationList.getApplicationsList().contains(this.exhibitionApplication));
+
+    }
+
+    /**
+     * Sets the new state and adds the application to the list.
+     *
+     * @return true if all O.K.
+     */
+    public boolean registerExhibitionApplication() {
+        if (validateExhibitionApplication() && this.exhibitionApplication.getCurrentState().setInSubmission()) {
+            this.applicationList.getApplicationsList().add(exhibitionApplication);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Returns the list of products
+     *
+     * @return the list of products
+     */
+    public List<Product> getProductsList() {
+        return this.exhibitionApplication.getProductsList();
+    }
+
+    /**
+     * Returns the keyword list.
+     *
+     * @return the list of keyword
+     */
+    public List<KeyWord> getKeyWordList() {
+        return this.exhibitionApplication.getKeywordsList();
+    }
 }

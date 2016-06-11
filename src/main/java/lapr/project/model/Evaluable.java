@@ -3,6 +3,8 @@
  */
 package lapr.project.model;
 
+import java.util.List;
+
 /**
  * Interface for ebaluable applications.
  *
@@ -36,4 +38,46 @@ public interface Evaluable {
      * @return true if it is registered with success, false otherwise
      */
     boolean registerEvaluation(Evaluation evaluation);
+
+    /**
+     * Gets the evaluables title.
+     *
+     * @return evaluables title
+     */
+    String getTitle();
+
+    /**
+     * Gets the list of keywords.
+     *
+     * @return keywords list
+     */
+    List<KeyWord> getKeywordsList();
+
+    /**
+     * Gets the exhibitor.
+     *
+     * @return exhibitor
+     */
+    Exhibitor getExhibitor();
+
+    /**
+     * Gets the area.
+     *
+     * @return area
+     */
+    float getArea();
+
+    /**
+     * Returns the invitations number.
+     *
+     * @return invitations number.
+     */
+    int getNumberInvitations();
+
+    /**
+     * Gets the products list.
+     *
+     * @return products list
+     */
+    List<Product> getProductsList();
 }
