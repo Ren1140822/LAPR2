@@ -3,8 +3,6 @@
  */
 package lapr.project.model;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * Represents an exhibition center.
  *

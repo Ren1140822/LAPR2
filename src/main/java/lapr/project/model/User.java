@@ -3,20 +3,9 @@
  */
 package lapr.project.model;
 
-import java.io.File;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import lapr.project.utils.Exportable;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 /**
  * Represents a user.
@@ -70,26 +59,7 @@ public class User  {
      * The user's password by default.
      */
     private static final String DEFAULT_PASSWORD = "password";
-    /**
-     * Class name for exportable.
-     */
-    private static final String ROOT_ELEMENT_NAME = "User";
-    /**
-     * User name html tag.
-     */
-    private static final String NAME_ELEMENT_NAME = "Name";
-    /**
-     * Email html tag.
-     */
-    private static final String EMAIL_ELEMENT_NAME = "Email";
-    /**
-     * Username html tag.
-     */
-    private static final String USERNAME_ELEMENT_NAME = "Username";
-    /**
-     * Password html tag.
-     */
-    private static final String PASSWORD_ELEMENT_NAME = "Password";
+    
 
     /**
      * Default constructor of a user class.
