@@ -25,4 +25,11 @@ public interface Assingnable {
      * set assignable in evaluation state
      */
     void setInEvaluation();
+    
+    /**
+     * Gets the assignable title.
+     * 
+     * @return assignable's title
+     */
+    String getTitle();
 }

@@ -1,5 +1,5 @@
 /**
- * Package location for Model and concepts.
+ * Package location for Model concepts.
  */
 package lapr.project.model.exhibition;
 
@@ -7,7 +7,7 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionState;
 
 /**
- * Represents the inicial state of a exhibition.
+ * Represents a exhibitions register
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
@@ -15,7 +15,8 @@ import lapr.project.model.ExhibitionState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ExhibitionInicialState implements ExhibitionState {
+
+public class ExhibitionDemosWithoutStaffState implements ExhibitionState {
 
     /**
      * The exhibition to change state.
@@ -23,30 +24,24 @@ public class ExhibitionInicialState implements ExhibitionState {
     private final Exhibition exhibition;
 
     /**
-     * Default constructor of an exhibition's incial state.
+     * Default constructor of an exhibition's staffWithoutDemos state.
      *
      * @param exhibition Exhibition to change state
      */
-    public ExhibitionInicialState(Exhibition exhibition) {
+    public ExhibitionDemosWithoutStaffState(Exhibition exhibition) {
 
         this.exhibition = exhibition;
     }
 
     @Override
     public boolean isInicial() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean setCreated() {
 
-        if (validate()) {
-
-            this.exhibition.setState(new ExhibitionCreatedState(exhibition));
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     @Override
@@ -56,7 +51,15 @@ public class ExhibitionInicialState implements ExhibitionState {
 
     @Override
     public boolean setStaffDefined() {
-        return false;
+
+        if (validate()) {
+
+            this.exhibition.setState(new ExhibitionCompleteState(this.exhibition));
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     @Override
@@ -66,7 +69,8 @@ public class ExhibitionInicialState implements ExhibitionState {
 
     @Override
     public boolean setDemonstrationsDefined() {
-        return false;
+
+       return false;
     }
 
     @Override
@@ -74,17 +78,6 @@ public class ExhibitionInicialState implements ExhibitionState {
         return false;
     }
 
-    
-       @Override
-    public boolean setCompleted() {
-        return false;
-    }
-
-    @Override
-    public boolean isCompleted() {
-        return false;
-    }
-    
     @Override
     public boolean setOpenApplication() {
         return false;
@@ -157,9 +150,18 @@ public class ExhibitionInicialState implements ExhibitionState {
 
     @Override
     public boolean validate() {
-        return this.exhibition.validate();
+
+        return !exhibition.getState().isDemonstrationsDefined()
+                && exhibition.getState().isStaffDefined();
     }
 
- 
+    @Override
+    public boolean setCompleted() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
+    @Override
+    public boolean isCompleted() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -76,7 +76,15 @@ public class ExhibitionStaffWithoutDemosState implements ExhibitionState {
     public boolean isDemonstrationsDefined() {
         return false;
     }
+      @Override
+    public boolean setCompleted() {
+       return false;
+    }
 
+    @Override
+    public boolean isCompleted() {
+       return false;
+    }
     @Override
     public boolean setOpenApplication() {
         return false;
@@ -153,4 +161,6 @@ public class ExhibitionStaffWithoutDemosState implements ExhibitionState {
         return !exhibition.getState().isDemonstrationsDefined()
                 && exhibition.getState().isStaffDefined();
     }
+
+  
 }
