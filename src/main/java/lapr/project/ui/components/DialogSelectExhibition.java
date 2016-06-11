@@ -3,7 +3,6 @@
  */
 package lapr.project.ui.components;
 
-import lapr.project.ui.components.ModelTableExhibitionsList;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -23,7 +22,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
-import lapr.project.ui.ExhibitionApplicationUI;
+import lapr.project.ui.DefineStaffMemberUI;
 
 /**
  * Represents a select exhibition dialog
@@ -207,7 +206,7 @@ public class DialogSelectExhibition<T extends JFrame> extends JDialog {
             public void actionPerformed(ActionEvent e) {
 
                 //TODO: HAD TO CAST THIS SO I COULD USE THIS METHOD
-                ((ExhibitionApplicationUI) parentFrame).setExhibition(exhibitionList.get(exhibitionListJTable.getSelectedRow()));
+                ((DefineStaffMemberUI) parentFrame).setExhibition(exhibitionList.get(exhibitionListJTable.getSelectedRow()));
                 dispose();
             }
         });

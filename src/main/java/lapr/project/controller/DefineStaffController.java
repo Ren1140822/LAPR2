@@ -101,11 +101,11 @@ public class DefineStaffController {
      * 
      * @param user 
      */
-    public StaffMember newStaffMember(User user){
+    public boolean newStaffMember(User user){
         
         this.staffList = exhibition.getStaffList();
         this.staffMember = staffList.newStaffMember(user);
-        return this.staffMember;
+        return true;
     }
 
     /**
@@ -120,8 +120,8 @@ public class DefineStaffController {
     /**
      * Adds staff member.
      */
-    public void addStaffMember(){
-        this.staffList.addStaffMember(staffMember);
+    public boolean addStaffMember(){
+       return this.staffList.addStaffMember(staffMember);
     }
     
     /**

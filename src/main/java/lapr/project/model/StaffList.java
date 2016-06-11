@@ -92,8 +92,8 @@ public class StaffList {
      * 
      * @staffMember
      */
-    public void addStaffMember(StaffMember staffMember){
-        validadeStaffMember(staffMember);
+    public boolean addStaffMember(StaffMember staffMember){
+        return validadeStaffMember(staffMember);
     }
     
     
