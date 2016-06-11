@@ -3,6 +3,7 @@
  */
 package lapr.project.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
@@ -66,7 +67,7 @@ public class DefineStaffMemberUI extends JFrame {
     /**
      * Window size.
      */
-    final Dimension WINDOW_SIZE = new Dimension(1200, 600);
+    final Dimension WINDOW_SIZE = new Dimension(600, 600);
     /**
      * Field margins.
      */
@@ -111,6 +112,7 @@ public class DefineStaffMemberUI extends JFrame {
         if (this.selectedExhibition == null) {
             dispose();
         } else {
+            defineStaffController.setExhibition(selectedExhibition);
             createComponents();
             pack();
             setSize(WINDOW_SIZE);
@@ -122,7 +124,7 @@ public class DefineStaffMemberUI extends JFrame {
 
     public void createComponents() {
         JPanel panelUsers = createPanelUsers();
-        add(panelUsers);
+        add(panelUsers, BorderLayout.WEST);
     }
 
     public JPanel createPanelUsers() {
@@ -136,13 +138,15 @@ public class DefineStaffMemberUI extends JFrame {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                int response = JOptionPane.showConfirmDialog(rootPane, "Do you wish to define this user as Staff member?", "Define Staff member", JOptionPane.YES_NO_OPTION);
-                if (response == JOptionPane.YES_OPTION) {
-                    modelUserList.addRow(jListUsers.getSelectedValue());
-                    response = JOptionPane.showConfirmDialog(rootPane, "User added as Staff Member. Do you wish to confirm?", "Define Staff member", JOptionPane.YES_NO_OPTION);
+                if (jListUsers.getSelectedValue() != null) {
+                    int response = JOptionPane.showConfirmDialog(rootPane, "Do you wish to define this user as Staff member?", "Define Staff member", JOptionPane.YES_NO_OPTION);
                     if (response == JOptionPane.YES_OPTION) {
-                        JOptionPane.showConfirmDialog(rootPane, defineStaffController.addStaffMember() ? "Operation completed sucessfully." : "An error occured while performing this operation or this user is already a Staff Member.", "Sucess!", JOptionPane.PLAIN_MESSAGE);
+                        modelUserList.addRow(jListUsers.getSelectedValue());
+                        response = JOptionPane.showConfirmDialog(rootPane, "User added as Staff Member. Do you wish to confirm?", "Define Staff member", JOptionPane.YES_NO_OPTION);
+                        if (response == JOptionPane.YES_OPTION) {
+                            JOptionPane.showConfirmDialog(rootPane, defineStaffController.addStaffMember() ? "Operation completed sucessfully." : "An error occured while performing this operation or this user is already a Staff Member.", "Confirm", JOptionPane.PLAIN_MESSAGE);
 
+                        }
                     }
                 }
             }
@@ -199,7 +203,7 @@ public class DefineStaffMemberUI extends JFrame {
         ExhibitionCenter ex = new ExhibitionCenter();
         Exhibition a = new Exhibition();
         List<User> userlist = new ArrayList();
-        User u  = new User();
+        User u = new User();
         userlist.add(u);
         UsersRegister userReg = new UsersRegister(userlist);
         ex.setUsersRegister(userReg);

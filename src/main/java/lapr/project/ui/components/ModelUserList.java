@@ -56,7 +56,7 @@ public class ModelUserList extends AbstractListModel {
     @Override
     public Object getElementAt(int index) {
 
-        return   this.usersList.get(index).getName();
+        return   this.usersList.get(index);
     }
 
     /**

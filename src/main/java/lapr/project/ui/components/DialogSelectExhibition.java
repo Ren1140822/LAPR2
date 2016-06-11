@@ -205,7 +205,8 @@ public class DialogSelectExhibition<T extends JFrame> extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                //TODO: HAD TO CAST THIS SO I COULD USE THIS METHOD
+                //TODO: HAD TO CAST THIS SO I COULD USE THIS METHOD NEED TO FIND A BETTER WAY TO FIND OUT WHICH CLASS INSTANTIATES THIS
+                //
                 ((DefineStaffMemberUI) parentFrame).setExhibition(exhibitionList.get(exhibitionListJTable.getSelectedRow()));
                 dispose();
             }
