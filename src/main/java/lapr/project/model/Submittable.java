@@ -3,8 +3,6 @@
  */
 package lapr.project.model;
 
-import com.sun.xml.internal.bind.AnyTypeAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * Interface for submittable applications.
@@ -15,7 +13,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-    @XmlJavaTypeAdapter(AnyTypeAdapter.class)
+//    @XmlJavaTypeAdapter(AnyTypeAdapter.class)
 public interface Submittable {
 
     /**
