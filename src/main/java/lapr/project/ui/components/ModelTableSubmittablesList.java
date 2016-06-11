@@ -1,15 +1,14 @@
 /**
- * Package location for UI concepts.
+ * Package location for UI components classes.
  */
 package lapr.project.ui.components;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import lapr.project.model.Exhibition;
 import lapr.project.model.Submittable;
 
 /**
- * Represents a model table for exhibitions
+ * Represents a model table for Submittables
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
@@ -22,19 +21,19 @@ public class ModelTableSubmittablesList extends AbstractTableModel {
     /**
      * Name of the table columns.
      */
-    private static final String[]  columnNames= {"Title", "Start date", "End date"};
+    private static final String[] columnNames = {"Title", "Start date", "End date"};
     /**
      * The exhibitions list.
      */
-    private final List<Submittable> exhibitionList;
+    private final List<Submittable> exhibitionsList;
 
     /**
      * Constructs a instance of this class.
      *
      * @param exhibitionsList the list of exhibitions
      */
-    public ModelTableSubmittablesList(List<Submittable> exhibitionList) {
-        this.exhibitionList = exhibitionList;
+    public ModelTableSubmittablesList(List<Submittable> exhibitionsList) {
+        this.exhibitionsList = exhibitionsList;
     }
 
     /**
@@ -44,7 +43,7 @@ public class ModelTableSubmittablesList extends AbstractTableModel {
      */
     @Override
     public int getRowCount() {
-        return this.exhibitionList.size();
+        return this.exhibitionsList.size();
     }
 
     /**
@@ -78,12 +77,12 @@ public class ModelTableSubmittablesList extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         String nomeColuna = getColumnName(columnIndex);
-        String[] info = this.exhibitionList.get(rowIndex).getInfo();
+        String[] info = this.exhibitionsList.get(rowIndex).getInfo();
         return nomeColuna.equalsIgnoreCase(columnNames[0])
-                ?    info[0]
+                ? info[0]
                 : nomeColuna.equalsIgnoreCase(columnNames[1])
-                        ?    info[1]
-                        :    info[2];
+                        ? info[1]
+                        : info[2];
     }
 
 }

@@ -1,5 +1,5 @@
-/*
- * Fornece as classe que controlam a interface gráfica.
+/**
+ * Package location for UI concepts.
  */
 package lapr.project.ui;
 
@@ -52,89 +52,92 @@ import lapr.project.ui.components.ModelListMechanisms;
 import lapr.project.ui.components.ModelTableAttributions;
 
 /**
- * Interface gráfica para a atribuição de candidaturas.
+ * Graphical interface for attributions(to assign) of applications.
  *
  * @author Daniel Gonçalves 1151452
+ * @author Eric Amaral 1141570
  * @author Ivo Ferro 1151159
+ * @author Renato Oliveira 1140822
+ * @author Ricardo Correia 1151231
  */
 public class AssignApplicationUI extends JFrame{
 
     /**
      * Exhibitions Center.
      */
-    private final ExhibitionCenter centroExposicoes;
+    private final ExhibitionCenter exhibitionsCenter;
     /**
-     * Controller da Atribuição de Candidaturas.
+     * Controller to assign applications.
      */
     private final AssignApplicationController controller;
     /**
-     * Exposição selecionada.
+     * Selected exhibition.
      */
-    private Submittable exposicaoSelecionada;
+    private Submittable exhibitionSelected;
     /**
-     * Lista de mecanismos de atribuição.
+     * List of staff attributions mechanism list.
      */
-    private List<StaffAttributionMechanism> listaMecanismos;
+    private List<StaffAttributionMechanism> staffAttributionMechanismList;
     /**
-     * Lista de atribuições.
+     * List of staff attributions.
      */
-    private List<StaffAttribution> listaAtribuicoes;
+    private List<StaffAttribution> staffAttributionList;
 
     /**
-     * Lista UI para expor a lista de mecanismos.
+     * private JList jListMechanismsUI.
      */
-    private JList listaMecanismosUI;
+    private JList jListMechanismsUI;
     /**
      * Botão para gerar mecanismos.
      */
-    private JButton btnGerar;
+    private JButton jbtnGenerate;
     /**
      * Tabela UI para expor as atribuições geradas.
      */
-    private JTable attributionsTableUI;
+    private JTable jTableAttributionsUI;
 
     /**
      * Dimensão da janela.
      */
-    final Dimension JANELA_TAMANHO = new Dimension(800, 600);
+    final Dimension WINDOW_SIZE = new Dimension(800, 600);
     /**
      * Margens dos campos.
      */
-    final int MARGEM_S_CAMPO = 0, MARGEM_I_CAMPO = 0,
-            MARGEM_E_CAMPO = 10, MARGEM_D_CAMPO = 0;
+    final int SUP_WINDOW_EDGE = 0, INF_WINDOW_EDGE = 0,
+            LEFT_WINDOW_EDGE = 10, RIGHT_WINDOW_EDGE = 0;
     /**
      * Border vazio para criar insets.
      */
     final static EmptyBorder PADDING_BORDER = new EmptyBorder(10, 10, 10, 10);
     
-    final  static String EXHIBITION_CENTER_TITLE = "Centro de Exposições";
+    final  static String EXHIBITION_CENTER_TITLE = "Exhibitions Center";
 
     /**
      * Constroi uma instância de AtribuirCandidaturaUI.
      *
-     * @param centroExposicoes Centro de Exposições
-     * @param organizador Organizador que iniciou a sessão
+     * @param exhibitionsCenter Centro de Exposições
+     * @param organizer Organizador que iniciou a sessão
      */
-    public AssignApplicationUI(ExhibitionCenter centroExposicoes, Organizer organizador) {
+    public AssignApplicationUI(ExhibitionCenter exhibitionsCenter, Organizer organizer) {
         super(EXHIBITION_CENTER_TITLE);
 
-        this.centroExposicoes = centroExposicoes;
-        this.controller = new AssignApplicationController(centroExposicoes, organizador);
+        this.exhibitionsCenter = exhibitionsCenter;
+        this.controller = new AssignApplicationController(exhibitionsCenter, organizer);
 
-        List<Submittable> listaExposicoes = this.controller.getSubmittablesInChangedConflictsByOrganizer(organizador);
-        new DialogSelectSubmittable(this, listaExposicoes, centroExposicoes);
-        if (this.exposicaoSelecionada == null) {
+        List<Submittable> listaExposicoes = this.controller.getSubmittablesInChangedConflictsByOrganizer(organizer);
+        new DialogSelectSubmittable(this, listaExposicoes, exhibitionsCenter);
+        if (this.exhibitionSelected == null) {
             dispose();
         } else {
 
-            this.controller.setSubmittable(this.exposicaoSelecionada);
-            this.listaMecanismos = this.controller.getStaffAttributionMechanism();
-            this.listaAtribuicoes = new ArrayList<>();
+            this.controller.setSubmittable(this.exhibitionSelected);
+            this.staffAttributionMechanismList = this.controller.getStaffAttributionMechanism();
+            this.staffAttributionList = new ArrayList<>();
 
-            criarComponentes();
+            createComponents();
 
             pack();
-            setSize(JANELA_TAMANHO);
+            setSize(WINDOW_SIZE);
             setMinimumSize(new Dimension(getWidth(), getHeight()));
             setLocationRelativeTo(null);
             setVisible(true);
@@ -145,12 +148,12 @@ public class AssignApplicationUI extends JFrame{
     /**
      * Cria os componentes da janela.
      */
-    private void criarComponentes() {
+    private void createComponents() {
 
         setLayout(new BorderLayout(10, 20));
-        add(criarPainelOeste(), BorderLayout.WEST);
-        add(criarPainelEste(), BorderLayout.CENTER);
-        add(criarPainelBotoesConfirmar(), BorderLayout.SOUTH);
+        add(createWestPanel(), BorderLayout.WEST);
+        add(createEastPanel(), BorderLayout.CENTER);
+        add(createJpanelBtnConfirm(), BorderLayout.SOUTH);
     }
 
     /**
@@ -158,18 +161,18 @@ public class AssignApplicationUI extends JFrame{
      *
      * @return o painel com a lista de mecanismos e o botão gerar
      */
-    private JPanel criarPainelOeste() {
+    private JPanel createWestPanel() {
 
-        JPanel painel = new JPanel(new BorderLayout(10, 10));
-        painel.setBorder(PADDING_BORDER);
+        JPanel jPanel = new JPanel(new BorderLayout(10, 10));
+        jPanel.setBorder(PADDING_BORDER);
 
-        JPanel pBotaoGerar = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pBotaoGerar.add(criarBotaoGerar());
+        JPanel pBtnGenerate = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        pBtnGenerate.add(createBtnGenerate());
 
-        painel.add(criarScrollPaneMecanismos(), BorderLayout.CENTER);
-        painel.add(pBotaoGerar, BorderLayout.SOUTH);
+        jPanel.add(createMechanismsScrollPane(), BorderLayout.CENTER);
+        jPanel.add(pBtnGenerate, BorderLayout.SOUTH);
 
-        return painel;
+        return jPanel;
     }
 
     /**
@@ -177,13 +180,13 @@ public class AssignApplicationUI extends JFrame{
      *
      * @return o painel com a tabela de atribuições
      */
-    private JPanel criarPainelEste() {
+    private JPanel createEastPanel() {
 
-        JPanel painel = new JPanel(new GridLayout());
-        painel.setBorder(PADDING_BORDER);
+        JPanel jPanel = new JPanel(new GridLayout());
+        jPanel.setBorder(PADDING_BORDER);
 
-        painel.add(criarScrollPaneAtribuicoes());
-        return painel;
+        jPanel.add(createAttributionsScrollPane());
+        return jPanel;
     }
 
     /**
@@ -191,29 +194,29 @@ public class AssignApplicationUI extends JFrame{
      *
      * @return o painel scroll que incorpora a lista de mecanismos
      */
-    private JPanel criarScrollPaneMecanismos() {
+    private JPanel createMechanismsScrollPane() {
 
-        JPanel painelScroll = new JPanel(new GridLayout());
-        painelScroll.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
-                "Escolha o mecanismo pretendido:", TitledBorder.LEFT, TitledBorder.TOP));
+        JPanel jPanelScroll = new JPanel(new GridLayout());
+        jPanelScroll.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
+                "Select the desired mechanism:", TitledBorder.LEFT, TitledBorder.TOP));
 
-        this.listaMecanismosUI = new JList(new ModelListMechanisms(this.listaMecanismos));
-        this.listaMecanismosUI.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.listaMecanismosUI.addListSelectionListener(new ListSelectionListener() {
+        this.jListMechanismsUI = new JList(new ModelListMechanisms(this.staffAttributionMechanismList));
+        this.jListMechanismsUI.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.jListMechanismsUI.addListSelectionListener(new ListSelectionListener() {
 
             @Override
             public void valueChanged(ListSelectionEvent e) {
 
-                btnGerar.setEnabled((!listaMecanismosUI.isSelectionEmpty()));
+                jbtnGenerate.setEnabled((!jListMechanismsUI.isSelectionEmpty()));
             }
         });
 
-        JScrollPane scrollPane = new JScrollPane(this.listaMecanismosUI);
-        scrollPane.setBorder(PADDING_BORDER);
+        JScrollPane jScrollPane = new JScrollPane(this.jListMechanismsUI);
+        jScrollPane.setBorder(PADDING_BORDER);
 
-        painelScroll.add(scrollPane);
+        jPanelScroll.add(jScrollPane);
 
-        return painelScroll;
+        return jPanelScroll;
     }
 
     /**
@@ -221,21 +224,21 @@ public class AssignApplicationUI extends JFrame{
      *
      * @return o painel scroll que incorpora a tabela de atribuições
      */
-    private JPanel criarScrollPaneAtribuicoes() {
+    private JPanel createAttributionsScrollPane() {
 
-        JPanel painelScroll = new JPanel(new GridLayout());
-        painelScroll.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
-                "Verifique a lista de Atribuições:", TitledBorder.LEFT, TitledBorder.TOP));
+        JPanel jPanelScroll = new JPanel(new GridLayout());
+        jPanelScroll.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
+                "Check the Assignments list:", TitledBorder.LEFT, TitledBorder.TOP));
 
-        this.attributionsTableUI = new JTable();
-        this.attributionsTableUI.setVisible(false);
+        this.jTableAttributionsUI = new JTable();
+        this.jTableAttributionsUI.setVisible(false);
 
-        JScrollPane scrollPane = new JScrollPane(this.attributionsTableUI);
+        JScrollPane scrollPane = new JScrollPane(this.jTableAttributionsUI);
         scrollPane.setBorder(PADDING_BORDER);
 
-        painelScroll.add(scrollPane);
+        jPanelScroll.add(scrollPane);
 
-        return painelScroll;
+        return jPanelScroll;
     }
 
     /**
@@ -243,20 +246,20 @@ public class AssignApplicationUI extends JFrame{
      *
      * @return o botão gerar atribuições
      */
-    private JButton criarBotaoGerar() {
-        this.btnGerar = new JButton("Gerar Atribuições");
-        this.btnGerar.setEnabled(false);
-        this.btnGerar.addActionListener(new ActionListener() {
+    private JButton createBtnGenerate() {
+        this.jbtnGenerate = new JButton("Generate Assignments(Attributions)");
+        this.jbtnGenerate.setEnabled(false);
+        this.jbtnGenerate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int row = listaMecanismosUI.getSelectedIndex();
-                controller.setStaffAttributionMechanism(listaMecanismos.get(row));
-                listaAtribuicoes = controller.getAttributionsList();
-                attributionsTableUI.setModel(new ModelTableAttributions(listaAtribuicoes));
-                attributionsTableUI.setVisible(true);
+                int row = jListMechanismsUI.getSelectedIndex();
+                controller.setStaffAttributionMechanism(staffAttributionMechanismList.get(row));
+                staffAttributionList = controller.getAttributionsList();
+                jTableAttributionsUI.setModel(new ModelTableAttributions(staffAttributionList));
+                jTableAttributionsUI.setVisible(true);
             }
         });
-        return this.btnGerar;
+        return this.jbtnGenerate;
     }
 
     /**
@@ -264,12 +267,12 @@ public class AssignApplicationUI extends JFrame{
      *
      * @return o painel com os botões confirmar e cancelar
      */
-    private JPanel criarPainelBotoesConfirmar() {
-        JPanel p = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        p.add(criarBotaoConfirmar());
-        p.add(criarBotaoCancelar());
+    private JPanel createJpanelBtnConfirm() {
+        JPanel jPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jPanel.add(createBtnConfirm());
+        jPanel.add(createBtnCancel());
 
-        return p;
+        return jPanel;
     }
 
     /**
@@ -277,21 +280,21 @@ public class AssignApplicationUI extends JFrame{
      *
      * @return o botão confirmar
      */
-    private JButton criarBotaoConfirmar() {
-        JButton btn = new JButton("Confirmar");
+    private JButton createBtnConfirm() {
+        JButton btn = new JButton("Confirm");
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if (listaAtribuicoes.size() < 1) {
-                        throw new IllegalArgumentException("Tem de gerar as atribuições primeiro.");
+                    if (staffAttributionList.size() < 1) {
+                        throw new IllegalArgumentException("You have to generate the assignments(attributions) first!.");
                     }
 
-                    String message = "Confirma as atribuições?";
-                    int confirma = JOptionPane.showConfirmDialog(rootPane, message);
+                    String message = "Do you confirm the assignments(attributions)?";
+                    int confirm = JOptionPane.showConfirmDialog(rootPane, message);
 
-                    if (confirma == JOptionPane.YES_OPTION) {
-                        controller.staffAttributionsRegister(listaAtribuicoes);
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        controller.staffAttributionsRegister(staffAttributionList);
                         dispose();
                         // TODO : Implement after use case is finished.
 
@@ -302,7 +305,7 @@ public class AssignApplicationUI extends JFrame{
                     JOptionPane.showMessageDialog(
                             rootPane,
                             ex.getMessage(),
-                            "Atribuir Candidaturas",
+                            "Assign Applications",
                             JOptionPane.WARNING_MESSAGE);
                 }
             }
@@ -315,9 +318,9 @@ public class AssignApplicationUI extends JFrame{
      *
      * @return o botão cancelar
      */
-    private JButton criarBotaoCancelar() {
+    private JButton createBtnCancel() {
 
-        JButton btn = new JButton("Cancelar");
+        JButton btn = new JButton("Cancel");
         btn.addActionListener(new ActionListener() {
 
             @Override
@@ -332,12 +335,12 @@ public class AssignApplicationUI extends JFrame{
     /**
      * Modifica a exposição selecionada.
      *
-     * @param exposicao exposição selecionada.
+     * @param exhibition exposição selecionada.
      */
     
-    public void setExposicao(Submittable exposicao) {
+    public void setExposicao(Submittable exhibition) {
 
-        this.exposicaoSelecionada = exposicao;
+        this.exhibitionSelected = exhibition;
     }
     
     public static void main(String[] args) {
@@ -382,8 +385,8 @@ public class AssignApplicationUI extends JFrame{
         
         List<StaffAttributionMechanism> attributionsList = new ArrayList<>();
         attributionsList.add(new EquitableLoadMechanism());
-        MechanismsRegister mr = new MechanismsRegister(attributionsList);
-        exhibitionCenter.setMechanismsRegister(mr);
+        MechanismsRegister mechanismsRegister = new MechanismsRegister(attributionsList);
+        exhibitionCenter.setMechanismsRegister(mechanismsRegister);
         
         List<Organizer> organizersList = new ArrayList<>();
         organizersList.add(organizer);
@@ -406,8 +409,8 @@ public class AssignApplicationUI extends JFrame{
         
         exhibitionsList.add(exhibition);
         exhibitionsList.add(exhibitionInNotCorrectState);
-        ExhibitionsRegister exReg = new ExhibitionsRegister(exhibitionsList);
-        exhibitionCenter.setExhibitionsRegister(exReg);
+        ExhibitionsRegister exhibitionsRegister = new ExhibitionsRegister(exhibitionsList);
+        exhibitionCenter.setExhibitionsRegister(exhibitionsRegister);
         
         new AssignApplicationUI(exhibitionCenter, organizer);
     }

@@ -1,5 +1,5 @@
-/*
- * Fornece classes para componentes do UI do centro de exposições.
+/**
+ * Package location for UI components classes.
  */
 package lapr.project.ui.components;
 
@@ -8,26 +8,29 @@ import javax.swing.AbstractListModel;
 import lapr.project.model.StaffAttributionMechanism;
 
 /**
- * Modelo de comunicação para a lista de mecanismos.
+ * Model of communication for mechanisms list
  *
  * @author Daniel Gonçalves 1151452
+ * @author Eric Amaral 1141570
  * @author Ivo Ferro 1151159
+ * @author Renato Oliveira 1140822
+ * @author Ricardo Correia 1151231
  */
 public class ModelListMechanisms extends AbstractListModel {
 
     /**
      * Lista de mecanismos.
      */
-    private List<StaffAttributionMechanism> listaMecanismos;
+    private List<StaffAttributionMechanism> staffAttributionsMechanismsList;
 
     /**
      * Constrói uma instância de ModelListMecanismos.
      *
-     * @param listaMecanismos lista de mecanismos
+     * @param staffAttributionsMechanismsList lista de mecanismos
      */
-    public ModelListMechanisms(List<StaffAttributionMechanism> listaMecanismos) {
+    public ModelListMechanisms(List<StaffAttributionMechanism> staffAttributionsMechanismsList) {
 
-        this.listaMecanismos = listaMecanismos;
+        this.staffAttributionsMechanismsList = staffAttributionsMechanismsList;
     }
 
     /**
@@ -37,7 +40,7 @@ public class ModelListMechanisms extends AbstractListModel {
      */
     @Override
     public int getSize() {
-        return this.listaMecanismos.size();
+        return this.staffAttributionsMechanismsList.size();
     }
 
     /**
@@ -49,7 +52,7 @@ public class ModelListMechanisms extends AbstractListModel {
     @Override
     public Object getElementAt(int index) {
 
-        return this.listaMecanismos.get(index).getDescription();
+        return this.staffAttributionsMechanismsList.get(index).getDescription();
     }
 
 }
