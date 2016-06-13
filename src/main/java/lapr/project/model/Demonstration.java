@@ -262,7 +262,7 @@ public class Demonstration implements Submittable {
     public void setStaffList(StaffList staffList) {
         this.staffList = staffList;
     }
-
+    
     /**
      * Returns the current demonstration state.
      *
@@ -350,6 +350,13 @@ public class Demonstration implements Submittable {
     @Override
     public ApplicationsList getApplicationsList() {
         return new ApplicationsList(this.applicationsList);
+    }
+
+    /**
+     * @param applicationsList the applicationsList to set
+     */
+    public void setApplicationsList(ApplicationsList applicationsList) {
+        this.applicationsList = applicationsList;
     }
 
     /**

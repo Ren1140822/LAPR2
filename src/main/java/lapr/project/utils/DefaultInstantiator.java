@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import lapr.project.model.*;
+import lapr.project.model.exhibition.ExhibitionInicialState;
 import lapr.project.model.mechanisms.EquitableLoadMechanism;
 
 /**
@@ -95,9 +96,9 @@ public class DefaultInstantiator {
                 new Date(2015, 7, 5), new Date(2015, 7, 8), new Date(2015, 7, 15),
                 placeComputerScience, staffListComputerScience, organizersListComputerScience,
                 new ApplicationsList(), new DemonstrationsList(), new StaffAttributionsList());
+        exhibitionComputerScience.setState(new ExhibitionInicialState(exhibitionComputerScience));
         
-        
-        // Applications computer science
+        // Application 1 computer science
         
         List<Product> productListNodeJs = new ArrayList<>();
         productListNodeJs.add(product1);
@@ -108,7 +109,7 @@ public class DefaultInstantiator {
                 new ArrayList<>(), new ArrayList<>());
         
         
-        // Applications computer science - Evaluations Node JS
+            // Applications computer science - Evaluations Node JS
         
         List<Integer> answerListNodeJs1 = new ArrayList<>();
         answerListNodeJs1.add(3);
@@ -135,16 +136,16 @@ public class DefaultInstantiator {
         exhibitionApplicationNodeJs.setEvaluationsList(evaluationsNodeJs);
         
         
-        // Demonstrations for computer science
+            // Demonstrations for computer science
         
         Demonstration demonstrationAngularJs = new Demonstration("Angular JS", "Get started with angular js.", 
                 placeComputerScience, staffListComputerScience, organizersListComputerScience, 
                 new ApplicationsList(), new ArrayList<>(), new StaffAttributionsList());
         
         
-        // Applications for demonstartion angular js
+            // Applications for demonstartion angular js
         
-        List<KeyWord> keyWordsAngluarJs = new VirtualFlow.ArrayLinkedList<>();
+        List<KeyWord> keyWordsAngluarJs = new ArrayList<>();
         keyWordsAngluarJs.add(new KeyWord("AngularJS"));
         keyWordsAngluarJs.add(new KeyWord("UpAndReady"));
         keyWordsAngluarJs.add(new KeyWord("GetStarted"));
@@ -176,6 +177,7 @@ public class DefaultInstantiator {
         List<Application> applicationsAngularJs = new ArrayList<>();
         applicationsAngularJs.add(demonstrationApplicationAngularJs);
         ApplicationsList applicationsListAngularJs = new ApplicationsList(applicationsAngularJs);
+        demonstrationAngularJs.setApplicationsList(applicationsListAngularJs);
         
         // Demos to expo
         

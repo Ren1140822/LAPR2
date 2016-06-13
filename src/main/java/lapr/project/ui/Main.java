@@ -1,13 +1,7 @@
 package lapr.project.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-import lapr.project.model.Demonstration;
-import lapr.project.model.DemonstrationsList;
-import lapr.project.model.Exhibition;
-import lapr.project.model.ExhibitionApplication;
-import lapr.project.model.StaffAttribution;
-import lapr.project.model.StaffAttributionsList;
+import lapr.project.model.ExhibitionCenter;
+import lapr.project.utils.DefaultInstantiator;
 
 /**
  * @author Nuno Bettencourt <nmb@isep.ipp.pt> on 24/05/16.
@@ -48,7 +42,8 @@ class Main {
 //                                     e.setDemonstrationsList(demoList);
 //                                     e.xmlexp();
                                     //ureg.xmlexp();
-                               
+            
+            ExhibitionCenter ec1 = DefaultInstantiator.createExhibitionCenter();                
 	}
 
 }
