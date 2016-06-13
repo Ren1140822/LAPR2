@@ -5,6 +5,11 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -18,17 +23,18 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Ricardo Amaral 1151231
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Demonstration implements Submittable {
 
     /**
      * The title of the demonstration.
      */
+    @XmlAttribute
     private String title;
 
     /**
      * The descriptive text of this demonstration.
      */
-    @XmlTransient
     private String description;
 
     /**
@@ -39,30 +45,32 @@ public class Demonstration implements Submittable {
     /**
      * The demonstration's staff list.
      */
-    @XmlTransient
+//    @XmlElementWrapper(name = "staff_list")
     private StaffList staffList;
 
     /**
      * Exhibition's organizers list.
      */
-    @XmlTransient
+//    @XmlElementWrapper(name = "organizers_list")
     private OrganizersList organizersList;
 
     /**
      * The demonstration applications list
      */
-    @XmlTransient
+//    @XmlElementWrapper(name = "applications_list")
     private ApplicationsList applicationsList;
 
     /**
      * The resources list.
      */
+    @XmlElementWrapper(name = "resources_list")
+    @XmlElement(name = "resource")
     private List<Resource> resourcesList;
 
     /**
      * Demonstration's staff attributions list.
      */
-    @XmlTransient
+//    @XmlElementWrapper(name = "staff_attributions_list")
     private StaffAttributionsList staffAttributionsList;
 
     /**
@@ -262,7 +270,7 @@ public class Demonstration implements Submittable {
     public void setStaffList(StaffList staffList) {
         this.staffList = staffList;
     }
-    
+
     /**
      * Returns the current demonstration state.
      *

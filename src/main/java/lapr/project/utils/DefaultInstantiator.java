@@ -145,12 +145,12 @@ public class DefaultInstantiator {
         
             // Applications for demonstartion angular js
         
-        List<KeyWord> keyWordsAngluarJs = new ArrayList<>();
-        keyWordsAngluarJs.add(new KeyWord("AngularJS"));
-        keyWordsAngluarJs.add(new KeyWord("UpAndReady"));
-        keyWordsAngluarJs.add(new KeyWord("GetStarted"));
-        keyWordsAngluarJs.add(new KeyWord("WEB"));
-        keyWordsAngluarJs.add(new KeyWord("Development"));
+        List<Keyword> keyWordsAngluarJs = new ArrayList<>();
+        keyWordsAngluarJs.add(new Keyword("AngularJS"));
+        keyWordsAngluarJs.add(new Keyword("UpAndReady"));
+        keyWordsAngluarJs.add(new Keyword("GetStarted"));
+        keyWordsAngluarJs.add(new Keyword("WEB"));
+        keyWordsAngluarJs.add(new Keyword("Development"));
         
         List<Product> productsAngularJs = new ArrayList<>();
         productsAngularJs.add(product1);

@@ -12,7 +12,6 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-//@XmlJavaTypeAdapter(AnyTypeAdapter.class)
 public interface Assingnable {
 
     /**
@@ -26,10 +25,10 @@ public interface Assingnable {
      * set assignable in evaluation state
      */
     void setInEvaluation();
-    
+
     /**
      * Gets the assignable title.
-     * 
+     *
      * @return assignable's title
      */
     String getTitle();

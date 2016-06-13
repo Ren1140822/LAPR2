@@ -3,9 +3,12 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Represents a conflict type.
@@ -17,12 +20,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Ricardo Correia 1151231
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ConflictType {
 
     /**
      * The conflict detection mechanism.
      */
-    @XmlAnyElement
+    @XmlTransient // TODO : Verify
     private ConflictDetectionMechanism conflictDetectionMechanism;
 
     /**

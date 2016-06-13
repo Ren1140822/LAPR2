@@ -5,11 +5,13 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import lapr.project.model.application.ApplicationInitialState;
 
 /**
@@ -22,6 +24,7 @@ import lapr.project.model.application.ApplicationInitialState;
  * @author Ricardo Amaral 1151231
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DemonstrationApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable {
 
     /**
@@ -33,45 +36,43 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     /**
      * The list of keywords.
      */
-    @XmlElementWrapper(name = "Keywords List")
-    @XmlElement(name = "Keyword")
-    private List<KeyWord> keywordsList;
+    @XmlElementWrapper(name = "keywords_list")
+    @XmlElement(name = "keyword")
+    private List<Keyword> keywordsList;
 
     /**
      * The exhibitor.
      */
-    @XmlElement
     private Exhibitor exhibitor;
 
     /**
      * The area asked by the company.
      */
-    @XmlElement
     private float exhibitorArea;
 
     /**
      * The number of invitations asked for.
      */
-    @XmlElement
     private int numberInvitations;
 
     /**
      * The list of products the company wishes to expose.
      */
-    @XmlElementWrapper(name = "Products List")
-    @XmlElement(name = "Products")
+    @XmlElementWrapper(name = "products_list")
+    @XmlElement(name = "product")
     private List<Product> productsList;
 
     /**
      * The evaluation lists of this application.
      */
-    @XmlAnyElement
+    @XmlElementWrapper(name = "evaluations_list")
+    @XmlElement(name = "evaluation")
     private List<Evaluation> evaluationsList;
 
     /**
      * The state of the application.
      */
-    @XmlAnyElement
+    @XmlTransient
     private ApplicationState currentState;
 
     /**
@@ -114,7 +115,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      * @param productList products list
      * @param evaluationsList evaluations list
      */
-    public DemonstrationApplication(String title, List<KeyWord> keyWords, Exhibitor exhibitor,
+    public DemonstrationApplication(String title, List<Keyword> keyWords, Exhibitor exhibitor,
             float exhibitorArea, int numberInvitations,
             List<Product> productList, List<Evaluation> evaluationsList) {
         this.title = title;
@@ -170,7 +171,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      * @return keywords list
      */
     @Override
-    public List<KeyWord> getKeywordsList() {
+    public List<Keyword> getKeywordsList() {
         return keywordsList;
     }
 
@@ -179,7 +180,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @param keywordsList keywords list
      */
-    public void setKeywordsList(List<KeyWord> keywordsList) {
+    public void setKeywordsList(List<Keyword> keywordsList) {
         this.keywordsList = keywordsList;
     }
 
@@ -260,13 +261,12 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
 
     /**
      * Sets the evaluations list.
-     * 
+     *
      * @param evaluationsList evaluations list
      */
     public void setEvaluationsList(List<Evaluation> evaluationsList) {
         this.evaluationsList = evaluationsList;
     }
-    
 
     /**
      * Returns the textual interpretation of the objects and attributes of this

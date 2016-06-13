@@ -3,8 +3,10 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Represents a product.
@@ -16,12 +18,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Ricardo Correia 1151231
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Product {
 
     /**
      * The product's designation.
      */
-    @XmlTransient
+    @XmlAttribute
     private String designation;
 
     /**

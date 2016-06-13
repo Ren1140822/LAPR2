@@ -3,6 +3,9 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -16,24 +19,23 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Ricardo Correia 1151231
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Exhibitor {
 
     /**
      * The exhibitor´s name.
      */
-    @XmlTransient
+    @XmlAttribute
     private String name;
 
     /**
      * The exhibitor´s address.
      */
-    @XmlTransient
     private String address;
 
     /**
      * The exhibitor´s mobile number.
      */
-    @XmlTransient
     private String mobileNumber;
 
     /**

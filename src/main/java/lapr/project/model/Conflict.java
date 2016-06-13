@@ -3,8 +3,10 @@
  */
 package lapr.project.model;
 
-import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -17,24 +19,26 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Ricardo Correia 1151231
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Conflict {
 
     /**
      * The type of the conflict.
      */
-    
     private ConflictType conflictType;
 
     /**
      * The staff member which conflicts with.
      */
-    
     private StaffMember staffMember;
 
     /**
      * Where the conflict occurs.
      */
-   
+    @XmlElements({
+        @XmlElement(name = "exhibition_application", type = ExhibitionApplication.class),
+        @XmlElement(name = "demonstration_application", type = DemonstrationApplication.class)
+    })
     private Conflictable conflictable;
 
     /**
@@ -76,7 +80,6 @@ public class Conflict {
      *
      * @return conflict type
      */
-    @XmlElement
     public ConflictType getConflictType() {
         return new ConflictType(conflictType);
     }
@@ -86,7 +89,6 @@ public class Conflict {
      *
      * @param conflictType conflictType
      */
- 
     public void setConflictType(ConflictType conflictType) {
         this.conflictType = new ConflictType(conflictType);
     }
@@ -96,7 +98,6 @@ public class Conflict {
      *
      * @return staff member
      */
-    @XmlElement
     public StaffMember getStaffMember() {
         return new StaffMember(staffMember);
     }
@@ -106,7 +107,6 @@ public class Conflict {
      *
      * @param staffMember staff member
      */
-    
     public void setStaffMember(StaffMember staffMember) {
         this.staffMember = new StaffMember(staffMember);
     }
@@ -116,7 +116,6 @@ public class Conflict {
      *
      * @return conflictable
      */
-    @XmlAnyElement
     public Conflictable getConflictable() {
         return conflictable;
     }
@@ -126,7 +125,6 @@ public class Conflict {
      *
      * @param conflictable conflictable
      */
-
     public void setConflictable(Conflictable conflictable) {
         this.conflictable = conflictable;
     }

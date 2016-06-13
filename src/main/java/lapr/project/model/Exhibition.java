@@ -5,11 +5,12 @@ package lapr.project.model;
 
 import java.io.File;
 import java.util.Date;
-import java.util.List;
 import java.util.Timer;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -30,102 +31,94 @@ import lapr.project.model.exhibition.timers.DetectConflictsTask;
  * @author Ricardo Correia 1151231
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Exhibition implements Submittable {
 
     /**
      * Exhibition's title.
      */
-    @XmlTransient
+    @XmlAttribute
     private String title;
 
     /**
      * Exhibition's description.
      */
-    @XmlTransient
     private String description;
 
     /**
      * Exhibition's start date.
      */
-    @XmlTransient
     private Date startDate;
 
     /**
      * Exhibition's end date.
      */
-    @XmlTransient
     private Date endDate;
 
     /**
      * Exhibition's application submissions start date.
      */
-    @XmlTransient
     private Date subStartDate;
 
     /**
      * Exhibition's application submissions end date.
      */
-    @XmlTransient
     private Date subEndDate;
 
     /**
      * Exhibition's attribution conflicts resolution limit date.
      */
-    @XmlTransient
     private Date conflictLimitDate;
 
     /**
      * Exhibition's evaluations limite date.
      */
-    @XmlTransient
     private Date evaluationLimitDate;
 
     /**
      * Exhibition's location.
      */
-    @XmlTransient
     private Place place;
 
     /**
      * Exhibition's staff list.
      */
-    @XmlTransient
+//    @XmlElementWrapper(name = "staff_list")
     private StaffList staffList;
 
     /**
      * Exhibition's organizers list.
      */
-    @XmlTransient
+//    @XmlElementWrapper(name = "organizers_list")
     private OrganizersList organizersList;
 
     /**
      * Exhibition's applications list.
      */
-    @XmlTransient
+//    @XmlElementWrapper(name = "applications_list")
     private ApplicationsList applicationsList;
 
     /**
      * Exhibition's demonstrations list.
      */
-    @XmlTransient
+//    @XmlElementWrapper(name = "demonstrations_list")
     private DemonstrationsList demonstrationsList;
 
     /**
      * Exhibition's staff attributions list.
      */
-    @XmlTransient
+//    @XmlElementWrapper(name = "staff_attributions_list")
     private StaffAttributionsList staffAttributionsList;
 
     /**
      * The exhibition's current state.
      */
-    @XmlTransient
+    @XmlTransient // TODO : Verify
     private ExhibitionState currentState;
     
     /**
      * The exhibition's timer.
      */
-    @XmlTransient
     private final Timer timer;
 
     /**
@@ -272,7 +265,6 @@ public class Exhibition implements Submittable {
      *
      * @param title the Exhibition's title to set
      */
-    @XmlAttribute
     public void setTitle(String title) {
         this.title = title;
     }

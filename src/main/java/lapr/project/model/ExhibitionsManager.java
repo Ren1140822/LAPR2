@@ -3,9 +3,6 @@
  */
 package lapr.project.model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * Represents a exhibitions manager.
  *
@@ -15,13 +12,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-@XmlRootElement
 public class ExhibitionsManager {
 
     /**
      * The user for the exhibition manager.
      */
-      @XmlElement
     private User user;
 
     /**

@@ -13,7 +13,6 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-  //@XmlJavaTypeAdapter(AnyTypeAdapter.class)
 public interface Submittable {
 
     /**

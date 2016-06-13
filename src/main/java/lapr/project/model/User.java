@@ -3,8 +3,9 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -17,7 +18,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Ricardo Correia 1151231
  */
 @XmlRootElement
-public class User  {
+@XmlAccessorType(XmlAccessType.FIELD)
+public class User {
 
     /**
      * The user's name.
@@ -27,6 +29,7 @@ public class User  {
     /**
      * The user's username.
      */
+    @XmlAttribute
     private String username;
 
     /**
@@ -59,7 +62,6 @@ public class User  {
      * The user's password by default.
      */
     private static final String DEFAULT_PASSWORD = "password";
-    
 
     /**
      * Default constructor of a user class.
@@ -112,7 +114,6 @@ public class User  {
      *
      * @param name the user's name to set
      */
-    @XmlElement
     public void setName(String name) {
         this.name = name;
     }
@@ -131,7 +132,6 @@ public class User  {
      *
      * @param username the user's username to set
      */
-    @XmlAttribute
     public void setUsername(String username) {
         this.username = username;
     }
@@ -150,7 +150,6 @@ public class User  {
      *
      * @param email the user's email to set
      */
-    @XmlElement
     public void setEmail(String email) {
         this.email = email;
     }
@@ -169,7 +168,6 @@ public class User  {
      *
      * @param password the user's password to set
      */
-    @XmlElement
     public void setPassword(String password) {
         this.password = password;
     }
@@ -211,8 +209,5 @@ public class User  {
 
         return this.username.equals(otherUser.username) || this.email.equals(otherUser.email);
     }
-
-    
-
 
 }

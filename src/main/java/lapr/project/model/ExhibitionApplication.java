@@ -5,7 +5,11 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import lapr.project.model.application.ApplicationInitialState;
@@ -20,49 +24,50 @@ import lapr.project.model.application.ApplicationInitialState;
  * @author Ricardo Correia 1151231
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ExhibitionApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable {
 
     /**
      * The title of the application.
      */
-    @XmlTransient
+    @XmlAttribute
     private String title;
 
     /**
      * The exhibitor.
      */
-    @XmlTransient
     private Exhibitor exhibitor;
 
     /**
      * The area asked by the company.
      */
-   @XmlTransient
     private float exhibitorArea;
 
     /**
      * The number of invitations asked for.
      */
-   @XmlTransient
     private int numberInvitations;
 
     /**
      * The list of products the company wishes to expose.
      */
-    @XmlTransient
+    @XmlElementWrapper(name = "products_list")
+    @XmlElement(name = "product")
     private List<Product> productsList;
 
     /**
      * The list of demonstrations the company wishes to participate.
      */
-   @XmlTransient
+    @XmlElementWrapper(name = "demonstrations_list")
+    @XmlElement(name = "demonstration")
     private List<Demonstration> demonstrationsList;
 
     /**
      * The evaluation lists of this application.
      */
     
-    @XmlTransient
+    @XmlElementWrapper(name = "evaluations_list")
+    @XmlElement(name = "evaluation")
     private List<Evaluation> evaluationsList;
 
     /**
@@ -74,8 +79,9 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     /**
      * The list of keywords.
      */
-    @XmlTransient
-    private List<KeyWord> keywordsList;
+    @XmlElementWrapper(name = "keywords_list")
+    @XmlElement(name = "keyword")
+    private List<Keyword> keywordsList;
 
     /**
      * The default title.
@@ -121,7 +127,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     public ExhibitionApplication(String title, Exhibitor exhibitor,
             float exhibitorArea, int numberInvitations,
             List<Product> productList, List<Demonstration> demonstrationsList,
-            List<Evaluation> evaluationsList, List<KeyWord> keyWordList) {
+            List<Evaluation> evaluationsList, List<Keyword> keyWordList) {
         this.title = title;
         this.exhibitor = new Exhibitor(exhibitor);
         this.exhibitorArea = exhibitorArea;
@@ -236,7 +242,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @return the list of keywords
      */
     @Override
-    public List<KeyWord> getKeywordsList() {
+    public List<Keyword> getKeywordsList() {
         return keywordsList;
     }
 
@@ -295,7 +301,6 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param exhibitor the exhibitor
      */
-    @XmlElement
     public void setExhibitor(Exhibitor exhibitor) {
         this.exhibitor = exhibitor;
     }
@@ -365,7 +370,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @return true if it is successfull added, false otherwise
      */
     public boolean newKeyword(String description) {
-        KeyWord keyWord = new KeyWord(description);
+        Keyword keyWord = new Keyword(description);
         keyWord.validate();
         return keywordsList.add(keyWord);
     }
@@ -493,7 +498,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         for (Evaluation evaluation : evaluationsList) {
             s.append(String.format("%s%n", evaluation));
         }
-        for (KeyWord keyword : keywordsList) {
+        for (Keyword keyword : keywordsList) {
             s.append(String.format("%s%n", keyword));
         }
         s.append("}");

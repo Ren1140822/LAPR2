@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<exhibition title="Computer Science">
+    <description>Conferences about computer science.</description>
+    <startDate>3915-08-23T00:00:00+01:00</startDate>
+    <endDate>3915-09-11T00:00:00+01:00</endDate>
+    <subStartDate>3915-07-15T00:00:00+01:00</subStartDate>
+    <subEndDate>3915-08-05T00:00:00+01:00</subEndDate>
+    <conflictLimitDate>3915-08-08T00:00:00+01:00</conflictLimitDate>
+    <evaluationLimitDate>3915-08-15T00:00:00+01:00</evaluationLimitDate>
+    <place location="H301"/>
+    <staffList>
+        <staff_list>
+            <staff_member>
+                <user username="renatooliveira">
+                    <name>Renato Oliveira</name>
+                    <email>1140822@isep.ipp.pt</email>
+                    <password>Wer+234</password>
+                </user>
+            </staff_member>
+            <staff_member>
+                <user username="ricardocorreia">
+                    <name>Ricardo Correia</name>
+                    <email>1151231</email>
+                    <password>123-Asd</password>
+                </user>
+            </staff_member>
+        </staff_list>
+    </staffList>
+    <organizersList>
+        <organizers_list>
+            <organizer>
+                <user username="ivoferro">
+                    <name>Ivo Ferro</name>
+                    <email>1151159@isep.ipp.pt</email>
+                    <password>123+Qwe</password>
+                </user>
+            </organizer>
+            <organizer>
+                <user username="ericamaral">
+                    <name>Eric Amaral</name>
+                    <email>1141570@isep.ipp.pt</email>
+                    <password>234+Wer</password>
+                </user>
+            </organizer>
+        </organizers_list>
+    </organizersList>
+    <applicationsList>
+        <applications_list/>
+    </applicationsList>
+    <demonstrationsList>
+        <demonstrations_list>
+            <demonstration title="Angular JS">
+                <description>Get started with angular js.</description>
+                <place location="H301"/>
+                <staffList>
+                    <staff_list>
+                        <staff_member>
+                            <user username="renatooliveira">
+<name>Renato Oliveira</name>
+<email>1140822@isep.ipp.pt</email>
+<password>Wer+234</password>
+                            </user>
+                        </staff_member>
+                        <staff_member>
+                            <user username="ricardocorreia">
+<name>Ricardo Correia</name>
+<email>1151231</email>
+<password>123-Asd</password>
+                            </user>
+                        </staff_member>
+                    </staff_list>
+                </staffList>
+                <organizersList>
+                    <organizers_list>
+                        <organizer>
+                            <user username="ivoferro">
+<name>Ivo Ferro</name>
+<email>1151159@isep.ipp.pt</email>
+<password>123+Qwe</password>
+                            </user>
+                        </organizer>
+                        <organizer>
+                            <user username="ericamaral">
+<name>Eric Amaral</name>
+<email>1141570@isep.ipp.pt</email>
+<password>234+Wer</password>
+                            </user>
+                        </organizer>
+                    </organizers_list>
+                </organizersList>
+                <applicationsList>
+                    <applications_list>
+                        <demonstration_application title="Angular JS">
+                            <keywords_list>
+<keyword description="AngularJS"/>
+<keyword description="UpAndReady"/>
+<keyword description="GetStarted"/>
+<keyword description="WEB"/>
+<keyword description="Development"/>
+                            </keywords_list>
+                            <exhibitor name="Sonae">
+<address>trades@sonae.com</address>
+<mobileNumber>912345678</mobileNumber>
+                            </exhibitor>
+                            <exhibitorArea>45.5</exhibitorArea>
+                            <numberInvitations>20</numberInvitations>
+                            <products_list>
+<product designation="Projetor"/>
+<product designation="PC"/>
+                            </products_list>
+                            <evaluations_list>
+<evaluation>
+    <questions_list>
+        <question>What is your knowledge about the exhibition theme?</question>
+        <question>What is the application adequation to the exhibition?</question>
+        <question>What is the application adequation to the demonstrations?</question>
+        <question>What is the invite number adequation to the application?</question>
+        <question>What is global recommendation?</question>
+    </questions_list>
+    <answers_list/>
+</evaluation>
+                            </evaluations_list>
+                        </demonstration_application>
+                    </applications_list>
+                </applicationsList>
+                <resources_list/>
+                <staffAttributionsList>
+                    <staff_attributions_list/>
+                </staffAttributionsList>
+            </demonstration>
+        </demonstrations_list>
+        <demonstrationsList title="Angular JS">
+            <description>Get started with angular js.</description>
+            <place location="H301"/>
+            <staffList>
+                <staff_list>
+                    <staff_member>
+                        <user username="renatooliveira">
+                            <name>Renato Oliveira</name>
+                            <email>1140822@isep.ipp.pt</email>
+                            <password>Wer+234</password>
+                        </user>
+                    </staff_member>
+                    <staff_member>
+                        <user username="ricardocorreia">
+                            <name>Ricardo Correia</name>
+                            <email>1151231</email>
+                            <password>123-Asd</password>
+                        </user>
+                    </staff_member>
+                </staff_list>
+            </staffList>
+            <organizersList>
+                <organizers_list>
+                    <organizer>
+                        <user username="ivoferro">
+                            <name>Ivo Ferro</name>
+                            <email>1151159@isep.ipp.pt</email>
+                            <password>123+Qwe</password>
+                        </user>
+                    </organizer>
+                    <organizer>
+                        <user username="ericamaral">
+                            <name>Eric Amaral</name>
+                            <email>1141570@isep.ipp.pt</email>
+                            <password>234+Wer</password>
+                        </user>
+                    </organizer>
+                </organizers_list>
+            </organizersList>
+            <applicationsList>
+                <applications_list>
+                    <demonstration_application title="Angular JS">
+                        <keywords_list>
+                            <keyword description="AngularJS"/>
+                            <keyword description="UpAndReady"/>
+                            <keyword description="GetStarted"/>
+                            <keyword description="WEB"/>
+                            <keyword description="Development"/>
+                        </keywords_list>
+                        <exhibitor name="Sonae">
+                            <address>trades@sonae.com</address>
+                            <mobileNumber>912345678</mobileNumber>
+                        </exhibitor>
+                        <exhibitorArea>45.5</exhibitorArea>
+                        <numberInvitations>20</numberInvitations>
+                        <products_list>
+                            <product designation="Projetor"/>
+                            <product designation="PC"/>
+                        </products_list>
+                        <evaluations_list>
+                            <evaluation>
+<questions_list>
+    <question>What is your knowledge about the exhibition theme?</question>
+    <question>What is the application adequation to the exhibition?</question>
+    <question>What is the application adequation to the demonstrations?</question>
+    <question>What is the invite number adequation to the application?</question>
+    <question>What is global recommendation?</question>
+</questions_list>
+<answers_list/>
+                            </evaluation>
+                        </evaluations_list>
+                    </demonstration_application>
+                </applications_list>
+            </applicationsList>
+            <resources_list/>
+            <staffAttributionsList>
+                <staff_attributions_list/>
+            </staffAttributionsList>
+        </demonstrationsList>
+    </demonstrationsList>
+    <staffAttributionsList>
+        <staff_attributions_list/>
+    </staffAttributionsList>
+    <timer/>
+</exhibition>

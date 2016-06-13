@@ -23,7 +23,7 @@ import lapr.project.model.DemonstrationApplication;
 import lapr.project.model.Evaluable;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
-import lapr.project.model.KeyWord;
+import lapr.project.model.Keyword;
 import lapr.project.model.StaffMember;
 import lapr.project.ui.EvaluateApplicationUI;
 
@@ -114,8 +114,8 @@ public class DialogSeeApplication extends JDialog {
     private JPanel createKeywordsPanel() {
         JPanel keywordsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
 
-        List<KeyWord> keywordsList = evaluable.getKeywordsList();
-        for (KeyWord keyword : keywordsList) {
+        List<Keyword> keywordsList = evaluable.getKeywordsList();
+        for (Keyword keyword : keywordsList) {
             keywordsPanel.add(new JLabel(keyword.getDescription()));
         }
 

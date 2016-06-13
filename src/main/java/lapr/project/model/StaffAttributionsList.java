@@ -5,8 +5,11 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Represents an staff attributions list
@@ -18,13 +21,14 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Ricardo Correia 1151231
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class StaffAttributionsList {
 
     /**
      * the list of staff attributions instances
      */
-
-    @XmlTransient
+    @XmlElementWrapper(name = "staff_attributions_list")
+    @XmlElement(name = "staff_attribution")
     private List<StaffAttribution> staffAttributionsList;
 
     /**

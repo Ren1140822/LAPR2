@@ -3,8 +3,11 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Represents a staff attribution.
@@ -16,18 +19,21 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Ricardo Correia 1151231
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class StaffAttribution {
 
     /**
      * The staffAttribution's application.
      */
-    @XmlTransient
+    @XmlElements({
+        @XmlElement(name = "exhibition_application", type = ExhibitionApplication.class),
+        @XmlElement(name = "demonstration_application", type = DemonstrationApplication.class)
+    })
     private Assingnable application;
 
     /**
      * The staffAttribution's staffMember.
      */
-   @XmlTransient
     private StaffMember staffMember;
 
     /**
@@ -74,7 +80,6 @@ public class StaffAttribution {
      *
      * @param application the staffAttribution application to set
      */
-
     public void setApplication(Assingnable application) {
 
         this.application = application;
@@ -94,7 +99,6 @@ public class StaffAttribution {
      *
      * @param staffMember the staffAttribution staffMember to set
      */
-  
     public void setStaffMember(StaffMember staffMember) {
         this.staffMember = staffMember;
     }

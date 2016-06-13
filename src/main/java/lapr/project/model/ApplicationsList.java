@@ -5,6 +5,9 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -18,19 +21,21 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Ricardo Correia 1151231
  */
 @XmlRootElement
-
 public class ApplicationsList {
 
     /**
      * List of applications.
      */
-    
+    @XmlElementWrapper(name = "applications_list")
+    @XmlElements({
+        @XmlElement(name = "exhibition_application", type = ExhibitionApplication.class),
+        @XmlElement(name = "demonstration_application", type = DemonstrationApplication.class)
+    })
     private List<Application> applicationsList;
 
     /**
      * A temporary exhibition application reference.
      */
-
     private Application application;
 
     /**
@@ -44,7 +49,7 @@ public class ApplicationsList {
      * Creates an instance of ApplicationsList receiving the list of
      * applications to an exhibition.
      *
-     * @param ApplicationsList list of applications
+     * @param applicationsList list of applications
      */
     public ApplicationsList(List<Application> applicationsList) {
         this.applicationsList = new ArrayList<>(applicationsList);
@@ -75,21 +80,20 @@ public class ApplicationsList {
      *
      * @param applicationsList list of applications
      */
-    
     public void setApplicationsList(List<Application> applicationsList) {
         this.applicationsList = new ArrayList<>(applicationsList);
     }
 
     /**
      * Creates a new exhibition application.
+     *
      * @return the new exhibition application
      */
-    public  Application newExhibitionApplication() {
+    public Application newExhibitionApplication() {
         this.application = new ExhibitionApplication();
         return this.application;
     }
 
-   
     /**
      * Return the textual representation of a ApplicationsList.
      *

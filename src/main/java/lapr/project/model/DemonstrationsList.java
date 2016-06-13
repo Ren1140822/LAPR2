@@ -9,7 +9,6 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Represents a demonstrations list.
@@ -26,44 +25,38 @@ public class DemonstrationsList {
     /**
      * List of demonstrations.
      */
-    @XmlElementWrapper(name = "Demonstrations List")
-    @XmlElement(name = "Demonstration")
+    @XmlElementWrapper(name = "demonstrations_list")
+    @XmlElement(name = "demonstration")
     private List<Demonstration> demonstrationList;
 
     /**
      * Demonstration's start date.
      */
-    @XmlTransient
     private Date startDate;
 
     /**
      * Demonstration's end date.
      */
-    @XmlTransient
     private Date endDate;
 
     /**
      * Demonstration's application submissions start date.
      */
-    @XmlTransient
     private Date subStartDate;
 
     /**
      * Demonstration's application submissions end date.
      */
-    @XmlTransient
     private Date subEndDate;
 
     /**
      * Demonstration's attribution conflicts resolution limit date.
      */
-    @XmlTransient
     private Date conflictLimitDate;
 
     /**
      * Demonstration's evaluations limite date.
      */
-    @XmlTransient
     private Date evaluationLimitDate;
 
     /**
