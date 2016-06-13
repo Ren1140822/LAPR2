@@ -3,6 +3,8 @@
  */
 package lapr.project.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -19,64 +21,162 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Demonstration implements Submittable {
 
     /**
-     * the descriptive text of this demonstration
+     * The title of the demonstration.
+     */
+    private String title;
+
+    /**
+     * The descriptive text of this demonstration.
      */
     @XmlTransient
     private String description;
 
     /**
-     * the demonstration's staff list.
+     * The place for the demonstration.
      */
-   @XmlTransient
+    private Place place;
+
+    /**
+     * The demonstration's staff list.
+     */
+    @XmlTransient
     private StaffList staffList;
+
+    /**
+     * Exhibition's organizers list.
+     */
+    @XmlTransient
+    private OrganizersList organizersList;
+
+    /**
+     * The demonstration applications list
+     */
+    @XmlTransient
+    private ApplicationsList applicationsList;
+
+    /**
+     * The resources list.
+     */
+    private List<Resource> resourcesList;
 
     /**
      * Demonstration's staff attributions list.
      */
-   @XmlTransient
+    @XmlTransient
     private StaffAttributionsList staffAttributionsList;
 
     /**
      * The demonstration current state.
      */
-   @XmlTransient
+    @XmlTransient
     private DemonstrationState currentDemonstrationState;
 
     /**
-     * The demonstration applications list
+     * Demonstration's default title.
      */
-   @XmlTransient
-    private ApplicationsList applicationsList;
+    private static final String DEFAULT_TITLE = "Untitled";
 
     /**
-     * the default value of the descriptive text ( when using no args
-     * constructor)
+     * Demonstration's default description.
      */
     private static final String DEFAULT_DESCRIPTION = "No description.";
 
     /**
-     * empty constructor, assigns the default value to attributes
+     * Empty constructor, assigns the default value to attributes
      */
     public Demonstration() {
+        this.title = DEFAULT_TITLE;
         this.description = DEFAULT_DESCRIPTION;
+        this.place = new Place();
+        this.staffList = new StaffList();
+        this.organizersList = new OrganizersList();
+        this.applicationsList = new ApplicationsList();
+        this.resourcesList = new ArrayList<>();
+        this.staffAttributionsList = new StaffAttributionsList();
+        //this.currentDemonstrationState = new DemonstrationInitialState(this);
+    }
+    
+    /**
+     * Creates a demonstration receiving the description.
+     * 
+     * @param description demonstration's description
+     */
+    public Demonstration(String description) {
+        this.title = DEFAULT_TITLE;
+        this.description = description;
+        this.place = new Place();
+        this.staffList = new StaffList();
+        this.organizersList = new OrganizersList();
+        this.applicationsList = new ApplicationsList();
+        this.resourcesList = new ArrayList<>();
+        this.staffAttributionsList = new StaffAttributionsList();
+        //this.currentDemonstrationState = new DemonstrationInitialState(this);
     }
 
     /**
-     * builds instance of demonstration with a string as param
+     * Creates an instance of demonstration receiving their attributes.
+     *
+     * @param title demonstration's title
+     * @param description demonstrations's description
+     * @param place demonstration's place
+     * @param staffList staff list
+     * @param organizersList organizers list
+     * @param applicationsList applications list
+     * @param resourcesList resources list
+     * @param staffAttributionsList staff attributions list
+     * @param currentDemonstrationState demonstration state
      */
-    public Demonstration(String descriptiveText) {
-        this.description = descriptiveText;
+    public Demonstration(String title, String description, Place place, StaffList staffList, OrganizersList organizersList, ApplicationsList applicationsList, List<Resource> resourcesList, StaffAttributionsList staffAttributionsList, DemonstrationState currentDemonstrationState) {
+        this.title = title;
+        this.description = description;
+        this.place = place;
+        this.staffList = new StaffList(staffList);
+        this.organizersList = new OrganizersList(organizersList);
+        this.applicationsList = new ApplicationsList(applicationsList);
+        this.resourcesList = new ArrayList<>(resourcesList);
+        this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
+        this.currentDemonstrationState = currentDemonstrationState;
     }
 
     /**
-     * Builds instance of demonstration using another demonstration as copy
+     * Creates an instance of demonstration copying another demonstration.
+     *
+     * @param demonstration another demonstration
      */
-    public Demonstration(Demonstration d) {
-        this.description = new String(d.description);
+    public Demonstration(Demonstration demonstration) {
+        this.title = demonstration.title;
+        this.description = demonstration.description;
+        this.place = demonstration.place;
+        this.staffList = new StaffList(demonstration.staffList);
+        this.organizersList = new OrganizersList(demonstration.organizersList);
+        this.applicationsList = new ApplicationsList(demonstration.applicationsList);
+        this.resourcesList = new ArrayList<>(demonstration.resourcesList);
+        this.staffAttributionsList = new StaffAttributionsList(demonstration.staffAttributionsList);
+        this.currentDemonstrationState = demonstration.currentDemonstrationState;
+    }
+
+    /**
+     * Gets the demonstration's title.
+     *
+     * @return demonstartion's title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * Sets the demonstartion's title.
+     *
+     * @param title demonstration's title
+     */
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     /**
      * returns the current value of the descriptive text
+     *
+     * @return demonstration's description
      */
     public String getDescription() {
         return this.description;
@@ -84,10 +184,65 @@ public class Demonstration implements Submittable {
 
     /**
      * sets the current value of the descriptive text
+     *
+     * @param description demonstration's description
      */
-    
-    public void setDescription(String text) {
-        this.description = text;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Gets the demonstration's place.
+     *
+     * @return demonstration's place
+     */
+    public Place getPlace() {
+        return place;
+    }
+
+    /**
+     * Sets the demonstration's place.
+     *
+     * @param place demonstration's place
+     */
+    public void setPlace(Place place) {
+        this.place = place;
+    }
+
+    /**
+     * Gets the organizers list.
+     *
+     * @return organizers list
+     */
+    public OrganizersList getOrganizersList() {
+        return organizersList;
+    }
+
+    /**
+     * Sets the organizers list.
+     *
+     * @param organizersList organizers list
+     */
+    public void setOrganizersList(OrganizersList organizersList) {
+        this.organizersList = organizersList;
+    }
+
+    /**
+     * Gets the resources list.
+     *
+     * @return resources list
+     */
+    public List<Resource> getResourcesList() {
+        return resourcesList;
+    }
+
+    /**
+     * Sets the resources list.
+     *
+     * @param resourcesList resources list.
+     */
+    public void setResourcesList(List<Resource> resourcesList) {
+        this.resourcesList = resourcesList;
     }
 
     /**
@@ -105,7 +260,6 @@ public class Demonstration implements Submittable {
      *
      * @param staffList staff list
      */
-   
     public void setStaffList(StaffList staffList) {
         this.staffList = staffList;
     }
@@ -143,6 +297,7 @@ public class Demonstration implements Submittable {
      * @param otherObject the demonstration to compare to
      * @return true if equal
      */
+    @Override
     public boolean equals(Object otherObject) {
 
         if (this == otherObject) {
@@ -157,7 +312,10 @@ public class Demonstration implements Submittable {
 
     /**
      * Returns the textual representation of the attributes of this class.
+     *
+     * @return demonstration's textual representation
      */
+    @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append("Demonstration{");
@@ -219,7 +377,6 @@ public class Demonstration implements Submittable {
     }
 
     @Override
-
     public String[] getInfo() {
         String[] info = new String[2];
         info[0] = this.getShortInfo();
@@ -230,6 +387,7 @@ public class Demonstration implements Submittable {
         return info;
     }
 
+    @Override
     public boolean removeAttribution(StaffAttribution staffAttribution) {
         return this.staffAttributionsList.removeStaffAttribution(staffAttribution);
 

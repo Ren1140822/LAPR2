@@ -52,11 +52,12 @@ public class ExhibitionsRegisterTest {
         organizerslist.add(new Organizer(new User("Daniel", "daniell", "email@dd2", "password")));
         organizerslist.add(new Organizer(new User("Daniel2", "daniell2", "email@dd2", "password")));
 
-        this.exhibition = new Exhibition("title", "description", new Date(2016, 2, 1), 
-                new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 0, 20), 
+        this.exhibition = new Exhibition("title", "description", new Date(2016, 2, 1),
+                new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 0, 20),
                 new Date(2016, 1, 10), new Date(2016, 1, 20),
-                new Place(), new StaffList(), new OrganizersList(organizerslist), 
-                new ArrayList<Demonstration>(), new StaffAttributionsList());
+                new Place(), new StaffList(), new OrganizersList(organizerslist),
+                new ApplicationsList(), new ArrayList<Demonstration>(),
+                new StaffAttributionsList());
 
     }
 
@@ -113,7 +114,7 @@ public class ExhibitionsRegisterTest {
         this.exhibitionsRegister.registerExhibition(this.exhibition);
         List<Exhibition> expResult = new ArrayList<>();
         expResult.add(this.exhibition);
-        
+
         List<Exhibition> result = this.exhibitionsRegister.getExhibitionsList();
         assertEquals(expResult, result);
     }
@@ -126,11 +127,11 @@ public class ExhibitionsRegisterTest {
     public void testRegisterExhibitionReturnTrue() {
 
         System.out.println("registerExhibition");
-        
+
         boolean result = exhibitionsRegister.registerExhibition(this.exhibition);
         assertTrue(result);
     }
-    
+
 // // TODO : Implement when states are all defined.
 //    /**
 //     * Test of getSubmittablesInChangedConflictsByOrganizer method, of class ExhibitionsRegister.
@@ -145,8 +146,6 @@ public class ExhibitionsRegisterTest {
 //        assertEquals(expResult, result);
 //       
 //    }
-
-    
     /**
      * Test of registerExhibition method, of class ExhibitionsRegister, returns
      * false.

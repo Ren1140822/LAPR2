@@ -6,6 +6,7 @@ package lapr.project.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import lapr.project.model.ApplicationsList;
 import lapr.project.model.Demonstration;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
@@ -82,7 +83,8 @@ public class CreateExhibitionControllerTest {
                 new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 0, 20), 
                 new Date(2016, 1, 10), new Date(2016, 1, 20),
                 new Place(), new StaffList(), new OrganizersList(organizerslist), 
-                new ArrayList<Demonstration>(), new StaffAttributionsList());
+                new ApplicationsList(), new ArrayList<Demonstration>(), 
+                new StaffAttributionsList());
 
         this.controller.setExhibition(exhibition);
 

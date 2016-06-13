@@ -30,7 +30,7 @@ public class ExhibitionTest {
     public void setUp() {
 
         this.exhibition = new Exhibition("title", "description", new Date(2016, 2, 1), new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 0, 20), new Date(2016, 1, 10), new Date(2016, 1, 20),
-                new Place(), new StaffList(), new OrganizersList(), new ArrayList<Demonstration>(), new StaffAttributionsList());
+                new Place(), new StaffList(), new OrganizersList(), new ApplicationsList(), new ArrayList<Demonstration>(), new StaffAttributionsList());
     }
 
     /**
