@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import lapr.project.model.ApplicationsList;
 import lapr.project.model.Demonstration;
+import lapr.project.model.DemonstrationsList;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionState;
 import lapr.project.model.Organizer;
@@ -44,7 +45,7 @@ public class ExhibitionInicialStateTest {
                 new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 0, 20),
                 new Date(2016, 1, 10), new Date(2016, 1, 20),
                 new Place(), new StaffList(), new OrganizersList(organizerslist),
-                new ApplicationsList(), new ArrayList<Demonstration>(),
+                new ApplicationsList(), new DemonstrationsList(),
                 new StaffAttributionsList());
     }
 

@@ -215,7 +215,7 @@ public class Exhibition implements Submittable {
      */
     public Exhibition(String title, String description, Date startDate, Date endDate, Date subStartDate,
             Date subEndDate, Date conflictsLimiteDate, Date evaluationLimitDate, Place place, StaffList staffList, OrganizersList organizersList,
-            ApplicationsList applicationsList, List<Demonstration> demonstrationsList, StaffAttributionsList staffAttributionsList) {
+            ApplicationsList applicationsList, DemonstrationsList demonstrationsList, StaffAttributionsList staffAttributionsList) {
         this.title = title;
         this.description = description;
         this.startDate = startDate;

@@ -117,13 +117,11 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @param demonstrationsList demonstrations list
      * @param evaluationsList evaluations list
      * @param keyWordList keywords list
-     * @param applicationState aplication current state
      */
     public ExhibitionApplication(String title, Exhibitor exhibitor,
             float exhibitorArea, int numberInvitations,
             List<Product> productList, List<Demonstration> demonstrationsList,
-            List<Evaluation> evaluationsList, List<KeyWord> keyWordList,
-            ApplicationState applicationState) {
+            List<Evaluation> evaluationsList, List<KeyWord> keyWordList) {
         this.title = title;
         this.exhibitor = new Exhibitor(exhibitor);
         this.exhibitorArea = exhibitorArea;
@@ -132,7 +130,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.demonstrationsList = new ArrayList(demonstrationsList);
         this.keywordsList = keyWordList;
         this.evaluationsList = new ArrayList(evaluationsList);
-        this.currentState = applicationState;
+        this.currentState = new ApplicationInitialState(this);
 
     }
 
