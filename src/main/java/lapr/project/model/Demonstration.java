@@ -95,10 +95,10 @@ public class Demonstration implements Submittable {
         this.staffAttributionsList = new StaffAttributionsList();
         //this.currentDemonstrationState = new DemonstrationInitialState(this);
     }
-    
+
     /**
      * Creates a demonstration receiving the description.
-     * 
+     *
      * @param description demonstration's description
      */
     public Demonstration(String description) {
@@ -307,7 +307,14 @@ public class Demonstration implements Submittable {
             return false;
         }
         Demonstration otherDemonstration = (Demonstration) otherObject;
-        return (this.description.equals(otherDemonstration.description));
+
+        return this.description.equals(otherDemonstration.description)
+                && this.place.equals(otherDemonstration.place)
+                && this.organizersList.equals(otherDemonstration.organizersList)
+                && this.staffList.equals(otherDemonstration.staffList)
+                && this.applicationsList.equals(otherDemonstration.applicationsList)
+                && this.resourcesList.equals(otherDemonstration.resourcesList)
+                && this.staffAttributionsList.equals(otherDemonstration.staffAttributionsList);
     }
 
     /**

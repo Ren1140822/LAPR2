@@ -4,10 +4,12 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Represents a demonstrations list.
@@ -24,15 +26,87 @@ public class DemonstrationsList {
     /**
      * List of demonstrations.
      */
-      @XmlElementWrapper(name="Demonstrations List")
-    @XmlElement(name="Demonstration")
+    @XmlElementWrapper(name = "Demonstrations List")
+    @XmlElement(name = "Demonstration")
     private List<Demonstration> demonstrationList;
+
+    /**
+     * Demonstration's start date.
+     */
+    @XmlTransient
+    private Date startDate;
+
+    /**
+     * Demonstration's end date.
+     */
+    @XmlTransient
+    private Date endDate;
+
+    /**
+     * Demonstration's application submissions start date.
+     */
+    @XmlTransient
+    private Date subStartDate;
+
+    /**
+     * Demonstration's application submissions end date.
+     */
+    @XmlTransient
+    private Date subEndDate;
+
+    /**
+     * Demonstration's attribution conflicts resolution limit date.
+     */
+    @XmlTransient
+    private Date conflictLimitDate;
+
+    /**
+     * Demonstration's evaluations limite date.
+     */
+    @XmlTransient
+    private Date evaluationLimitDate;
+
+    /**
+     * Demonstration's default start date.
+     */
+    private static final Date DEFAULT_START_DATE = new Date(2016, 1, 1);
+
+    /**
+     * Demonstration's default end date.
+     */
+    private static final Date DEFAULT_END_DATE = new Date(2016, 1, 1);
+
+    /**
+     * Demonstration's default application submissions start date.
+     */
+    private static final Date DEFAULT_SUB_START_DATE = new Date(2016, 1, 1);
+
+    /**
+     * Demonstration's default application submissions end date.
+     */
+    private static final Date DEFAULT_SUB_END_DATE = new Date(2016, 1, 1);
+
+    /**
+     * Demonstration's default attribution conflicts resolution limit date.
+     */
+    private static final Date DEFAUL_CONFLICT_LIMITE_DATE = new Date(2016, 1, 1);
+
+    /**
+     * Demonstration's default evaluations limite date.
+     */
+    private static final Date DEFAUL_EVALUATION_LIMITE_DATE = new Date(2016, 1, 1);
 
     /**
      * Creates an instance of DemonstrationsList with its default values.
      */
     public DemonstrationsList() {
         this.demonstrationList = new ArrayList<>();
+        this.startDate = DEFAULT_START_DATE;
+        this.endDate = DEFAULT_END_DATE;
+        this.subStartDate = DEFAULT_SUB_START_DATE;
+        this.subEndDate = DEFAULT_SUB_END_DATE;
+        this.conflictLimitDate = DEFAUL_CONFLICT_LIMITE_DATE;
+        this.evaluationLimitDate = DEFAUL_EVALUATION_LIMITE_DATE;
     }
 
     /**
@@ -43,6 +117,33 @@ public class DemonstrationsList {
      */
     public DemonstrationsList(List<Demonstration> demonstrationList) {
         this.demonstrationList = new ArrayList<>(demonstrationList);
+        this.startDate = DEFAULT_START_DATE;
+        this.endDate = DEFAULT_END_DATE;
+        this.subStartDate = DEFAULT_SUB_START_DATE;
+        this.subEndDate = DEFAULT_SUB_END_DATE;
+        this.conflictLimitDate = DEFAUL_CONFLICT_LIMITE_DATE;
+        this.evaluationLimitDate = DEFAUL_EVALUATION_LIMITE_DATE;
+    }
+
+    /**
+     * Creates a demonstrations list receiving their attributes.
+     *
+     * @param demonstrationList demonstrations list
+     * @param startDate start date
+     * @param endDate end date
+     * @param subStartDate application submissions sart date
+     * @param subEndDate application submissions end date
+     * @param conflictLimitDate conflict limite date
+     * @param evaluationLimitDate evaluations limite date
+     */
+    public DemonstrationsList(List<Demonstration> demonstrationList, Date startDate, Date endDate, Date subStartDate, Date subEndDate, Date conflictLimitDate, Date evaluationLimitDate) {
+        this.demonstrationList = demonstrationList;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.subStartDate = subStartDate;
+        this.subEndDate = subEndDate;
+        this.conflictLimitDate = conflictLimitDate;
+        this.evaluationLimitDate = evaluationLimitDate;
     }
 
     /**
@@ -69,14 +170,13 @@ public class DemonstrationsList {
      *
      * @param demonstrationList list of demonstrations
      */
-   
     public void setDemonstrationsList(List<Demonstration> demonstrationList) {
         this.demonstrationList = new ArrayList<>(demonstrationList);
     }
 
     /**
      * Gets the list of demonstrations in changed conflicts state
-     * 
+     *
      * @return list of demonstrations in changed conflicts state
      */
     public List<Demonstration> getDemonstrationsListInChangedConflicts() {
@@ -176,6 +276,12 @@ public class DemonstrationsList {
         }
         DemonstrationsList otherDemonstrationsList = (DemonstrationsList) otherObject;
 
-        return this.demonstrationList.equals(otherDemonstrationsList.demonstrationList);
+        return this.demonstrationList.equals(otherDemonstrationsList.demonstrationList)
+                && this.startDate.equals(otherDemonstrationsList.startDate)
+                && this.endDate.equals(otherDemonstrationsList.endDate)
+                && this.subStartDate.equals(otherDemonstrationsList.subStartDate)
+                && this.subEndDate.equals(otherDemonstrationsList.subEndDate)
+                && this.conflictLimitDate.equals(otherDemonstrationsList.conflictLimitDate)
+                && this.evaluationLimitDate.equals(otherDemonstrationsList.evaluationLimitDate);
     }
 }
