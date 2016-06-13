@@ -3,7 +3,6 @@
  */
 package lapr.project.ui;
 
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -60,7 +59,7 @@ import lapr.project.ui.components.ModelTableAttributions;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class AssignApplicationUI extends JFrame{
+public class AssignApplicationUI extends JFrame {
 
     /**
      * Exhibitions Center.
@@ -73,7 +72,7 @@ public class AssignApplicationUI extends JFrame{
     /**
      * Selected exhibition.
      */
-    private Submittable exhibitionSelected;
+    private Submittable submittableSelected;
     /**
      * List of staff attributions mechanism list.
      */
@@ -84,39 +83,42 @@ public class AssignApplicationUI extends JFrame{
     private List<StaffAttribution> staffAttributionList;
 
     /**
-     * private JList jListMechanismsUI.
+     * JList jListMechanismsUI.
      */
     private JList jListMechanismsUI;
     /**
-     * Botão para gerar mecanismos.
+     * JButton to generate mechanisms.
      */
     private JButton jbtnGenerate;
     /**
-     * Tabela UI para expor as atribuições geradas.
+     * UI Jtable to expose generated attributions..
      */
     private JTable jTableAttributionsUI;
 
     /**
-     * Dimensão da janela.
+     * Dimension of the window.
      */
     final Dimension WINDOW_SIZE = new Dimension(800, 600);
     /**
-     * Margens dos campos.
+     * Window edges.
      */
     final int SUP_WINDOW_EDGE = 0, INF_WINDOW_EDGE = 0,
             LEFT_WINDOW_EDGE = 10, RIGHT_WINDOW_EDGE = 0;
     /**
-     * Border vazio para criar insets.
+     * Empty border to create insets.
      */
     final static EmptyBorder PADDING_BORDER = new EmptyBorder(10, 10, 10, 10);
-    
-    final  static String EXHIBITION_CENTER_TITLE = "Exhibitions Center";
 
     /**
-     * Constroi uma instância de AtribuirCandidaturaUI.
+     * Exhibitions Center title
+     */
+    final static String EXHIBITION_CENTER_TITLE = "Exhibitions Center";
+
+    /**
+     * Builds up an instance of AssignApplicationUI.
      *
-     * @param exhibitionsCenter Centro de Exposições
-     * @param organizer Organizador que iniciou a sessão
+     * @param exhibitionsCenter Exhibitions Center
+     * @param organizer Organizer which has logged in
      */
     public AssignApplicationUI(ExhibitionCenter exhibitionsCenter, Organizer organizer) {
         super(EXHIBITION_CENTER_TITLE);
@@ -126,11 +128,11 @@ public class AssignApplicationUI extends JFrame{
 
         List<Submittable> listaExposicoes = this.controller.getSubmittablesInChangedConflictsByOrganizer(organizer);
         new DialogSelectSubmittable(this, listaExposicoes, exhibitionsCenter);
-        if (this.exhibitionSelected == null) {
+        if (this.submittableSelected == null) {
             dispose();
         } else {
 
-            this.controller.setSubmittable(this.exhibitionSelected);
+            this.controller.setSubmittable(this.submittableSelected);
             this.staffAttributionMechanismList = this.controller.getStaffAttributionMechanism();
             this.staffAttributionList = new ArrayList<>();
 
@@ -146,7 +148,7 @@ public class AssignApplicationUI extends JFrame{
     }
 
     /**
-     * Cria os componentes da janela.
+     * Creates window components.
      */
     private void createComponents() {
 
@@ -157,9 +159,11 @@ public class AssignApplicationUI extends JFrame{
     }
 
     /**
-     * Cria o painel com a lista de mecanismos e o botão gerar.
+     * Creates the panel with the list of the staff attributions mechanisms and
+     * with the button to generate attributions (assignments)
      *
-     * @return o painel com a lista de mecanismos e o botão gerar
+     * @return the panel with the list of the staff attributions mechanisms and
+     * with the button to generate attributions (assignments)
      */
     private JPanel createWestPanel() {
 
@@ -176,9 +180,9 @@ public class AssignApplicationUI extends JFrame{
     }
 
     /**
-     * Cria o painel com a tabela de atribuições.
+     * Creates the panel with attributions tabel.
      *
-     * @return o painel com a tabela de atribuições
+     * @return the panel with attributions tabel.
      */
     private JPanel createEastPanel() {
 
@@ -190,9 +194,9 @@ public class AssignApplicationUI extends JFrame{
     }
 
     /**
-     * cria o painel scroll que incorpora a lista de mecanismos.
+     * Creates the scroll panel that incorporates the list of mechanisms.
      *
-     * @return o painel scroll que incorpora a lista de mecanismos
+     * @return the scroll panel that incorporates the list of mechanisms.
      */
     private JPanel createMechanismsScrollPane() {
 
@@ -220,9 +224,11 @@ public class AssignApplicationUI extends JFrame{
     }
 
     /**
-     * cria o painel scroll que incorpora a tabela de atribuições.
+     * Creates the scroll panel that incorporates the attributions (assignments)
+     * tabel.
      *
-     * @return o painel scroll que incorpora a tabela de atribuições
+     * @return the scroll panel that incorporates the attributions (assignments)
+     * tabel.
      */
     private JPanel createAttributionsScrollPane() {
 
@@ -233,18 +239,18 @@ public class AssignApplicationUI extends JFrame{
         this.jTableAttributionsUI = new JTable();
         this.jTableAttributionsUI.setVisible(false);
 
-        JScrollPane scrollPane = new JScrollPane(this.jTableAttributionsUI);
-        scrollPane.setBorder(PADDING_BORDER);
+        JScrollPane jScrollPane = new JScrollPane(this.jTableAttributionsUI);
+        jScrollPane.setBorder(PADDING_BORDER);
 
-        jPanelScroll.add(scrollPane);
+        jPanelScroll.add(jScrollPane);
 
         return jPanelScroll;
     }
 
     /**
-     * Cria o botão gerar atribuições.
+     * Creates the button generate attributions(assignments).
      *
-     * @return o botão gerar atribuições
+     * @return the button generate attributions
      */
     private JButton createBtnGenerate() {
         this.jbtnGenerate = new JButton("Generate Assignments(Attributions)");
@@ -263,9 +269,9 @@ public class AssignApplicationUI extends JFrame{
     }
 
     /**
-     * Cria o painel com os botões confirmar e cancelar.
+     * Creates the panel with the button confirm and button cancel.
      *
-     * @return o painel com os botões confirmar e cancelar
+     * @return the panel with the button confirm and button cancel.
      */
     private JPanel createJpanelBtnConfirm() {
         JPanel jPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -314,9 +320,9 @@ public class AssignApplicationUI extends JFrame{
     }
 
     /**
-     * Cria o botão cancelar.
+     * Creates the cancel button
      *
-     * @return o botão cancelar
+     * @return the cancel button
      */
     private JButton createBtnCancel() {
 
@@ -333,18 +339,17 @@ public class AssignApplicationUI extends JFrame{
     }
 
     /**
-     * Modifica a exposição selecionada.
+     * Modifies the selected submittable.
      *
-     * @param exhibition exposição selecionada.
+     * @param submittable the selected submittable.
      */
-    
-    public void setExposicao(Submittable exhibition) {
+    public void setSubmittable(Submittable submittable) {
 
-        this.exhibitionSelected = exhibition;
+        this.submittableSelected = submittable;
     }
-    
+
     public static void main(String[] args) {
-        
+
         Organizer organizer = new Organizer(new Organizer(new User("Renato", "Paulinho", "pr@email.com", "password")));
         StaffMember staffMember1 = new StaffMember(new User("Daniel", "Dani", "Daniel@gmail.com", "password"));
         StaffMember staffMember2 = new StaffMember(new User("Eric", "Thor", "Eric@gmail.com", "password"));
@@ -353,45 +358,45 @@ public class AssignApplicationUI extends JFrame{
         staffMemberList.add(staffMember1);
         staffMemberList.add(staffMember2);
         staffMemberList.add(staffMember3);
-        
+
         List<Application> exhibitionApplicationsList = new ArrayList();
         List<Application> demonstrationApplicationsList = new ArrayList();
-        
+
         ExhibitionApplication exhibitionApplication1 = new ExhibitionApplication();
         exhibitionApplication1.setTitle("Dutch vegetables");
         ExhibitionApplication exhibitionApplication2 = new ExhibitionApplication();
         exhibitionApplication2.setTitle("Dutch ducks");
         ExhibitionApplication exhibitionApplication3 = new ExhibitionApplication();
         exhibitionApplication3.setTitle("Dutch flowers");
-        
+
         exhibitionApplicationsList.add(exhibitionApplication1);
         exhibitionApplicationsList.add(exhibitionApplication2);
         exhibitionApplicationsList.add(exhibitionApplication3);
-        
+
         DemonstrationApplication demonstrationApplication1 = new DemonstrationApplication();
-        demonstrationApplication1.setTitle("Dutch vegetables");
+        demonstrationApplication1.setTitle("Dutch orange vegetables");
         DemonstrationApplication demonstrationApplication2 = new DemonstrationApplication();
         demonstrationApplication1.setTitle("Dutch midget ducks");
         DemonstrationApplication demonstrationApplication3 = new DemonstrationApplication();
         demonstrationApplication1.setTitle("Dutch red flowers");
-        
+
         demonstrationApplicationsList.add(demonstrationApplication1);
         demonstrationApplicationsList.add(demonstrationApplication2);
         demonstrationApplicationsList.add(demonstrationApplication3);
-        
+
         ExhibitionCenter exhibitionCenter = new ExhibitionCenter();
         Exhibition exhibition = new Exhibition();
         exhibition.setTitle("Dutch stuff");
-        
+
         List<StaffAttributionMechanism> attributionsList = new ArrayList<>();
         attributionsList.add(new EquitableLoadMechanism());
         MechanismsRegister mechanismsRegister = new MechanismsRegister(attributionsList);
         exhibitionCenter.setMechanismsRegister(mechanismsRegister);
-        
+
         List<Organizer> organizersList = new ArrayList<>();
         organizersList.add(organizer);
         exhibition.setOrganizersList(new OrganizersList(organizersList));
-        
+
         Demonstration demonstration = new Demonstration();
         demonstration.setStaffList(new StaffList(staffMemberList));
         demonstration.setCurrentDemonstrationState(new DemonstrationInChangedConflictsState(demonstration));
@@ -402,16 +407,16 @@ public class AssignApplicationUI extends JFrame{
         List<Exhibition> exhibitionsList = new ArrayList();
         exhibition.setState(new ExhibitionChangedConflictsState(exhibition));
         exhibition.setStaffList(new StaffList(staffMemberList));
-        
+
         Exhibition exhibitionInNotCorrectState = new Exhibition();
-        
+
         exhibition.setApplicationsList(new ApplicationsList(exhibitionApplicationsList));
-        
+
         exhibitionsList.add(exhibition);
         exhibitionsList.add(exhibitionInNotCorrectState);
         ExhibitionsRegister exhibitionsRegister = new ExhibitionsRegister(exhibitionsList);
         exhibitionCenter.setExhibitionsRegister(exhibitionsRegister);
-        
+
         new AssignApplicationUI(exhibitionCenter, organizer);
     }
 }

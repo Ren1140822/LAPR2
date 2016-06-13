@@ -19,14 +19,14 @@ import lapr.project.model.StaffAttributionMechanism;
 public class ModelListMechanisms extends AbstractListModel {
 
     /**
-     * Lista de mecanismos.
+     * List of staff attributions mechanisms.
      */
     private List<StaffAttributionMechanism> staffAttributionsMechanismsList;
 
     /**
-     * Constrói uma instância de ModelListMecanismos.
+     * Builds up an instance of ModelListMechanisms.
      *
-     * @param staffAttributionsMechanismsList lista de mecanismos
+     * @param staffAttributionsMechanismsList List of staff attributions mechanisms.
      */
     public ModelListMechanisms(List<StaffAttributionMechanism> staffAttributionsMechanismsList) {
 
@@ -34,9 +34,9 @@ public class ModelListMechanisms extends AbstractListModel {
     }
 
     /**
-     * Obtém o número de elementos da lista.
+     * Gets the number of elements of the list
      *
-     * @return número de elementos
+     * @return number of elements
      */
     @Override
     public int getSize() {
@@ -44,10 +44,10 @@ public class ModelListMechanisms extends AbstractListModel {
     }
 
     /**
-     * Obtém o elemento da lista no índice indicado.
+     * Gets the list element at the specified index.
      *
-     * @param index índice da lista
-     * @return elemento da lista.
+     * @param index index of the list
+     * @return an element of the list.
      */
     @Override
     public Object getElementAt(int index) {

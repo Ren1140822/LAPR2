@@ -19,27 +19,27 @@ import lapr.project.model.StaffAttribution;
 public class ModelTableAttributions extends AbstractTableModel {
 
     /**
-     * Nome das colunas da tabela.
+     * Name of the table columns.
      */
     private static final String[] COLUMNS_NAMES = {"Exhibitor Name", "Staff Member"};
     /**
-     * Lista de atribuições
+     * List of  staff attributions
      */
     private final List<StaffAttribution> staffAttributionList;
 
     /**
-     * Cria uma instâncida de ModeloTabelaAtribuicoes.
+     * Creates an instance of ModelTableAttributions
      *
-     * @param staffAttributionList lista de atribuições
+     * @param staffAttributionList list of staff attributions
      */
     public ModelTableAttributions(List<StaffAttribution> staffAttributionList) {
         this.staffAttributionList = staffAttributionList;
     }
 
     /**
-     * Devolve o número de linhas da tabela.
+     * Get the number of rows.
      *
-     * @return número de linhas
+     * @return the number of rows.
      */
     @Override
     public int getRowCount() {
@@ -47,9 +47,9 @@ public class ModelTableAttributions extends AbstractTableModel {
     }
 
     /**
-     * Devolve o número de colunas da tabela.
+     * Get the number of columns.
      *
-     * @return número de colunas da tabela
+     * @return the number of columns
      */
     @Override
     public int getColumnCount() {
@@ -57,10 +57,10 @@ public class ModelTableAttributions extends AbstractTableModel {
     }
 
     /**
-     * Devolve o nome da coluna a partir do seu índice.
+     * Returns the column name from its index.
      *
-     * @param column índica da coluna
-     * @return nome da coluna
+     * @param column index of the column
+     * @return the column's name
      */
     @Override
     public String getColumnName(int column) {
@@ -68,11 +68,11 @@ public class ModelTableAttributions extends AbstractTableModel {
     }
 
     /**
-     * Devolve a descrição do elemento especificado.
+     * Returns the description of the specified element.
      *
-     * @param rowIndex índice da linha
-     * @param columnIndex índice da coluna
-     * @return descrição do elemento
+     * @param rowIndex row's index
+     * @param columnIndex column's index
+     * @return the description of the element
      */
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
