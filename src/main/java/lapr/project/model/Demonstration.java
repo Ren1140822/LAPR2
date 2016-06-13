@@ -124,9 +124,8 @@ public class Demonstration implements Submittable {
      * @param applicationsList applications list
      * @param resourcesList resources list
      * @param staffAttributionsList staff attributions list
-     * @param currentDemonstrationState demonstration state
      */
-    public Demonstration(String title, String description, Place place, StaffList staffList, OrganizersList organizersList, ApplicationsList applicationsList, List<Resource> resourcesList, StaffAttributionsList staffAttributionsList, DemonstrationState currentDemonstrationState) {
+    public Demonstration(String title, String description, Place place, StaffList staffList, OrganizersList organizersList, ApplicationsList applicationsList, List<Resource> resourcesList, StaffAttributionsList staffAttributionsList) {
         this.title = title;
         this.description = description;
         this.place = place;
@@ -135,7 +134,7 @@ public class Demonstration implements Submittable {
         this.applicationsList = new ApplicationsList(applicationsList);
         this.resourcesList = new ArrayList<>(resourcesList);
         this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
-        this.currentDemonstrationState = currentDemonstrationState;
+        //this.currentDemonstrationState = new DemonstationInitialState(this);
     }
 
     /**

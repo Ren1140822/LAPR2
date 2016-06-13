@@ -33,45 +33,45 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     /**
      * The list of keywords.
      */
-      @XmlElementWrapper(name="Keywords List")
-    @XmlElement(name="Keyword")
+    @XmlElementWrapper(name = "Keywords List")
+    @XmlElement(name = "Keyword")
     private List<KeyWord> keywordsList;
 
     /**
      * The exhibitor.
      */
-      @XmlElement
+    @XmlElement
     private Exhibitor exhibitor;
 
     /**
      * The area asked by the company.
      */
-      @XmlElement
+    @XmlElement
     private float exhibitorArea;
 
     /**
      * The number of invitations asked for.
      */
-      @XmlElement
+    @XmlElement
     private int numberInvitations;
 
     /**
      * The list of products the company wishes to expose.
      */
-        @XmlElementWrapper(name="Products List")
-    @XmlElement(name="Products")
+    @XmlElementWrapper(name = "Products List")
+    @XmlElement(name = "Products")
     private List<Product> productsList;
 
     /**
      * The evaluation lists of this application.
      */
-        @XmlAnyElement
+    @XmlAnyElement
     private List<Evaluation> evaluationsList;
 
     /**
      * The state of the application.
      */
-        @XmlAnyElement
+    @XmlAnyElement
     private ApplicationState currentState;
 
     /**
@@ -113,12 +113,10 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      * @param numberInvitations number of invites
      * @param productList products list
      * @param evaluationsList evaluations list
-     * @param applicationState aplication current state
      */
     public DemonstrationApplication(String title, List<KeyWord> keyWords, Exhibitor exhibitor,
             float exhibitorArea, int numberInvitations,
-            List<Product> productList, List<Evaluation> evaluationsList,
-            ApplicationState applicationState) {
+            List<Product> productList, List<Evaluation> evaluationsList) {
         this.title = title;
         this.keywordsList = new ArrayList<>(keyWords);
         this.exhibitor = new Exhibitor(exhibitor);
@@ -126,7 +124,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         this.numberInvitations = numberInvitations;
         this.productsList = new ArrayList(productList);
         this.evaluationsList = new ArrayList(evaluationsList);
-        this.currentState = applicationState;
+        this.currentState = new ApplicationInitialState(this);
 
     }
 
@@ -152,7 +150,6 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @param title application's title
      */
-    
     public void setTitle(String title) {
         this.title = title;
     }
@@ -182,7 +179,6 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @param keywordsList keywords list
      */
-     
     public void setKeywordsList(List<KeyWord> keywordsList) {
         this.keywordsList = keywordsList;
     }
@@ -192,7 +188,6 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @param exhibitor exhibitor
      */
-    
     public void setExhibitor(Exhibitor exhibitor) {
         this.exhibitor = exhibitor;
     }
@@ -241,7 +236,6 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @param exhibitorArea sets exhibitor area
      */
-   
     public void setExhibitorArea(float exhibitorArea) {
         this.exhibitorArea = exhibitorArea;
     }
@@ -251,7 +245,6 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @param numberInvitations sets number of invitations
      */
-   
     public void setNumberInvitations(int numberInvitations) {
         this.numberInvitations = numberInvitations;
     }
@@ -261,20 +254,19 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @param productsList products list
      */
-    
     public void setProductsList(List<Product> productsList) {
         this.productsList = new ArrayList(productsList);
     }
 
     /**
-     * Sets the application evaluations list.
-     *
-     * @param applicationsList the applications list
+     * Sets the evaluations list.
+     * 
+     * @param evaluationsList evaluations list
      */
-    
-    public void setApplicationEvaluationsList(List<DemonstrationApplication> applicationsList) {
-        this.evaluationsList = new ArrayList(applicationsList);
+    public void setEvaluationsList(List<Evaluation> evaluationsList) {
+        this.evaluationsList = evaluationsList;
     }
+    
 
     /**
      * Returns the textual interpretation of the objects and attributes of this
