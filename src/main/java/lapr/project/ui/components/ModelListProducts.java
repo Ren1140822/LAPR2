@@ -21,7 +21,7 @@ public class ModelListProducts extends AbstractListModel {
     /**
      * Products list.
      */
-    private List<Product> productsList;
+    private final List<Product> productsList;
 
     /**
      * Constructs an instance of model list products.

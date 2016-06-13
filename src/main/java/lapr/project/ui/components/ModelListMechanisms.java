@@ -21,7 +21,7 @@ public class ModelListMechanisms extends AbstractListModel {
     /**
      * Lista de mecanismos.
      */
-    private List<StaffAttributionMechanism> staffAttributionsMechanismsList;
+    private final List<StaffAttributionMechanism> staffAttributionsMechanismsList;
 
     /**
      * Constrói uma instância de ModelListMecanismos.
