@@ -10,9 +10,7 @@ import java.util.Timer;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import lapr.project.model.exhibition.ExhibitionInicialState;
@@ -123,6 +121,10 @@ public class Exhibition implements Submittable {
      */
     @XmlTransient
     private ExhibitionState currentState;
+    
+    /**
+     * The exhibition's timer.
+     */
     @XmlTransient
     private final Timer timer;
 
@@ -207,12 +209,13 @@ public class Exhibition implements Submittable {
      * @param place Exhibition's location
      * @param staffList Exhibition's staff list
      * @param organizersList Exhibition's organizers list
+     * @param applicationsList
      * @param demonstrationsList Exhibition's demonstrations list
      * @param staffAttributionsList Exhibition's staff attributions list
      */
     public Exhibition(String title, String description, Date startDate, Date endDate, Date subStartDate,
             Date subEndDate, Date conflictsLimiteDate, Date evaluationLimitDate, Place place, StaffList staffList, OrganizersList organizersList,
-            List<Demonstration> demonstrationsList, StaffAttributionsList staffAttributionsList) {
+            ApplicationsList applicationsList, DemonstrationsList demonstrationsList, StaffAttributionsList staffAttributionsList) {
         this.title = title;
         this.description = description;
         this.startDate = startDate;
@@ -224,6 +227,7 @@ public class Exhibition implements Submittable {
         this.evaluationLimitDate = evaluationLimitDate;
         this.staffList = new StaffList(staffList);
         this.organizersList = new OrganizersList(organizersList);
+        this.applicationsList = new ApplicationsList(applicationsList);
         this.demonstrationsList = new DemonstrationsList(demonstrationsList);
         this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
         this.currentState = new ExhibitionInicialState(this);
@@ -247,6 +251,7 @@ public class Exhibition implements Submittable {
         this.evaluationLimitDate = exhibition.evaluationLimitDate;
         this.staffList = new StaffList(exhibition.staffList);
         this.organizersList = new OrganizersList(exhibition.organizersList);
+        this.applicationsList = new ApplicationsList(exhibition.applicationsList);
         this.demonstrationsList = new DemonstrationsList(exhibition.demonstrationsList);
         this.staffAttributionsList = new StaffAttributionsList(exhibition.staffAttributionsList);
         this.currentState = exhibition.currentState;
