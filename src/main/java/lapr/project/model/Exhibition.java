@@ -705,24 +705,7 @@ public class Exhibition implements Submittable {
         this.currentState.setApplicationsInEvaluation();
     }
 
-    public void xmlexp() {
-
-        try {
-
-            File file = new File("D:\\file2.xml");
-            JAXBContext jaxbContext = JAXBContext.newInstance(Exhibition.class, ExhibitionInicialState.class, ExhibitionApplication.class);
-            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
-            // output pretty printed
-            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-            jaxbMarshaller.marshal(this, file);
-            jaxbMarshaller.marshal(this, System.out);
-
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-    }
+    
 
     @Override
     public String[] getInfo() {

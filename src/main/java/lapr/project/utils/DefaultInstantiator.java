@@ -141,7 +141,7 @@ public class DefaultInstantiator {
         evaluationsNodeJs.add(evaluationNodeJs2);
 
         exhibitionApplicationNodeJs.setEvaluationsList(evaluationsNodeJs);
-        
+        List<Application> applicationNodeJs = new ArrayList<>();
         
             // Demonstrations for computer science
         
@@ -191,6 +191,7 @@ public class DefaultInstantiator {
         List<Demonstration> demonstrationsList = new ArrayList<>();
         demonstrationsList.add(demonstrationAngularJs);
         DemonstrationsList demonstrationsListComputerScience = new DemonstrationsList(demonstrationsList);
+         
         
         exhibitionComputerScience.setDemonstrationsList(demonstrationsListComputerScience);
         

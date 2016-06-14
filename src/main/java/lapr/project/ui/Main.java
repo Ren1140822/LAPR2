@@ -49,7 +49,7 @@ class Main {
         //ureg.xmlexp();
         ExhibitionCenter exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
 
-        Exhibition exhibitionTest = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0);
+        Exhibition exhibitionTest = new Exhibition();//exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0);
         
         
         // create JAXB context and instantiate marshaller
@@ -58,19 +58,19 @@ class Main {
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
         // Write to System.out
-        File xmlFile = new File("exhibition.xml");
+        File xmlFile = new File("D:\\exhibition.xml");
 
         m.marshal(exhibitionTest, System.out);
 
         m.marshal(exhibitionTest, xmlFile);
 
         JAXBContext jaxbContext = JAXBContext.newInstance(Exhibition.class);
-
-        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-
-        Exhibition exhibition = (Exhibition) jaxbUnmarshaller.unmarshal(xmlFile);
-
-        System.out.println(exhibition.equals(exhibitionTest));
+//
+//        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+//
+//        Exhibition exhibition = (Exhibition) jaxbUnmarshaller.unmarshal(xmlFile);
+//
+//        System.out.println(exhibition.equals(exhibitionTest));
     }
 
 }

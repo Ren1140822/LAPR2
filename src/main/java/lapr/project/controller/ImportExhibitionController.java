@@ -52,18 +52,25 @@ public class ImportExhibitionController {
     /**
      * Gets the exhibitions register for this instance of exhibition center.
      */
-    public void getExhibitionsRegister() {
+    public  ExhibitionsRegister  getExhibitionsRegister() {
         this.exhibitionsRegister = this.exhibitionCenter.getExhibitionsRegister();
+        return this.exhibitionsRegister;
+     
     }
 
     /**
      * Reads a exhibition from a file.
      * @param filePath The file path on the system
      */
-    public void readExhibitionFromFile(String filePath) {
+    public Exhibition readExhibitionFromFile(String filePath) {
             this.exhibition = this.exhibitionsRegister.importExhibitionByFileName(filePath);
+            return this.exhibition;
     }
     
+    /**
+     * Registers the selected exhibition.
+     * @param exhibition The exhibition to register
+     */
     public void registerExhibition(Exhibition exhibition){
           this.exhibitionsRegister.registerImportedExhibition(exhibition);
       
