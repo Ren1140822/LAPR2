@@ -126,6 +126,10 @@ public class ExhibitionsRegister implements Importable{
         
         return (exhibition.setCreatedState() && validateExhibition(exhibition)) ? addExhibition(exhibition) : false;
     }
+    
+    public boolean registerImportedExhibition(Exhibition exhibition){
+        return(validateExhibition(exhibition)?addExhibition(exhibition):false);
+    }
 
     /**
      * Gets the submittables filtering by a staff member.
