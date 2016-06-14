@@ -12,7 +12,6 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-
 public class ExhibitionCenter {
 
     /**
@@ -41,6 +40,11 @@ public class ExhibitionCenter {
     private MechanismsRegister mechanismsRegister;
 
     /**
+     * Register for conflict types.
+     */
+    private ConflictTypesRegister conflictTypesRegister;
+
+    /**
      * Creates an instance of exhibition center with its default values.
      */
     public ExhibitionCenter() {
@@ -49,6 +53,7 @@ public class ExhibitionCenter {
         resourcesRegister = new ResourcesRegister();
         standsRegister = new StandsRegister();
         mechanismsRegister = new MechanismsRegister();
+        conflictTypesRegister = new ConflictTypesRegister();
     }
 
     /**
@@ -61,13 +66,17 @@ public class ExhibitionCenter {
      * @param resourcesRegister register for resourses
      * @param standsRegister register for stands
      * @param mechanismsRegister register for mechanisms
+     * @param conflictTypesRegister register for conflict types
      */
-    public ExhibitionCenter(ExhibitionsRegister exhibitionsRegister, UsersRegister usersRegister, ResourcesRegister resourcesRegister, StandsRegister standsRegister, MechanismsRegister mechanismsRegister) {
+    public ExhibitionCenter(ExhibitionsRegister exhibitionsRegister, UsersRegister usersRegister,
+            ResourcesRegister resourcesRegister, StandsRegister standsRegister,
+            MechanismsRegister mechanismsRegister, ConflictTypesRegister conflictTypesRegister) {
         this.exhibitionsRegister = new ExhibitionsRegister(exhibitionsRegister);
         this.usersRegister = new UsersRegister(usersRegister);
         this.resourcesRegister = new ResourcesRegister(resourcesRegister);
         this.standsRegister = new StandsRegister(standsRegister);
         this.mechanismsRegister = new MechanismsRegister(mechanismsRegister);
+        this.conflictTypesRegister = new ConflictTypesRegister(conflictTypesRegister);
     }
 
     /**
@@ -82,6 +91,7 @@ public class ExhibitionCenter {
         resourcesRegister = new ResourcesRegister(exhibitionCenter.resourcesRegister);
         standsRegister = new StandsRegister(exhibitionCenter.standsRegister);
         mechanismsRegister = new MechanismsRegister(exhibitionCenter.mechanismsRegister);
+        conflictTypesRegister = new ConflictTypesRegister(exhibitionCenter.conflictTypesRegister);
     }
 
     /**
@@ -174,9 +184,29 @@ public class ExhibitionCenter {
         this.mechanismsRegister = new MechanismsRegister(mechanismsRegister);
     }
 
+    /**
+     * Obtain the conflict types register.
+     *
+     * @return the conflict types register
+     */
+    public ConflictTypesRegister getConflictTypesRegister() {
+        return this.conflictTypesRegister;
+    }
+
+    /**
+     * Sets the conflict types register.
+     *
+     * @param conflictTypesRegister the conflict types register to set
+     */
+    public void setConflictTypesRegister(ConflictTypesRegister conflictTypesRegister) {
+        this.conflictTypesRegister = new ConflictTypesRegister(conflictTypesRegister);
+    }
+
     @Override
     public String toString() {
-        return String.format("ExhibitionCenter{%n%s%n%s%n%s%n%s%n%s%n}", exhibitionsRegister, usersRegister, resourcesRegister, standsRegister, mechanismsRegister);
+        return String.format("ExhibitionCenter{%n%s%n%s%n%s%n%s%n%s%n%s}", exhibitionsRegister,
+                usersRegister, resourcesRegister, standsRegister,
+                mechanismsRegister, conflictTypesRegister);
     }
 
     /**
@@ -196,8 +226,7 @@ public class ExhibitionCenter {
         }
         ExhibitionCenter otherExhibitionCenter = (ExhibitionCenter) otherObject;
 
-        return this.exhibitionsRegister.equals(otherExhibitionCenter.exhibitionsRegister) 
-                // TODO : Implement all equals related to ExhibitionCenter attributes
+        return this.exhibitionsRegister.equals(otherExhibitionCenter.exhibitionsRegister) // TODO : Implement all equals related to ExhibitionCenter attributes
                 ;
     }
 }

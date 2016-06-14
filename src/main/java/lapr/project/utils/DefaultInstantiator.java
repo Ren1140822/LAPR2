@@ -3,7 +3,6 @@
  */
 package lapr.project.utils;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -262,7 +261,7 @@ public class DefaultInstantiator {
         MechanismsRegister mechanismsRegister = new MechanismsRegister(staffAttributionMechanisms);
         
         ExhibitionCenter exhibitionCenter = new ExhibitionCenter(exhibitionsRegister, usersRegister, 
-                resourcesRegister, standsRegister, mechanismsRegister);
+                resourcesRegister, standsRegister, mechanismsRegister, new ConflictTypesRegister());
         
         return exhibitionCenter;
     }
