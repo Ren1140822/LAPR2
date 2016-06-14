@@ -104,9 +104,16 @@ public class DefaultInstantiator {
         productListNodeJs.add(product1);
         productListNodeJs.add(product2);
         
+        List<Keyword> keyWordsNodeJs = new ArrayList<>();
+        keyWordsNodeJs.add(new Keyword("Node"));
+        keyWordsNodeJs.add(new Keyword("JavaScript"));
+        keyWordsNodeJs.add(new Keyword("WebBased"));
+        keyWordsNodeJs.add(new Keyword("WWW"));
+        keyWordsNodeJs.add(new Keyword("Development"));
+        
         ExhibitionApplication exhibitionApplicationNodeJs = new ExhibitionApplication("Node JS", exhibitorBlip, 105.3f, 
                 30, productListNodeJs, new ArrayList<>(), 
-                new ArrayList<>(), new ArrayList<>());
+                new ArrayList<>(), keyWordsNodeJs);
         
         
             // Applications computer science - Evaluations Node JS
@@ -187,9 +194,36 @@ public class DefaultInstantiator {
         
         exhibitionComputerScience.setDemonstrationsList(demonstrationsListComputerScience);
         
-        // Exhibition Center
+        // Demos to application Node JS
+        List<Demonstration> demonstrationsNodeJs = new ArrayList<>();
+        demonstrationsList.add(demonstrationAngularJs);
         
-        // TODO modify this
+        exhibitionApplicationNodeJs.setDemonstrationsList(demonstrationsNodeJs);
+        
+        
+        // Exhibitions applications to exhibition computer science
+        
+        List<Application> computerScienceApplications = new ArrayList<>();
+        computerScienceApplications.add(exhibitionApplicationNodeJs);
+        ApplicationsList computerScienceApplicationsList = new ApplicationsList(computerScienceApplications);
+        
+        exhibitionComputerScience.setApplicationsList(computerScienceApplicationsList);
+        
+        
+        // Staff attribution for computer science
+        
+        StaffAttribution staffAttributionComputerScience1 = new StaffAttribution(exhibitionApplicationNodeJs, staffMemberRenato);
+        StaffAttribution staffAttributionComputerScience2 = new StaffAttribution(exhibitionApplicationNodeJs, staffMemberRicardo);
+        
+        List<StaffAttribution> staffAttributionsComputerScience = new ArrayList<>();
+        staffAttributionsComputerScience.add(staffAttributionComputerScience1);
+        staffAttributionsComputerScience.add(staffAttributionComputerScience2);
+        StaffAttributionsList staffAttributionsListComputerScience = new StaffAttributionsList(staffAttributionsComputerScience);
+        
+        exhibitionComputerScience.setStaffAttributionsList(staffAttributionsListComputerScience);
+        
+        
+        // Exhibition Center
         
         List<Exhibition> exhibitions = new ArrayList<>();
         exhibitions.add(exhibitionComputerScience);
