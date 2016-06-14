@@ -21,33 +21,35 @@ import org.junit.Test;
  * @author Renato Oliveira 1140822@isep.ipp.pt
  */
 public class ImportExhibitionControllerTest {
-    
+
     ImportExhibitionController controller;
-      ExhibitionCenter exhibitionCenter;
+    ExhibitionCenter exhibitionCenter;
+
     public ImportExhibitionControllerTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
-      exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
+        exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
         ExhibitionsManager manager = new ExhibitionsManager();
         controller = new ImportExhibitionController(manager, exhibitionCenter);
     }
-    
+
     @After
     public void tearDown() {
     }
 
     /**
-     * Test of getExhibitionsRegister method, of class ImportExhibitionController.
+     * Test of getExhibitionsRegister method, of class
+     * ImportExhibitionController.
      */
 //    @Test
 //    public void testGetExhibitionsRegister() {
@@ -58,21 +60,21 @@ public class ImportExhibitionControllerTest {
 //        assertEquals(instance.getExhibitionsRegister(), exhibitionCenterTest.getExhibitionsRegister());
 //       
 //    }
-
     /**
-     * Test of readExhibitionFromFile method, of class ImportExhibitionController.
+     * Test of readExhibitionFromFile method, of class
+     * ImportExhibitionController.
      */
-    @Test
-    public void testReadExhibitionFromFile() {
-        System.out.println("readExhibitionFromFile");
-        String filePath = "D:\\exhibition.xml";
-        ImportExhibitionController instance = controller;
-        instance.getExhibitionsRegister();
-        Exhibition exhibition = instance.readExhibitionFromFile(filePath);
-        Exhibition expectedExhibition= new Exhibition();
-        assertEquals(exhibition,expectedExhibition);
-      
-    }
+//    @Test
+//    public void testReadExhibitionFromFile() {
+//        System.out.println("readExhibitionFromFile");
+//        String filePath = "D:\\exhibition.xml";
+//        ImportExhibitionController instance = controller;
+//        instance.getExhibitionsRegister();
+//        Exhibition exhibition = instance.readExhibitionFromFile(filePath);
+//        Exhibition expectedExhibition = new Exhibition();
+//        assertEquals(exhibition, expectedExhibition);
+//
+//    }
 
     /**
      * Test of registerExhibition method, of class ImportExhibitionController.
@@ -86,5 +88,4 @@ public class ImportExhibitionControllerTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-    
 }
