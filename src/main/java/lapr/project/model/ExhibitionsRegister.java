@@ -3,8 +3,16 @@
  */
 package lapr.project.model;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import lapr.project.utils.Exportable;
+import lapr.project.utils.Importable;
 
 /**
  * Represents a exhibitions register
@@ -16,7 +24,7 @@ import java.util.List;
  * @author Ricardo Correia 1151231
  */
 
-public class ExhibitionsRegister {
+public class ExhibitionsRegister implements Importable{
 
     /**
      * exhibitions List of ExhibitionsRegister
@@ -218,6 +226,30 @@ public class ExhibitionsRegister {
         }
         s.append("}");
         return s.toString();
+    }
+
+    /**
+     * Imports a exhibition from a XML file.
+     * @param fileName the name of the file with path
+     * @return a exhibition created from the file
+     */
+    @Override
+    public Exhibition importExhibitionByFileName(String fileName) {
+        Exhibition exhibition;
+        try{
+         File xmlFile = new File(fileName);
+          JAXBContext jaxbContext = JAXBContext.newInstance(Exhibition.class);
+
+        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+
+        exhibition = (Exhibition) jaxbUnmarshaller.unmarshal(xmlFile);
+         return exhibition;
+        
+        }
+        catch(JAXBException ex){
+            JOptionPane.showMessageDialog(null, "Error ocurred while importing.","Error",JOptionPane.ERROR_MESSAGE);
+        }
+       return null;
     }
 
 }

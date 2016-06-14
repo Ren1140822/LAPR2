@@ -45,7 +45,62 @@
         </organizers_list>
     </organizersList>
     <applicationsList>
-        <applications_list/>
+        <applications_list>
+            <exhibition_application title="Node JS">
+                <exhibitor name="Blip">
+                    <address>marketing@blip.pt</address>
+                    <mobileNumber>918765432</mobileNumber>
+                </exhibitor>
+                <exhibitorArea>105.3</exhibitorArea>
+                <numberInvitations>30</numberInvitations>
+                <products_list>
+                    <product designation="Projetor"/>
+                    <product designation="Table"/>
+                </products_list>
+                <demonstrations_list/>
+                <evaluations_list>
+                    <evaluation>
+                        <questions_list>
+                            <question>What is your knowledge about the exhibition theme?</question>
+                            <question>What is the application adequation to the exhibition?</question>
+                            <question>What is the application adequation to the demonstrations?</question>
+                            <question>What is the invite number adequation to the application?</question>
+                            <question>What is global recommendation?</question>
+                        </questions_list>
+                        <answers_list>
+                            <answer>3</answer>
+                            <answer>4</answer>
+                            <answer>5</answer>
+                            <answer>1</answer>
+                            <answer>3</answer>
+                        </answers_list>
+                    </evaluation>
+                    <evaluation>
+                        <questions_list>
+                            <question>What is your knowledge about the exhibition theme?</question>
+                            <question>What is the application adequation to the exhibition?</question>
+                            <question>What is the application adequation to the demonstrations?</question>
+                            <question>What is the invite number adequation to the application?</question>
+                            <question>What is global recommendation?</question>
+                        </questions_list>
+                        <answers_list>
+                            <answer>2</answer>
+                            <answer>3</answer>
+                            <answer>4</answer>
+                            <answer>2</answer>
+                            <answer>2</answer>
+                        </answers_list>
+                    </evaluation>
+                </evaluations_list>
+                <keywords_list>
+                    <keyword description="Node"/>
+                    <keyword description="JavaScript"/>
+                    <keyword description="WebBased"/>
+                    <keyword description="WWW"/>
+                    <keyword description="Development"/>
+                </keywords_list>
+            </exhibition_application>
+        </applications_list>
     </applicationsList>
     <demonstrationsList>
         <demonstrations_list>
@@ -210,7 +265,134 @@
         </demonstrationsList>
     </demonstrationsList>
     <staffAttributionsList>
-        <staff_attributions_list/>
+        <staff_attributions_list>
+            <staff_attribution>
+                <exhibition_application title="Node JS">
+                    <exhibitor name="Blip">
+                        <address>marketing@blip.pt</address>
+                        <mobileNumber>918765432</mobileNumber>
+                    </exhibitor>
+                    <exhibitorArea>105.3</exhibitorArea>
+                    <numberInvitations>30</numberInvitations>
+                    <products_list>
+                        <product designation="Projetor"/>
+                        <product designation="Table"/>
+                    </products_list>
+                    <demonstrations_list/>
+                    <evaluations_list>
+                        <evaluation>
+                            <questions_list>
+<question>What is your knowledge about the exhibition theme?</question>
+<question>What is the application adequation to the exhibition?</question>
+<question>What is the application adequation to the demonstrations?</question>
+<question>What is the invite number adequation to the application?</question>
+<question>What is global recommendation?</question>
+                            </questions_list>
+                            <answers_list>
+<answer>3</answer>
+<answer>4</answer>
+<answer>5</answer>
+<answer>1</answer>
+<answer>3</answer>
+                            </answers_list>
+                        </evaluation>
+                        <evaluation>
+                            <questions_list>
+<question>What is your knowledge about the exhibition theme?</question>
+<question>What is the application adequation to the exhibition?</question>
+<question>What is the application adequation to the demonstrations?</question>
+<question>What is the invite number adequation to the application?</question>
+<question>What is global recommendation?</question>
+                            </questions_list>
+                            <answers_list>
+<answer>2</answer>
+<answer>3</answer>
+<answer>4</answer>
+<answer>2</answer>
+<answer>2</answer>
+                            </answers_list>
+                        </evaluation>
+                    </evaluations_list>
+                    <keywords_list>
+                        <keyword description="Node"/>
+                        <keyword description="JavaScript"/>
+                        <keyword description="WebBased"/>
+                        <keyword description="WWW"/>
+                        <keyword description="Development"/>
+                    </keywords_list>
+                </exhibition_application>
+                <staffMember>
+                    <user username="renatooliveira">
+                        <name>Renato Oliveira</name>
+                        <email>1140822@isep.ipp.pt</email>
+                        <password>Wer+234</password>
+                    </user>
+                </staffMember>
+            </staff_attribution>
+            <staff_attribution>
+                <exhibition_application title="Node JS">
+                    <exhibitor name="Blip">
+                        <address>marketing@blip.pt</address>
+                        <mobileNumber>918765432</mobileNumber>
+                    </exhibitor>
+                    <exhibitorArea>105.3</exhibitorArea>
+                    <numberInvitations>30</numberInvitations>
+                    <products_list>
+                        <product designation="Projetor"/>
+                        <product designation="Table"/>
+                    </products_list>
+                    <demonstrations_list/>
+                    <evaluations_list>
+                        <evaluation>
+                            <questions_list>
+<question>What is your knowledge about the exhibition theme?</question>
+<question>What is the application adequation to the exhibition?</question>
+<question>What is the application adequation to the demonstrations?</question>
+<question>What is the invite number adequation to the application?</question>
+<question>What is global recommendation?</question>
+                            </questions_list>
+                            <answers_list>
+<answer>3</answer>
+<answer>4</answer>
+<answer>5</answer>
+<answer>1</answer>
+<answer>3</answer>
+                            </answers_list>
+                        </evaluation>
+                        <evaluation>
+                            <questions_list>
+<question>What is your knowledge about the exhibition theme?</question>
+<question>What is the application adequation to the exhibition?</question>
+<question>What is the application adequation to the demonstrations?</question>
+<question>What is the invite number adequation to the application?</question>
+<question>What is global recommendation?</question>
+                            </questions_list>
+                            <answers_list>
+<answer>2</answer>
+<answer>3</answer>
+<answer>4</answer>
+<answer>2</answer>
+<answer>2</answer>
+                            </answers_list>
+                        </evaluation>
+                    </evaluations_list>
+                    <keywords_list>
+                        <keyword description="Node"/>
+                        <keyword description="JavaScript"/>
+                        <keyword description="WebBased"/>
+                        <keyword description="WWW"/>
+                        <keyword description="Development"/>
+                    </keywords_list>
+                </exhibition_application>
+                <staffMember>
+                    <user username="ricardocorreia">
+                        <name>Ricardo Correia</name>
+                        <email>1151231</email>
+                        <password>123-Asd</password>
+                    </user>
+                </staffMember>
+            </staff_attribution>
+        </staff_attributions_list>
     </staffAttributionsList>
     <timer/>
 </exhibition>
