@@ -75,6 +75,44 @@ public class ConflictsList {
     }
 
     /**
+     * Validate if the list doesn't contain a conflict already.
+     *
+     * @param conflict the conflict to validate
+     * @return true if the list doesn't contain the conflict
+     */
+    private boolean validateConflict(Conflict conflict) {
+
+        return !this.conflictsList.contains(conflict);
+    }
+
+    /**
+     * Add a conflict to the list.
+     *
+     * @param conflict the conflict to add
+     * @return true if the conflict is sucessfully added.
+     */
+    private boolean addConflict(Conflict conflict) {
+
+        return this.conflictsList.add(conflict);
+    }
+
+    /**
+     * Register conflict.
+     *
+     * @param staffMember Staff Member in conflict
+     * @param application Application in conflict
+     * @param conflictType Conflict type
+     * 
+     * @return true if conflict is successfully added.
+     */
+    public boolean registerConflict(StaffMember staffMember, Application application, ConflictType conflictType) {
+
+        Conflict conflict = new Conflict(conflictType, staffMember, application);
+        
+        return (validateConflict(conflict)) ? addConflict(conflict) : false;
+    }
+
+    /**
      * Return the textual representation of a conflicts list.
      *
      * @return the textual representation of a conflicts list

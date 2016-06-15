@@ -39,7 +39,7 @@ public class Conflict {
         @XmlElement(name = "exhibition_application", type = ExhibitionApplication.class),
         @XmlElement(name = "demonstration_application", type = DemonstrationApplication.class)
     })
-    private Conflictable conflictable;
+    private Application application;
 
     /**
      * Constructs a conflict with its default values.
@@ -47,22 +47,21 @@ public class Conflict {
     public Conflict() {
         this.conflictType = new ConflictType();
         this.staffMember = new StaffMember();
-        // TODO when a concrete conflictable is created, assign to conflictable default value in this constructor.
-        //this.conflictable = new ExhibitionApplication();
+        this.application = new ExhibitionApplication();
     }
 
     /**
      * Constructs a conflict receiving a conflict type, a staff member and a
-     * conflictable.
+     * application.
      *
      * @param conflictType conflict type
      * @param staffMember staff member
-     * @param conflictable conflictable
+     * @param application application
      */
-    public Conflict(ConflictType conflictType, StaffMember staffMember, Conflictable conflictable) {
+    public Conflict(ConflictType conflictType, StaffMember staffMember, Application application) {
         this.conflictType = new ConflictType(conflictType);
         this.staffMember = new StaffMember(staffMember);
-        this.conflictable = conflictable;
+        this.application = application;
     }
 
     /**
@@ -72,7 +71,7 @@ public class Conflict {
      */
     public Conflict(Conflict conflict) {
         this.conflictType = new ConflictType(conflict.conflictType);
-        this.conflictable = conflict.conflictable;
+        this.application = conflict.application;
     }
 
     /**
@@ -112,21 +111,21 @@ public class Conflict {
     }
 
     /**
-     * Gets the conflictable.
+     * Gets the application.
      *
-     * @return conflictable
+     * @return application
      */
-    public Conflictable getConflictable() {
-        return conflictable;
+    public Application getApplication() {
+        return application;
     }
 
     /**
-     * Sets the conflictable.
+     * Sets the application.
      *
-     * @param conflictable conflictable
+     * @param application application
      */
-    public void setConflictable(Conflictable conflictable) {
-        this.conflictable = conflictable;
+    public void setApplication(Application application) {
+        this.application = application;
     }
 
     /**
@@ -136,7 +135,7 @@ public class Conflict {
      */
     @Override
     public String toString() {
-        return String.format("Conflict{conflictType=%s;conflictable=%s}", this.conflictType, this.conflictable);
+        return String.format("Conflict{conflictType=%s;application=%s}", this.conflictType, this.application);
     }
 
     /**
@@ -155,7 +154,7 @@ public class Conflict {
         }
         Conflict otherConflict = (Conflict) otherObject;
 
-        return this.conflictType.equals(otherConflict.conflictType) && this.staffMember.equals(otherConflict.staffMember) && this.conflictable.equals(otherConflict.conflictable);
+        return this.conflictType.equals(otherConflict.conflictType) && this.staffMember.equals(otherConflict.staffMember) && this.application.equals(otherConflict.application);
     }
 
 }
