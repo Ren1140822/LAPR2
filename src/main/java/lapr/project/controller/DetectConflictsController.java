@@ -6,6 +6,7 @@ package lapr.project.controller;
 import java.util.List;
 import lapr.project.model.Application;
 import lapr.project.model.ApplicationsList;
+import lapr.project.model.ConflictDetectionMechanism;
 import lapr.project.model.ConflictType;
 import lapr.project.model.ConflictTypesRegister;
 import lapr.project.model.ConflictsList;
@@ -43,6 +44,25 @@ public class DetectConflictsController {
         List<StaffMember> staff = staffList.getStaffList();
 
         ConflictsList conflictsList = submittable.getConflictsList();
+        
+        for (ConflictType conflictType : conflictTypesList) {
+            
+            ConflictDetectionMechanism mechanism = conflictType.getConflictDetectionMechanism();
+            
+            for (StaffMember staffMember : staff) {
+                for (Application application : applications) {
+                    
+                    // TODO : Create a conflict detection mechanism
+                    boolean isConflict = mechanism.detectConflict(staffMember, application);
+                    
+                    if (isConflict) {
+                        
+                        // TODO: new conflict
+                    }
+                }
+            }
+        }
+   
     }
 
 }

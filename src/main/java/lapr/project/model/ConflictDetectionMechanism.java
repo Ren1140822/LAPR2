@@ -14,4 +14,12 @@ package lapr.project.model;
  */
 public interface ConflictDetectionMechanism {
     
+    /**
+     * Detects if there is a conflict between a staff member & a application
+     * 
+     * @param staffMember the staff member to verify
+     * @param application the application to verify
+     * @return a conflict between a staff member & a application
+     */
+    boolean detectConflict(StaffMember staffMember, Application application);
 }
