@@ -391,7 +391,7 @@ public class CreateExhibitionUI extends JFrame {
                     Date conflictsDate = conflictsLimitDatePicker.getDate();
                     Date evaluationsDate = evaluationsLimitDatePicker.getDate();
 
-                    controller.setExhibitionData(title, description, place, startDate, endDate, openAppsDate, closedAppsDate, conflictsDate, evaluationsDate);
+                    controller.setData(title, description, place, startDate, endDate, openAppsDate, closedAppsDate, conflictsDate, evaluationsDate);
 
                     int[] selectIndexs = usersJList.getSelectedIndices();
                     if (selectIndexs.length < 2) {

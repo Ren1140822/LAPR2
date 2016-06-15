@@ -27,9 +27,14 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Demonstration implements Submittable {
 
     /**
-     * The title of the demonstration.
+     * Unique demoonstration ID.
      */
     @XmlAttribute
+    private final String demonstrationID;
+
+    /**
+     * The title of the demonstration.
+     */
     private String title;
 
     /**
@@ -85,6 +90,16 @@ public class Demonstration implements Submittable {
     private DemonstrationState currentState;
 
     /**
+     * A counter of demonstrations.
+     */
+    private static int demoCounter = 1;
+
+    /**
+     * Demonstration ID prefix.
+     */
+    private static final String ID_PREFIX = "Demonstration-";
+
+    /**
      * Demonstration's default title.
      */
     private static final String DEFAULT_TITLE = "Untitled";
@@ -100,6 +115,9 @@ public class Demonstration implements Submittable {
     public Demonstration() {
         this.title = DEFAULT_TITLE;
         this.description = DEFAULT_DESCRIPTION;
+        // TODO : Review to count demos per exhibition only. 
+        this.demonstrationID = ID_PREFIX + demoCounter++;
+
         this.place = new Place();
         this.staffList = new StaffList();
         this.organizersList = new OrganizersList();
@@ -118,6 +136,8 @@ public class Demonstration implements Submittable {
     public Demonstration(String description) {
         this.title = DEFAULT_TITLE;
         this.description = description;
+        this.demonstrationID = ID_PREFIX + demoCounter++;
+        
         this.place = new Place();
         this.staffList = new StaffList();
         this.organizersList = new OrganizersList();
@@ -146,6 +166,8 @@ public class Demonstration implements Submittable {
             StaffAttributionsList staffAttributionsList, ConflictsList conflictsList) {
         this.title = title;
         this.description = description;
+        this.demonstrationID = ID_PREFIX + demoCounter++;
+        
         this.place = place;
         this.staffList = new StaffList(staffList);
         this.organizersList = new OrganizersList(organizersList);
@@ -164,6 +186,8 @@ public class Demonstration implements Submittable {
     public Demonstration(Demonstration demonstration) {
         this.title = demonstration.title;
         this.description = demonstration.description;
+        this.demonstrationID = ID_PREFIX + demoCounter++;
+        
         this.place = demonstration.place;
         this.staffList = new StaffList(demonstration.staffList);
         this.organizersList = new OrganizersList(demonstration.organizersList);

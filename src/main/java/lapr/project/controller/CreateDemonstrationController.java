@@ -10,6 +10,8 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
 import lapr.project.model.Organizer;
+import lapr.project.model.Resource;
+import lapr.project.model.ResourcesRegister;
 
 /**
  * Represents the controller to create a demonstration.
@@ -98,6 +100,12 @@ public class CreateDemonstrationController {
         this.demonstration = demonstration;
     }
 
+    /**
+     * Obtain a list of filtered exhibitions by organizer & state.
+     * 
+     * @param organizer to filter
+     * @return a list of filtered exhibitions by organizer & state
+     */
     public List<Exhibition> getExhibitionsList(Organizer organizer) {
 
         ExhibitionsRegister exhibitionsRegister = this.getExhibitionCenter().getExhibitionsRegister();
@@ -105,10 +113,35 @@ public class CreateDemonstrationController {
         return exhibitionsRegister.getExhibitionsListWithoutDemosDefined(organizer);
     }
     
+    /**
+     * Create a new demonstration.
+     */
     public void newDemonstration() {
         
         DemonstrationsList demonstrationsList = this.getSelectedExhibition().getDemonstrationsList();
         
         this.setDemonstration(demonstrationsList.newDemonstration());
+    }
+    
+    /**
+     * Set Demonstration Data.
+     * 
+     * @param description demonstration description
+     */
+    public void setData(String description) {
+        
+        this.demonstration.setDescription(description);
+    }
+    
+    /**
+     * Obtain resouces list.
+     * 
+     * @return resouces list
+     */
+    public List<Resource> getResoucesList() {
+        
+        ResourcesRegister resourcesRegister = this.exhibitionCenter.getResourcesRegister();
+        
+        return resourcesRegister.getResourcesList();
     }
 }
