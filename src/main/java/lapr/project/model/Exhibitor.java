@@ -37,6 +37,11 @@ public class Exhibitor {
      * The exhibitor´s mobile number.
      */
     private String mobileNumber;
+    
+    /**
+     * The exhibitor's responsible
+     */
+    private ExhibitorResponsible exhibitorResponsible;
 
     /**
      * The exhibitor´s name by default.
@@ -140,6 +145,16 @@ public class Exhibitor {
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
+
+    public ExhibitorResponsible getExhibitorResponsible() {
+        return exhibitorResponsible;
+    }
+
+    public void setExhibitorResponsible(ExhibitorResponsible exhibitorResponsible) {
+        this.exhibitorResponsible = exhibitorResponsible;
+    }
+    
+    
 
     /**
      * Compares two objects

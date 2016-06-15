@@ -25,15 +25,15 @@ public class ModelTableSubmittablesList extends AbstractTableModel {
     /**
      * The exhibitions list.
      */
-    private final List<Submittable> exhibitionsList;
+    private final List<Submittable> submittablesList;
 
     /**
      * Constructs a instance of this class.
      *
-     * @param exhibitionsList the list of exhibitions
+     * @param submittablesList the list of submittables
      */
-    public ModelTableSubmittablesList(List<Submittable> exhibitionsList) {
-        this.exhibitionsList = exhibitionsList;
+    public ModelTableSubmittablesList(List<Submittable> submittablesList) {
+        this.submittablesList = submittablesList;
     }
 
     /**
@@ -43,7 +43,7 @@ public class ModelTableSubmittablesList extends AbstractTableModel {
      */
     @Override
     public int getRowCount() {
-        return this.exhibitionsList.size();
+        return this.submittablesList.size();
     }
 
     /**
@@ -77,7 +77,7 @@ public class ModelTableSubmittablesList extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         String nomeColuna = getColumnName(columnIndex);
-        String[] info = this.exhibitionsList.get(rowIndex).getInfo();
+        String[] info = this.submittablesList.get(rowIndex).getInfo();
         return nomeColuna.equalsIgnoreCase(columnNames[0])
                 ? info[0]
                 : nomeColuna.equalsIgnoreCase(columnNames[1])
