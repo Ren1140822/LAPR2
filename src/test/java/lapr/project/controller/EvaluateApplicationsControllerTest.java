@@ -41,8 +41,8 @@ public class EvaluateApplicationsControllerTest {
     public void setUp() {
         this.exhibitionCenter = new ExhibitionCenter();
 
-        StaffMember staffMember1 = new StaffMember(new User("Ivo Ferro", "ivoferro", "ivoferro@isep.pt", "123+qwe"));
-        StaffMember staffMember2 = new StaffMember(new User("Daniel Gonçalves", "daniel", "daniel@isep.pt", "qwe+123"));
+        StaffMember staffMember1 = new StaffMember(new User("Ivo Ferro", "ivoferro", "ivoferro@isep.pt", "123+qwe", new ArrayList<>()));
+        StaffMember staffMember2 = new StaffMember(new User("Daniel Gonçalves", "daniel", "daniel@isep.pt", "qwe+123", new ArrayList<>()));
 
         List<StaffMember> staffMembers = new ArrayList<>();
         staffMembers.add(staffMember1);
@@ -73,8 +73,8 @@ public class EvaluateApplicationsControllerTest {
     public void testGetSubmittablesByStaff() {
         System.out.println("getSubmittablesByStaff");
 
-        StaffMember staffMember1 = new StaffMember(new User("Ivo Ferro", "ivoferro", "ivoferro@isep.pt", "123+qwe"));
-        StaffMember staffMember2 = new StaffMember(new User("Daniel Gonçalves", "daniel", "daniel@isep.pt", "qwe+123"));
+        StaffMember staffMember1 = new StaffMember(new User("Ivo Ferro", "ivoferro", "ivoferro@isep.pt", "123+qwe", new ArrayList<>()));
+        StaffMember staffMember2 = new StaffMember(new User("Daniel Gonçalves", "daniel", "daniel@isep.pt", "qwe+123", new ArrayList<>()));
 
         List<StaffMember> staffMembers = new ArrayList<>();
         staffMembers.add(staffMember1);

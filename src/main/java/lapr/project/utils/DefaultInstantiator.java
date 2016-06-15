@@ -24,11 +24,11 @@ public class DefaultInstantiator {
     public static ExhibitionCenter createExhibitionCenter() {
 
         // GENERAL
-        User userIvo = new User("Ivo Ferro", "ivoferro", "1151159@isep.ipp.pt", "123+Qwe");
-        User userDaniel = new User("Daniel Gonçalves", "danielgoncalves", "1151452@isep.ipp.pt", "Qwe+123");
-        User userEric = new User("Eric Amaral", "ericamaral", "1141570@isep.ipp.pt", "234+Wer");
-        User userRenato = new User("Renato Oliveira", "renatooliveira", "1140822@isep.ipp.pt", "Wer+234");
-        User userRicardo = new User("Ricardo Correia", "ricardocorreia", "1151231", "123-Asd");
+        User userIvo = new User("Ivo Ferro", "ivoferro", "1151159@isep.ipp.pt", "123+Qwe", new ArrayList<>());
+        User userDaniel = new User("Daniel Gonçalves", "danielgoncalves", "1151452@isep.ipp.pt", "Qwe+123", new ArrayList<>());
+        User userEric = new User("Eric Amaral", "ericamaral", "1141570@isep.ipp.pt", "234+Wer", new ArrayList<>());
+        User userRenato = new User("Renato Oliveira", "renatooliveira", "1140822@isep.ipp.pt", "Wer+234", new ArrayList<>());
+        User userRicardo = new User("Ricardo Correia", "ricardocorreia", "1151231", "123-Asd", new ArrayList<>());
 
         ExhibitionsManager exhibitionsManager = new ExhibitionsManager(userDaniel);
 
@@ -46,9 +46,9 @@ public class DefaultInstantiator {
         Exhibitor exhibitorBlip = new Exhibitor("Blip", "marketing@blip.pt", "918765432");
         Exhibitor exhibitorCritical = new Exhibitor("Critical Software", "main@critical.software.com", "931245678");
 
-        User userBelmiro = new User("Belmiro Azevedo", "belmiroazevedo", "belmirazevedo@sonae.com", "321+Ewq");
-        User userFabioSilva = new User("Fábio Silva", "fabiosilva", "fabiosilva@blip.pt", "Ewq+321");
-        User userGoncaloQuadros = new User("Gonçalo Quadros", "gonacaloquadros", "goncaloquadros@critical.software.com", "432+Rew");
+        User userBelmiro = new User("Belmiro Azevedo", "belmiroazevedo", "belmirazevedo@sonae.com", "321+Ewq", new ArrayList<>());
+        User userFabioSilva = new User("Fábio Silva", "fabiosilva", "fabiosilva@blip.pt", "Ewq+321", new ArrayList<>());
+        User userGoncaloQuadros = new User("Gonçalo Quadros", "gonacaloquadros", "goncaloquadros@critical.software.com", "432+Rew", new ArrayList<>());
 
         ExhibitorResponsible exhibitorResponsibleSonae = new ExhibitorResponsible(userBelmiro);
         ExhibitorResponsible exhibitorResponsibleblip = new ExhibitorResponsible(userFabioSilva);

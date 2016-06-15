@@ -149,7 +149,7 @@ public class ExhibitionChangedConflictsState implements ExhibitionState {
     @Override
     public boolean validate() {
 
-        return true;
+        return !this.exhibition.getStaffAttributionsList().getStaffAttributionsList().isEmpty();
     }
 
 }

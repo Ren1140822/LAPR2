@@ -148,7 +148,7 @@ public class ExhibitionApplicationsInEvaluationState implements ExhibitionState 
     @Override
     public boolean validate() {
 
-        return !this.exhibition.getStaffAttributionsList().getStaffAttributionsList().isEmpty();
+        return true;
     }
 
 }

@@ -49,8 +49,8 @@ public class ExhibitionsRegisterTest {
         this.exhibitionsRegister = new ExhibitionsRegister();
 
         List<Organizer> organizerslist = new ArrayList<>();
-        organizerslist.add(new Organizer(new User("Daniel", "daniell", "email@dd2", "password")));
-        organizerslist.add(new Organizer(new User("Daniel2", "daniell2", "email@dd2", "password")));
+        organizerslist.add(new Organizer(new User("Daniel", "daniell", "email@dd2", "password", new ArrayList<>())));
+        organizerslist.add(new Organizer(new User("Daniel2", "daniell2", "email@dd2", "password", new ArrayList<>())));
 
         this.exhibition = new Exhibition("title", "description", new Date(2016, 2, 1),
                 new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 0, 20),

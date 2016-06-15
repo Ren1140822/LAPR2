@@ -3,6 +3,8 @@
  */
 package lapr.project.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -42,6 +44,11 @@ public class User {
      */
     // TODO: Implement password encryptation when stored.
     private String password;
+    
+    /**
+     * List of related users.
+     */
+    private List<User> relatedUsers;
 
     /**
      * The user's name by default.
@@ -71,6 +78,7 @@ public class User {
         this.username = DEFAULT_USERNAME;
         this.email = DEFAULT_EMAIL;
         this.password = DEFAULT_PASSWORD;
+        this.relatedUsers = new ArrayList<>();
     }
 
     /**
@@ -80,12 +88,14 @@ public class User {
      * @param username user's username
      * @param email user's email
      * @param password user's password
+     * @param relatedUsers list of relatives
      */
-    public User(String name, String username, String email, String password) {
+    public User(String name, String username, String email, String password, List<User> relatedUsers) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.relatedUsers = new ArrayList<>(relatedUsers);
     }
 
     /**
@@ -98,6 +108,7 @@ public class User {
         this.username = user.username;
         this.email = user.email;
         this.password = user.password;
+        this.relatedUsers = new ArrayList<>(user.getRelatedUsers());
     }
 
     /**
@@ -173,12 +184,33 @@ public class User {
     }
 
     /**
+     * Obtain the related users list.
+     * 
+     * @return the related users list
+     */
+    public List<User> getRelatedUsers() {
+        return new ArrayList<>(this.relatedUsers);
+    }
+
+    /**
+     * Set the related users list.
+     * 
+     * @param relatedUsers the related users list to set
+     */
+    public void setRelatedUsers(List<User> relatedUsers) {
+        this.relatedUsers = new ArrayList<>(relatedUsers);
+    }
+
+    /**
      * Validates the user.
      *
      * @return true if the user is valid, false otherwise
      */
     boolean validate() {
-        return !this.username.isEmpty() && this.username.length() > 3 && !this.email.isEmpty() && this.email.length() > 5;
+        return !this.username.isEmpty() 
+                && this.username.length() > 3 
+                && !this.email.isEmpty() 
+                && this.email.length() > 5;
     }
 
     /**
