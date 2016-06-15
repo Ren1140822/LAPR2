@@ -3,8 +3,16 @@
  */
 package lapr.project.model;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import lapr.project.utils.Exportable;
+import lapr.project.utils.Importable;
 
 /**
  * Represents a exhibitions register
@@ -15,8 +23,7 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-
-public class ExhibitionsRegister {
+public class ExhibitionsRegister implements Importable {
 
     /**
      * exhibitions List of ExhibitionsRegister
@@ -79,7 +86,6 @@ public class ExhibitionsRegister {
      *
      * @param exhibitionsList exhibitions list
      */
-   
     public void setExhibitionsList(List<Exhibition> exhibitionsList) {
         this.exhibitionsList = new ArrayList(exhibitionsList);
     }
@@ -115,8 +121,12 @@ public class ExhibitionsRegister {
     public boolean registerExhibition(Exhibition exhibition) {
 
         exhibition.createTimers();
-        
+
         return (exhibition.setCreatedState() && validateExhibition(exhibition)) ? addExhibition(exhibition) : false;
+    }
+
+    public boolean registerImportedExhibition(Exhibition exhibition) {
+        return (validateExhibition(exhibition) ? addExhibition(exhibition) : false);
     }
 
     /**
@@ -145,21 +155,22 @@ public class ExhibitionsRegister {
 
     /**
      * Gets the exhibitions list without StaffMember by Organizer.
+     *
      * @param organizer the organizer to check for
      * @return the exhibition list
      */
-    public List<Exhibition> getExhibitionsListWithoutStaffMemberByOrganizer(Organizer organizer){
+    public List<Exhibition> getExhibitionsListWithoutStaffMemberByOrganizer(Organizer organizer) {
         List<Exhibition> tempExhibitionList = new ArrayList();
-        for(Exhibition exhibition:exhibitionsList){
-                    boolean isStaffMemberDefined = exhibition.getState().isStaffDefined();
-                    
-                    if(!isStaffMemberDefined&&exhibition.getOrganizersList().isOrganizer(organizer)){
-                        tempExhibitionList.add(exhibition);
-                    }
+        for (Exhibition exhibition : exhibitionsList) {
+            boolean isStaffMemberDefined = exhibition.getState().isStaffDefined();
+
+            if (!isStaffMemberDefined && exhibition.getOrganizersList().isOrganizer(organizer)) {
+                tempExhibitionList.add(exhibition);
             }
+        }
         return tempExhibitionList;
     }
-    
+
     /**
      * Gets the submittables filtering by an Organizer and InChangedConflicts
      * state.
@@ -218,6 +229,30 @@ public class ExhibitionsRegister {
         }
         s.append("}");
         return s.toString();
+    }
+
+    /**
+     * Imports a exhibition from a XML file.
+     *
+     * @param fileName the name of the file with path
+     * @return a exhibition created from the file
+     */
+    @Override
+    public Exhibition importExhibitionByFileName(String fileName) {
+        Exhibition exhibition;
+        try {
+            File xmlFile = new File(fileName);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Exhibition.class);
+
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+
+            exhibition = (Exhibition) jaxbUnmarshaller.unmarshal(xmlFile);
+            return exhibition;
+
+        } catch (JAXBException ex) {
+            JOptionPane.showMessageDialog(null, "Error ocurred while importing.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return null;
     }
 
 }

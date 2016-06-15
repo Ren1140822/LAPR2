@@ -3,7 +3,9 @@
  */
 package lapr.project.model;
 
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -16,12 +18,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Ricardo Correia 1151231
  */
 @XmlRootElement
-public class KeyWord {
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Keyword {
 
     /**
      * the description of this keyword
      */
-    @XmlElement
+    @XmlAttribute
     private String description;
 
     /**
@@ -30,18 +33,9 @@ public class KeyWord {
     private static final String DEFAULT_DESCRIPTION = "No description";
 
     /**
-     * TODO: CHECK WHAT THIS DOES
-     */
-    private static final String ROOT_ELEMENT_NAME = "keyword";
-    /**
-     * TODO: CHECK WHAT THIS DOES
-     */
-    private static final String VALUE_ELEMENT_NAME = "value";
-
-    /**
      * Empty constructor.
      */
-    public KeyWord() {
+    public Keyword() {
         this.description = DEFAULT_DESCRIPTION;
     }
 
@@ -50,7 +44,7 @@ public class KeyWord {
      *
      * @param description the keyword to define.
      */
-    public KeyWord(String description) {
+    public Keyword(String description) {
         this.description = new String(description);
     }
 
@@ -59,7 +53,7 @@ public class KeyWord {
      *
      * @param k the instance of KeyWord to copy.
      */
-    public KeyWord(KeyWord k) {
+    public Keyword(Keyword k) {
         this.description = new String(k.description);
     }
 
@@ -75,43 +69,37 @@ public class KeyWord {
      *
      * @param description the value to set.
      */
-    
     public void setDescription(String description) {
 
         this.description = new String(description);
     }
 
-    
     /**
      * Validates the keyword.
+     *
      * @return true if is valid
      */
-    public boolean validate(){
+    public boolean validate() {
         return !this.description.isEmpty();
     }
-    
-    
-    
-    
-     /**
+
+    /**
      * Equals method to check if two objects are the same.
+     *
      * @param otherObject the other object to compare to
      * @return true of equal
      */
-    public boolean equals(Object otherObject){
-           if (this == otherObject) {
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
             return true;
         }
         if (otherObject == null || this.getClass() != otherObject.getClass()) {
             return false;
         }
-       KeyWord otherKeyword = (KeyWord)otherObject;
+        Keyword otherKeyword = (Keyword) otherObject;
         return this.description.equals(otherKeyword.description);
     }
-    
-  
-    
-    
+
     /**
      * Returns the textual interpretation of the objects and attributes of this
      * class

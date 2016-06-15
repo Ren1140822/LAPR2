@@ -5,6 +5,11 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -18,17 +23,18 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Ricardo Amaral 1151231
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Demonstration implements Submittable {
 
     /**
      * The title of the demonstration.
      */
+    @XmlAttribute
     private String title;
 
     /**
      * The descriptive text of this demonstration.
      */
-    @XmlTransient
     private String description;
 
     /**
@@ -39,31 +45,38 @@ public class Demonstration implements Submittable {
     /**
      * The demonstration's staff list.
      */
-    @XmlTransient
+//    @XmlElementWrapper(name = "staff_list")
     private StaffList staffList;
 
     /**
      * Exhibition's organizers list.
      */
-    @XmlTransient
+//    @XmlElementWrapper(name = "organizers_list")
     private OrganizersList organizersList;
 
     /**
      * The demonstration applications list
      */
-    @XmlTransient
+//    @XmlElementWrapper(name = "applications_list")
     private ApplicationsList applicationsList;
 
     /**
      * The resources list.
      */
+    @XmlElementWrapper(name = "resources_list")
+    @XmlElement(name = "resource")
     private List<Resource> resourcesList;
 
     /**
      * Demonstration's staff attributions list.
      */
-    @XmlTransient
+//    @XmlElementWrapper(name = "staff_attributions_list")
     private StaffAttributionsList staffAttributionsList;
+
+    /**
+     * Demonstration's conflicts list.
+     */
+    private ConflictsList conflictsList;
 
     /**
      * The demonstration current state.
@@ -93,6 +106,7 @@ public class Demonstration implements Submittable {
         this.applicationsList = new ApplicationsList();
         this.resourcesList = new ArrayList<>();
         this.staffAttributionsList = new StaffAttributionsList();
+        this.conflictsList = new ConflictsList();
         //this.currentDemonstrationState = new DemonstrationInitialState(this);
     }
 
@@ -110,6 +124,7 @@ public class Demonstration implements Submittable {
         this.applicationsList = new ApplicationsList();
         this.resourcesList = new ArrayList<>();
         this.staffAttributionsList = new StaffAttributionsList();
+        this.conflictsList = new ConflictsList();
         //this.currentDemonstrationState = new DemonstrationInitialState(this);
     }
 
@@ -124,8 +139,11 @@ public class Demonstration implements Submittable {
      * @param applicationsList applications list
      * @param resourcesList resources list
      * @param staffAttributionsList staff attributions list
+     * @param conflictsList conficts list
      */
-    public Demonstration(String title, String description, Place place, StaffList staffList, OrganizersList organizersList, ApplicationsList applicationsList, List<Resource> resourcesList, StaffAttributionsList staffAttributionsList) {
+    public Demonstration(String title, String description, Place place, StaffList staffList, 
+            OrganizersList organizersList, ApplicationsList applicationsList, List<Resource> resourcesList, 
+            StaffAttributionsList staffAttributionsList, ConflictsList conflictsList) {
         this.title = title;
         this.description = description;
         this.place = place;
@@ -134,6 +152,7 @@ public class Demonstration implements Submittable {
         this.applicationsList = new ApplicationsList(applicationsList);
         this.resourcesList = new ArrayList<>(resourcesList);
         this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
+        this.conflictsList = new ConflictsList(conflictsList);
         //this.currentDemonstrationState = new DemonstationInitialState(this);
     }
 
@@ -152,6 +171,7 @@ public class Demonstration implements Submittable {
         this.resourcesList = new ArrayList<>(demonstration.resourcesList);
         this.staffAttributionsList = new StaffAttributionsList(demonstration.staffAttributionsList);
         this.currentDemonstrationState = demonstration.currentDemonstrationState;
+        this.conflictsList = new ConflictsList(demonstration.conflictsList);
     }
 
     /**
@@ -262,7 +282,26 @@ public class Demonstration implements Submittable {
     public void setStaffList(StaffList staffList) {
         this.staffList = staffList;
     }
-    
+
+    /**
+     * Obtain the Demonstration's conflicts list.
+     *
+     * @return the Demonstration's conflicts list
+     */
+    @Override
+    public ConflictsList getConflictsList() {
+        return this.conflictsList;
+    }
+
+    /**
+     * Set the Demonstration's conflicts list.
+     *
+     * @param conflictsList the Demonstration's conflicts list to set
+     */
+    public void setConflictsList(ConflictsList conflictsList) {
+        this.conflictsList = new ConflictsList(conflictsList);
+    }
+
     /**
      * Returns the current demonstration state.
      *

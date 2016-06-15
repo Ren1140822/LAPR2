@@ -57,7 +57,7 @@ public class ExhibitionsRegisterTest {
                 new Date(2016, 1, 10), new Date(2016, 1, 20),
                 new Place(), new StaffList(), new OrganizersList(organizerslist),
                 new ApplicationsList(), new DemonstrationsList(),
-                new StaffAttributionsList());
+                new StaffAttributionsList(), new ConflictsList());
 
     }
 

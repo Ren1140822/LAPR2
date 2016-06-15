@@ -1,17 +1,17 @@
 package lapr.project.utils;
 
-import org.w3c.dom.Node;
+import lapr.project.model.Exhibition;
 
 /**
  * All domains classes should include this interface.
  * Created by Nuno Bettencourt [NMB] on 29/05/16.
  */
 @FunctionalInterface
-public interface Importable<T extends Exportable> {
+public interface Importable<T extends Exhibition> {
 	/**
 	 * Imports the object content from an XML format.
 	 *
 	 * @return Structured String containing content.
 	 */
-	T importContentFromXMLNode(Node node);
+	T importExhibitionByFileName(String fileName);
 }

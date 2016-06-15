@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import lapr.project.model.ApplicationsList;
-import lapr.project.model.Demonstration;
+import lapr.project.model.ConflictsList;
 import lapr.project.model.DemonstrationsList;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionState;
@@ -46,7 +46,7 @@ public class ExhibitionInicialStateTest {
                 new Date(2016, 1, 10), new Date(2016, 1, 20),
                 new Place(), new StaffList(), new OrganizersList(organizerslist),
                 new ApplicationsList(), new DemonstrationsList(),
-                new StaffAttributionsList());
+                new StaffAttributionsList(), new ConflictsList());
     }
 
     /**

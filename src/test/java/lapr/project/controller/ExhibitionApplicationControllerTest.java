@@ -12,7 +12,7 @@ import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
 import lapr.project.model.Exhibitor;
-import lapr.project.model.KeyWord;
+import lapr.project.model.Keyword;
 import lapr.project.model.Product;
 import lapr.project.model.exhibition.ExhibitionClosedApplicationsState;
 import lapr.project.model.exhibition.ExhibitionOpenApplicationsState;
@@ -168,7 +168,7 @@ public class ExhibitionApplicationControllerTest {
         Exhibition exhibition = new Exhibition();
         instance.newApplication(exhibition);
         instance.newKeyword(description);
-        KeyWord keyword = new KeyWord(description);
+        Keyword keyword = new Keyword(description);
         assertEquals(instance.getExhibitionApplication().getKeywordsList().get(0), keyword);
     }
 

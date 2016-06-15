@@ -27,10 +27,13 @@ import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.StaffAttribution;
 import lapr.project.model.StaffMember;
 import lapr.project.model.Submittable;
+import lapr.project.model.application.ApplicationInEvaluationState;
+import lapr.project.model.exhibition.ExhibitionApplicationsInEvaluationState;
 import lapr.project.ui.components.DialogEvaluateApplication;
 import lapr.project.ui.components.DialogSeeApplication;
 import lapr.project.ui.components.ModelListStaffAttributions;
 import lapr.project.ui.components.ModelListSubmittables;
+import lapr.project.utils.DefaultInstantiator;
 
 /**
  * Graphic user interface to evaluate applications.
@@ -315,8 +318,10 @@ public class EvaluateApplicationUI extends JFrame {
      * @param args command line arguments.
      */
     public static void main(String[] args) {
-        ExhibitionCenter ec = new ExhibitionCenter();
-        StaffMember sm = new StaffMember();
+        ExhibitionCenter ec = DefaultInstantiator.createExhibitionCenter();
+        ec.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)
+                .setState(new ApplicationInEvaluationState(ec.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)));
+        StaffMember sm = ec.getExhibitionsRegister().getExhibitionsList().get(0).getStaffList().getStaffList().get(0);
         new EvaluateApplicationUI(ec, sm);
     }
 }

@@ -3,6 +3,8 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -16,12 +18,12 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Ricardo Correia 1151231
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Organizer {
 
     /**
      * The user for the organizer.
      */
-       @XmlTransient
     private User user;
 
     /**
@@ -63,7 +65,6 @@ public class Organizer {
      *
      * @param user user of the organizer
      */
- 
     public void setUser(User user) {
         this.user = user;
     }
@@ -106,5 +107,5 @@ public class Organizer {
 
         return this.user.equals(otherOrganizer.user);
     }
-    
+
 }

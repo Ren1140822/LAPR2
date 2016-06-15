@@ -1,5 +1,10 @@
 package lapr.project.ui;
 
+import java.io.File;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.utils.DefaultInstantiator;
 
@@ -8,17 +13,17 @@ import lapr.project.utils.DefaultInstantiator;
  */
 class Main {
 
-	/**
-	 * Private constructor to hide implicit public one.
-	 */
-	private Main(){
+    /**
+     * Private constructor to hide implicit public one.
+     */
+    private Main() {
 
-	}
+    }
 
-	/**
-	 * @param args the command line arguments
-	 */
-	public static void main(String[] args) throws Exception {
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) throws Exception {
 
 //		CalculatorExample calculatorExample = new CalculatorExample();
 //		System.out.println(calculatorExample.sum(3, 5));
@@ -41,9 +46,31 @@ class Main {
 //                                     DemonstrationsList demoList = new DemonstrationsList(listDemos);
 //                                     e.setDemonstrationsList(demoList);
 //                                     e.xmlexp();
-                                    //ureg.xmlexp();
-            
-            ExhibitionCenter ec1 = DefaultInstantiator.createExhibitionCenter();                
-	}
+        //ureg.xmlexp();
+        ExhibitionCenter exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
+
+        Exhibition exhibitionTest = new Exhibition();//exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0);
+        
+        
+        // create JAXB context and instantiate marshaller
+        JAXBContext context = JAXBContext.newInstance(Exhibition.class);
+        Marshaller m = context.createMarshaller();
+        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+        // Write to System.out
+        File xmlFile = new File("D:\\exhibition.xml");
+
+        m.marshal(exhibitionTest, System.out);
+
+        m.marshal(exhibitionTest, xmlFile);
+
+        JAXBContext jaxbContext = JAXBContext.newInstance(Exhibition.class);
+//
+//        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+//
+//        Exhibition exhibition = (Exhibition) jaxbUnmarshaller.unmarshal(xmlFile);
+//
+//        System.out.println(exhibition.equals(exhibitionTest));
+    }
 
 }

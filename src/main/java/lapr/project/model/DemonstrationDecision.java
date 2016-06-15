@@ -3,6 +3,8 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,18 +18,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Ricardo Amaral 1151231
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DemonstrationDecision {
 
     /**
      * Demonstration application.
      */
-    @XmlElement
     private DemonstrationApplication demonstrationApplication;
 
     /**
      * Decision to the demonstration application.
      */
-    @XmlElement
     private boolean decision;
 
     /**

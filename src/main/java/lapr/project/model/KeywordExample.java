@@ -16,7 +16,7 @@ import javax.xml.parsers.ParserConfigurationException;
  *
  * @author by Nuno Bettencourt [nmb@isep.ipp.pt] on 29/05/16.
  */
-public class KeywordExample implements Exportable, Importable<KeywordExample> {
+public class KeywordExample implements Exportable {
 
 	private static final String ROOT_ELEMENT_NAME = "keyword";
 	private static final String VALUE_ELEMENT_NAME = "value";
@@ -87,31 +87,31 @@ public class KeywordExample implements Exportable, Importable<KeywordExample> {
 		return node;
 	}
 
-	@Override
-	public KeywordExample importContentFromXMLNode(Node node) {
-		try {
-			DocumentBuilderFactory factory =
-					DocumentBuilderFactory.newInstance();
-			//Create document builder
-			DocumentBuilder builder = factory.newDocumentBuilder();
-
-			//Obtain a new document
-			Document document = builder.newDocument();
-
-			document.appendChild(document.importNode(node, true));
-
-			NodeList elementsKeyword = document.getElementsByTagName(VALUE_ELEMENT_NAME);
-
-			Node elementKeyword = elementsKeyword.item(0);
-
-			//Get value
-			this.value = elementKeyword.getFirstChild().getNodeValue();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-		return this;
-	}
+//	@Override
+//	public KeywordExample importContentFromXMLNode(Node node) {
+//		try {
+//			DocumentBuilderFactory factory =
+//					DocumentBuilderFactory.newInstance();
+//			//Create document builder
+//			DocumentBuilder builder = factory.newDocumentBuilder();
+//
+//			//Obtain a new document
+//			Document document = builder.newDocument();
+//
+//			document.appendChild(document.importNode(node, true));
+//
+//			NodeList elementsKeyword = document.getElementsByTagName(VALUE_ELEMENT_NAME);
+//
+//			Node elementKeyword = elementsKeyword.item(0);
+//
+//			//Get value
+//			this.value = elementKeyword.getFirstChild().getNodeValue();
+//		} catch (ParserConfigurationException e) {
+//			e.printStackTrace();
+//			throw new RuntimeException(e);
+//		}
+//		return this;
+//	}
 
 	@Override
 	public boolean equals(Object o) {

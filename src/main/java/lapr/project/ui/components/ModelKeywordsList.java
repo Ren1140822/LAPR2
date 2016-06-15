@@ -8,7 +8,7 @@ package lapr.project.ui.components;
 import java.util.List;
 import javax.swing.AbstractListModel;
 import lapr.project.controller.ExhibitionApplicationController;
-import lapr.project.model.KeyWord;
+import lapr.project.model.Keyword;
 
 /**
  *
@@ -22,7 +22,7 @@ public class ModelKeywordsList extends AbstractListModel {
     /**
      * List of products.
      */
-    private List<KeyWord> keyWordList;
+    private List<Keyword> keyWordList;
 
     /**
      * Contructs an instance of this class.

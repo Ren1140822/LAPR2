@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author by Nuno Bettencourt [nmb@isep.ipp.pt] on 29/05/16.
  */
-public class CandidaturaExample implements Importable<CandidaturaExample>, Exportable {
+public class CandidaturaExample implements Exportable {
 	private static final String ROOT_ELEMENT_NAME = "candidatura";
 	private static final String DESCRIPTION_ELEMENT_NAME = "description";
 	private static final String KEYWORDS_ELEMENT_NAME = "keywords";
@@ -120,42 +120,42 @@ public class CandidaturaExample implements Importable<CandidaturaExample>, Expor
 		return rootNode;
 	}
 
-	@Override
-	public CandidaturaExample importContentFromXMLNode(Node node) {
-		try {
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
-			//Create document builder
-			DocumentBuilder builder = factory.newDocumentBuilder();
-
-			//Obtain a new document
-			Document document = builder.newDocument();
-			document.appendChild(document.importNode(node, true));
-
-			NodeList elementsCandidatura = document.getElementsByTagName(ROOT_ELEMENT_NAME);
-
-			Node elementCandidatura = elementsCandidatura.item(0);
-
-			//Get description
-			this.description = elementCandidatura.getFirstChild().getFirstChild().getNodeValue();
-
-			NodeList elementsKeywords = document.getElementsByTagName(KEYWORDS_ELEMENT_NAME);
-
-			NodeList keywords = elementsKeywords.item(0).getChildNodes();
-			for (int position = 0; position < keywords.getLength(); position++) {
-				Node keyword = keywords.item(position);
-				KeywordExample keywordExample = new KeywordExample();
-
-				keywordExample = keywordExample.importContentFromXMLNode(keyword);
-				addKeyword(keywordExample);
-			}
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-
-		return this;
-	}
+//	@Override
+//	public CandidaturaExample importContentFromXMLNode(Node node) {
+//		try {
+//			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+//
+//			//Create document builder
+//			DocumentBuilder builder = factory.newDocumentBuilder();
+//
+//			//Obtain a new document
+//			Document document = builder.newDocument();
+//			document.appendChild(document.importNode(node, true));
+//
+//			NodeList elementsCandidatura = document.getElementsByTagName(ROOT_ELEMENT_NAME);
+//
+//			Node elementCandidatura = elementsCandidatura.item(0);
+//
+//			//Get description
+//			this.description = elementCandidatura.getFirstChild().getFirstChild().getNodeValue();
+//
+//			NodeList elementsKeywords = document.getElementsByTagName(KEYWORDS_ELEMENT_NAME);
+//
+//			NodeList keywords = elementsKeywords.item(0).getChildNodes();
+//			for (int position = 0; position < keywords.getLength(); position++) {
+//				Node keyword = keywords.item(position);
+//				KeywordExample keywordExample = new KeywordExample();
+//
+//				keywordExample = keywordExample.importContentFromXMLNode(keyword);
+//				addKeyword(keywordExample);
+//			}
+//		} catch (ParserConfigurationException e) {
+//			e.printStackTrace();
+//			throw new RuntimeException(e);
+//		}
+//
+//		return this;
+//	}
 
 	@Override
 	public boolean equals(Object o) {

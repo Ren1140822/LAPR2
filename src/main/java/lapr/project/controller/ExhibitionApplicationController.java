@@ -12,7 +12,7 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
-import lapr.project.model.KeyWord;
+import lapr.project.model.Keyword;
 import lapr.project.model.Product;
 
 /**
@@ -193,7 +193,7 @@ public class ExhibitionApplicationController {
      *
      * @return the list of keyword
      */
-    public List<KeyWord> getKeyWordList() {
+    public List<Keyword> getKeyWordList() {
         return this.exhibitionApplication.getKeywordsList();
     }
 }

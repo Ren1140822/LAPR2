@@ -3,6 +3,11 @@
  */
 package lapr.project.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Represents a resource
  *
@@ -12,12 +17,14 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Resource {
 
     /**
      * The Resource's designation.
      */
+    @XmlAttribute
     private String designation;
 
     /**
@@ -55,7 +62,6 @@ public class Resource {
      *
      * @param designation the Resource's designation to set
      */
-    
     public void setDesignation(String designation) {
         this.designation = designation;
     }

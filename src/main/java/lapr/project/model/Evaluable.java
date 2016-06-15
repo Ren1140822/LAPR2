@@ -14,7 +14,6 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-// @XmlJavaTypeAdapter(AnyTypeAdapter.class)
 public interface Evaluable {
 
     /**
@@ -52,7 +51,7 @@ public interface Evaluable {
      *
      * @return keywords list
      */
-    List<KeyWord> getKeywordsList();
+    List<Keyword> getKeywordsList();
 
     /**
      * Gets the exhibitor.

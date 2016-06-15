@@ -23,9 +23,10 @@ import lapr.project.model.DemonstrationApplication;
 import lapr.project.model.Evaluable;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
-import lapr.project.model.KeyWord;
+import lapr.project.model.Keyword;
 import lapr.project.model.StaffMember;
 import lapr.project.ui.EvaluateApplicationUI;
+import lapr.project.utils.DefaultInstantiator;
 
 /**
  * Dialog to see an application info.
@@ -114,8 +115,8 @@ public class DialogSeeApplication extends JDialog {
     private JPanel createKeywordsPanel() {
         JPanel keywordsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
 
-        List<KeyWord> keywordsList = evaluable.getKeywordsList();
-        for (KeyWord keyword : keywordsList) {
+        List<Keyword> keywordsList = evaluable.getKeywordsList();
+        for (Keyword keyword : keywordsList) {
             keywordsPanel.add(new JLabel(keyword.getDescription()));
         }
 
@@ -244,7 +245,7 @@ public class DialogSeeApplication extends JDialog {
     private JPanel createProductsLabel() {
         JPanel productsPanel = new JPanel(new BorderLayout(0, 5));
 
-        JLabel titleLabel = new JLabel("Produtos:", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("Products:", SwingConstants.CENTER);
         JList productsJList = new JList();
 
         productsJList.setModel(new ModelListProducts(this.evaluable.getProductsList()));
@@ -264,7 +265,7 @@ public class DialogSeeApplication extends JDialog {
     private JPanel createDemonstrationsLabel() {
         JPanel demonstrationsPanel = new JPanel(new BorderLayout(0, 5));
 
-        JLabel titleLabel = new JLabel("Demonstrações:", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("Demonstrations:", SwingConstants.CENTER);
         JList demonstrationsJList = new JList();
 
         demonstrationsJList.setModel(new ModelListDemonstrations(((ExhibitionApplication) this.evaluable).getDemonstrationsList()));
@@ -282,7 +283,13 @@ public class DialogSeeApplication extends JDialog {
      * @param args arguments of the command line
      */
     public static void main(String[] args) {
-        new DialogSeeApplication(new ExhibitionApplication(), new EvaluateApplicationUI(new ExhibitionCenter(), new StaffMember()));
-        new DialogSeeApplication(new DemonstrationApplication(), new EvaluateApplicationUI(new ExhibitionCenter(), new StaffMember()));
+        ExhibitionCenter exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
+        ExhibitionApplication exhibitionApplication = (ExhibitionApplication)exhibitionCenter.getExhibitionsRegister()
+                .getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0);
+        DemonstrationApplication demonstrationApplication = (DemonstrationApplication)exhibitionCenter.getExhibitionsRegister()
+                .getExhibitionsList().get(0).getDemonstrationsList().getDemonstrationsList()
+                .get(0).getApplicationsList().getApplicationsList().get(0);
+        new DialogSeeApplication(exhibitionApplication, new EvaluateApplicationUI(new ExhibitionCenter(), new StaffMember()));
+        new DialogSeeApplication(demonstrationApplication, new EvaluateApplicationUI(new ExhibitionCenter(), new StaffMember()));
     }
 }
