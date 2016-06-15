@@ -50,7 +50,7 @@ public class ExhibitionCompleteState implements ExhibitionState {
 
     @Override
     public boolean setStaffDefined() {
-        return true;
+        return false;
     }
 
     @Override
@@ -60,24 +60,13 @@ public class ExhibitionCompleteState implements ExhibitionState {
 
     @Override
     public boolean setDemonstrationsDefined() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isDemonstrationsDefined() {
         return true;
     }
-    
-       @Override
-    public boolean setCompleted() {
-       return false;
-    }
-
-    @Override
-    public boolean isCompleted() {
-        return true;
-    }
-
 
     @Override
     public boolean setOpenApplication() {
@@ -157,8 +146,7 @@ public class ExhibitionCompleteState implements ExhibitionState {
     @Override
     public boolean validate() {
 
-        return exhibition.getState().isDemonstrationsDefined()
-                && exhibition.getState().isStaffDefined();
+        return true;
     }
 
  

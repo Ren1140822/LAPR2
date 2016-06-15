@@ -68,16 +68,6 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
         return false;
     }
 
-      @Override
-    public boolean setCompleted() {
-       return false;
-    }
-
-    @Override
-    public boolean isCompleted() {
-        return false;
-    }
-    
     @Override
     public boolean setOpenApplication() {
         return false;
@@ -90,7 +80,7 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
 
     @Override
     public boolean setClosedApplications() {
-        return true;
+        return false;
     }
 
     @Override
@@ -156,7 +146,7 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
     @Override
     public boolean validate() {
 
-        return this.exhibition.getState().isClosedApplications();
+        return true;
     }
 
   

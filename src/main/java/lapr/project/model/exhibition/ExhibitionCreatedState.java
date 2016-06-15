@@ -40,7 +40,7 @@ public class ExhibitionCreatedState implements ExhibitionState {
     @Override
     public boolean setCreated() {
 
-        return true;
+        return false;
     }
 
     @Override
@@ -69,8 +69,7 @@ public class ExhibitionCreatedState implements ExhibitionState {
     public boolean setDemonstrationsDefined() {
 
         if (validateDemos()) {
-            // TODO : Implement next state
-//            this.exhibition.setState(this);
+            this.exhibition.setState(new ExhibitionDemosWithoutStaffState(this.exhibition));
             return true;
         } else {
             return false;
@@ -160,9 +159,9 @@ public class ExhibitionCreatedState implements ExhibitionState {
     @Override
     public boolean validate() {
 
-        // Verifies if at least one Staff Member is defined.
+        // Verifies if at least one Staff Member is defined and no demonstrations defined.
         return !this.exhibition.getStaffList().getStaffList().isEmpty()
-                && this.exhibition.getState().isCreated();
+                && this.exhibition.getDemonstrationsList().getDemonstrationsList().isEmpty();
     }
 
     /**
@@ -172,18 +171,8 @@ public class ExhibitionCreatedState implements ExhibitionState {
      */
     public boolean validateDemos() {
 
-        // Verifies if at least one Staff Member is defined.
-        return !this.exhibition.getDemonstrationsList().getDemonstrationsList().isEmpty() 
-                && this.exhibition.getState().isCreated();
-    }
-
-    @Override
-    public boolean setCompleted() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean isCompleted() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Verifies if there isn't no staff defined too.
+        return !this.exhibition.getDemonstrationsList().getDemonstrationsList().isEmpty()
+                && this.exhibition.getStaffList().getStaffList().isEmpty();
     }
 }

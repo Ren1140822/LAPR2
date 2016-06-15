@@ -46,7 +46,7 @@ import lapr.project.model.Submittable;
 import lapr.project.model.User;
 import lapr.project.model.demonstration.DemonstrationInChangedConflictsState;
 import lapr.project.model.exhibition.ExhibitionChangedConflictsState;
-import lapr.project.model.mechanisms.EquitableLoadMechanism;
+import lapr.project.model.mechanisms.attribution.EquitableLoadMechanism;
 import lapr.project.ui.components.DialogSelectSubmittable;
 import lapr.project.ui.components.ModelListMechanisms;
 import lapr.project.ui.components.ModelTableAttributions;

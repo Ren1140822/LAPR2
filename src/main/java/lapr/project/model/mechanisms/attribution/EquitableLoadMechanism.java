@@ -1,7 +1,7 @@
 /**
  * Package location for Model concepts.
  */
-package lapr.project.model.mechanisms;
+package lapr.project.model.mechanisms.attribution;
 
 import java.util.ArrayList;
 import java.util.List;

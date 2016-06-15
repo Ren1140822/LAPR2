@@ -151,17 +151,7 @@ public class ExhibitionDemosWithoutStaffState implements ExhibitionState {
     @Override
     public boolean validate() {
 
-        return !exhibition.getState().isDemonstrationsDefined()
-                && exhibition.getState().isStaffDefined();
-    }
-
-    @Override
-    public boolean setCompleted() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean isCompleted() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Verifies if there is at least one staff member defined.
+        return !exhibition.getStaffList().getStaffList().isEmpty();
     }
 }

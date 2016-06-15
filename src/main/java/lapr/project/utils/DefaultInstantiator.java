@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 import lapr.project.model.*;
 import lapr.project.model.exhibition.ExhibitionInicialState;
-import lapr.project.model.mechanisms.EquitableLoadMechanism;
+import lapr.project.model.mechanisms.attribution.EquitableLoadMechanism;
 
 /**
  * Util class to create instances to tests.
