@@ -66,11 +66,11 @@ public class DefaultInstantiator {
         Resource resource4 = new Resource("Wood");
         Resource resource5 = new Resource("Iron");
 
-        Stand stand1 = new Stand(44.4f);
-        Stand stand2 = new Stand(124.3f);
-        Stand stand3 = new Stand(33f);
-        Stand stand4 = new Stand(320.5f);
-        Stand stand5 = new Stand(30f);
+        Stand stand1 = new Stand(44.4f,"Smartphone's stand");
+        Stand stand2 = new Stand(124.3f,"Car stand");
+        Stand stand3 = new Stand(33f,"Stand of bicycles");
+        Stand stand4 = new Stand(320.5f,"Stand of operative systems");
+        Stand stand5 = new Stand(30f,"Stand not yet defined");
 
         StaffAttributionMechanism staffAttributionMechanism1 = new EquitableLoadMechanism();
 
@@ -108,7 +108,7 @@ public class DefaultInstantiator {
         keyWordsNodeJs.add(new Keyword("Development"));
 
         ExhibitionApplication exhibitionApplicationNodeJs = new ExhibitionApplication("Node JS", exhibitorBlip, 105.3f,
-                30, productListNodeJs, new ArrayList<>(),
+                30,new Stand(), productListNodeJs, new ArrayList<>(),
                 new ArrayList<>(), keyWordsNodeJs);
 
         // Applications computer science - Evaluations Node JS

@@ -25,13 +25,14 @@ import lapr.project.model.Submittable;
 import lapr.project.ui.AssignApplicationUI;
 
 /**
- * Represents a select exhibition dialog
+ * Represents a select submittable dialog
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
  * @author Ivo Ferro 1151159
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
+ * @param <T> type of the frame that calls this one
  */
 public class DialogSelectSubmittable<T extends JFrame> extends JDialog {
 
@@ -45,39 +46,39 @@ public class DialogSelectSubmittable<T extends JFrame> extends JDialog {
      */
     private final T parentFrame;
     /**
-     * Exhibitons list.
+     * Submittables list.
      */
-    private final List<Submittable> exhibitionList;
+    private final List<Submittable> submittabelsList;
     /**
-     * Table with the exhibitions.
+     * Table with the submittables.
      */
-    private JTable exhibitionListJTable;
+    private JTable submittablesListJTable;
     /**
-     * Select exhibition button.
+     * Select submittable button.
      */
-    private JButton btnSelectExhibition;
+    private JButton btnSelectSubmittable;
     /**
      * Window title.
      */
     private static final String TITLE = "Select submittable";
     /**
-     * Text for selecting exhibition.
+     * Text for selecting submittable.
      */
-    private static final String SELECT_EXHIBITION = "Select submittable";
+    private static final String SELECT_SUBMITTABLE = "Select submittable";
 
     /**
-     * Constructs a dialog to select a exhibition.
+     * Constructs a dialog to select a submittable.
      *
      * @param parentFrame the parent frame
-     * @param  exhibitionList the list of exhibition
+     * @param  submittablesList the list of submittables
      * @param  exhibitionCenter the exhibition center
      */
-    public DialogSelectSubmittable(T parentFrame, List<Submittable> exhibitionList, ExhibitionCenter exhibitionCenter) {
+    public DialogSelectSubmittable(T parentFrame, List<Submittable> submittablesList, ExhibitionCenter exhibitionCenter) {
         super(parentFrame, TITLE, true);
         
         this.exhibitionCenter = exhibitionCenter;      
         this.parentFrame = parentFrame;
-        this.exhibitionList = exhibitionList;
+        this.submittabelsList = submittablesList;
         
         createComponents();
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -88,11 +89,11 @@ public class DialogSelectSubmittable<T extends JFrame> extends JDialog {
     }
 
     /**
-     * Creates  the GUI components.
+     * Creates the GUI components.
      */
     private void createComponents() {
-        JPanel jPanel1 = createSelectExhibitionPanel();
-        JScrollPane jScrollPane2 = createJscrollPaneExhibitionsList();
+        JPanel jPanel1 = createSelectSubmittablePanel();
+        JScrollPane jScrollPane2 = createJscrollPaneSubmittablesList();
         JPanel jPanel3 = createJpanelBtns();
         
         add(jPanel1, BorderLayout.NORTH);
@@ -105,18 +106,18 @@ public class DialogSelectSubmittable<T extends JFrame> extends JDialog {
      *
      * @return north panel
      */
-    private JPanel createSelectExhibitionPanel() {
-        JLabel lbl = new JLabel(SELECT_EXHIBITION, JLabel.CENTER);
+    private JPanel createSelectSubmittablePanel() {
+        JLabel jLabel = new JLabel(SELECT_SUBMITTABLE, JLabel.CENTER);
         
-        JPanel p = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel jPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         final int MARGIN_SUPERIOR = 10, MARGIN_INFERIOR = 0;
         final int MARGIN_RIGHT = 0, MARGIN_LEFT = 0;
-        p.setBorder(new EmptyBorder(MARGIN_SUPERIOR, MARGIN_LEFT,
+        jPanel.setBorder(new EmptyBorder(MARGIN_SUPERIOR, MARGIN_LEFT,
                 MARGIN_INFERIOR, MARGIN_RIGHT));
         
-        p.add(lbl);
+        jPanel.add(jLabel);
         
-        return p;
+        return jPanel;
     }
 
     /**
@@ -124,30 +125,30 @@ public class DialogSelectSubmittable<T extends JFrame> extends JDialog {
      *
      * @return the center panel
      */
-    private JScrollPane createJscrollPaneExhibitionsList() {
-        exhibitionListJTable = new JTable(new ModelTableSubmittablesList(exhibitionList));
-        exhibitionListJTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    private JScrollPane createJscrollPaneSubmittablesList() {
+        submittablesListJTable = new JTable(new ModelTableSubmittablesList(submittabelsList));
+        submittablesListJTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
-        exhibitionListJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        submittablesListJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (exhibitionListJTable.getSelectedRow() >= 0) {
-                    btnSelectExhibition.setEnabled(true);
+                if (submittablesListJTable.getSelectedRow() >= 0) {
+                    btnSelectSubmittable.setEnabled(true);
                 } else {
-                    btnSelectExhibition.setEnabled(false);
+                    btnSelectSubmittable.setEnabled(false);
                 }
             }
         });
         
-        JScrollPane scrollPane = new JScrollPane(exhibitionListJTable);
+        JScrollPane jScrollPane = new JScrollPane(submittablesListJTable);
         
         final int MARGIN_SUPERIOR = 20, MARGIN_INFERIOR = 20;
         final int MARGIN_RIGHT = 20, MARGIN_LEFT = 20;
-        scrollPane.setBorder(BorderFactory.createEmptyBorder(MARGIN_SUPERIOR, MARGIN_LEFT,
+        jScrollPane.setBorder(BorderFactory.createEmptyBorder(MARGIN_SUPERIOR, MARGIN_LEFT,
                 MARGIN_INFERIOR, MARGIN_RIGHT));
         
-        return scrollPane;
+        return jScrollPane;
     }
 
     /**
@@ -156,20 +157,20 @@ public class DialogSelectSubmittable<T extends JFrame> extends JDialog {
      * @return south panel
      */
     private JPanel createJpanelBtns() {
-        this.btnSelectExhibition = criarBotaoSelecionarExposicao();
-        getRootPane().setDefaultButton(this.btnSelectExhibition);
+        this.btnSelectSubmittable = createBtnSelectSubmittable();
+        getRootPane().setDefaultButton(this.btnSelectSubmittable);
         
         JButton btnCancel = createCancelButton();
         
-        JPanel p = new JPanel(new FlowLayout());
+        JPanel jPanel = new JPanel(new FlowLayout());
         final int MARGIN_SUPERIOR = 10, MARGIN_INFERIOR = 0;
         final int MARGIN_RIGHT = 0, MARGIN_LEFT = 0;
-        p.setBorder(new EmptyBorder(MARGIN_SUPERIOR, MARGIN_LEFT,
+        jPanel.setBorder(new EmptyBorder(MARGIN_SUPERIOR, MARGIN_LEFT,
                 MARGIN_INFERIOR, MARGIN_RIGHT));
-        p.add(this.btnSelectExhibition);
-        p.add(btnCancel);
+        jPanel.add(this.btnSelectSubmittable);
+        jPanel.add(btnCancel);
         
-        return p;
+        return jPanel;
     }
 
     /**
@@ -193,11 +194,11 @@ public class DialogSelectSubmittable<T extends JFrame> extends JDialog {
     }
 
     /**
-     *Creates the select exhibition button.
+     *Creates the select submittable button.
      *
-     * @return the button to select exhibitions
+     * @return the button to select submittables
      */
-    private JButton criarBotaoSelecionarExposicao() {
+    private JButton createBtnSelectSubmittable() {
         JButton btn = new JButton("Select submittable");
         btn.setEnabled(false);
         btn.addActionListener(new ActionListener() {
@@ -206,7 +207,7 @@ public class DialogSelectSubmittable<T extends JFrame> extends JDialog {
 
                 //TODO: HAD TO CAST THIS SO I COULD USE THIS METHOD NEED TO FIND A BETTER WAY TO FIND OUT WHICH CLASS INSTANTIATES THIS
                 //
-                ((AssignApplicationUI) parentFrame).setExposicao(exhibitionList.get(exhibitionListJTable.getSelectedRow()));
+                ((AssignApplicationUI) parentFrame).setSubmittable(submittabelsList.get(submittablesListJTable.getSelectedRow()));
                 dispose();
             }
         });

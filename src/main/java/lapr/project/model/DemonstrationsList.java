@@ -181,6 +181,29 @@ public class DemonstrationsList {
         }
         return demonstrationsInChangedConflitctsStateList;
     }
+    
+    /**
+     * Returns the list of removables of this demonstration list filtered out by exhibitor responsible
+     * @param exhibitorResponsible exhibitor responsible to filter removables
+     * @return 
+     */
+    public List<Removable> getRetiraveis(ExhibitorResponsible exhibitorResponsible){
+        List<Removable> removablesList = new ArrayList();
+        List<Application> applicationsList = new ArrayList();
+        Removable removable;
+        for (Demonstration demonstration : this.demonstrationList) {
+                    applicationsList = demonstration.getApplicationsList().getApplicationsList();
+                    if (demonstration.getCurrentDemonstrationState().isOpenedApplications()) {
+                        for (Application application : applicationsList) {
+                            removable = (Removable) application;
+                            if (removable.getExhibitorResponsible().equals(exhibitorResponsible)) {
+                                removablesList.add(removable);
+                            }
+                        }
+                    }
+                }
+        return removablesList;
+    }
 
     /**
      * Create a new demonstration object.
@@ -253,7 +276,7 @@ public class DemonstrationsList {
     }
 
     /**
-     * Compares two OrganizersList objects.
+     * Compares two DemonstrationsList objects.
      *
      * @param otherObject Object to compare
      * @return true if the objects are equals.

@@ -15,7 +15,7 @@ import lapr.project.model.ExhibitionState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ExhibitionApplicationsInDecisionState implements ExhibitionState {
+public class ExhibitionDecidedApplicationsState implements ExhibitionState {
 
     /**
      * The exhibition to change state.
@@ -27,23 +27,24 @@ public class ExhibitionApplicationsInDecisionState implements ExhibitionState {
      *
      * @param exhibition Exhibition to change state
      */
-    public ExhibitionApplicationsInDecisionState(Exhibition exhibition) {
+    public ExhibitionDecidedApplicationsState(Exhibition exhibition) {
 
         this.exhibition = exhibition;
     }
 
     @Override
     public boolean isInicial() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean isCreated() {
         return false;
     }
 
     @Override
     public boolean setCreated() {
+
+        return false;
+    }
+
+    @Override
+    public boolean isCreated() {
         return false;
     }
 
@@ -64,6 +65,16 @@ public class ExhibitionApplicationsInDecisionState implements ExhibitionState {
 
     @Override
     public boolean isDemonstrationsDefined() {
+        return false;
+    }
+
+    @Override
+    public boolean setCompleted() {
+        return false;
+    }
+
+    @Override
+    public boolean isCompleted() {
         return false;
     }
 
@@ -125,30 +136,26 @@ public class ExhibitionApplicationsInDecisionState implements ExhibitionState {
 
     @Override
     public boolean isApplicationsInDecision() {
-        return true;
-    }
-
-    @Override
-    public boolean setApplicationsDecided() {
-
-        if (validate()) {
-            // TODO : Implement next state
-//            this.exhibition.setState(this);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean isApplicationsDecided() {
         return false;
     }
 
     @Override
-    public boolean validate() {
+    public boolean setApplicationsDecided() {
+        return false;
+    }
 
+    @Override
+    public boolean isApplicationsDecided() {
         return true;
+    }
+
+    /**
+      * Returns false, that is no next state for exhibition
+     * @return false because that is no next state for exhibition
+     */
+    @Override
+    public boolean validate() {
+        return false;
     }
 
 }

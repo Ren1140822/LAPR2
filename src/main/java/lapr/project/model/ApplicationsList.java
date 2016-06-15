@@ -94,6 +94,23 @@ public class ApplicationsList {
         return this.application;
     }
 
+    
+    
+    
+    public List<ExhibitionApplication> getApplicationsInAcceptedState(){
+        List<ExhibitionApplication> tmpApplications = new ArrayList<>();
+        for(Application application : applicationsList){
+             //ONLY TO VERIFY ALTHOUGH ALL APPLICATIONS ARE EXHIBITION APPLICATIONS 
+             if(application instanceof ExhibitionApplication){
+               boolean isAccepted= ((ExhibitionApplication)application).getCurrentState().isAccepted();
+               if(isAccepted){
+                   tmpApplications.add((ExhibitionApplication)application);
+               }
+             }
+        }
+        return tmpApplications;
+    }
+    
     /**
      * Return the textual representation of a ApplicationsList.
      *

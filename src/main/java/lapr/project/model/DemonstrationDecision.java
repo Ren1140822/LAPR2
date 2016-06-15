@@ -5,7 +5,6 @@ package lapr.project.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -15,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Eric Amaral 1141570
  * @author Ivo Ferro 1151159
  * @author Renato Oliveira 1140822
- * @author Ricardo Amaral 1151231
+ * @author Ricardo Correia 1151231
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

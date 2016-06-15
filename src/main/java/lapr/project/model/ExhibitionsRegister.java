@@ -171,6 +171,25 @@ public class ExhibitionsRegister implements Importable {
         return tempExhibitionList;
     }
 
+     /**
+     * Gets the exhibitions list with application Decided by Organizer.
+     *
+     * @param organizer the organizer to check for
+     * @return the exhibition list
+     */
+    public List<Exhibition> getExhibitionsListWithApplicationsDecidedByOrganizer(Organizer organizer) {
+        List<Exhibition> tempExhibitionList = new ArrayList();
+        for (Exhibition exhibition : exhibitionsList) {
+            boolean isApplicationsDecided = exhibition.getState().isApplicationsDecided();
+
+            if (isApplicationsDecided  && exhibition.getOrganizersList().isOrganizer(organizer)) {
+                tempExhibitionList.add(exhibition);
+            }
+        }
+        return tempExhibitionList;
+    }
+    
+    
     /**
      * Gets the submittables filtering by an Organizer and InChangedConflicts
      * state.
@@ -214,6 +233,33 @@ public class ExhibitionsRegister implements Importable {
         }
         return exhibitionListInRightState;
 
+    }
+
+    /**
+     * Returns the removables list filtered out by an exhibitor responsible
+     * @param exhibitorResponsible exhibitor responsible to filter removables
+     * @return the removables list filtered out by an exhibitor responsible
+     */
+    public List<Removable> getRemovables(ExhibitorResponsible exhibitorResponsible) {
+        List<Removable> removablesList = new ArrayList();
+        List<Application> applicationsList = new ArrayList();
+        Removable removable;
+
+        for (Exhibition exhibition : this.exhibitionsList) {
+            applicationsList = exhibition.getApplicationsList().getApplicationsList();
+            if (exhibition.getState().isOpenApplications()) {
+                for (Application application : applicationsList) {
+                    removable = (Removable) application;
+                    if (removable.getExhibitorResponsible().equals(exhibitorResponsible)) {
+                        removablesList.add(removable);
+                    }
+                }
+            }
+            if (exhibition.getState().isApplicationsDecided()) {
+                removablesList.addAll(exhibition.getDemonstrationsList().getRetiraveis(exhibitorResponsible));
+            }
+        }
+        return removablesList;
     }
 
     /**

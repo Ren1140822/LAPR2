@@ -5,6 +5,10 @@
  */
 package lapr.project.controller;
 
+import java.io.File;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsManager;
@@ -24,6 +28,7 @@ public class ImportExhibitionControllerTest {
 
     ImportExhibitionController controller;
     ExhibitionCenter exhibitionCenter;
+      File xmlFile ;
 
     public ImportExhibitionControllerTest() {
     }
@@ -41,10 +46,32 @@ public class ImportExhibitionControllerTest {
         exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
         ExhibitionsManager manager = new ExhibitionsManager();
         controller = new ImportExhibitionController(manager, exhibitionCenter);
+         Exhibition exhibitionTest = new Exhibition();//exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0);
+        
+        try{
+        // create JAXB context and instantiate marshaller
+        JAXBContext context = JAXBContext.newInstance(Exhibition.class);
+        Marshaller m = context.createMarshaller();
+        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+        // Write to System.out
+         xmlFile = new File("exhibitionTest.xml");
+
+        m.marshal(exhibitionTest, System.out);
+
+        m.marshal(exhibitionTest, xmlFile);
+
+        JAXBContext jaxbContext = JAXBContext.newInstance(Exhibition.class);
+        }
+        catch(JAXBException ex){
+            
+        }
+//
     }
 
     @After
     public void tearDown() {
+        xmlFile.delete();
     }
 
     /**
@@ -64,17 +91,17 @@ public class ImportExhibitionControllerTest {
      * Test of readExhibitionFromFile method, of class
      * ImportExhibitionController.
      */
-//    @Test
-//    public void testReadExhibitionFromFile() {
-//        System.out.println("readExhibitionFromFile");
-//        String filePath = "D:\\exhibition.xml";
-//        ImportExhibitionController instance = controller;
-//        instance.getExhibitionsRegister();
-//        Exhibition exhibition = instance.readExhibitionFromFile(filePath);
-//        Exhibition expectedExhibition = new Exhibition();
-//        assertEquals(exhibition, expectedExhibition);
-//
-//    }
+    @Test
+    public void testReadExhibitionFromFile() {
+        System.out.println("readExhibitionFromFile");
+        String filePath = "exhibitionTest.xml";
+        ImportExhibitionController instance = controller;
+        instance.getExhibitionsRegister();
+        Exhibition exhibition = instance.readExhibitionFromFile(filePath);
+        Exhibition expectedExhibition = new Exhibition();
+        assertEquals(exhibition, expectedExhibition);
+
+    }
 
     /**
      * Test of registerExhibition method, of class ImportExhibitionController.
