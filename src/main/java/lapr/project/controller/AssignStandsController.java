@@ -10,6 +10,8 @@ import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
 import lapr.project.model.Organizer;
+import lapr.project.model.Stand;
+import lapr.project.model.StandsRegister;
 
 
 /**
@@ -52,6 +54,15 @@ public class AssignStandsController {
     private List<ExhibitionApplication> applicationsList;
     
     /**
+     * The stands register.
+     */
+    private StandsRegister standsRegister;
+    /**
+     * The stands list.
+     */
+    private List<Stand> standsList;
+    
+    /**
      * Builds instance of this class receiving organizer and exhibition center as parameters.
      * @param organizer the organizer
      * @param exhibitionCenter the exhibition center
@@ -83,5 +94,24 @@ public class AssignStandsController {
         this.applicationsListClass = exhibition.getApplicationsList();
         this.applicationsList = applicationsListClass.getApplicationsInAcceptedState();
         return this.applicationsList;
+    }
+    
+    /**
+     * Gets the list of stands from exhibition center.
+     * @return  the list of stands
+     */
+    public List<Stand> getStandsList(){
+        this.standsRegister = exhibitionCenter.getStandsRegister();
+        this.standsList = standsRegister.getStandsList();
+        return this.standsList;
+    }
+    
+    /**
+     * Sets the stand of one application.
+     * @param exhibitionApplication the application to change the stand for
+     * @param stand the stand
+     */
+    public void setStand(ExhibitionApplication exhibitionApplication, Stand stand){
+        exhibitionApplication.setStand(stand);
     }
 }

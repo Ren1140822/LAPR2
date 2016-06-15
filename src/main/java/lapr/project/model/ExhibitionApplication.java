@@ -49,6 +49,11 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     private int numberInvitations;
 
     /**
+     * This application stand.
+     */
+    private Stand stand;
+    
+    /**
      * The list of products the company wishes to expose.
      */
     @XmlElementWrapper(name = "products_list")
@@ -102,6 +107,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     public ExhibitionApplication() {
         this.title = DEFAULT_TITLE;
         this.exhibitor = new Exhibitor();
+        this.stand = new Stand();
         this.exhibitorArea = DEFAULT_EXHIBITOR_AREA;
         this.numberInvitations = DEFAULT_NUMBER_INVITATION;
         this.productsList = new ArrayList<>();
@@ -125,7 +131,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @param keyWordList keywords list
      */
     public ExhibitionApplication(String title, Exhibitor exhibitor,
-            float exhibitorArea, int numberInvitations,
+            float exhibitorArea, int numberInvitations, Stand stand,
             List<Product> productList, List<Demonstration> demonstrationsList,
             List<Evaluation> evaluationsList, List<Keyword> keyWordList) {
         this.title = title;
@@ -137,6 +143,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.keywordsList = keyWordList;
         this.evaluationsList = new ArrayList(evaluationsList);
         this.currentState = new ApplicationInitialState(this);
+        this.stand = stand;
 
     }
 
@@ -156,6 +163,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.evaluationsList = new ArrayList(exhibitionApplication.evaluationsList);
         this.keywordsList = new ArrayList(exhibitionApplication.keywordsList);
         this.currentState = exhibitionApplication.currentState;
+        this.stand = exhibitionApplication.stand;
     }
 
     /**
@@ -197,6 +205,16 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         return this.numberInvitations;
     }
 
+    /**
+     * Returns this instance stand.
+     * @return the stand.
+     */
+    public Stand getStand() {
+        return stand;
+    }
+
+    
+    
     /**
      * Returns list of demonstrations.
      *
@@ -257,6 +275,17 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
+     * Sets the stand.
+     * @param stand  the stand to set
+     */
+    public void setStand(Stand stand) {
+        this.stand = stand;
+    }
+
+    
+    
+    
+    /**
      * Sets the number of invitations.
      *
      * @param numberInvitations number of invitations
@@ -305,6 +334,8 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.exhibitor = exhibitor;
     }
 
+    
+    
     /**
      * Creates a new Exhibitor.
      *
