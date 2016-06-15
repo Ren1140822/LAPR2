@@ -193,7 +193,7 @@ public class DemonstrationsList {
         Removable removable;
         for (Demonstration demonstration : this.demonstrationList) {
                     applicationsList = demonstration.getApplicationsList().getApplicationsList();
-                    if (demonstration.getCurrentDemonstrationState().isOpenedApplications()) {
+                    if (demonstration.getCurrentState().isOpenedApplications()) {
                         for (Application application : applicationsList) {
                             removable = (Removable) application;
                             if (removable.getExhibitorResponsible().equals(exhibitorResponsible)) {

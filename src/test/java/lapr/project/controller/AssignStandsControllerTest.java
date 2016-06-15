@@ -13,7 +13,7 @@ import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.Organizer;
 import lapr.project.model.application.ApplicationInDecidedState;
-import lapr.project.model.exhibition.ExhibitionApplicationsDecidedState;
+import lapr.project.model.exhibition.ExhibitionDecidedApplicationsState;
 import lapr.project.utils.DefaultInstantiator;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -54,7 +54,7 @@ public class AssignStandsControllerTest {
         application.setState(new ApplicationInDecidedState(application));
         expectedResultApplication.add((ExhibitionApplication)application);
         organizer = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getOrganizersList().getOrganizersList().get(0);
-        exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).setState(new ExhibitionApplicationsDecidedState(exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0)));
+        exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).setState(new ExhibitionDecidedApplicationsState(exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0)));
         expectedResult.add(exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0));
         controller = new AssignStandsController(organizer, exhibitionCenter);
     }
