@@ -171,6 +171,25 @@ public class ExhibitionsRegister implements Importable {
         return tempExhibitionList;
     }
 
+     /**
+     * Gets the exhibitions list with application Decided by Organizer.
+     *
+     * @param organizer the organizer to check for
+     * @return the exhibition list
+     */
+    public List<Exhibition> getExhibitionsListWithApplicationsDecidedByOrganizer(Organizer organizer) {
+        List<Exhibition> tempExhibitionList = new ArrayList();
+        for (Exhibition exhibition : exhibitionsList) {
+            boolean isApplicationsDecided = exhibition.getState().isApplicationsDecided();
+
+            if (isApplicationsDecided  && exhibition.getOrganizersList().isOrganizer(organizer)) {
+                tempExhibitionList.add(exhibition);
+            }
+        }
+        return tempExhibitionList;
+    }
+    
+    
     /**
      * Gets the submittables filtering by an Organizer and InChangedConflicts
      * state.

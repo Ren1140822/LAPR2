@@ -226,7 +226,7 @@ public class ExhibitionCenter {
         }
         ExhibitionCenter otherExhibitionCenter = (ExhibitionCenter) otherObject;
 
-        return this.exhibitionsRegister.equals(otherExhibitionCenter.exhibitionsRegister) // TODO : Implement all equals related to ExhibitionCenter attributes
-                ;
+        return this.exhibitionsRegister.equals(otherExhibitionCenter.exhibitionsRegister); // TODO : Implement all equals related to ExhibitionCenter attributes
+
     }
 }
