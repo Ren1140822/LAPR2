@@ -176,9 +176,9 @@ public class ExhibitionsRegister implements Importable {
      * @return the exhibition list without Demonstrations defined by Organizer
      */
     public List<Exhibition> getExhibitionsListWithoutDemosDefined(Organizer organizer) {
-        
+
         List<Exhibition> exhibitionsList = new ArrayList();
-        
+
         for (Exhibition exhibition : this.exhibitionsList) {
 
             if (exhibition.isNotDemonstrationsDefined() && exhibition.getOrganizersList().hasOrganizer(organizer)) {
@@ -252,6 +252,37 @@ public class ExhibitionsRegister implements Importable {
     }
 
     /**
+     * Gets the submittable filtering by the exhibitor responsible and application in submission state
+     * 
+     * @param exhibitorResponsible exhibitor responsible
+     * @return list of submittable filtering by the exhibitor responsible and application in submission state
+     */
+    public List<Submittable> getSubmittablesApplicationInSubmissionByExhibitorResponsible(ExhibitorResponsible exhibitorResponsible) {
+        List<Submittable> submittables = new ArrayList<>();
+
+        for (Exhibition exhibition : this.exhibitionsList) {
+
+            ApplicationsList applicationsListExhibition = exhibition.getApplicationsList();
+            if (applicationsListExhibition.isEditableOfExhibitorResponsibleInSubmission(exhibitorResponsible)) {
+                submittables.add(exhibition);
+            }
+
+            DemonstrationsList demonstrationsList = exhibition.getDemonstrationsList();
+            List<Demonstration> demonstrations = demonstrationsList.getDemonstrationsList();
+            
+            for (Demonstration demonstration : demonstrations) {
+
+                ApplicationsList applicationsListDemonstration = demonstration.getApplicationsList();
+                if (applicationsListDemonstration.isEditableOfExhibitorResponsibleInSubmission(exhibitorResponsible)) {
+                    submittables.add(demonstration);
+                }
+            }
+        }
+
+        return submittables;
+    }
+
+    /**
      * Returns the removables list filtered out by an exhibitor responsible
      *
      * @param exhibitorResponsible exhibitor responsible to filter removables
@@ -282,6 +313,8 @@ public class ExhibitionsRegister implements Importable {
     /**
      * Returns the textual interpretation of the objects and attributes of this
      * class
+     * 
+     * @return textual representation for this object
      */
     @Override
     public String toString() {
