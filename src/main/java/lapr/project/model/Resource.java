@@ -65,9 +65,37 @@ public class Resource {
     public void setDesignation(String designation) {
         this.designation = designation;
     }
+    
+    public boolean validate() {
+        return this.designation.length() > 0;
+    }
 
+    /**
+     * Returns a textual representation for the resource.
+     *
+     * @return textual representation for the resource
+     */
     @Override
     public String toString() {
         return String.format("Resource{%ndesignation=%s%n", this.designation);
+    }
+    
+    /**
+     * Compares if this object is equal to otherObject.
+     *
+     * @param otherObject other object to compare with
+     * @return true if it repreents the same object, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+        Resource otherResource = (Resource) otherObject;
+
+        return this.designation.equals(otherResource.designation);
     }
 }

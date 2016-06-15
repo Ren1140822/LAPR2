@@ -15,7 +15,6 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-
 public class ResourcesRegister {
 
     /**
@@ -63,11 +62,64 @@ public class ResourcesRegister {
      *
      * @param resourcesList list of resources
      */
-  
     public void setResourcesList(List<Resource> resourcesList) {
         this.resourcesList = new ArrayList<>(resourcesList);
     }
 
+    /**
+     * Creates an resouce with its default values.
+     *
+     * @return new resource
+     */
+    public Resource newResource() {
+        return new Resource();
+    }
+
+    /**
+     * Validate if a resource is valid.
+     *
+     * @param resource resource to be validate
+     * @return true if it is valid, false otherwise
+     */
+    public boolean validateResource(Resource resource) {
+        return resource.validate() && validate(resource);
+    }
+
+    /**
+     * Validate if the resource can be defined on the resources list.
+     *
+     * @param resource the resource to be validate
+     * @return true if its valid, false otherwise
+     */
+    private boolean validate(Resource resource) {
+        return !this.resourcesList.contains(resource);
+    }
+
+    /**
+     * Register a resource.
+     *
+     * @param resource resource to be registered
+     * @return true if it is successfull registered, false otherwise
+     */
+    public boolean registerResource(Resource resource) {
+        return !this.resourcesList.contains(resource) ? addResource(resource) : false;
+    }
+
+    /**
+     * Adds a resource to the resources list.
+     *
+     * @param resource resource to be added
+     * @return true if it is successfull added, false otherwise
+     */
+    private boolean addResource(Resource resource) {
+        return this.resourcesList.add(resource);
+    }
+
+    /**
+     * Return the textual representation of this resource register.
+     *
+     * @return the textual representation of this resource register
+     */
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
@@ -77,6 +129,26 @@ public class ResourcesRegister {
         }
         s.append("}");
         return s.toString();
+    }
+
+    /**
+     * Compares if the given object is equal to this resource register.
+     *
+     * @param otherObject Object to compare
+     * @return true if the objects are equals, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || getClass() != otherObject.getClass()) {
+            return false;
+        }
+        ResourcesRegister otherResourcesRegister = (ResourcesRegister) otherObject;
+
+        return this.resourcesList.equals(otherResourcesRegister.resourcesList);
     }
 
 }
