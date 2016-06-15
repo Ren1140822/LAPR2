@@ -3,7 +3,6 @@
  */
 package lapr.project.model;
 
-
 /**
  * Interface for submittable applications.
  *
@@ -37,6 +36,13 @@ public interface Submittable {
     StaffList getStaffList();
 
     /**
+     * Obtain the conflicts list
+     *
+     * @return the conflicts list
+     */
+    ConflictsList getConflictsList();
+
+    /**
      * Set staff attributions list
      *
      * @param staffAttributionsList the new staff attributions list
@@ -54,12 +60,12 @@ public interface Submittable {
      * Set submittable to InApplicationsInEvaluation state
      */
     public void setSubmittableInApplicationsInEvaluationState();
-    
-    public String[]getInfo();
+
+    public String[] getInfo();
 
     /**
      * Remove a staff attribution.
-     * 
+     *
      * @param staffAttribution staff attribution
      * @return true if it is removed with successfull, false otherwise
      */

@@ -74,6 +74,11 @@ public class Demonstration implements Submittable {
     private StaffAttributionsList staffAttributionsList;
 
     /**
+     * Demonstration's conflicts list.
+     */
+    private ConflictsList conflictsList;
+
+    /**
      * The demonstration current state.
      */
     @XmlTransient
@@ -101,6 +106,7 @@ public class Demonstration implements Submittable {
         this.applicationsList = new ApplicationsList();
         this.resourcesList = new ArrayList<>();
         this.staffAttributionsList = new StaffAttributionsList();
+        this.conflictsList = new ConflictsList();
         //this.currentDemonstrationState = new DemonstrationInitialState(this);
     }
 
@@ -118,6 +124,7 @@ public class Demonstration implements Submittable {
         this.applicationsList = new ApplicationsList();
         this.resourcesList = new ArrayList<>();
         this.staffAttributionsList = new StaffAttributionsList();
+        this.conflictsList = new ConflictsList();
         //this.currentDemonstrationState = new DemonstrationInitialState(this);
     }
 
@@ -132,8 +139,11 @@ public class Demonstration implements Submittable {
      * @param applicationsList applications list
      * @param resourcesList resources list
      * @param staffAttributionsList staff attributions list
+     * @param conflictsList conficts list
      */
-    public Demonstration(String title, String description, Place place, StaffList staffList, OrganizersList organizersList, ApplicationsList applicationsList, List<Resource> resourcesList, StaffAttributionsList staffAttributionsList) {
+    public Demonstration(String title, String description, Place place, StaffList staffList, 
+            OrganizersList organizersList, ApplicationsList applicationsList, List<Resource> resourcesList, 
+            StaffAttributionsList staffAttributionsList, ConflictsList conflictsList) {
         this.title = title;
         this.description = description;
         this.place = place;
@@ -142,6 +152,7 @@ public class Demonstration implements Submittable {
         this.applicationsList = new ApplicationsList(applicationsList);
         this.resourcesList = new ArrayList<>(resourcesList);
         this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
+        this.conflictsList = new ConflictsList(conflictsList);
         //this.currentDemonstrationState = new DemonstationInitialState(this);
     }
 
@@ -160,6 +171,7 @@ public class Demonstration implements Submittable {
         this.resourcesList = new ArrayList<>(demonstration.resourcesList);
         this.staffAttributionsList = new StaffAttributionsList(demonstration.staffAttributionsList);
         this.currentDemonstrationState = demonstration.currentDemonstrationState;
+        this.conflictsList = new ConflictsList(demonstration.conflictsList);
     }
 
     /**
@@ -269,6 +281,25 @@ public class Demonstration implements Submittable {
      */
     public void setStaffList(StaffList staffList) {
         this.staffList = staffList;
+    }
+
+    /**
+     * Obtain the Demonstration's conflicts list.
+     *
+     * @return the Demonstration's conflicts list
+     */
+    @Override
+    public ConflictsList getConflictsList() {
+        return this.conflictsList;
+    }
+
+    /**
+     * Set the Demonstration's conflicts list.
+     *
+     * @param conflictsList the Demonstration's conflicts list to set
+     */
+    public void setConflictsList(ConflictsList conflictsList) {
+        this.conflictsList = new ConflictsList(conflictsList);
     }
 
     /**

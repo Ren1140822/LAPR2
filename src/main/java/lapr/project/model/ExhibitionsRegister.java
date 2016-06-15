@@ -23,8 +23,7 @@ import lapr.project.utils.Importable;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-
-public class ExhibitionsRegister implements Importable{
+public class ExhibitionsRegister implements Importable {
 
     /**
      * exhibitions List of ExhibitionsRegister
@@ -87,7 +86,6 @@ public class ExhibitionsRegister implements Importable{
      *
      * @param exhibitionsList exhibitions list
      */
-   
     public void setExhibitionsList(List<Exhibition> exhibitionsList) {
         this.exhibitionsList = new ArrayList(exhibitionsList);
     }
@@ -123,12 +121,12 @@ public class ExhibitionsRegister implements Importable{
     public boolean registerExhibition(Exhibition exhibition) {
 
         exhibition.createTimers();
-        
+
         return (exhibition.setCreatedState() && validateExhibition(exhibition)) ? addExhibition(exhibition) : false;
     }
-    
-    public boolean registerImportedExhibition(Exhibition exhibition){
-        return(validateExhibition(exhibition)?addExhibition(exhibition):false);
+
+    public boolean registerImportedExhibition(Exhibition exhibition) {
+        return (validateExhibition(exhibition) ? addExhibition(exhibition) : false);
     }
 
     /**
@@ -157,21 +155,22 @@ public class ExhibitionsRegister implements Importable{
 
     /**
      * Gets the exhibitions list without StaffMember by Organizer.
+     *
      * @param organizer the organizer to check for
      * @return the exhibition list
      */
-    public List<Exhibition> getExhibitionsListWithoutStaffMemberByOrganizer(Organizer organizer){
+    public List<Exhibition> getExhibitionsListWithoutStaffMemberByOrganizer(Organizer organizer) {
         List<Exhibition> tempExhibitionList = new ArrayList();
-        for(Exhibition exhibition:exhibitionsList){
-                    boolean isStaffMemberDefined = exhibition.getState().isStaffDefined();
-                    
-                    if(!isStaffMemberDefined&&exhibition.getOrganizersList().isOrganizer(organizer)){
-                        tempExhibitionList.add(exhibition);
-                    }
+        for (Exhibition exhibition : exhibitionsList) {
+            boolean isStaffMemberDefined = exhibition.getState().isStaffDefined();
+
+            if (!isStaffMemberDefined && exhibition.getOrganizersList().isOrganizer(organizer)) {
+                tempExhibitionList.add(exhibition);
             }
+        }
         return tempExhibitionList;
     }
-    
+
     /**
      * Gets the submittables filtering by an Organizer and InChangedConflicts
      * state.
@@ -234,26 +233,26 @@ public class ExhibitionsRegister implements Importable{
 
     /**
      * Imports a exhibition from a XML file.
+     *
      * @param fileName the name of the file with path
      * @return a exhibition created from the file
      */
     @Override
     public Exhibition importExhibitionByFileName(String fileName) {
         Exhibition exhibition;
-        try{
-         File xmlFile = new File(fileName);
-          JAXBContext jaxbContext = JAXBContext.newInstance(Exhibition.class);
+        try {
+            File xmlFile = new File(fileName);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Exhibition.class);
 
-        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
-        exhibition = (Exhibition) jaxbUnmarshaller.unmarshal(xmlFile);
-         return exhibition;
-        
+            exhibition = (Exhibition) jaxbUnmarshaller.unmarshal(xmlFile);
+            return exhibition;
+
+        } catch (JAXBException ex) {
+            JOptionPane.showMessageDialog(null, "Error ocurred while importing.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        catch(JAXBException ex){
-            JOptionPane.showMessageDialog(null, "Error ocurred while importing.","Error",JOptionPane.ERROR_MESSAGE);
-        }
-       return null;
+        return null;
     }
 
 }
