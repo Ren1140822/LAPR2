@@ -5,6 +5,7 @@ package lapr.project.controller;
 
 import java.util.List;
 import lapr.project.model.Demonstration;
+import lapr.project.model.DemonstrationsList;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
@@ -34,7 +35,7 @@ public class CreateDemonstrationController {
     /**
      * The selected exhibition.
      */
-    private Exhibition exhibition;
+    private Exhibition selectedExhibition;
 
     /**
      * The new demonstration
@@ -52,10 +53,62 @@ public class CreateDemonstrationController {
         this.organizer = organizer;
     }
 
+    /**
+     * Obtain the exhibition center.
+     * 
+     * @return the exhibition center
+     */
+    public ExhibitionCenter getExhibitionCenter() {
+        return exhibitionCenter;
+    }
+
+    /**
+     * Obtain the selected exhibition.
+     * 
+     * @return the selected exhibition
+     */
+    public Exhibition getSelectedExhibition() {
+        return selectedExhibition;
+    }
+
+    /**
+     * Set the selected exhibition.
+     * 
+     * @param selectedExhibition the selected exhibition to set
+     */
+    public void setSelectedExhibition(Exhibition selectedExhibition) {
+        this.selectedExhibition = selectedExhibition;
+    }
+
+    /**
+     * Obtain the demonstration.
+     * 
+     * @return the demonstration
+     */
+    public Demonstration getDemonstration() {
+        return demonstration;
+    }
+
+    /**
+     * Set the demonstration.
+     * 
+     * @param demonstration the demonstration to set
+     */
+    public void setDemonstration(Demonstration demonstration) {
+        this.demonstration = demonstration;
+    }
+
     public List<Exhibition> getExhibitionsList(Organizer organizer) {
 
-        ExhibitionsRegister exhibitionsRegister = this.exhibitionCenter.getExhibitionsRegister();
+        ExhibitionsRegister exhibitionsRegister = this.getExhibitionCenter().getExhibitionsRegister();
         
         return exhibitionsRegister.getExhibitionsListWithoutDemosDefined(organizer);
+    }
+    
+    public void newDemonstration() {
+        
+        DemonstrationsList demonstrationsList = this.getSelectedExhibition().getDemonstrationsList();
+        
+        this.setDemonstration(demonstrationsList.newDemonstration());
     }
 }

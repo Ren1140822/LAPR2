@@ -9,14 +9,11 @@ import java.util.List;
 import lapr.project.model.exhibition.ExhibitionCreatedState;
 import lapr.project.model.exhibition.ExhibitionStaffWithoutDemosState;
 import lapr.project.utils.DefaultInstantiator;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import org.junit.BeforeClass;
 
 /**
  * Tests a exhibitions register.
