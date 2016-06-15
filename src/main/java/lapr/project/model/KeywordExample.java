@@ -87,31 +87,6 @@ public class KeywordExample implements Exportable {
 		return node;
 	}
 
-//	@Override
-//	public KeywordExample importContentFromXMLNode(Node node) {
-//		try {
-//			DocumentBuilderFactory factory =
-//					DocumentBuilderFactory.newInstance();
-//			//Create document builder
-//			DocumentBuilder builder = factory.newDocumentBuilder();
-//
-//			//Obtain a new document
-//			Document document = builder.newDocument();
-//
-//			document.appendChild(document.importNode(node, true));
-//
-//			NodeList elementsKeyword = document.getElementsByTagName(VALUE_ELEMENT_NAME);
-//
-//			Node elementKeyword = elementsKeyword.item(0);
-//
-//			//Get value
-//			this.value = elementKeyword.getFirstChild().getNodeValue();
-//		} catch (ParserConfigurationException e) {
-//			e.printStackTrace();
-//			throw new RuntimeException(e);
-//		}
-//		return this;
-//	}
 
 	@Override
 	public boolean equals(Object o) {

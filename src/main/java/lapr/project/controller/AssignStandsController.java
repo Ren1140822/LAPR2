@@ -40,11 +40,6 @@ public class AssignStandsController {
     private ExhibitionCenter exhibitionCenter;
     
     /**
-     * The organizer.
-     */
-    private Organizer organizer;
-    
-    /**
      * The applications list class.
      */
     private ApplicationsList applicationsListClass;
@@ -69,7 +64,7 @@ public class AssignStandsController {
      */
     public AssignStandsController(Organizer organizer,ExhibitionCenter exhibitionCenter)
     {
-            this.organizer = organizer;
+//            this.organizer = organizer;
             this.exhibitionCenter = exhibitionCenter;
     }
     
