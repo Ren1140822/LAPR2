@@ -63,7 +63,9 @@ public class ExhibitorResponsible {
 
     /**
      * Returns the textual representation of the attributes of this class.
+     * @return the textual representation of the attributes of this class.
      */
+    @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append("ExhibitorResponsible{");
@@ -72,5 +74,25 @@ public class ExhibitorResponsible {
 
         s.append("}");
         return s.toString();
+    }
+    
+    /**
+     * Compares two ExhibitorResponsible objects.
+     *
+     * @param otherObject Object to compare
+     * @return true if the objects are equals.
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || getClass() != otherObject.getClass()) {
+            return false;
+        }
+        ExhibitorResponsible otherExhibitorResponsible = (ExhibitorResponsible) otherObject;
+
+        return this.user.equals(otherExhibitorResponsible.user);
     }
 }

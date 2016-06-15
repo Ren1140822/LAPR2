@@ -217,6 +217,33 @@ public class ExhibitionsRegister implements Importable {
     }
 
     /**
+     * Returns the removables list filtered out by an exhibitor responsible
+     * @param exhibitorResponsible exhibitor responsible to filter removables
+     * @return the removables list filtered out by an exhibitor responsible
+     */
+    public List<Removable> getRemovables(ExhibitorResponsible exhibitorResponsible) {
+        List<Removable> removablesList = new ArrayList();
+        List<Application> applicationsList = new ArrayList();
+        Removable removable;
+
+        for (Exhibition exhibition : this.exhibitionsList) {
+            applicationsList = exhibition.getApplicationsList().getApplicationsList();
+            if (exhibition.getState().isOpenApplications()) {
+                for (Application application : applicationsList) {
+                    removable = (Removable) application;
+                    if (removable.getExhibitorResponsible().equals(exhibitorResponsible)) {
+                        removablesList.add(removable);
+                    }
+                }
+            }
+            if (exhibition.getState().isApplicationsDecided()) {
+                removablesList.addAll(exhibition.getDemonstrationsList().getRetiraveis(exhibitorResponsible));
+            }
+        }
+        return removablesList;
+    }
+
+    /**
      * Returns the textual interpretation of the objects and attributes of this
      * class
      */

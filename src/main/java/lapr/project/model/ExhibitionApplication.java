@@ -25,7 +25,7 @@ import lapr.project.model.application.ApplicationInitialState;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ExhibitionApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable {
+public class ExhibitionApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable, Removable {
 
     /**
      * The title of the application.
@@ -526,6 +526,23 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     @Override
     public float getArea() {
         return this.exhibitorArea;
+    }
+
+    /**
+     * Sets exhibition application state to removable.
+     */
+    @Override
+    public boolean setInRemovable() {
+        return this.currentState.setRemoved();
+    }
+
+    /**
+     * Gets the exhibitor responsible of the exhibitor of this exhibition application
+     * @return the exhibitor responsible of the exhibitor of this exhibition application
+     */
+    @Override
+    public ExhibitorResponsible getExhibitorResponsible() {
+        return this.exhibitor.getExhibitorResponsible();
     }
 
 }
