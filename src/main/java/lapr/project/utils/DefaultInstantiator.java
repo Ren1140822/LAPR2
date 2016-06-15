@@ -108,7 +108,7 @@ public class DefaultInstantiator {
         keyWordsNodeJs.add(new Keyword("Development"));
 
         ExhibitionApplication exhibitionApplicationNodeJs = new ExhibitionApplication("Node JS", exhibitorBlip, 105.3f,
-                30, productListNodeJs, new ArrayList<>(),
+                30,new Stand(), productListNodeJs, new ArrayList<>(),
                 new ArrayList<>(), keyWordsNodeJs);
 
         // Applications computer science - Evaluations Node JS

@@ -162,7 +162,7 @@ public class ExhibitionApplicationController {
      * @return true if all conditions to add the applications are fulfilled
      */
     public boolean validateExhibitionApplication() {
-        return (this.exhibitionApplication.validateApplication() && !this.applicationList.getApplicationsList().contains(this.exhibitionApplication));
+        return this.exhibitionApplication.validateApplication() && !this.applicationList.getApplicationsList().contains(this.exhibitionApplication);
 
     }
 

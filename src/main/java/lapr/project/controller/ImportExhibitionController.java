@@ -9,7 +9,7 @@ import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.ExhibitionsRegister;
 
 /**
- * Represents a exhibitions register
+ * Represents a import exhibitions controller.
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
@@ -24,10 +24,10 @@ public class ImportExhibitionController {
      */
     private ExhibitionCenter exhibitionCenter;
 
-    /**
-     * The exhibition manager.
-     */
-    private ExhibitionsManager exhibitionsManager;
+//    /**
+//     * The exhibition manager.
+//     */
+//    private ExhibitionsManager exhibitionsManager;
     /**
      * The exhibitions Register.
      */
@@ -46,7 +46,7 @@ public class ImportExhibitionController {
      */
     public ImportExhibitionController(ExhibitionsManager exhibitionsManager, ExhibitionCenter exhibitionCenter) {
         this.exhibitionCenter = exhibitionCenter;
-        this.exhibitionsManager = exhibitionsManager;
+//        this.exhibitionsManager = exhibitionsManager;
     }
 
     /**

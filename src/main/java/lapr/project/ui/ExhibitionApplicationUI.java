@@ -449,7 +449,7 @@ public class ExhibitionApplicationUI extends JFrame {
                     String title = txtTitle.getText();
                     float exhibitorArea = Float.parseFloat(txtExhibitorArea.getText());
                     int numberInvites = Integer.parseInt(txtNumberInvites.getText());
-                    exhibitionApplicationController.setData(title, companyName, companyName, cellphone, exhibitorArea, numberInvites);
+                    exhibitionApplicationController.setData(title, companyName, address, cellphone, exhibitorArea, numberInvites);
 
                     List<Demonstration> selectedDemonstrationsList = getSelectedDemonstrationsList();
                     exhibitionApplicationController.setDemonstrationsList(selectedDemonstrationsList);
