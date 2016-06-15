@@ -26,7 +26,7 @@ public class Stand {
      * Stand's area.
      */
     private float area;
-    
+
     /**
      * Stand's description.
      */
@@ -41,7 +41,7 @@ public class Stand {
      * Stand's default area.
      */
     private static final float DEFAULT_AREA = 0.0f;
-    
+
     /**
      * Stand's default description.
      */
@@ -106,7 +106,7 @@ public class Stand {
     public float getArea() {
         return area;
     }
-    
+
     /**
      * Set the stand's area.
      *
@@ -116,22 +116,22 @@ public class Stand {
     public void setArea(float area) {
         this.area = area;
     }
-    
+
     /**
      * Obtain the stand's description.
-     * 
+     *
      * @return description the stand's description
      */
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
-    
+
     /**
      * Set the stand's description.
-     * 
+     *
      * @param description the stand's description
      */
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -143,6 +143,25 @@ public class Stand {
     @Override
     public String toString() {
         return String.format("Stand{%nnumberID=%d%narea=%.1f%ndescription=%s}", this.numberID, this.area, this.description);
+    }
+
+    /**
+     * Compares if this object is equal to otherObject.
+     *
+     * @param otherObject other object to compare with
+     * @return true if it is equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+        Stand otherStand = (Stand) otherObject;
+
+        return this.area == otherStand.area && this.description.equals(otherStand.description) && this.numberID == otherStand.numberID;
     }
 
 }

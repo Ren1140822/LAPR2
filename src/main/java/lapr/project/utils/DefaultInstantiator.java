@@ -51,7 +51,7 @@ public class DefaultInstantiator {
         User userGoncaloQuadros = new User("Gonçalo Quadros", "gonacaloquadros", "goncaloquadros@critical.software.com", "432+Rew", new ArrayList<>());
 
         ExhibitorResponsible exhibitorResponsibleSonae = new ExhibitorResponsible(userBelmiro);
-        ExhibitorResponsible exhibitorResponsibleblip = new ExhibitorResponsible(userFabioSilva);
+        ExhibitorResponsible exhibitorResponsibleBlip = new ExhibitorResponsible(userFabioSilva);
         ExhibitorResponsible exhibitorResponsibleCritical = new ExhibitorResponsible(userGoncaloQuadros);
 
         Product product1 = new Product("Projetor");
@@ -66,11 +66,11 @@ public class DefaultInstantiator {
         Resource resource4 = new Resource("Wood");
         Resource resource5 = new Resource("Iron");
 
-        Stand stand1 = new Stand(44.4f,"Smartphone's stand");
-        Stand stand2 = new Stand(124.3f,"Car stand");
-        Stand stand3 = new Stand(33f,"Stand of bicycles");
-        Stand stand4 = new Stand(320.5f,"Stand of operative systems");
-        Stand stand5 = new Stand(30f,"Stand not yet defined");
+        Stand stand1 = new Stand(44.4f, "Smartphone's stand");
+        Stand stand2 = new Stand(124.3f, "Car stand");
+        Stand stand3 = new Stand(33f, "Stand of bicycles");
+        Stand stand4 = new Stand(320.5f, "Stand of operative systems");
+        Stand stand5 = new Stand(30f, "Stand not yet defined");
 
         StaffAttributionMechanism staffAttributionMechanism1 = new EquitableLoadMechanism();
 
@@ -107,8 +107,10 @@ public class DefaultInstantiator {
         keyWordsNodeJs.add(new Keyword("WWW"));
         keyWordsNodeJs.add(new Keyword("Development"));
 
+        exhibitorBlip.setExhibitorResponsible(exhibitorResponsibleBlip);
+
         ExhibitionApplication exhibitionApplicationNodeJs = new ExhibitionApplication("Node JS", exhibitorBlip, 105.3f,
-                30,new Stand(), productListNodeJs, new ArrayList<>(),
+                30, new Stand(), productListNodeJs, new ArrayList<>(),
                 new ArrayList<>(), keyWordsNodeJs);
 
         // Applications computer science - Evaluations Node JS

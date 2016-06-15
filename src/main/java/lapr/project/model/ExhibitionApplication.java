@@ -25,7 +25,7 @@ import lapr.project.model.application.ApplicationInitialState;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ExhibitionApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable, Removable {
+public class ExhibitionApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable, Removable, Editable {
 
     /**
      * The title of the application.
@@ -52,7 +52,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * This application stand.
      */
     private Stand stand;
-    
+
     /**
      * The list of products the company wishes to expose.
      */
@@ -70,7 +70,6 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     /**
      * The evaluation lists of this application.
      */
-    
     @XmlElementWrapper(name = "evaluations_list")
     @XmlElement(name = "evaluation")
     private List<Evaluation> evaluationsList;
@@ -181,7 +180,6 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param title title of the application
      */
-    
     public void setTitle(String title) {
         this.title = title;
     }
@@ -207,14 +205,13 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
 
     /**
      * Returns this instance stand.
+     *
      * @return the stand.
      */
     public Stand getStand() {
         return stand;
     }
 
-    
-    
     /**
      * Returns list of demonstrations.
      *
@@ -269,28 +266,24 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param exhibitorArea sets exhibitor area
      */
-
     public void setExhibitorArea(float exhibitorArea) {
         this.exhibitorArea = exhibitorArea;
     }
 
     /**
      * Sets the stand.
-     * @param stand  the stand to set
+     *
+     * @param stand the stand to set
      */
     public void setStand(Stand stand) {
         this.stand = stand;
     }
 
-    
-    
-    
     /**
      * Sets the number of invitations.
      *
      * @param numberInvitations number of invitations
      */
-
     public void setNumberInvitations(int numberInvitations) {
         this.numberInvitations = numberInvitations;
     }
@@ -300,7 +293,6 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param demonstrationsList the demonstration list
      */
-    
     public void setDemonstrationsList(List<Demonstration> demonstrationsList) {
         this.demonstrationsList = new ArrayList(demonstrationsList);
     }
@@ -310,7 +302,6 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param productsList procucts list
      */
-     
     public void setProductsList(List<Product> productsList) {
         this.productsList = new ArrayList(productsList);
     }
@@ -320,7 +311,6 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param evaluationsList the evaluation's list
      */
-
     public void setEvaluationsList(List<Evaluation> evaluationsList) {
         this.evaluationsList = new ArrayList(evaluationsList);
     }
@@ -334,8 +324,6 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.exhibitor = exhibitor;
     }
 
-    
-    
     /**
      * Creates a new Exhibitor.
      *
@@ -464,7 +452,6 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param newState the new state to set
      */
- 
     @Override
     public void setState(ApplicationState newState) {
         this.currentState = newState;
@@ -476,7 +463,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @return true if all is valid
      */
     @Override
-    public boolean isValid() {
+    public boolean validate() {
 
         return this.currentState != null && validateApplication();
     }
@@ -568,12 +555,25 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
-     * Gets the exhibitor responsible of the exhibitor of this exhibition application
-     * @return the exhibitor responsible of the exhibitor of this exhibition application
+     * Gets the exhibitor responsible of the exhibitor of this exhibition
+     * application
+     *
+     * @return the exhibitor responsible of the exhibitor of this exhibition
+     * application
      */
     @Override
     public ExhibitorResponsible getExhibitorResponsible() {
         return this.exhibitor.getExhibitorResponsible();
+    }
+
+    @Override
+    public boolean isExhibitorResponsible(ExhibitorResponsible exhibitorResponsible) {
+        return this.exhibitor.getExhibitorResponsible().equals(exhibitorResponsible);
+    }
+
+    @Override
+    public boolean isInSubmission() {
+        return this.currentState.isInSubmission();
     }
 
 }

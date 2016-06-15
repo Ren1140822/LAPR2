@@ -35,6 +35,6 @@ public interface Application {
      * 
      * @return true if it is valid, false otherwise
      */
-    public boolean isValid();
+    public boolean validate();
     
 }

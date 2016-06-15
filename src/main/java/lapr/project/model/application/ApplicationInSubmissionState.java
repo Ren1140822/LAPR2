@@ -160,7 +160,7 @@ public class ApplicationInSubmissionState implements ApplicationState {
 
     @Override
     public boolean validate() {
-        return application.isValid();
+        return application.validate();
     }
     
 }

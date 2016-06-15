@@ -25,7 +25,7 @@ import lapr.project.model.application.ApplicationInitialState;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class DemonstrationApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable, Removable {
+public class DemonstrationApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable, Removable, Editable {
 
     /**
      * The title of the application.
@@ -372,7 +372,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      * @return true if it is valid, false otherwise
      */
     @Override
-    public boolean isValid() {
+    public boolean validate() {
         //TODO review this
         return this.title != null && this.exhibitor != null
                 && this.currentState != null && this.evaluationsList != null
@@ -409,16 +409,29 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      */
     @Override
     public boolean setInRemovable() {
-       return this.currentState.setRemoved();
+        return this.currentState.setRemoved();
     }
 
     /**
-     * Gets the exhibitor responsible of the exhibitor of this demonstration application
-     * @return the exhibitor responsible of the exhibitor of this demonstration application
+     * Gets the exhibitor responsible of the exhibitor of this demonstration
+     * application
+     *
+     * @return the exhibitor responsible of the exhibitor of this demonstration
+     * application
      */
     @Override
     public ExhibitorResponsible getExhibitorResponsible() {
         return this.exhibitor.getExhibitorResponsible();
+    }
+
+    @Override
+    public boolean isExhibitorResponsible(ExhibitorResponsible exhibitorResponsible) {
+        return this.exhibitor.getExhibitorResponsible().equals(exhibitorResponsible);
+    }
+
+    @Override
+    public boolean isInSubmission() {
+        return this.currentState.isInSubmission();
     }
 
 }

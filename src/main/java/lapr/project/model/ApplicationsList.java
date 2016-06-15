@@ -94,23 +94,57 @@ public class ApplicationsList {
         return this.application;
     }
 
-    
-    
-    
-    public List<ExhibitionApplication> getApplicationsInAcceptedState(){
+    public List<ExhibitionApplication> getApplicationsInAcceptedState() {
         List<ExhibitionApplication> tmpApplications = new ArrayList<>();
-        for(Application application : applicationsList){
-             //ONLY TO VERIFY ALTHOUGH ALL APPLICATIONS ARE EXHIBITION APPLICATIONS 
-             if(application instanceof ExhibitionApplication){
-               boolean isAccepted= ((ExhibitionApplication)application).getCurrentState().isAccepted();
-               if(isAccepted){
-                   tmpApplications.add((ExhibitionApplication)application);
-               }
-             }
+        for (Application application : applicationsList) {
+            //ONLY TO VERIFY ALTHOUGH ALL APPLICATIONS ARE EXHIBITION APPLICATIONS 
+            if (application instanceof ExhibitionApplication) {
+                boolean isAccepted = ((ExhibitionApplication) application).getCurrentState().isAccepted();
+                if (isAccepted) {
+                    tmpApplications.add((ExhibitionApplication) application);
+                }
+            }
         }
         return tmpApplications;
     }
-    
+
+    /**
+     * Verify if the exhibitor responsible has an editable in submission.
+     *
+     * @param exhibitorResponsible exhibitor responsible
+     * @return true if the exhibitors repsible's editable is in submission
+     */
+    public boolean isEditableOfExhibitorResponsibleInSubmission(ExhibitorResponsible exhibitorResponsible) {
+        boolean result = false;
+
+        for (Application application : applicationsList) {
+            Editable editable = (Editable) application;
+            if (editable.isExhibitorResponsible(exhibitorResponsible) && editable.isInSubmission()) {
+                result = true;
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Gets the editable by a exhibitor responsible.
+     *
+     * @param exhibitorResponsible exhibitor responsible
+     * @return the editable
+     */
+    public Editable getEditableByExhibitorResponsible(ExhibitorResponsible exhibitorResponsible) {
+        Editable editable = null;
+
+        for (Application application : applicationsList) {
+            if (((Editable) application).isExhibitorResponsible(exhibitorResponsible)) {
+                editable = (Editable) application;
+            }
+        }
+
+        return editable;
+    }
+
     /**
      * Return the textual representation of a ApplicationsList.
      *
