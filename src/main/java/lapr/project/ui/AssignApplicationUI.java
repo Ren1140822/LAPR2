@@ -394,7 +394,7 @@ public class AssignApplicationUI extends JFrame{
         
         Demonstration demonstration = new Demonstration();
         demonstration.setStaffList(new StaffList(staffMemberList));
-        demonstration.setCurrentDemonstrationState(new DemonstrationInChangedConflictsState(demonstration));
+        demonstration.setCurrentState(new DemonstrationInChangedConflictsState(demonstration));
         List<Demonstration> demonstrationsList = new ArrayList();
         demonstrationsList.add(demonstration);
         DemonstrationsList demonstrationsRegister = new DemonstrationsList(demonstrationsList);

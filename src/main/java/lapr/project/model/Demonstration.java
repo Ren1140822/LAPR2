@@ -82,7 +82,7 @@ public class Demonstration implements Submittable {
      * The demonstration current state.
      */
     @XmlTransient
-    private DemonstrationState currentDemonstrationState;
+    private DemonstrationState currentState;
 
     /**
      * Demonstration's default title.
@@ -107,7 +107,7 @@ public class Demonstration implements Submittable {
         this.resourcesList = new ArrayList<>();
         this.staffAttributionsList = new StaffAttributionsList();
         this.conflictsList = new ConflictsList();
-        //this.currentDemonstrationState = new DemonstrationInitialState(this);
+        //this.currentState = new DemonstrationInitialState(this);
     }
 
     /**
@@ -125,7 +125,7 @@ public class Demonstration implements Submittable {
         this.resourcesList = new ArrayList<>();
         this.staffAttributionsList = new StaffAttributionsList();
         this.conflictsList = new ConflictsList();
-        //this.currentDemonstrationState = new DemonstrationInitialState(this);
+        //this.currentState = new DemonstrationInitialState(this);
     }
 
     /**
@@ -141,8 +141,8 @@ public class Demonstration implements Submittable {
      * @param staffAttributionsList staff attributions list
      * @param conflictsList conficts list
      */
-    public Demonstration(String title, String description, Place place, StaffList staffList, 
-            OrganizersList organizersList, ApplicationsList applicationsList, List<Resource> resourcesList, 
+    public Demonstration(String title, String description, Place place, StaffList staffList,
+            OrganizersList organizersList, ApplicationsList applicationsList, List<Resource> resourcesList,
             StaffAttributionsList staffAttributionsList, ConflictsList conflictsList) {
         this.title = title;
         this.description = description;
@@ -153,7 +153,7 @@ public class Demonstration implements Submittable {
         this.resourcesList = new ArrayList<>(resourcesList);
         this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
         this.conflictsList = new ConflictsList(conflictsList);
-        //this.currentDemonstrationState = new DemonstationInitialState(this);
+        //this.currentState = new DemonstationInitialState(this);
     }
 
     /**
@@ -170,7 +170,7 @@ public class Demonstration implements Submittable {
         this.applicationsList = new ApplicationsList(demonstration.applicationsList);
         this.resourcesList = new ArrayList<>(demonstration.resourcesList);
         this.staffAttributionsList = new StaffAttributionsList(demonstration.staffAttributionsList);
-        this.currentDemonstrationState = demonstration.currentDemonstrationState;
+        this.currentState = demonstration.currentState;
         this.conflictsList = new ConflictsList(demonstration.conflictsList);
     }
 
@@ -307,17 +307,23 @@ public class Demonstration implements Submittable {
      *
      * @return the actual state of the demonstration
      */
-    public DemonstrationState getCurrentDemonstrationState() {
-        return this.currentDemonstrationState;
+    public DemonstrationState getCurrentState() {
+        return this.currentState;
     }
 
     /**
      * Sets the new demonstration state.
      *
-     * @param currentDemonstrationState the new demonstration state
+     * @param currentState the new demonstration state
      */
-    public void setCurrentDemonstrationState(DemonstrationState currentDemonstrationState) {
-        this.currentDemonstrationState = currentDemonstrationState;
+    public void setCurrentState(DemonstrationState currentState) {
+        this.currentState = currentState;
+    }
+
+    @Override
+    public boolean setInDetectedConflictsState() {
+
+        return this.currentState.setDetectedConflicts();
     }
 
     /**
@@ -425,7 +431,7 @@ public class Demonstration implements Submittable {
      */
     @Override
     public void setSubmittableInApplicationsInEvaluationState() {
-        this.currentDemonstrationState.setApplicationsInEvaluation();
+        this.currentState.setApplicationsInEvaluation();
     }
 
     @Override

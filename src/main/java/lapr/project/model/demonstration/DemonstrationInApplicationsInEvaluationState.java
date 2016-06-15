@@ -31,6 +31,11 @@ public class DemonstrationInApplicationsInEvaluationState implements Demonstrati
 
         this.demonstration = demonstration;
     }
+    
+    @Override
+    public boolean isInicial() {
+        return false;
+    }
 
     @Override
     public boolean isDecided() {
@@ -120,7 +125,7 @@ public class DemonstrationInApplicationsInEvaluationState implements Demonstrati
 
     @Override
     public boolean validate() {
-        return (this.demonstration.getCurrentDemonstrationState().isApplicationsInEvaluation());
+        return (this.demonstration.getCurrentState().isApplicationsInEvaluation());
     }
     
 }

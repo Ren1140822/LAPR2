@@ -101,8 +101,7 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
     @Override
     public boolean setDetectedConficts() {
         if (validate()) {
-            // TODO : Implement next state
-//            this.exhibition.setState(this);
+            this.exhibition.setState(new ExhibitionDetectedConflictsState(this.exhibition));
             return true;
         } else {
             return false;
@@ -157,8 +156,7 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
     @Override
     public boolean validate() {
 
-        //TODO
-        return true;
+        return this.exhibition.getState().isClosedApplications();
     }
 
   

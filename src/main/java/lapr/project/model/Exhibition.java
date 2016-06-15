@@ -613,6 +613,12 @@ public class Exhibition implements Submittable {
         return this.currentState.setApplicationsInDecision();
     }
 
+    @Override
+    public boolean setInDetectedConflictsState() {
+        
+        return this.currentState.setDetectedConficts();
+    }
+    
     /**
      * Validate the Exhibition.
      *

@@ -67,6 +67,7 @@ public class DetectConflictsController {
             }
         }
 
+        submittable.setInDetectedConflictsState();
     }
 
 }

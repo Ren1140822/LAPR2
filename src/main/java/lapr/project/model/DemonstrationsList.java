@@ -175,7 +175,7 @@ public class DemonstrationsList {
     public List<Demonstration> getDemonstrationsListInChangedConflicts() {
         List<Demonstration> demonstrationsInChangedConflitctsStateList = new ArrayList<>();
         for (Demonstration demonstration : this.demonstrationList) {
-            if (demonstration.getCurrentDemonstrationState().isChangedConflicts()) {
+            if (demonstration.getCurrentState().isChangedConflicts()) {
                 demonstrationsInChangedConflitctsStateList.add(demonstration);
             }
         }
