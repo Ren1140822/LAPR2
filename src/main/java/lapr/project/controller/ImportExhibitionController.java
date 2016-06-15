@@ -9,7 +9,7 @@ import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.ExhibitionsRegister;
 
 /**
- * Represents a exhibitions register
+ * Represents a import exhibitions controller.
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
