@@ -126,7 +126,7 @@ public class OrganizersList {
      * @param organizer organizer to be verified
      * @return true if it is contained, false otherwise
      */
-    public boolean isOrganizer(Organizer organizer) {
+    public boolean hasOrganizer(Organizer organizer) {
         return this.organizersList.contains(organizer);
     }
 

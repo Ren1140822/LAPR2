@@ -563,6 +563,11 @@ public class Exhibition implements Submittable {
         return this.currentState.setCreated();
     }
 
+    public boolean isNotDemonstrationsDefined() {
+        
+        return this.currentState.isCreated() || this.currentState.isStaffDefined();
+    }
+    
     /**
      * Changes to next state DemosWithoutStaff or Complete.
      *
