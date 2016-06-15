@@ -3,12 +3,8 @@
  */
 package lapr.project.model;
 
-import java.io.File;
 import java.util.Date;
 import java.util.Timer;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -111,11 +107,16 @@ public class Exhibition implements Submittable {
     private StaffAttributionsList staffAttributionsList;
 
     /**
+     * Exhibition's conflicts list.
+     */
+    private ConflictsList conflictsList;
+
+    /**
      * The exhibition's current state.
      */
     @XmlTransient // TODO : Verify
     private ExhibitionState currentState;
-    
+
     /**
      * The exhibition's timer.
      */
@@ -184,6 +185,7 @@ public class Exhibition implements Submittable {
         this.applicationsList = new ApplicationsList();
         this.demonstrationsList = new DemonstrationsList();
         this.staffAttributionsList = new StaffAttributionsList();
+        this.conflictsList = new ConflictsList();
         this.currentState = new ExhibitionInicialState(this);
         this.timer = new Timer();
     }
@@ -205,10 +207,12 @@ public class Exhibition implements Submittable {
      * @param applicationsList
      * @param demonstrationsList Exhibition's demonstrations list
      * @param staffAttributionsList Exhibition's staff attributions list
+     * @param conflictsList Exhibition's conflicts list
      */
     public Exhibition(String title, String description, Date startDate, Date endDate, Date subStartDate,
-            Date subEndDate, Date conflictsLimiteDate, Date evaluationLimitDate, Place place, StaffList staffList, OrganizersList organizersList,
-            ApplicationsList applicationsList, DemonstrationsList demonstrationsList, StaffAttributionsList staffAttributionsList) {
+            Date subEndDate, Date conflictsLimiteDate, Date evaluationLimitDate, Place place, StaffList staffList,
+            OrganizersList organizersList, ApplicationsList applicationsList, DemonstrationsList demonstrationsList,
+            StaffAttributionsList staffAttributionsList, ConflictsList conflictsList) {
         this.title = title;
         this.description = description;
         this.startDate = startDate;
@@ -223,6 +227,7 @@ public class Exhibition implements Submittable {
         this.applicationsList = new ApplicationsList(applicationsList);
         this.demonstrationsList = new DemonstrationsList(demonstrationsList);
         this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
+        this.conflictsList = new ConflictsList(conflictsList);
         this.currentState = new ExhibitionInicialState(this);
         this.timer = new Timer();
     }
@@ -247,6 +252,7 @@ public class Exhibition implements Submittable {
         this.applicationsList = new ApplicationsList(exhibition.applicationsList);
         this.demonstrationsList = new DemonstrationsList(exhibition.demonstrationsList);
         this.staffAttributionsList = new StaffAttributionsList(exhibition.staffAttributionsList);
+        this.conflictsList = new ConflictsList(exhibition.conflictsList);
         this.currentState = exhibition.currentState;
         this.timer = new Timer();
     }
@@ -457,6 +463,7 @@ public class Exhibition implements Submittable {
      *
      * @return the Exhibition's applications list
      */
+    @Override
     public ApplicationsList getApplicationsList() {
         return applicationsList;
     }
@@ -489,7 +496,7 @@ public class Exhibition implements Submittable {
     }
 
     /**
-     * Returns the staff attribtions list.
+     * Returns the staff attributions list.
      *
      * @return staff attribtions list
      */
@@ -507,6 +514,25 @@ public class Exhibition implements Submittable {
     @Override
     public void setStaffAttributionsList(StaffAttributionsList staffAttributionsList) {
         this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
+    }
+
+    /**
+     * Obtain the Exhibition's conflicts list.
+     *
+     * @return conflicts list
+     */
+    @Override
+    public ConflictsList getConflictsList() {
+        return this.conflictsList;
+    }
+
+    /**
+     * Set the Exhibition's conflicts list.
+     *
+     * @param conflictsList the Exhibition's conflicts list to set
+     */
+    public void setConflictsList(ConflictsList conflictsList) {
+        this.conflictsList = new ConflictsList(conflictsList);
     }
 
     /**
@@ -704,8 +730,6 @@ public class Exhibition implements Submittable {
     public void setSubmittableInApplicationsInEvaluationState() {
         this.currentState.setApplicationsInEvaluation();
     }
-
-    
 
     @Override
     public String[] getInfo() {

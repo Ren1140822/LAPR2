@@ -4,8 +4,11 @@
 package lapr.project.controller;
 
 import java.util.List;
+import lapr.project.model.Application;
+import lapr.project.model.Conflict;
 import lapr.project.model.ConflictType;
 import lapr.project.model.ExhibitionCenter;
+import lapr.project.model.StaffMember;
 import lapr.project.model.Submittable;
 
 /**
@@ -30,7 +33,7 @@ public class DetectConflictsController {
     private final Submittable submittable;
 
     /**
-     * Constructs a CreateExhibitionController Class.
+     * Constructs a DetectConflictsController Class.
      *
      * @param exhibitionCenter Exhibition Center
      * @param submittable Submittable which the timer was triggered
@@ -40,7 +43,39 @@ public class DetectConflictsController {
         this.submittable = submittable;
     }
 
+    /**
+     * Obtain the conflict types list.
+     *
+     * @return the conflict types list
+     */
     public List<ConflictType> getConflictTypesList() {
-        return exhibitionCenter.getConflictTypesRegister().getConflictTypesList();
+        return this.exhibitionCenter.getConflictTypesRegister().getConflictTypesList();
+    }
+
+    /**
+     * Obtain the submittable applications list.
+     *
+     * @return the submittable applications list
+     */
+    public List<Application> getApplicationsList() {
+        return this.submittable.getApplicationsList().getApplicationsList();
+    }
+
+    /**
+     * Obtain the submittable staff list.
+     *
+     * @return the submittable staff list
+     */
+    public List<StaffMember> getStaffList() {
+        return this.submittable.getStaffList().getStaffList();
+    }
+
+    /**
+     * Obtain the submittable conflicts list.
+     *
+     * @return the submittable conflicts list
+     */
+    public List<Conflict> getConflictsList() {
+        return this.submittable.getConflictsList().getConflictsList();
     }
 }
