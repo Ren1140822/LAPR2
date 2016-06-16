@@ -33,10 +33,7 @@ public class ApplicationsList {
     })
     private List<Application> applicationsList;
 
-    /**
-     * A temporary exhibition application reference.
-     */
-    private Application application;
+  
 
     /**
      * Creates an instance of ApplicationsList with its default values.
@@ -90,8 +87,8 @@ public class ApplicationsList {
      * @return the new exhibition application
      */
     public Application newExhibitionApplication() {
-        this.application = new ExhibitionApplication();
-        return this.application;
+      Application application = new ExhibitionApplication();
+        return application;
     }
 
     public List<ExhibitionApplication> getApplicationsInAcceptedState() {
