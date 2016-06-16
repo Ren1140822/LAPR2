@@ -15,7 +15,6 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Amaral 1151231
  */
-
 public class ConflictTypesRegister {
 
     /**
@@ -65,10 +64,41 @@ public class ConflictTypesRegister {
      *
      * @param conflictTypesList the conflict types list to set
      */
-    
-  
     public void setConflictTypesList(List<ConflictType> conflictTypesList) {
         this.conflictTypesList = new ArrayList<>(conflictTypesList);
+    }
+
+    /**
+     * Constructs new Conflict type
+     *
+     * @return the new Conflict type
+     */
+    public ConflictType newConflictType() {
+        ConflictType conflictType = new ConflictType();
+        return conflictType;
+    }
+
+    /**
+     * Return true if the conflictTypesList does not contain the conflictType
+     * passed as parameter, false otherwise
+     *
+     * @param conflictType the conflict type passed as parameter
+     * @return true if the conflictTypesList does not contain the conflictType
+     * passed as parameter, false otherwise
+     */
+    public boolean validateTypeConflict(ConflictType conflictType) {
+        return !this.conflictTypesList.contains(conflictType);
+    }
+
+    /**
+     * It adds the new conflict type passed as parameter to the
+     * conflictTypesList
+     *
+     * @param conflictType the new conflict type passed as parameter
+     * @return if it added returns true, false otherwise
+     */
+    public boolean registerTypeConflict(ConflictType conflictType) {
+        return this.conflictTypesList.add(conflictType);
     }
 
     /**

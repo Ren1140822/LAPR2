@@ -29,7 +29,7 @@ public class ConflictType {
     private ConflictDetectionMechanism conflictDetectionMechanism;
 
     /**
-     * The description os the conflict type.
+     * The description of the conflict type.
      */
     @XmlAttribute
     private String description;
@@ -84,7 +84,6 @@ public class ConflictType {
      *
      * @param conflictDetectionMechanism conflict detection mechanism
      */
-  
     public void setConflictDetectionMechanism(ConflictDetectionMechanism conflictDetectionMechanism) {
         this.conflictDetectionMechanism = conflictDetectionMechanism;
     }
@@ -103,9 +102,17 @@ public class ConflictType {
      *
      * @param description description
      */
-    
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Returns true if type conflicts has some description, false otherwise
+     *
+     * @return true if type conflicts has some description, false otherwise
+     */
+    public boolean validate() {
+        return this.description.length() > 0;
     }
 
     /**
@@ -122,7 +129,7 @@ public class ConflictType {
      * Compares if this object is equal to otherObject.
      *
      * @param otherObject other object to compare with
-     * @return true if it repreents the same object, false otherwise
+     * @return true if it represents the same object, false otherwise
      */
     @Override
     public boolean equals(Object otherObject) {
