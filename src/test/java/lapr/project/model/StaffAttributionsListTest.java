@@ -26,7 +26,7 @@ public class StaffAttributionsListTest {
     @Before
     public void setUp() {
         
-        StaffMember staffMember = new StaffMember(new User("Ivo Ferro", "ivoferro", "ivoferro@isep.pt", "123+qwe"));
+        StaffMember staffMember = new StaffMember(new User("Ivo Ferro", "ivoferro", "ivoferro@isep.pt", "123+qwe", new ArrayList<>()));
         ExhibitionApplication exhibitionApplication = new ExhibitionApplication();
         exhibitionApplication.setState(new ApplicationInEvaluationState(exhibitionApplication));
         
@@ -48,7 +48,7 @@ public class StaffAttributionsListTest {
     @Test
     public void testGetStaffAtributionsApplicationsInEvaluationByStaff() {
         System.out.println("getStaffAtributionsApplicationsInEvaluationByStaff");
-        StaffMember staffMember = new StaffMember(new User("Ivo Ferro", "ivoferro", "ivoferro@isep.pt", "123+qwe"));
+        StaffMember staffMember = new StaffMember(new User("Ivo Ferro", "ivoferro", "ivoferro@isep.pt", "123+qwe", new ArrayList<>()));
         
         ExhibitionApplication exhibitionApplication = new ExhibitionApplication();
         exhibitionApplication.setState(new ApplicationInEvaluationState(exhibitionApplication));

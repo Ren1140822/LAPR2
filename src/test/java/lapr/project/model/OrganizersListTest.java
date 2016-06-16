@@ -39,7 +39,7 @@ public class OrganizersListTest {
     public void setUp() {
 
         this.organizersList = new OrganizersList();
-        this.user = new User("John Doe", "johndoe", "jdoe@email.com", "password");
+        this.user = new User("John Doe", "johndoe", "jdoe@email.com", "password", new ArrayList<>());
         this.organizer = new Organizer(user);
     }
 
@@ -89,7 +89,7 @@ public class OrganizersListTest {
     public void testAddAndValidateOrganizerReturnsFalse() {
         System.out.println("addAndValidateOrganizer");
 
-        Organizer invalidOrganizer = new Organizer(new User("John Doe", "jd", "jd@", "password"));
+        Organizer invalidOrganizer = new Organizer(new User("John Doe", "jd", "jd@", "password", new ArrayList<>()));
 
         boolean result = this.organizersList.addAndValidateOrganizer(invalidOrganizer);
         assertFalse(result);

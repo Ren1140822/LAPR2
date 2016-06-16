@@ -74,17 +74,6 @@ public class ExhibitionInicialState implements ExhibitionState {
         return false;
     }
 
-    
-       @Override
-    public boolean setCompleted() {
-        return false;
-    }
-
-    @Override
-    public boolean isCompleted() {
-        return false;
-    }
-    
     @Override
     public boolean setOpenApplication() {
         return false;

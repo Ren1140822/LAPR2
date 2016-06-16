@@ -20,16 +20,21 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Eric Amaral 1141570
  * @author Ivo Ferro 1151159
  * @author Renato Oliveira 1140822
- * @author Ricardo Amaral 1151231
+ * @author Ricardo Correia 1151231
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Demonstration implements Submittable {
 
     /**
-     * The title of the demonstration.
+     * Unique demoonstration ID.
      */
     @XmlAttribute
+    private final String demonstrationID;
+
+    /**
+     * The title of the demonstration.
+     */
     private String title;
 
     /**
@@ -82,7 +87,17 @@ public class Demonstration implements Submittable {
      * The demonstration current state.
      */
     @XmlTransient
-    private DemonstrationState currentDemonstrationState;
+    private DemonstrationState currentState;
+
+    /**
+     * A counter of demonstrations.
+     */
+    private static int demoCounter = 1;
+
+    /**
+     * Demonstration ID prefix.
+     */
+    private static final String ID_PREFIX = "Demonstration-";
 
     /**
      * Demonstration's default title.
@@ -100,6 +115,9 @@ public class Demonstration implements Submittable {
     public Demonstration() {
         this.title = DEFAULT_TITLE;
         this.description = DEFAULT_DESCRIPTION;
+        // TODO : Review to count demos per exhibition only. 
+        this.demonstrationID = ID_PREFIX + demoCounter++;
+
         this.place = new Place();
         this.staffList = new StaffList();
         this.organizersList = new OrganizersList();
@@ -107,7 +125,7 @@ public class Demonstration implements Submittable {
         this.resourcesList = new ArrayList<>();
         this.staffAttributionsList = new StaffAttributionsList();
         this.conflictsList = new ConflictsList();
-        //this.currentDemonstrationState = new DemonstrationInitialState(this);
+        //this.currentState = new DemonstrationInitialState(this);
     }
 
     /**
@@ -118,6 +136,8 @@ public class Demonstration implements Submittable {
     public Demonstration(String description) {
         this.title = DEFAULT_TITLE;
         this.description = description;
+        this.demonstrationID = ID_PREFIX + demoCounter++;
+        
         this.place = new Place();
         this.staffList = new StaffList();
         this.organizersList = new OrganizersList();
@@ -125,7 +145,7 @@ public class Demonstration implements Submittable {
         this.resourcesList = new ArrayList<>();
         this.staffAttributionsList = new StaffAttributionsList();
         this.conflictsList = new ConflictsList();
-        //this.currentDemonstrationState = new DemonstrationInitialState(this);
+        //this.currentState = new DemonstrationInitialState(this);
     }
 
     /**
@@ -141,11 +161,13 @@ public class Demonstration implements Submittable {
      * @param staffAttributionsList staff attributions list
      * @param conflictsList conficts list
      */
-    public Demonstration(String title, String description, Place place, StaffList staffList, 
-            OrganizersList organizersList, ApplicationsList applicationsList, List<Resource> resourcesList, 
+    public Demonstration(String title, String description, Place place, StaffList staffList,
+            OrganizersList organizersList, ApplicationsList applicationsList, List<Resource> resourcesList,
             StaffAttributionsList staffAttributionsList, ConflictsList conflictsList) {
         this.title = title;
         this.description = description;
+        this.demonstrationID = ID_PREFIX + demoCounter++;
+        
         this.place = place;
         this.staffList = new StaffList(staffList);
         this.organizersList = new OrganizersList(organizersList);
@@ -153,7 +175,7 @@ public class Demonstration implements Submittable {
         this.resourcesList = new ArrayList<>(resourcesList);
         this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
         this.conflictsList = new ConflictsList(conflictsList);
-        //this.currentDemonstrationState = new DemonstationInitialState(this);
+        //this.currentState = new DemonstationInitialState(this);
     }
 
     /**
@@ -164,13 +186,15 @@ public class Demonstration implements Submittable {
     public Demonstration(Demonstration demonstration) {
         this.title = demonstration.title;
         this.description = demonstration.description;
+        this.demonstrationID = ID_PREFIX + demoCounter++;
+        
         this.place = demonstration.place;
         this.staffList = new StaffList(demonstration.staffList);
         this.organizersList = new OrganizersList(demonstration.organizersList);
         this.applicationsList = new ApplicationsList(demonstration.applicationsList);
         this.resourcesList = new ArrayList<>(demonstration.resourcesList);
         this.staffAttributionsList = new StaffAttributionsList(demonstration.staffAttributionsList);
-        this.currentDemonstrationState = demonstration.currentDemonstrationState;
+        this.currentState = demonstration.currentState;
         this.conflictsList = new ConflictsList(demonstration.conflictsList);
     }
 
@@ -301,23 +325,40 @@ public class Demonstration implements Submittable {
     public void setConflictsList(ConflictsList conflictsList) {
         this.conflictsList = new ConflictsList(conflictsList);
     }
+    
+    /**
+     * Adds a resouce to the list if it doesn't already contain that resouce.
+     * 
+     * @param resource the resource to add
+     * @return true if the resource is added
+     */
+    public boolean addResource(Resource resource) {
+        
+        return this.resourcesList.contains(resource) ? false : this.resourcesList.add(resource);
+    }
 
     /**
      * Returns the current demonstration state.
      *
      * @return the actual state of the demonstration
      */
-    public DemonstrationState getCurrentDemonstrationState() {
-        return this.currentDemonstrationState;
+    public DemonstrationState getCurrentState() {
+        return this.currentState;
     }
 
     /**
      * Sets the new demonstration state.
      *
-     * @param currentDemonstrationState the new demonstration state
+     * @param currentState the new demonstration state
      */
-    public void setCurrentDemonstrationState(DemonstrationState currentDemonstrationState) {
-        this.currentDemonstrationState = currentDemonstrationState;
+    public void setCurrentState(DemonstrationState currentState) {
+        this.currentState = currentState;
+    }
+
+    @Override
+    public boolean setInDetectedConflictsState() {
+
+        return this.currentState.setDetectedConflicts();
     }
 
     /**
@@ -425,7 +466,7 @@ public class Demonstration implements Submittable {
      */
     @Override
     public void setSubmittableInApplicationsInEvaluationState() {
-        this.currentDemonstrationState.setApplicationsInEvaluation();
+        this.currentState.setApplicationsInEvaluation();
     }
 
     @Override

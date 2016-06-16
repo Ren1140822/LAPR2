@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 import lapr.project.model.*;
 import lapr.project.model.exhibition.ExhibitionInicialState;
-import lapr.project.model.mechanisms.EquitableLoadMechanism;
+import lapr.project.model.mechanisms.attribution.EquitableLoadMechanism;
 
 /**
  * Util class to create instances to tests.
@@ -24,11 +24,11 @@ public class DefaultInstantiator {
     public static ExhibitionCenter createExhibitionCenter() {
 
         // GENERAL
-        User userIvo = new User("Ivo Ferro", "ivoferro", "1151159@isep.ipp.pt", "123+Qwe");
-        User userDaniel = new User("Daniel Gonçalves", "danielgoncalves", "1151452@isep.ipp.pt", "Qwe+123");
-        User userEric = new User("Eric Amaral", "ericamaral", "1141570@isep.ipp.pt", "234+Wer");
-        User userRenato = new User("Renato Oliveira", "renatooliveira", "1140822@isep.ipp.pt", "Wer+234");
-        User userRicardo = new User("Ricardo Correia", "ricardocorreia", "1151231", "123-Asd");
+        User userIvo = new User("Ivo Ferro", "ivoferro", "1151159@isep.ipp.pt", "123+Qwe", new ArrayList<>());
+        User userDaniel = new User("Daniel Gonçalves", "danielgoncalves", "1151452@isep.ipp.pt", "Qwe+123", new ArrayList<>());
+        User userEric = new User("Eric Amaral", "ericamaral", "1141570@isep.ipp.pt", "234+Wer", new ArrayList<>());
+        User userRenato = new User("Renato Oliveira", "renatooliveira", "1140822@isep.ipp.pt", "Wer+234", new ArrayList<>());
+        User userRicardo = new User("Ricardo Correia", "ricardocorreia", "1151231", "123-Asd", new ArrayList<>());
 
         ExhibitionsManager exhibitionsManager = new ExhibitionsManager(userDaniel);
 
@@ -46,12 +46,12 @@ public class DefaultInstantiator {
         Exhibitor exhibitorBlip = new Exhibitor("Blip", "marketing@blip.pt", "918765432");
         Exhibitor exhibitorCritical = new Exhibitor("Critical Software", "main@critical.software.com", "931245678");
 
-        User userBelmiro = new User("Belmiro Azevedo", "belmiroazevedo", "belmirazevedo@sonae.com", "321+Ewq");
-        User userFabioSilva = new User("Fábio Silva", "fabiosilva", "fabiosilva@blip.pt", "Ewq+321");
-        User userGoncaloQuadros = new User("Gonçalo Quadros", "gonacaloquadros", "goncaloquadros@critical.software.com", "432+Rew");
+        User userBelmiro = new User("Belmiro Azevedo", "belmiroazevedo", "belmirazevedo@sonae.com", "321+Ewq", new ArrayList<>());
+        User userFabioSilva = new User("Fábio Silva", "fabiosilva", "fabiosilva@blip.pt", "Ewq+321", new ArrayList<>());
+        User userGoncaloQuadros = new User("Gonçalo Quadros", "gonacaloquadros", "goncaloquadros@critical.software.com", "432+Rew", new ArrayList<>());
 
         ExhibitorResponsible exhibitorResponsibleSonae = new ExhibitorResponsible(userBelmiro);
-        ExhibitorResponsible exhibitorResponsibleblip = new ExhibitorResponsible(userFabioSilva);
+        ExhibitorResponsible exhibitorResponsibleBlip = new ExhibitorResponsible(userFabioSilva);
         ExhibitorResponsible exhibitorResponsibleCritical = new ExhibitorResponsible(userGoncaloQuadros);
 
         Product product1 = new Product("Projetor");
@@ -66,11 +66,11 @@ public class DefaultInstantiator {
         Resource resource4 = new Resource("Wood");
         Resource resource5 = new Resource("Iron");
 
-        Stand stand1 = new Stand(44.4f);
-        Stand stand2 = new Stand(124.3f);
-        Stand stand3 = new Stand(33f);
-        Stand stand4 = new Stand(320.5f);
-        Stand stand5 = new Stand(30f);
+        Stand stand1 = new Stand(44.4f, "Smartphone's stand");
+        Stand stand2 = new Stand(124.3f, "Car stand");
+        Stand stand3 = new Stand(33f, "Stand of bicycles");
+        Stand stand4 = new Stand(320.5f, "Stand of operative systems");
+        Stand stand5 = new Stand(30f, "Stand not yet defined");
 
         StaffAttributionMechanism staffAttributionMechanism1 = new EquitableLoadMechanism();
 
@@ -107,8 +107,10 @@ public class DefaultInstantiator {
         keyWordsNodeJs.add(new Keyword("WWW"));
         keyWordsNodeJs.add(new Keyword("Development"));
 
+        exhibitorBlip.setExhibitorResponsible(exhibitorResponsibleBlip);
+
         ExhibitionApplication exhibitionApplicationNodeJs = new ExhibitionApplication("Node JS", exhibitorBlip, 105.3f,
-                30,new Stand(), productListNodeJs, new ArrayList<>(),
+                30, new Stand(), productListNodeJs, new ArrayList<>(),
                 new ArrayList<>(), keyWordsNodeJs);
 
         // Applications computer science - Evaluations Node JS
@@ -193,6 +195,7 @@ public class DefaultInstantiator {
 
         // Exhibitions applications to exhibition computer science
         List<Application> computerScienceApplications = new ArrayList<>();
+        exhibitionApplicationNodeJs.getExhibitor().setExhibitorResponsible(exhibitorResponsibleBlip);
         computerScienceApplications.add(exhibitionApplicationNodeJs);
         ApplicationsList computerScienceApplicationsList = new ApplicationsList(computerScienceApplications);
 

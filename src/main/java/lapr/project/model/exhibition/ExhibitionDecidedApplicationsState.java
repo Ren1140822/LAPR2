@@ -69,16 +69,6 @@ public class ExhibitionDecidedApplicationsState implements ExhibitionState {
     }
 
     @Override
-    public boolean setCompleted() {
-        return false;
-    }
-
-    @Override
-    public boolean isCompleted() {
-        return false;
-    }
-
-    @Override
     public boolean setOpenApplication() {
         return false;
     }
@@ -150,8 +140,8 @@ public class ExhibitionDecidedApplicationsState implements ExhibitionState {
     }
 
     /**
-      * Returns false, that is no next state for exhibition
-     * @return false because that is no next state for exhibition
+      * Returns false, there is no next state for exhibition
+     * @return false because there is no next state for exhibition
      */
     @Override
     public boolean validate() {

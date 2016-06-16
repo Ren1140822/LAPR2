@@ -6,7 +6,7 @@ package lapr.project.model;
 import java.util.List;
 
 /**
- * Interface for ebaluable applications.
+ * Interface for evaluable applications.
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570

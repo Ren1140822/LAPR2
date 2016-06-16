@@ -6,14 +6,15 @@ package lapr.project.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
+import lapr.project.model.application.ApplicationInSubmissionState;
+import lapr.project.model.exhibition.ExhibitionCreatedState;
+import lapr.project.model.exhibition.ExhibitionStaffWithoutDemosState;
+import lapr.project.utils.DefaultInstantiator;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import org.junit.BeforeClass;
 
 /**
  * Tests a exhibitions register.
@@ -27,6 +28,11 @@ import org.junit.BeforeClass;
 public class ExhibitionsRegisterTest {
 
     /**
+     * Exhibition Center.
+     */
+    private ExhibitionCenter exhibitionCenter;
+
+    /**
      * Exhibition Register object.
      */
     private ExhibitionsRegister exhibitionsRegister;
@@ -36,21 +42,16 @@ public class ExhibitionsRegisterTest {
      */
     private Exhibition exhibition;
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
     @Before
     public void setUp() {
+
+        this.exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
+
         this.exhibitionsRegister = new ExhibitionsRegister();
 
         List<Organizer> organizerslist = new ArrayList<>();
-        organizerslist.add(new Organizer(new User("Daniel", "daniell", "email@dd2", "password")));
-        organizerslist.add(new Organizer(new User("Daniel2", "daniell2", "email@dd2", "password")));
+        organizerslist.add(new Organizer(new User("Daniel", "daniell", "email@dd2", "password", new ArrayList<>())));
+        organizerslist.add(new Organizer(new User("Daniel2", "daniell2", "email@dd2", "password", new ArrayList<>())));
 
         this.exhibition = new Exhibition("title", "description", new Date(2016, 2, 1),
                 new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 0, 20),
@@ -59,10 +60,6 @@ public class ExhibitionsRegisterTest {
                 new ApplicationsList(), new DemonstrationsList(),
                 new StaffAttributionsList(), new ConflictsList());
 
-    }
-
-    @After
-    public void tearDown() throws Exception {
     }
 
     /**
@@ -132,6 +129,17 @@ public class ExhibitionsRegisterTest {
         assertTrue(result);
     }
 
+    /**
+     * Test of registerExhibition method, of class ExhibitionsRegister, returns
+     * false.
+     */
+    @Test
+    public void testRegisterExhibitionReturnFalse() {
+
+        System.out.println("registerExhibition");
+        boolean result = exhibitionsRegister.registerExhibition(new Exhibition());
+        assertFalse(result);
+    }
 // // TODO : Implement when states are all defined.
 //    /**
 //     * Test of getSubmittablesInChangedConflictsByOrganizer method, of class ExhibitionsRegister.
@@ -146,15 +154,64 @@ public class ExhibitionsRegisterTest {
 //        assertEquals(expResult, result);
 //       
 //    }
+
     /**
-     * Test of registerExhibition method, of class ExhibitionsRegister, returns
-     * false.
+     * Get the exhibitions list without Demonstrations defined by Organizer.
+     *
+     * @param organizer the organizer to filter exhibitions
+     * @return the exhibition list without Demonstrations defined by Organizer
+     */
+    /**
+     * Test of getGetExhibitionsListWithoutDemosDefined method, of class
+     * ExhibitionsRegister.
      */
     @Test
-    public void testRegisterExhibitionReturnFalse() {
+    public void testGetExhibitionsListWithoutDemosDefined() {
 
-        System.out.println("registerExhibition");
-        boolean result = exhibitionsRegister.registerExhibition(new Exhibition());
-        assertFalse(result);
+        System.out.println("getExhibitionsListWithoutDemosDefined");
+
+        Organizer organizer = new Organizer(new User("Daniel", "daniel", "email@dd", "password", new ArrayList<>()));
+
+        Exhibition filteredExhibition1 = new Exhibition();
+        filteredExhibition1.getOrganizersList().addAndValidateOrganizer(organizer);
+        filteredExhibition1.setState(new ExhibitionCreatedState(filteredExhibition1));
+
+        Exhibition filteredExhibition2 = new Exhibition();
+        filteredExhibition2.getOrganizersList().addAndValidateOrganizer(organizer);
+        filteredExhibition2.setState(new ExhibitionStaffWithoutDemosState(filteredExhibition2));
+
+        Exhibition notFilteredExhibition = new Exhibition();
+
+        List<Exhibition> exhibitionsList = new ArrayList<>();
+        exhibitionsList.add(filteredExhibition1);
+        exhibitionsList.add(filteredExhibition2);
+        exhibitionsList.add(notFilteredExhibition);
+        this.exhibitionCenter.setExhibitionsRegister(new ExhibitionsRegister(exhibitionsList));
+
+        ExhibitionsRegister instance = this.exhibitionCenter.getExhibitionsRegister();
+
+        exhibitionsList.remove(notFilteredExhibition);
+        List<Exhibition> expResult = exhibitionsList;
+        List<Exhibition> result = instance.getExhibitionsListWithoutDemosDefined(organizer);
+        assertEquals(expResult, result);
+
     }
+
+//    @Test
+//    public void testGetSubmittablesApplicationInSubmissionByExhibitorResponsible() {
+//        System.out.println("getSubmittablesApplicationInSubmissionByExhibitorResponsible");
+//        this.exhibitionsRegister = this.exhibitionCenter.getExhibitionsRegister();
+//        this.exhibitionsRegister.getExhibitionsList()
+//                .get(0).getApplicationsList().getApplicationsList().get(0)
+//                .setState(new ApplicationInSubmissionState(this.exhibitionsRegister
+//                        .getExhibitionsList().get(0)
+//                        .getApplicationsList().getApplicationsList().get(0)));
+//        
+//        ExhibitorResponsible exhibitorResponsible = new ExhibitorResponsible(new User("Fábio Silva", "fabiosilva", "fabiosilva@blip.pt", "Ewq+321", new ArrayList<>()));
+//        
+//        Exhibition expResult = this.exhibitionsRegister.getExhibitionsList()
+//                .get(0);
+//        
+//        assertEquals(expResult, this.exhibitionsRegister.getSubmittablesApplicationInSubmissionByExhibitorResponsible(exhibitorResponsible));
+//    }
 }

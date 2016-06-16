@@ -4,14 +4,12 @@
 package lapr.project.model;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import lapr.project.utils.Exportable;
 import lapr.project.utils.Importable;
 
 /**
@@ -154,6 +152,32 @@ public class ExhibitionsRegister implements Importable {
     }
 
     /**
+     * Gets exhibitions list with applications in submission of this exhibitor responsible
+     * @param exhibitorResponsible the exhibition responsible
+     * @return the list of exhibitions
+     */
+    public List<Exhibition> getExhibitionsListWithApplicationsInSubmissionByExhibitorResponsible(ExhibitorResponsible exhibitorResponsible){
+        List<Exhibition> exhibitionsList = new ArrayList();
+          boolean isExhibitorResponsible=false;
+        for(Exhibition exhibition:this.exhibitionsList){
+            boolean isInSubmittingApplication = exhibition.getState().isApplicationsDecided();
+            ApplicationsList applicationsList = exhibition.getApplicationsList();
+            List<Application> applicationsArrayList = applicationsList.getApplicationsList();
+           
+            for(Application application : applicationsArrayList){
+                isExhibitorResponsible = ((ExhibitionApplication)application).isExhibitorResponsible(exhibitorResponsible);
+                if(isExhibitorResponsible){
+                    break;
+                }
+            }
+            if(isInSubmittingApplication&&isExhibitorResponsible){
+                exhibitionsList.add(exhibition);
+            }
+        }
+        return exhibitionsList;
+    }
+    
+    /**
      * Gets the exhibitions list without StaffMember by Organizer.
      *
      * @param organizer the organizer to check for
@@ -162,16 +186,35 @@ public class ExhibitionsRegister implements Importable {
     public List<Exhibition> getExhibitionsListWithoutStaffMemberByOrganizer(Organizer organizer) {
         List<Exhibition> tempExhibitionList = new ArrayList();
         for (Exhibition exhibition : exhibitionsList) {
-            boolean isStaffMemberDefined = exhibition.getState().isStaffDefined();
+            boolean isStaffMemberDefined = exhibition.getState().isCreated()||exhibition.getState().isDemonstrationsDefined()&&!exhibition.getState().isStaffDefined();
 
-            if (!isStaffMemberDefined && exhibition.getOrganizersList().isOrganizer(organizer)) {
+            if (isStaffMemberDefined && exhibition.getOrganizersList().hasOrganizer(organizer)) {
                 tempExhibitionList.add(exhibition);
             }
         }
         return tempExhibitionList;
     }
 
-     /**
+    /**
+     * Get the exhibitions list without Demonstrations defined by Organizer.
+     *
+     * @param organizer the organizer to filter exhibitions
+     * @return the exhibition list without Demonstrations defined by Organizer
+     */
+    public List<Exhibition> getExhibitionsListWithoutDemosDefined(Organizer organizer) {
+
+        List<Exhibition> exhibitionsList = new ArrayList();
+
+        for (Exhibition exhibition : this.exhibitionsList) {
+
+            if (exhibition.isNotDemonstrationsDefined() && exhibition.getOrganizersList().hasOrganizer(organizer)) {
+                exhibitionsList.add(exhibition);
+            }
+        }
+        return exhibitionsList;
+    }
+
+    /**
      * Gets the exhibitions list with application Decided by Organizer.
      *
      * @param organizer the organizer to check for
@@ -182,14 +225,13 @@ public class ExhibitionsRegister implements Importable {
         for (Exhibition exhibition : exhibitionsList) {
             boolean isApplicationsDecided = exhibition.getState().isApplicationsDecided();
 
-            if (isApplicationsDecided  && exhibition.getOrganizersList().isOrganizer(organizer)) {
+            if (isApplicationsDecided && exhibition.getOrganizersList().hasOrganizer(organizer)) {
                 tempExhibitionList.add(exhibition);
             }
         }
         return tempExhibitionList;
     }
-    
-    
+
     /**
      * Gets the submittables filtering by an Organizer and InChangedConflicts
      * state.
@@ -203,7 +245,7 @@ public class ExhibitionsRegister implements Importable {
         List<Submittable> submittablesList = new ArrayList<>();
 
         for (Exhibition exhibition : exhibitionsList) {
-            if ((exhibition.getOrganizersList().isOrganizer(organizer)) && (exhibition.getState().isChangedConflitcts())) {
+            if ((exhibition.getOrganizersList().hasOrganizer(organizer)) && (exhibition.getState().isChangedConflitcts())) {
                 submittablesList.add(exhibition);
             }
             if (exhibition.getState().isApplicationsDecided()) {
@@ -236,7 +278,39 @@ public class ExhibitionsRegister implements Importable {
     }
 
     /**
+     * Gets the submittable filtering by the exhibitor responsible and application in submission state
+     * 
+     * @param exhibitorResponsible exhibitor responsible
+     * @return list of submittable filtering by the exhibitor responsible and application in submission state
+     */
+    public List<Submittable> getSubmittablesApplicationInSubmissionByExhibitorResponsible(ExhibitorResponsible exhibitorResponsible) {
+        List<Submittable> submittables = new ArrayList<>();
+
+        for (Exhibition exhibition : this.exhibitionsList) {
+
+            ApplicationsList applicationsListExhibition = exhibition.getApplicationsList();
+            if (applicationsListExhibition.isEditableOfExhibitorResponsibleInSubmission(exhibitorResponsible)) {
+                submittables.add(exhibition);
+            }
+
+            DemonstrationsList demonstrationsList = exhibition.getDemonstrationsList();
+            List<Demonstration> demonstrations = demonstrationsList.getDemonstrationsList();
+            
+            for (Demonstration demonstration : demonstrations) {
+
+                ApplicationsList applicationsListDemonstration = demonstration.getApplicationsList();
+                if (applicationsListDemonstration.isEditableOfExhibitorResponsibleInSubmission(exhibitorResponsible)) {
+                    submittables.add(demonstration);
+                }
+            }
+        }
+
+        return submittables;
+    }
+
+    /**
      * Returns the removables list filtered out by an exhibitor responsible
+     *
      * @param exhibitorResponsible exhibitor responsible to filter removables
      * @return the removables list filtered out by an exhibitor responsible
      */
@@ -265,6 +339,8 @@ public class ExhibitionsRegister implements Importable {
     /**
      * Returns the textual interpretation of the objects and attributes of this
      * class
+     * 
+     * @return textual representation for this object
      */
     @Override
     public String toString() {

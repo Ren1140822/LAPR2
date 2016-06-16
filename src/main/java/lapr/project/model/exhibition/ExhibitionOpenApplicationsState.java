@@ -67,20 +67,10 @@ public class ExhibitionOpenApplicationsState implements ExhibitionState {
     public boolean isDemonstrationsDefined() {
         return false;
     }
-    
-      @Override
-    public boolean setCompleted() {
-       return false;
-    }
-
-    @Override
-    public boolean isCompleted() {
-        return false;
-    }
 
     @Override
     public boolean setOpenApplication() {
-        return true;
+        return false;
     }
 
     @Override
@@ -156,7 +146,7 @@ public class ExhibitionOpenApplicationsState implements ExhibitionState {
     @Override
     public boolean validate() {
 
-        return this.exhibition.getState().isOpenApplications();
+        return true;
     }
 
   

@@ -68,17 +68,6 @@ public class ExhibitionApplicationsInEvaluationState implements ExhibitionState 
         return false;
     }
 
-       @Override
-    public boolean setCompleted() {
-       return false;
-    }
-
-    @Override
-    public boolean isCompleted() {
-        return false;
-    }
-    
-    
     @Override
     public boolean setOpenApplication() {
         return false;
@@ -121,7 +110,7 @@ public class ExhibitionApplicationsInEvaluationState implements ExhibitionState 
 
     @Override
     public boolean setApplicationsInEvaluation() {
-        return true;
+        return false;
     }
 
     @Override
@@ -131,7 +120,7 @@ public class ExhibitionApplicationsInEvaluationState implements ExhibitionState 
 
     @Override
     public boolean setApplicationsInDecision() {
-        
+
         if (validate()) {
             // TODO : Implement next state
             this.exhibition.setState(new ExhibitionApplicationsInDecisionState(exhibition));
@@ -159,9 +148,7 @@ public class ExhibitionApplicationsInEvaluationState implements ExhibitionState 
     @Override
     public boolean validate() {
 
-        return this.exhibition.getState().isApplicationsInEvaluation();
+        return true;
     }
-
- 
 
 }

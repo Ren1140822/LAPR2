@@ -154,7 +154,7 @@ public class ApplicationInDecidedState implements ApplicationState {
 
     @Override
     public boolean validate() {
-        return this.application.isValid();
+        return this.application.validate();
     }
     
    

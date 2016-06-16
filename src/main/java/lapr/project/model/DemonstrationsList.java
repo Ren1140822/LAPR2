@@ -175,34 +175,46 @@ public class DemonstrationsList {
     public List<Demonstration> getDemonstrationsListInChangedConflicts() {
         List<Demonstration> demonstrationsInChangedConflitctsStateList = new ArrayList<>();
         for (Demonstration demonstration : this.demonstrationList) {
-            if (demonstration.getCurrentDemonstrationState().isChangedConflicts()) {
+            if (demonstration.getCurrentState().isChangedConflicts()) {
                 demonstrationsInChangedConflitctsStateList.add(demonstration);
             }
         }
         return demonstrationsInChangedConflitctsStateList;
     }
-    
+
     /**
-     * Returns the list of removables of this demonstration list filtered out by exhibitor responsible
+     * Returns the list of removables of this demonstration list filtered out by
+     * exhibitor responsible
+     *
      * @param exhibitorResponsible exhibitor responsible to filter removables
-     * @return 
+     * @return
      */
-    public List<Removable> getRetiraveis(ExhibitorResponsible exhibitorResponsible){
+    public List<Removable> getRetiraveis(ExhibitorResponsible exhibitorResponsible) {
         List<Removable> removablesList = new ArrayList();
         List<Application> applicationsList = new ArrayList();
         Removable removable;
         for (Demonstration demonstration : this.demonstrationList) {
-                    applicationsList = demonstration.getApplicationsList().getApplicationsList();
-                    if (demonstration.getCurrentDemonstrationState().isOpenedApplications()) {
-                        for (Application application : applicationsList) {
-                            removable = (Removable) application;
-                            if (removable.getExhibitorResponsible().equals(exhibitorResponsible)) {
-                                removablesList.add(removable);
-                            }
-                        }
+            applicationsList = demonstration.getApplicationsList().getApplicationsList();
+            if (demonstration.getCurrentState().isOpenedApplications()) {
+                for (Application application : applicationsList) {
+                    removable = (Removable) application;
+                    if (removable.getExhibitorResponsible().equals(exhibitorResponsible)) {
+                        removablesList.add(removable);
                     }
                 }
+            }
+        }
         return removablesList;
+    }
+
+    /**
+     * Create a new demonstration.
+     *
+     * @return a new demonstration
+     */
+    public Demonstration newDemonstration() {
+
+        return new Demonstration();
     }
 
     /**

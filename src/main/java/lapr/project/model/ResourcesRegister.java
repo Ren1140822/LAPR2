@@ -42,7 +42,7 @@ public class ResourcesRegister {
      * Creates an instance of ResourcesRegister copying another resources
      * register.
      *
-     * @param resourcesList another resource register
+     * @param resourcesRegister another resource register
      */
     public ResourcesRegister(ResourcesRegister resourcesRegister) {
         this.resourcesList = new ArrayList<>(resourcesRegister.resourcesList);

@@ -65,23 +65,6 @@ public interface ExhibitionState {
      */
     boolean isDemonstrationsDefined();
 
-    
-    
-     /**
-     * Changes the current exhibtion state to complete state.
-     *
-     * @return true if the state is changed to complete state,
-     * false otherwise
-     */
-    boolean setCompleted();
-
-    /**
-     * Verify if this exhibition is completed
-     *
-     * @return true if exhibition is completed,false otherwise.
-     */
-    boolean isCompleted();
-
     /**
      * Changes the current exhibtion state to open applications state.
      *

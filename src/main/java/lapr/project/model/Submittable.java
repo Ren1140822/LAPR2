@@ -61,6 +61,13 @@ public interface Submittable {
      */
     public void setSubmittableInApplicationsInEvaluationState();
 
+    /**
+     * Set submittable to Detected Conflicts State.
+     * 
+     * @return true if submittable changes state to Detected Conflicts State
+     */
+    public boolean setInDetectedConflictsState();
+
     public String[] getInfo();
 
     /**

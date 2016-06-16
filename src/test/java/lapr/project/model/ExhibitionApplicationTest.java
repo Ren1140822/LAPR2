@@ -5,6 +5,7 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import lapr.project.utils.DefaultInstantiator;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -25,9 +26,15 @@ public class ExhibitionApplicationTest {
      */
     private ExhibitionApplication exhibitionApplication;
 
+    /**
+     * The echibition center.s
+     */
+    private ExhibitionCenter exhibitionCenter;
+
     @Before
     public void setUp() {
-        exhibitionApplication = new ExhibitionApplication();
+        this.exhibitionApplication = new ExhibitionApplication();
+        this.exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
     }
 
     /**
@@ -74,6 +81,18 @@ public class ExhibitionApplicationTest {
         System.out.println("registerEvaluation");
         Evaluation evaluation = new Evaluation();
         assertTrue(exhibitionApplication.registerEvaluation(evaluation));
+    }
+
+    /**
+     * Test of cloneToEditable method, of class DemonstrationApplication.
+     */
+    @Test
+    public void testCloneToEditable() {
+        System.out.println("cloneToEditable");
+        ExhibitionApplication exhibitionApplication = (ExhibitionApplication) this.exhibitionCenter.getExhibitionsRegister()
+                .getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0);
+        Editable application = exhibitionApplication.cloneToEditable();
+        assertEquals(application, exhibitionApplication);
     }
 
 }

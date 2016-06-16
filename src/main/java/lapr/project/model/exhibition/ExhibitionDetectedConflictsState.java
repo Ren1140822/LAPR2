@@ -67,16 +67,6 @@ public class ExhibitionDetectedConflictsState implements ExhibitionState {
     public boolean isDemonstrationsDefined() {
         return false;
     }
-    
-      @Override
-    public boolean setCompleted() {
-        return false;
-    }
-
-    @Override
-    public boolean isCompleted() {
-        return false;
-    }
 
     @Override
     public boolean setOpenApplication() {
@@ -100,7 +90,7 @@ public class ExhibitionDetectedConflictsState implements ExhibitionState {
 
     @Override
     public boolean setDetectedConficts() {
-        return true;
+        return false;
     }
 
     @Override
@@ -157,7 +147,7 @@ public class ExhibitionDetectedConflictsState implements ExhibitionState {
     @Override
     public boolean validate() {
 
-        return this.exhibition.getState().isDetectedConficts();
+        return true;
     }
 
   

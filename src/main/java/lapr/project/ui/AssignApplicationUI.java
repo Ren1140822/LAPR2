@@ -45,7 +45,7 @@ import lapr.project.model.Submittable;
 import lapr.project.model.User;
 import lapr.project.model.demonstration.DemonstrationInChangedConflictsState;
 import lapr.project.model.exhibition.ExhibitionChangedConflictsState;
-import lapr.project.model.mechanisms.EquitableLoadMechanism;
+import lapr.project.model.mechanisms.attribution.EquitableLoadMechanism;
 import lapr.project.ui.components.DialogSelectSubmittable;
 import lapr.project.ui.components.ModelListMechanisms;
 import lapr.project.ui.components.ModelTableAttributions;
@@ -350,10 +350,11 @@ public class AssignApplicationUI extends JFrame {
 
     public static void main(String[] args) {
 
-        Organizer organizer = new Organizer(new Organizer(new User("Renato", "Paulinho", "pr@email.com", "password")));
-        StaffMember staffMember1 = new StaffMember(new User("Daniel", "Dani", "Daniel@gmail.com", "password"));
-        StaffMember staffMember2 = new StaffMember(new User("Eric", "Thor", "Eric@gmail.com", "password"));
-        StaffMember staffMember3 = new StaffMember(new User("Ivo", "Ferro", "Ivo@gmail.com", "password"));
+        Organizer organizer = new Organizer(new Organizer(new User("Renato", "Paulinho", "pr@email.com", "password", new ArrayList<>())));
+        StaffMember staffMember1 = new StaffMember(new User("Daniel", "Dani", "Daniel@gmail.com", "password", new ArrayList<>()));
+        StaffMember staffMember2 = new StaffMember(new User("Eric", "Thor", "Eric@gmail.com", "password", new ArrayList<>()));
+        StaffMember staffMember3 = new StaffMember(new User("Ivo", "Ferro", "Ivo@gmail.com", "password", new ArrayList<>()));
+
         List<StaffMember> staffMemberList = new ArrayList<>();
         staffMemberList.add(staffMember1);
         staffMemberList.add(staffMember2);
@@ -399,7 +400,7 @@ public class AssignApplicationUI extends JFrame {
 
         Demonstration demonstration = new Demonstration();
         demonstration.setStaffList(new StaffList(staffMemberList));
-        demonstration.setCurrentDemonstrationState(new DemonstrationInChangedConflictsState(demonstration));
+        demonstration.setCurrentState(new DemonstrationInChangedConflictsState(demonstration));
         List<Demonstration> demonstrationsList = new ArrayList();
         demonstrationsList.add(demonstration);
         DemonstrationsList demonstrationsRegister = new DemonstrationsList(demonstrationsList);

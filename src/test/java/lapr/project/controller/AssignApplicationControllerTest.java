@@ -41,7 +41,7 @@ public class AssignApplicationControllerTest {
         exhibitionCenter.setExhibitionsRegister(er);
 
         // TODO : Instanciador por defeito
-        organizer = new Organizer(new User("Eric", "username2", "email2", "password"));
+        organizer = new Organizer(new User("Eric", "username2", "email2", "password", new ArrayList<>()));
         this.controller = new AssignApplicationController(exhibitionCenter, organizer);
     }
 

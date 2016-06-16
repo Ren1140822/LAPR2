@@ -319,11 +319,11 @@ public class CreateExhibitionUI extends JFrame {
 
         // TODO: Testing
         List testList = new ArrayList();
-        testList.add(new User("Daniel", "username1", "email@s1", "password"));
-        testList.add(new User("Ivo", "username2", "email@s2", "password"));
-        testList.add(new User("Eric", "username3", "email@s3", "password"));
-        testList.add(new User("Renato", "username4", "email@s4", "password"));
-        testList.add(new User("Ricardo", "username5", "email@s5", "password"));
+        testList.add(new User("Daniel", "username1", "email@s1", "password", new ArrayList<>()));
+        testList.add(new User("Ivo", "username2", "email@s2", "password", new ArrayList<>()));
+        testList.add(new User("Eric", "username3", "email@s3", "password", new ArrayList<>()));
+        testList.add(new User("Renato", "username4", "email@s4", "password", new ArrayList<>()));
+        testList.add(new User("Ricardo", "username5", "email@s5", "password", new ArrayList<>()));
         usersList = testList;
         // End
 
@@ -391,7 +391,7 @@ public class CreateExhibitionUI extends JFrame {
                     Date conflictsDate = conflictsLimitDatePicker.getDate();
                     Date evaluationsDate = evaluationsLimitDatePicker.getDate();
 
-                    controller.setExhibitionData(title, description, place, startDate, endDate, openAppsDate, closedAppsDate, conflictsDate, evaluationsDate);
+                    controller.setData(title, description, place, startDate, endDate, openAppsDate, closedAppsDate, conflictsDate, evaluationsDate);
 
                     int[] selectIndexs = usersJList.getSelectedIndices();
                     if (selectIndexs.length < 2) {

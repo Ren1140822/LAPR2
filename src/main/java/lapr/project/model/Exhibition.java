@@ -563,6 +563,11 @@ public class Exhibition implements Submittable {
         return this.currentState.setCreated();
     }
 
+    public boolean isNotDemonstrationsDefined() {
+        
+        return this.currentState.isCreated() || this.currentState.isStaffDefined();
+    }
+    
     /**
      * Changes to next state DemosWithoutStaff or Complete.
      *
@@ -613,6 +618,12 @@ public class Exhibition implements Submittable {
         return this.currentState.setApplicationsInDecision();
     }
 
+    @Override
+    public boolean setInDetectedConflictsState() {
+        
+        return this.currentState.setDetectedConficts();
+    }
+    
     /**
      * Validate the Exhibition.
      *

@@ -67,16 +67,6 @@ public class ExhibitionChangedConflictsState implements ExhibitionState {
     public boolean isDemonstrationsDefined() {
         return false;
     }
-
-    @Override
-    public boolean setCompleted() {
-        return false;
-    }
-
-    @Override
-    public boolean isCompleted() {
-        return false;
-    }
     
     @Override
     public boolean setOpenApplication() {
@@ -111,7 +101,7 @@ public class ExhibitionChangedConflictsState implements ExhibitionState {
     @Override
     public boolean setChangedConflitcts() {
 
-        return true;
+        return false;
     }
 
     @Override
@@ -159,9 +149,7 @@ public class ExhibitionChangedConflictsState implements ExhibitionState {
     @Override
     public boolean validate() {
 
-        return this.exhibition.getState().isChangedConflitcts();
+        return !this.exhibition.getStaffAttributionsList().getStaffAttributionsList().isEmpty();
     }
-
-    
 
 }

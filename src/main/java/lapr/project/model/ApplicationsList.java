@@ -34,11 +34,6 @@ public class ApplicationsList {
     private List<Application> applicationsList;
 
     /**
-     * A temporary exhibition application reference.
-     */
-    private Application application;
-
-    /**
      * Creates an instance of ApplicationsList with its default values.
      */
     public ApplicationsList() {
@@ -90,27 +85,148 @@ public class ApplicationsList {
      * @return the new exhibition application
      */
     public Application newExhibitionApplication() {
-        this.application = new ExhibitionApplication();
-        return this.application;
+        Application application = new ExhibitionApplication();
+        return application;
     }
 
-    
-    
-    
-    public List<ExhibitionApplication> getApplicationsInAcceptedState(){
+    /**
+     * Creates a new demonstration application.
+     *
+     * @return the new demonstration application
+     */
+    public Application newDemonstrationApplication() {
+        Application application = new DemonstrationApplication();
+        return application;
+    }
+
+    /**
+     * Gets applications in accepted state.
+     *
+     * @return the list of applications
+     */
+    public List<ExhibitionApplication> getApplicationsInAcceptedState() {
         List<ExhibitionApplication> tmpApplications = new ArrayList<>();
-        for(Application application : applicationsList){
-             //ONLY TO VERIFY ALTHOUGH ALL APPLICATIONS ARE EXHIBITION APPLICATIONS 
-             if(application instanceof ExhibitionApplication){
-               boolean isAccepted= ((ExhibitionApplication)application).getCurrentState().isAccepted();
-               if(isAccepted){
-                   tmpApplications.add((ExhibitionApplication)application);
-               }
-             }
+        for (Application application : applicationsList) {
+            //ONLY TO VERIFY ALTHOUGH ALL APPLICATIONS ARE EXHIBITION APPLICATIONS 
+            if (application instanceof ExhibitionApplication) {
+                boolean isAccepted = ((ExhibitionApplication) application).getCurrentState().isAccepted();
+                if (isAccepted) {
+                    tmpApplications.add((ExhibitionApplication) application);
+                }
+            }
         }
         return tmpApplications;
     }
-    
+
+    /**
+     * Validates the demonstration application.
+     *
+     * @param application the application to validate
+     * @return true if all OK
+     */
+    public boolean validateDemonstrationApplication(Application application) {
+        return !this.applicationsList.contains(application) && application.validate();
+    }
+
+    /**
+     * Sets this demonstration state and adds this demonstration application to
+     * the list.
+     *
+     * @param application the application to add.
+     */
+    public void registerDemonstrationApplication(Application application) {
+        if (((DemonstrationApplication) application).getCurrentState().setInSubmission()) {
+            this.applicationsList.add(application);
+        }
+    }
+
+    /**
+     * Verify if the exhibitor responsible has an editable in submission.
+     *
+     * @param exhibitorResponsible exhibitor responsible
+     * @return true if the exhibitors repsible's editable is in submission
+     */
+    public boolean isEditableOfExhibitorResponsibleInSubmission(ExhibitorResponsible exhibitorResponsible) {
+        boolean result = false;
+
+        for (Application application : applicationsList) {
+            Editable editable = (Editable) application;
+            if (editable.isExhibitorResponsible(exhibitorResponsible) && editable.isInSubmission()) {
+                result = true;
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Gets the application referring to a exhibitor responsible
+     *
+     * @param exhibitorResponsible the exhibitor responsible
+     * @return the application
+     */
+    public Application getApplicationByExhibitorResponsible(ExhibitorResponsible exhibitorResponsible) {
+        for (Application application : applicationsList) {
+            //no need to check instance of; whenever this method is called its always from a exhibition application perspective
+            boolean isExhibitorResponsible = ((ExhibitionApplication) application).isExhibitorResponsible(exhibitorResponsible);
+            if (isExhibitorResponsible) {
+                return application;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets the editable by a exhibitor responsible.
+     *
+     * @param exhibitorResponsible exhibitor responsible
+     * @return the editable
+     */
+    public Editable getEditableByExhibitorResponsible(ExhibitorResponsible exhibitorResponsible) {
+        Editable editable = null;
+
+        for (Application application : applicationsList) {
+            if (((Editable) application).isExhibitorResponsible(exhibitorResponsible)) {
+                editable = (Editable) application;
+            }
+        }
+
+        return editable;
+    }
+
+    /**
+     * Makes a clone of a given editable.
+     *
+     * @param editable editable to clone
+     * @return clone of the given editable
+     */
+    public Editable cloneEditable(Editable editable) {
+        return editable.cloneToEditable();
+    }
+
+    /**
+     * Validate if the new editable is valid, ignoring the old one.
+     *
+     * @param editableNew new editable
+     * @param editableOld old editable
+     * @return true if it is valid, false otherwise
+     */
+    public boolean validateEditable(Editable editableNew, Editable editableOld) {
+        return editableNew.validate() && validateNewEditable(editableNew, editableOld);
+    }
+
+    /**
+     * Validate if the new editable fits in the applications list, ignoring the
+     * old one.
+     *
+     * @param editableNew new editable
+     * @param editableOld old editable
+     * @return true if it fits, false otherwise
+     */
+    private boolean validateNewEditable(Editable editableNew, Editable editableOld) {
+        return editableNew.equals(editableOld) ? true : !this.applicationsList.contains((Application) editableNew);
+    }
+
     /**
      * Return the textual representation of a ApplicationsList.
      *
@@ -145,5 +261,17 @@ public class ApplicationsList {
         ApplicationsList otherApplicationsList = (ApplicationsList) otherObject;
 
         return this.applicationsList.equals(otherApplicationsList.applicationsList);
+    }
+
+    /**
+     * Modify the given old editable with the new editable.
+     *
+     * @param newEditable new editable to be defined
+     * @param oldEditable old editable to be removed
+     * @return true if it is added with successfull, false otherwise
+     */
+    public boolean modifyEditable(Editable newEditable, Editable oldEditable) {
+        this.applicationsList.remove((Application) oldEditable);
+        return this.applicationsList.add((Application) newEditable);
     }
 }

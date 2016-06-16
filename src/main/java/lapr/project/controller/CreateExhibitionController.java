@@ -1,5 +1,5 @@
 /**
- * Package location for Apllication Controllers concepts.
+ * Package location for Application Controllers concepts.
  */
 package lapr.project.controller;
 
@@ -107,7 +107,7 @@ public class CreateExhibitionController {
      * @param evaluationLimiteDate Exhibition's applications evaluation limit
      * date
      */
-    public void setExhibitionData(String title, String description, Place place,
+    public void setData(String title, String description, Place place,
             Date startDate, Date endDate, Date startSubDate, Date endSubDate,
             Date conflictLimitDate, Date evaluationLimiteDate) {
 
