@@ -167,6 +167,10 @@ public class ApplicationsList {
 
         return editable;
     }
+    
+    public Editable cloneEditable(Editable editable){
+        return editable.cloneToEditable();
+    }
 
     /**
      * Return the textual representation of a ApplicationsList.
