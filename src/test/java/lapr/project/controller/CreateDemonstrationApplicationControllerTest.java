@@ -7,6 +7,10 @@ package lapr.project.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import static jdk.nashorn.internal.objects.Global.instance;
+import lapr.project.model.ApplicationsList;
+import lapr.project.model.Demonstration;
+import lapr.project.model.DemonstrationApplication;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
@@ -90,15 +94,18 @@ CreateDemonstrationApplicationController controller;
     /**
      * Test of newDemonstrationApplication method, of class CreateDemonstrationApplicationController.
      */
-//    @Test
-//    public void testNewDemonstrationApplication() {
-//        System.out.println("newDemonstrationApplication");
-//        Demonstration demonstration = null;
-//        CreateDemonstrationApplicationController instance = null;
-//        instance.newDemonstrationApplication(demonstration);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testNewDemonstrationApplication() {
+        System.out.println("newDemonstrationApplication");
+        Demonstration demonstration = exhibition.getDemonstrationsList().getDemonstrationsList().get(0);
+        ApplicationsList applicationsList = demonstration.getApplicationsList();
+        DemonstrationApplication demonstrationApplication = new DemonstrationApplication();
+        
+        CreateDemonstrationApplicationController instance = controller;
+        DemonstrationApplication result =instance.newDemonstrationApplication(demonstration);
+        assertEquals(result,demonstrationApplication);
+       
+    }
 
     /**
      * Test of setData method, of class CreateDemonstrationApplicationController.
