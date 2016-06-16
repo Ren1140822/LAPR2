@@ -175,15 +175,18 @@ public class CreateDemonstrationApplicationControllerTest {
      * Test of registerDemonstrationApplication method, of class
      * CreateDemonstrationApplicationController.
      */
-//    @Test
-//    public void testRegisterDemonstrationApplication() {
-//        System.out.println("registerDemonstrationApplication");
-//        CreateDemonstrationApplicationController instance = null;
-//        boolean expResult = false;
-//        boolean result = instance.registerDemonstrationApplication();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testRegisterDemonstrationApplication() {
+        System.out.println("registerDemonstrationApplication");
+         CreateDemonstrationApplicationController instance = controller;
+        Demonstration demonstration = new Demonstration();
+         instance.newDemonstrationApplication(demonstration);
+        
+        instance.setData("TestTitle", 10);
+      
+        boolean result = instance.registerDemonstrationApplication();
+        assertTrue(result);
+      
+    }
 //    
 }

@@ -124,7 +124,7 @@ public class ApplicationsList {
      * @return true if all OK
      */
     public boolean validateDemonstrationApplication(Application application){
-        return this.applicationsList.contains(application)&&application.validate();
+        return !this.applicationsList.contains(application)&&application.validate();
     }
     
     /**
