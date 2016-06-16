@@ -4,11 +4,20 @@
 package lapr.project.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import lapr.project.model.ApplicationsList;
+import lapr.project.model.ConflictsList;
 import lapr.project.model.Demonstration;
+import lapr.project.model.DemonstrationsList;
 import lapr.project.model.Exhibition;
 import lapr.project.model.Organizer;
+import lapr.project.model.OrganizersList;
+import lapr.project.model.Place;
 import lapr.project.model.Resource;
+import lapr.project.model.StaffAttributionsList;
+import lapr.project.model.StaffList;
+import lapr.project.model.User;
 import lapr.project.utils.DefaultInstantiator;
 import org.junit.Before;
 import org.junit.Test;
@@ -70,16 +79,16 @@ public class CreateDemonstrationControllerTest {
         System.out.println("addResource");
 
         Resource resource = new Resource("testAdded");
-        
+
         this.controller.setDemonstration(new Demonstration());
         this.controller.addResource(resource);
 
         List<Resource> resourcesList = new ArrayList<>();
         resourcesList.add(resource);
         List<Resource> expResult = resourcesList;
-        
+
         List<Resource> result = this.controller.getDemonstration().getResourcesList();
-        
+
         assertEquals(expResult, result);
     }
 
@@ -109,4 +118,19 @@ public class CreateDemonstrationControllerTest {
         assertFalse(dontAddResource);
     }
 
+    /**
+     * Test of registerDemonstration method, of class CreateDemonstrationController.
+     */
+    @Test
+    public void testRegisterDemonstration() {
+
+        System.out.println("registerDemonstration");
+
+        Demonstration demonstration = new Demonstration("test");
+
+        this.controller.setDemonstration(demonstration);
+
+        boolean result = this.controller.registerDemonstration();
+        assertTrue(result);
+    }
 }
