@@ -71,6 +71,11 @@ public class RegisterTypeConflictTest {
             public boolean detectConflict(StaffMember staffMember, Application application) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
+
+            @Override
+            public String getDescription() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
         };
 
         this.validConflictType = new ConflictType(this.conflictDetetionMechanism, "Mista");

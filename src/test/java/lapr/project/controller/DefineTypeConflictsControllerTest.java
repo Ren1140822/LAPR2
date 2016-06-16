@@ -51,6 +51,11 @@ public class DefineTypeConflictsControllerTest {
             public boolean detectConflict(StaffMember staffMember, Application application) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
+
+            @Override
+            public String getDescription() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
         };
 
         this.expResult = new ConflictType(conflictDetectionMechanism, "TipoConflitoFamiliar");
