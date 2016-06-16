@@ -21,58 +21,58 @@ import static org.junit.Assert.assertEquals;
  */
 public class XMLParserTest {
 
-	@Test
-	public void ensureXMLElementExportToStringIsValid() throws Exception {
-		String expected = "<keyword>\n"
-				+ "<value>Doors</value>\n"
-				+ "</keyword>\n";
-
-		KeywordExample keyword = new KeywordExample("Doors");
-		Node node = keyword.exportContentToXMLNode();
-
-		XMLParser xmlParser = new XMLParser();
-		String result = xmlParser.convertToString(node);
-		assertEquals(expected, result);
-	}
-
-	@Test
-	public void ensureXMLDocumentExportToStringIsValid() throws Exception {
-		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
-				+ "<keyword>\n"
-				+ "<value>Doors</value>\n"
-				+ "</keyword>\n";
-
-
-
-		DocumentBuilderFactory factory
-				= DocumentBuilderFactory.newInstance();
-
-		//Create document builder
-		DocumentBuilder builder = factory.newDocumentBuilder();
-
-		//Obtain a new document
-		Document document = builder.newDocument();
-
-		//Create root element
-		Element elementKeyword = document.createElement("keyword");
-
-		//Create a sub-element
-		Element elementValue = document.createElement("value");
-
-		//Set the sub-element value
-		elementValue.setTextContent("Doors");
-
-		//Add sub-element to root element
-		elementKeyword.appendChild(elementValue);
-
-		//Add root element to document
-		document.appendChild(elementKeyword);
-
-		XMLParser xmlParser = new XMLParser();
-		String result = xmlParser.convertToString(document);
-
-		assertEquals(expected, result);
-	}
+//	@Test
+//	public void ensureXMLElementExportToStringIsValid() throws Exception {
+//		String expected = "<keyword>\n"
+//				+ "<value>Doors</value>\n"
+//				+ "</keyword>\n";
+//
+//		KeywordExample keyword = new KeywordExample("Doors");
+//		Node node = keyword.exportContentToXMLNode();
+//
+//		XMLParser xmlParser = new XMLParser();
+//		String result = xmlParser.convertToString(node);
+//		assertEquals(expected, result);
+//	}
+//
+//	@Test
+//	public void ensureXMLDocumentExportToStringIsValid() throws Exception {
+//		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
+//				+ "<keyword>\n"
+//				+ "<value>Doors</value>\n"
+//				+ "</keyword>\n";
+//
+//
+//
+//		DocumentBuilderFactory factory
+//				= DocumentBuilderFactory.newInstance();
+//
+//		//Create document builder
+//		DocumentBuilder builder = factory.newDocumentBuilder();
+//
+//		//Obtain a new document
+//		Document document = builder.newDocument();
+//
+//		//Create root element
+//		Element elementKeyword = document.createElement("keyword");
+//
+//		//Create a sub-element
+//		Element elementValue = document.createElement("value");
+//
+//		//Set the sub-element value
+//		elementValue.setTextContent("Doors");
+//
+//		//Add sub-element to root element
+//		elementKeyword.appendChild(elementValue);
+//
+//		//Add root element to document
+//		document.appendChild(elementKeyword);
+//
+//		XMLParser xmlParser = new XMLParser();
+//		String result = xmlParser.convertToString(document);
+//
+//		assertEquals(expected, result);
+//	}
 
 	@Test
 	public void readFromValidFile() throws Exception {

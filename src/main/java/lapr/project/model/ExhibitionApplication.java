@@ -576,4 +576,9 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         return this.currentState.isInSubmission();
     }
 
+    @Override
+    public Editable cloneToEditable() {
+        return new ExhibitionApplication(this);
+    }
+
 }

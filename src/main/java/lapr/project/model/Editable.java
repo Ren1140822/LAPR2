@@ -36,4 +36,11 @@ public interface Editable {
      * @return true if it is valid, false otherwise
      */
     boolean validate();
+
+    /**
+     * Clone this editable.
+     * 
+     * @return copy of the editable
+     */
+    public Editable cloneToEditable();
 }
