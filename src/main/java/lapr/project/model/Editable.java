@@ -22,24 +22,24 @@ public interface Editable {
      * @return true if he/she is the exhibitor responsible, false otherwise
      */
     boolean isExhibitorResponsible(ExhibitorResponsible exhibitorResponsible);
-    
+
     /**
      * Verify if the editable is in submission state.
-     * 
+     *
      * @return true if it is on submission state, false otherwise
      */
     boolean isInSubmission();
-    
+
     /**
      * Validate if this editable is valid.
-     * 
+     *
      * @return true if it is valid, false otherwise
      */
     boolean validate();
 
     /**
      * Clone this editable.
-     * 
+     *
      * @return copy of the editable
      */
     public Editable cloneToEditable();

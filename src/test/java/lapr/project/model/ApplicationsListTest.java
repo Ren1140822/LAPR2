@@ -4,8 +4,6 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
-import java.util.List;
-import lapr.project.model.application.ApplicationInEvaluationState;
 import lapr.project.utils.DefaultInstantiator;
 import org.junit.Before;
 import org.junit.Test;
@@ -83,7 +81,6 @@ public class ApplicationsListTest {
 //        instance.registerDemonstrationApplication(application);
 //        assertTrue(instance.getApplicationsList().contains(application));
 //    }
-
     /**
      * Test of getApplicationByExhibitorResponsible method, of class
      * ApplicationsList.
@@ -105,10 +102,10 @@ public class ApplicationsListTest {
     public void testGetEditableByExhibitorResponsible() {
         System.out.println("getEditableByExhibitorResponsible");
         ExhibitorResponsible exhibitorResponsible = new ExhibitorResponsible(new User("Fábio Silva", "fabiosilva", "fabiosilva@blip.pt", "Ewq+321", new ArrayList<>()));
-        Editable expResult = (Editable)this.applicationsList.getApplicationsList().get(0);
+        Editable expResult = (Editable) this.applicationsList.getApplicationsList().get(0);
         Editable result = this.applicationsList.getEditableByExhibitorResponsible(exhibitorResponsible);
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -117,12 +114,31 @@ public class ApplicationsListTest {
     @Test
     public void testCloneEditable() {
         System.out.println("cloneEditable");
-        Editable editable = (Editable)this.applicationsList.getApplicationsList().get(0);
-        Editable expResult = (Editable)this.applicationsList.getApplicationsList().get(0);
+        Editable editable = (Editable) this.applicationsList.getApplicationsList().get(0);
+        Editable expResult = (Editable) this.applicationsList.getApplicationsList().get(0);
         Editable result = this.applicationsList.cloneEditable(editable);
         assertEquals(expResult, result);
     }
 
+//    @Test
+//    public void testValidateNewEditable() {
+//        System.out.println("validateNewEditable");
+//        Editable newEditable = (Editable)this.applicationsList.getApplicationsList().get(0);
+//        Editable oldEditable = new ExhibitionApplication();
+//        assertTrue(this.applicationsList.validateEditable(newEditable, oldEditable));
+//    }
+    
+    /**
+     * Test of modifyEditable method, of class ApplicationsList.
+     */
+    @Test
+    public void testModifyEditable() {
+        System.out.println("modifyEditable");
+        Editable newEditable = (Editable) new ExhibitionApplication();
+        Editable oldEditable = (Editable) this.applicationsList.getApplicationsList().get(0);
+        assertTrue(this.applicationsList.modifyEditable(newEditable, oldEditable));
+    }
+    
     /**
      * Test of equals method, of class ApplicationsList.
      */
