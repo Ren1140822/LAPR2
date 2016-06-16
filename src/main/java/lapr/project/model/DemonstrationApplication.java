@@ -434,4 +434,9 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         return this.currentState.isInSubmission();
     }
 
+    @Override
+    public Editable cloneToEditable() {
+        return new DemonstrationApplication(this);
+    }
+
 }
