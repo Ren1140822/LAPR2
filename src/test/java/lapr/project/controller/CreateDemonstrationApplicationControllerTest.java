@@ -29,55 +29,57 @@ import static org.junit.Assert.*;
  * @author Renato Oliveira 1140822@isep.ipp.pt
  */
 public class CreateDemonstrationApplicationControllerTest {
+
     ExhibitionCenter exhibitionCenter;
-CreateDemonstrationApplicationController controller;
-  Exhibition exhibition;
-  
-    
+    CreateDemonstrationApplicationController controller;
+    Exhibition exhibition;
+
     public CreateDemonstrationApplicationControllerTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
-        
+
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
-        
+
         exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
-        ExhibitionApplication application =  ((ExhibitionApplication)exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0));
+        ExhibitionApplication application = ((ExhibitionApplication) exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0));
         ExhibitorResponsible exhibitorResponsible = application.getExhibitorResponsible();
-      exhibition = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0);
-       exhibition.setState(new ExhibitionApplicationsInDecisionState(exhibition));
-       controller = new CreateDemonstrationApplicationController(exhibitorResponsible, exhibitionCenter);
+        exhibition = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0);
+        exhibition.setState(new ExhibitionApplicationsInDecisionState(exhibition));
+        controller = new CreateDemonstrationApplicationController(exhibitorResponsible, exhibitionCenter);
     }
-    
+
     @After
     public void tearDown() {
     }
 
     /**
-     * Test of getExhibitionListWithApplicationsInSubmission method, of class CreateDemonstrationApplicationController.
+     * Test of getExhibitionListWithApplicationsInSubmission method, of class
+     * CreateDemonstrationApplicationController.
      */
     @Test
     public void testGetExhibitionListWithApplicationsInSubmission() {
         System.out.println("getExhibitionListWithApplicationsInSubmission");
         CreateDemonstrationApplicationController instance = controller;
-        List<Exhibition> exhibitionList =new ArrayList();
+        List<Exhibition> exhibitionList = new ArrayList();
         exhibitionList.add(exhibition);
         List<Exhibition> expResult = exhibitionList;
         List<Exhibition> result = instance.getExhibitionListWithApplicationsInSubmission();
         assertEquals(expResult, result);
-   
+
     }
 
     /**
-     * Test of getDemonstrationsList method, of class CreateDemonstrationApplicationController.
+     * Test of getDemonstrationsList method, of class
+     * CreateDemonstrationApplicationController.
      */
 //    @Test
 //    public void testGetDemonstrationsList() {
@@ -90,9 +92,9 @@ CreateDemonstrationApplicationController controller;
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-
     /**
-     * Test of newDemonstrationApplication method, of class CreateDemonstrationApplicationController.
+     * Test of newDemonstrationApplication method, of class
+     * CreateDemonstrationApplicationController.
      */
     @Test
     public void testNewDemonstrationApplication() {
@@ -100,29 +102,37 @@ CreateDemonstrationApplicationController controller;
         Demonstration demonstration = exhibition.getDemonstrationsList().getDemonstrationsList().get(0);
         ApplicationsList applicationsList = demonstration.getApplicationsList();
         DemonstrationApplication demonstrationApplication = new DemonstrationApplication();
-        
+
         CreateDemonstrationApplicationController instance = controller;
-        DemonstrationApplication result =instance.newDemonstrationApplication(demonstration);
-        assertEquals(result,demonstrationApplication);
-       
+        instance.newDemonstrationApplication(demonstration);
+        DemonstrationApplication result = instance.getDemonstrationApplication();
+        assertEquals(result, demonstrationApplication);
+
     }
 
     /**
-     * Test of setData method, of class CreateDemonstrationApplicationController.
+     * Test of setData method, of class
+     * CreateDemonstrationApplicationController.
      */
-//    @Test
-//    public void testSetData() {
-//        System.out.println("setData");
-//        String title = "";
-//        int numberInvitations = 0;
-//        CreateDemonstrationApplicationController instance = null;
-//        instance.setData(title, numberInvitations);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testSetData() {
+        System.out.println("setData");
+        String title = "";
+        int numberInvitations = 0;
+        CreateDemonstrationApplicationController instance = controller;
+        Demonstration demonstration = new Demonstration();
+         instance.newDemonstrationApplication(demonstration);
+        DemonstrationApplication result = instance.getDemonstrationApplication();
+        instance.setData(title, numberInvitations);
+        DemonstrationApplication demonstrationApplication = new DemonstrationApplication();
+        demonstrationApplication.setTitle(title);
+        demonstrationApplication.setNumberInvitations(numberInvitations);
+        assertEquals(result, instance.getDemonstrationApplication());
+    }
 
     /**
-     * Test of setProductsList method, of class CreateDemonstrationApplicationController.
+     * Test of setProductsList method, of class
+     * CreateDemonstrationApplicationController.
      */
 //    @Test
 //    public void testSetProductsList() {
@@ -133,9 +143,9 @@ CreateDemonstrationApplicationController controller;
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-
     /**
-     * Test of getProductsList method, of class CreateDemonstrationApplicationController.
+     * Test of getProductsList method, of class
+     * CreateDemonstrationApplicationController.
      */
 //    @Test
 //    public void testGetProductsList() {
@@ -147,9 +157,9 @@ CreateDemonstrationApplicationController controller;
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-
     /**
-     * Test of getKeywordsList method, of class CreateDemonstrationApplicationController.
+     * Test of getKeywordsList method, of class
+     * CreateDemonstrationApplicationController.
      */
 //    @Test
 //    public void testGetKeywordsList() {
@@ -161,9 +171,9 @@ CreateDemonstrationApplicationController controller;
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-
     /**
-     * Test of registerDemonstrationApplication method, of class CreateDemonstrationApplicationController.
+     * Test of registerDemonstrationApplication method, of class
+     * CreateDemonstrationApplicationController.
      */
 //    @Test
 //    public void testRegisterDemonstrationApplication() {

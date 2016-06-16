@@ -96,9 +96,9 @@ public class CreateDemonstrationApplicationController {
      *
      * @param demonstration the demonstration to apply for
      */
-    public DemonstrationApplication newDemonstrationApplication(Demonstration demonstration) {
+    public void newDemonstrationApplication(Demonstration demonstration) {
         this.applicationsList = demonstration.getApplicationsList();
-        return this.demonstrationApplication = (DemonstrationApplication) this.applicationsList.newDemonstrationApplication();
+       this.demonstrationApplication = (DemonstrationApplication) this.applicationsList.newDemonstrationApplication();
 
     }
 
@@ -159,5 +159,15 @@ public class CreateDemonstrationApplicationController {
         }
         return false;
     }
+
+    /**
+     * Returns the demonstration application.
+     * @return the demonstration application
+     */
+    public DemonstrationApplication getDemonstrationApplication() {
+        return demonstrationApplication;
+    }
+    
+    
 
 }
