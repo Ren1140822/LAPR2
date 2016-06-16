@@ -90,6 +90,15 @@ public class ApplicationsList {
       Application application = new ExhibitionApplication();
         return application;
     }
+    
+    /**
+     * Creates a new demonstration application.
+     * @return  the new demonstration application
+     */
+    public Application newDemonstrationApplication(){
+        Application application = new DemonstrationApplication();
+        return application;
+    }
 
     public List<ExhibitionApplication> getApplicationsInAcceptedState() {
         List<ExhibitionApplication> tmpApplications = new ArrayList<>();
@@ -124,6 +133,23 @@ public class ApplicationsList {
         return result;
     }
 
+    /**
+     * Gets the application referring to a exhibitor responsible
+     * @param exhibitorResponsible the exhibitor responsible
+     * @return the application
+     */
+    public Application getApplicationByExhibitorResponsible(ExhibitorResponsible exhibitorResponsible){
+        for(Application application:applicationsList){
+            //no need to check instance of; whenever this method is called its always from a exhibition application perspective
+            boolean isExhibitorResponsible = ((ExhibitionApplication)application).isExhibitorResponsible(exhibitorResponsible);
+            if(isExhibitorResponsible){
+                return application;
+            }
+        }
+        return null;
+    }
+    
+    
     /**
      * Gets the editable by a exhibitor responsible.
      *

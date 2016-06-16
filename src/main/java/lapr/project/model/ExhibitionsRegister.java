@@ -152,6 +152,32 @@ public class ExhibitionsRegister implements Importable {
     }
 
     /**
+     * Gets exhibitions list with applications in submission of this exhibitor responsible
+     * @param exhibitorResponsible the exhibition responsible
+     * @return the list of exhibitions
+     */
+    public List<Exhibition> getExhibitionsListWithApplicationsInSubmissionByExhibitorResponsible(ExhibitorResponsible exhibitorResponsible){
+        List<Exhibition> exhibitionsList = new ArrayList();
+          boolean isExhibitorResponsible=false;
+        for(Exhibition exhibition:this.exhibitionsList){
+            boolean isInSubmittingApplication = exhibition.getState().isApplicationsInDecision();
+            ApplicationsList applicationsList = exhibition.getApplicationsList();
+            List<Application> applicationsArrayList = applicationsList.getApplicationsList();
+           
+            for(Application application : applicationsArrayList){
+                isExhibitorResponsible = ((ExhibitionApplication)application).isExhibitorResponsible(exhibitorResponsible);
+                if(isExhibitorResponsible){
+                    break;
+                }
+            }
+            if(isInSubmittingApplication&&isExhibitorResponsible){
+                exhibitionsList.add(exhibition);
+            }
+        }
+        return exhibitionsList;
+    }
+    
+    /**
      * Gets the exhibitions list without StaffMember by Organizer.
      *
      * @param organizer the organizer to check for
