@@ -7,7 +7,6 @@ package lapr.project.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import static jdk.nashorn.internal.objects.Global.instance;
 import lapr.project.model.ApplicationsList;
 import lapr.project.model.Demonstration;
 import lapr.project.model.DemonstrationApplication;
@@ -15,7 +14,7 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitorResponsible;
-import lapr.project.model.exhibition.ExhibitionApplicationsInDecisionState;
+import lapr.project.model.exhibition.ExhibitionDecidedApplicationsState;
 import lapr.project.utils.DefaultInstantiator;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -53,7 +52,7 @@ public class CreateDemonstrationApplicationControllerTest {
         ExhibitionApplication application = ((ExhibitionApplication) exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0));
         ExhibitorResponsible exhibitorResponsible = application.getExhibitorResponsible();
         exhibition = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0);
-        exhibition.setState(new ExhibitionApplicationsInDecisionState(exhibition));
+        exhibition.setState(new ExhibitionDecidedApplicationsState(exhibition));
         controller = new CreateDemonstrationApplicationController(exhibitorResponsible, exhibitionCenter);
     }
 
@@ -188,5 +187,5 @@ public class CreateDemonstrationApplicationControllerTest {
         assertTrue(result);
       
     }
-//    
+
 }
