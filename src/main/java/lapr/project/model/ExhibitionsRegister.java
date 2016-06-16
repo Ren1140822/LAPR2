@@ -160,9 +160,9 @@ public class ExhibitionsRegister implements Importable {
     public List<Exhibition> getExhibitionsListWithoutStaffMemberByOrganizer(Organizer organizer) {
         List<Exhibition> tempExhibitionList = new ArrayList();
         for (Exhibition exhibition : exhibitionsList) {
-            boolean isStaffMemberDefined = exhibition.getState().isStaffDefined();
+            boolean isStaffMemberDefined = exhibition.getState().isCreated()||exhibition.getState().isDemonstrationsDefined()&&!exhibition.getState().isStaffDefined();
 
-            if (!isStaffMemberDefined && exhibition.getOrganizersList().hasOrganizer(organizer)) {
+            if (isStaffMemberDefined && exhibition.getOrganizersList().hasOrganizer(organizer)) {
                 tempExhibitionList.add(exhibition);
             }
         }
