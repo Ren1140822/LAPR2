@@ -160,7 +160,7 @@ public class ExhibitionsRegister implements Importable {
         List<Exhibition> exhibitionsList = new ArrayList();
           boolean isExhibitorResponsible=false;
         for(Exhibition exhibition:this.exhibitionsList){
-            boolean isInSubmittingApplication = exhibition.getState().isApplicationsInDecision();
+            boolean isInSubmittingApplication = exhibition.getState().isApplicationsDecided();
             ApplicationsList applicationsList = exhibition.getApplicationsList();
             List<Application> applicationsArrayList = applicationsList.getApplicationsList();
            
