@@ -144,4 +144,15 @@ public class CreateDemonstrationController {
         
         return resourcesRegister.getResourcesList();
     }
+    
+    /**
+     * Adds a resouce to the list if it doesn't already contain that resouce.
+     * 
+     * @param resource the resource to add
+     * @return true if the resource is added
+     */
+    public boolean addResource(Resource resource) {
+        
+        return this.demonstration.addResource(resource);
+    }
 }

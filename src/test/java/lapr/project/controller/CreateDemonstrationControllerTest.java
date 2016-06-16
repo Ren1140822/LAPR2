@@ -3,9 +3,12 @@
  */
 package lapr.project.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import lapr.project.model.Demonstration;
 import lapr.project.model.Exhibition;
 import lapr.project.model.Organizer;
+import lapr.project.model.Resource;
 import lapr.project.utils.DefaultInstantiator;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,6 +39,12 @@ public class CreateDemonstrationControllerTest {
                 .getExhibitionsRegister().getExhibitionsList().get(0);
 
         this.controller.setSelectedExhibition(selectedExhibition);
+
+        List<Resource> resourcesList = new ArrayList<>();
+        resourcesList.add(new Resource("testFailed"));
+        Demonstration demonstration = new Demonstration();
+        demonstration.setResourcesList(resourcesList);
+        this.controller.setDemonstration(demonstration);
     }
 
     /**
@@ -51,6 +60,53 @@ public class CreateDemonstrationControllerTest {
         Demonstration result = this.controller.getDemonstration();
 
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of addResource method, of class CreateDemonstrationController.
+     */
+    @Test
+    public void addResource() {
+        System.out.println("addResource");
+
+        Resource resource = new Resource("testAdded");
+        
+        this.controller.setDemonstration(new Demonstration());
+        this.controller.addResource(resource);
+
+        List<Resource> resourcesList = new ArrayList<>();
+        resourcesList.add(resource);
+        List<Resource> expResult = resourcesList;
+        
+        List<Resource> result = this.controller.getDemonstration().getResourcesList();
+        
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of addResource method, of class CreateDemonstrationController,
+     * returns true & adds resource.
+     */
+    @Test
+    public void addResourceTrue() {
+        System.out.println("addResource");
+
+        boolean addedResource = this.controller.addResource(new Resource("test"));
+
+        assertTrue(addedResource);
+    }
+
+    /**
+     * Test of addResource method, of class CreateDemonstrationController,
+     * returns false & doesn't add the resource.
+     */
+    @Test
+    public void addResourceFalse() {
+        System.out.println("addResource");
+
+        boolean dontAddResource = this.controller.addResource(new Resource("testFailed"));
+
+        assertFalse(dontAddResource);
     }
 
 }

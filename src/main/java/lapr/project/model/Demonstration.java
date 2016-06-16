@@ -325,6 +325,17 @@ public class Demonstration implements Submittable {
     public void setConflictsList(ConflictsList conflictsList) {
         this.conflictsList = new ConflictsList(conflictsList);
     }
+    
+    /**
+     * Adds a resouce to the list if it doesn't already contain that resouce.
+     * 
+     * @param resource the resource to add
+     * @return true if the resource is added
+     */
+    public boolean addResource(Resource resource) {
+        
+        return this.resourcesList.contains(resource) ? false : this.resourcesList.add(resource);
+    }
 
     /**
      * Returns the current demonstration state.
