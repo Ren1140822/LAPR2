@@ -195,6 +195,7 @@ public class DefaultInstantiator {
 
         // Exhibitions applications to exhibition computer science
         List<Application> computerScienceApplications = new ArrayList<>();
+        exhibitionApplicationNodeJs.getExhibitor().setExhibitorResponsible(exhibitorResponsibleBlip);
         computerScienceApplications.add(exhibitionApplicationNodeJs);
         ApplicationsList computerScienceApplicationsList = new ApplicationsList(computerScienceApplications);
 

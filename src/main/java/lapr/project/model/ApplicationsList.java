@@ -100,6 +100,10 @@ public class ApplicationsList {
         return application;
     }
 
+    /**
+     * Gets applications in accepted state.
+     * @return the list of applications
+     */
     public List<ExhibitionApplication> getApplicationsInAcceptedState() {
         List<ExhibitionApplication> tmpApplications = new ArrayList<>();
         for (Application application : applicationsList) {
@@ -114,6 +118,25 @@ public class ApplicationsList {
         return tmpApplications;
     }
 
+    /**
+     * Validates the demonstration application.
+     * @param application the application to validate
+     * @return true if all OK
+     */
+    public boolean validateDemonstrationApplication(Application application){
+        return this.applicationsList.contains(application)&&application.validate();
+    }
+    
+    /**
+     * Sets this demonstration state and adds this demonstration application to the list.
+     * @param application the application to add.
+     */
+    public void registerDemonstrationApplication(Application application){
+       if(((DemonstrationApplication)application).getCurrentState().setInSubmission()){
+           this.applicationsList.add(application);
+       }
+    }
+    
     /**
      * Verify if the exhibitor responsible has an editable in submission.
      *

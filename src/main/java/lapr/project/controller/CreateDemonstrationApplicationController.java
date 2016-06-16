@@ -50,6 +50,10 @@ public class CreateDemonstrationApplicationController {
      * This instance's application of this exhibitor responsible reference.
      */
     private Application applicationOfExhibitorResponsible;
+    /**
+     * The applications list.
+     */
+    ApplicationsList applicationsList;
 
     /**
      * Creates instance of this class receiving an exhibition center and
@@ -93,8 +97,8 @@ public class CreateDemonstrationApplicationController {
      * @param demonstration the demonstration to apply for
      */
     public void newDemonstrationApplication(Demonstration demonstration) {
-        ApplicationsList applicationsList = demonstration.getApplicationsList();
-        this.demonstrationApplication = (DemonstrationApplication) applicationsList.newDemonstrationApplication();
+        this.applicationsList = demonstration.getApplicationsList();
+        this.demonstrationApplication = (DemonstrationApplication) this.applicationsList.newDemonstrationApplication();
 
     }
 
@@ -146,6 +150,14 @@ public class CreateDemonstrationApplicationController {
      */
     public List<Keyword> getKeywordsList() {
         return ((ExhibitionApplication) applicationOfExhibitorResponsible).getKeywordsList();
+    }
+
+    public boolean registerDemonstrationApplication() {
+           if(this.applicationsList.validateDemonstrationApplication(this.demonstrationApplication)){
+               this.applicationsList.registerDemonstrationApplication(this.demonstrationApplication);
+               return true;
+           }
+           return false;
     }
 
 }
