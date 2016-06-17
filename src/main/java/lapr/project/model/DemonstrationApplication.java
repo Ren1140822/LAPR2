@@ -68,6 +68,10 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     @XmlElementWrapper(name = "evaluations_list")
     @XmlElement(name = "evaluation")
     private List<Evaluation> evaluationsList;
+    /**
+     * This instances decision.
+     */
+    private Decision decision;
 
     /**
      * The state of the application.
@@ -250,6 +254,16 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         this.numberInvitations = numberInvitations;
     }
 
+    /**
+     * Sets the decision.
+     * @param decision boolean indicating the decision
+     */
+    public void setDecision(Decision decision) {
+        this.decision = decision;
+    }
+
+    
+    
     /**
      * Sets the products list.
      *
@@ -444,4 +458,21 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         return this.currentState.isInDecision();
     }
 
+    @Override
+    public void newDecision() {
+        this.decision = new Decision();
+         
+    }
+
+    @Override
+    public void setDecision(boolean decision,String justificativeText) {
+        this.decision.setJustificativeText(justificativeText);
+        this.decision.setDecision(decision);
+    }
+
+    @Override
+    public boolean validateDecision(){
+        return this.decision.validate()&&validate();
+    }
+    
 }

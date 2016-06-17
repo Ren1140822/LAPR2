@@ -27,4 +27,23 @@ public interface Decisable {
      * @return the evaluations list
      */
     public  List<Evaluation> getEvaluationsList();
+    
+    /**
+     * Creates a new decision.
+     * 
+     */
+    public void newDecision();
+    
+    /**
+     * Sets the decision attributes.
+     * @param decision boolean depicting the decision
+     * @param justificativeText text aiding the decision
+     */
+    public void setDecision(boolean decision,String justificativeText);
+    
+    /**
+     * Returs if this decision is valid
+     * @return true if all O.K.
+     */
+    public boolean validateDecision();
 }

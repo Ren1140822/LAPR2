@@ -75,6 +75,10 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     private List<Evaluation> evaluationsList;
 
     /**
+     * This instances decision.
+     */
+    private Decision decision;
+    /**
      * The state of the application.
      */
     @XmlTransient
@@ -286,6 +290,14 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      */
     public void setNumberInvitations(int numberInvitations) {
         this.numberInvitations = numberInvitations;
+    }
+
+    /**
+     * Sets the decision.
+     * @param decision boolean indicating the decision
+     */
+    public void setDecision(Decision decision) {
+        this.decision = decision;
     }
 
     /**
@@ -583,7 +595,24 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
 
     @Override
     public boolean isInDecision() {
-           return this.currentState.isInDecision();
+        return this.currentState.isInDecision();
+    }
+
+    @Override
+    public void newDecision() {
+        this.decision = new Decision();
+
+    }
+
+    @Override
+    public void setDecision(boolean decision,String justificativeText) {
+        this.decision.setDecision(decision);
+        this.decision.setJustificativeText(justificativeText);
+    }
+    
+    @Override
+    public boolean validateDecision(){
+        return this.decision.validate()&&validate();
     }
 
 }
