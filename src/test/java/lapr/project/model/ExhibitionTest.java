@@ -11,7 +11,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Tests a exhibtion class.
+ * Tests a exhibition class.
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570

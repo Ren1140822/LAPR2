@@ -134,6 +134,15 @@ public class Stand {
     public void setDescription(String description) {
         this.description = description;
     }
+    
+    /**
+     * Validates stand.
+     * 
+     * @return true if valid, false otherwise
+     */
+    public boolean validate() {
+        return this.description.length() > 0 && this.area > 0;
+    }
 
     /**
      * Return the textual representation of a stand.
