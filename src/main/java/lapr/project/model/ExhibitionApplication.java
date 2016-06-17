@@ -581,4 +581,9 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         return new ExhibitionApplication(this);
     }
 
+    @Override
+    public boolean isInDecision() {
+           return this.currentState.isInDecision();
+    }
+
 }

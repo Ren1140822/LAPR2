@@ -152,31 +152,33 @@ public class ExhibitionsRegister implements Importable {
     }
 
     /**
-     * Gets exhibitions list with applications in submission of this exhibitor responsible
+     * Gets exhibitions list with applications in submission of this exhibitor
+     * responsible
+     *
      * @param exhibitorResponsible the exhibition responsible
      * @return the list of exhibitions
      */
-    public List<Exhibition> getExhibitionsListWithApplicationsInSubmissionByExhibitorResponsible(ExhibitorResponsible exhibitorResponsible){
+    public List<Exhibition> getExhibitionsListWithApplicationsInSubmissionByExhibitorResponsible(ExhibitorResponsible exhibitorResponsible) {
         List<Exhibition> exhibitionsList = new ArrayList();
-          boolean isExhibitorResponsible=false;
-        for(Exhibition exhibition:this.exhibitionsList){
+        boolean isExhibitorResponsible = false;
+        for (Exhibition exhibition : this.exhibitionsList) {
             boolean isInSubmittingApplication = exhibition.getState().isApplicationsDecided();
             ApplicationsList applicationsList = exhibition.getApplicationsList();
             List<Application> applicationsArrayList = applicationsList.getApplicationsList();
-           
-            for(Application application : applicationsArrayList){
-                isExhibitorResponsible = ((ExhibitionApplication)application).isExhibitorResponsible(exhibitorResponsible);
-                if(isExhibitorResponsible){
+
+            for (Application application : applicationsArrayList) {
+                isExhibitorResponsible = ((ExhibitionApplication) application).isExhibitorResponsible(exhibitorResponsible);
+                if (isExhibitorResponsible) {
                     break;
                 }
             }
-            if(isInSubmittingApplication&&isExhibitorResponsible){
+            if (isInSubmittingApplication && isExhibitorResponsible) {
                 exhibitionsList.add(exhibition);
             }
         }
         return exhibitionsList;
     }
-    
+
     /**
      * Gets the exhibitions list without StaffMember by Organizer.
      *
@@ -186,7 +188,7 @@ public class ExhibitionsRegister implements Importable {
     public List<Exhibition> getExhibitionsListWithoutStaffMemberByOrganizer(Organizer organizer) {
         List<Exhibition> tempExhibitionList = new ArrayList();
         for (Exhibition exhibition : exhibitionsList) {
-            boolean isStaffMemberDefined = exhibition.getState().isCreated()||exhibition.getState().isDemonstrationsDefined()&&!exhibition.getState().isStaffDefined();
+            boolean isStaffMemberDefined = exhibition.getState().isCreated() || exhibition.getState().isDemonstrationsDefined() && !exhibition.getState().isStaffDefined();
 
             if (isStaffMemberDefined && exhibition.getOrganizersList().hasOrganizer(organizer)) {
                 tempExhibitionList.add(exhibition);
@@ -257,6 +259,48 @@ public class ExhibitionsRegister implements Importable {
     }
 
     /**
+     * Gets the decisable list of this organizer in exhibition and demonstration applications.
+     * @param organizer the organizer to check for
+     * @return  the list of decisables
+     */
+    public List<Decisable> getDecisableListByOrganizer(Organizer organizer) {
+        ApplicationsList applicationsList;
+        List<Decisable> decisableList = new ArrayList<>();
+        for (Exhibition exhibition : exhibitionsList) {
+            boolean isOrganizer = exhibition.getOrganizersList().hasOrganizer(organizer);
+            applicationsList = exhibition.getApplicationsList();
+             decisableList.addAll(loopDecisables(applicationsList,isOrganizer));
+              DemonstrationsList demonstrationsList = exhibition.getDemonstrationsList();
+               List<Demonstration> demonstrationArrayList = demonstrationsList.getDemonstrationsList();
+               for(Demonstration demonstration:demonstrationArrayList){
+                   isOrganizer = demonstration.getOrganizersList().hasOrganizer(organizer);
+                   applicationsList =demonstration.getApplicationsList();
+                   decisableList.addAll(loopDecisables(applicationsList, isOrganizer));
+               }
+        }
+        
+        return decisableList;
+    }
+
+    /**
+     * Method that loops a application list to get the decisables
+     * @param applicationsList the list of applications
+     * @param isOrganizer true if current actor is organizer on a application
+     * @return list of decisables
+     */
+    private List<Decisable> loopDecisables(ApplicationsList applicationsList, boolean isOrganizer) {
+        List<Decisable> decisableList = new ArrayList<>();
+        List<Decisable> applicationsArrayList = new ArrayList(applicationsList.getApplicationsList());
+        for (Decisable decisable : applicationsArrayList) {
+            boolean isInDecision = decisable.isInDecision();
+            if (isOrganizer && isInDecision) {
+                decisableList.add(decisable);
+            }
+        }
+        return decisableList;
+    }
+
+    /**
      * Returns the exhibitions list with application in submitting state.
      *
      * @return returns the exhibitions list with application in submitting state
@@ -278,10 +322,12 @@ public class ExhibitionsRegister implements Importable {
     }
 
     /**
-     * Gets the submittable filtering by the exhibitor responsible and application in submission state
-     * 
+     * Gets the submittable filtering by the exhibitor responsible and
+     * application in submission state
+     *
      * @param exhibitorResponsible exhibitor responsible
-     * @return list of submittable filtering by the exhibitor responsible and application in submission state
+     * @return list of submittable filtering by the exhibitor responsible and
+     * application in submission state
      */
     public List<Submittable> getSubmittablesApplicationInSubmissionByExhibitorResponsible(ExhibitorResponsible exhibitorResponsible) {
         List<Submittable> submittables = new ArrayList<>();
@@ -295,7 +341,7 @@ public class ExhibitionsRegister implements Importable {
 
             DemonstrationsList demonstrationsList = exhibition.getDemonstrationsList();
             List<Demonstration> demonstrations = demonstrationsList.getDemonstrationsList();
-            
+
             for (Demonstration demonstration : demonstrations) {
 
                 ApplicationsList applicationsListDemonstration = demonstration.getApplicationsList();
@@ -339,7 +385,7 @@ public class ExhibitionsRegister implements Importable {
     /**
      * Returns the textual interpretation of the objects and attributes of this
      * class
-     * 
+     *
      * @return textual representation for this object
      */
     @Override

@@ -3,6 +3,8 @@
  */
 package lapr.project.model;
 
+import java.util.List;
+
 /**
  * Interface for decisable applications.
  * 
@@ -14,4 +16,15 @@ package lapr.project.model;
  */
 public interface Decisable {
     
+    /**
+     * Returns true if the decisable is in decision.
+     * @return true if decisable is in decision
+     */
+    public   boolean isInDecision();
+    
+    /**
+     * Returns the list of evaluations of a decisable.
+     * @return the evaluations list
+     */
+    public  List<Evaluation> getEvaluationsList();
 }

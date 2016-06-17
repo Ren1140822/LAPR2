@@ -439,4 +439,9 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         return new DemonstrationApplication(this);
     }
 
+    @Override
+    public boolean isInDecision() {
+        return this.currentState.isInDecision();
+    }
+
 }
