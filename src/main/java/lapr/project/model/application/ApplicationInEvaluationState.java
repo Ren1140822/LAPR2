@@ -15,22 +15,22 @@ import lapr.project.model.ApplicationState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ApplicationInEvaluationState implements ApplicationState{
+public class ApplicationInEvaluationState implements ApplicationState {
 
     /**
      * the application to be manipulated.
      */
     private final Application application;
-    
+
     /**
      * Constructs a application in evaluation state.
-     * 
+     *
      * @param application application to be manipulated
      */
-    public ApplicationInEvaluationState(Application application){
+    public ApplicationInEvaluationState(Application application) {
         this.application = application;
     }
-    
+
     @Override
     public boolean isInitial() {
         return false;
@@ -79,9 +79,8 @@ public class ApplicationInEvaluationState implements ApplicationState{
     @Override
     public boolean setNotEvaluated() {
         if (validateNotEvaluated()) {
-            // TODO
-            //ApplicationEvaluatedState newState = new  ApplicationNotEvaluatedState(application);
-            //application.setState(newState);
+            ApplicationNotEvaluatedState newState = new ApplicationNotEvaluatedState(application);
+            application.setState(newState);
             return true;
         }
         return false;
@@ -95,9 +94,8 @@ public class ApplicationInEvaluationState implements ApplicationState{
     @Override
     public boolean setInDecision() {
         if (validate()) {
-            // TODO
-            //ApplicationEvaluatedState newState = new  ApplicationEvaluatedState(application);
-            //application.setState(newState);
+            ApplicationInDecisionState newState = new ApplicationInDecisionState(application);
+            application.setState(newState);
             return true;
         }
         return false;
@@ -162,8 +160,8 @@ public class ApplicationInEvaluationState implements ApplicationState{
     public boolean validate() {
         return this.application.getEvaluationsList().size() > 0;
     }
-    
-    public boolean validateNotEvaluated(){
+
+    public boolean validateNotEvaluated() {
         return this.application.getEvaluationsList().size() <= 0;
     }
 }

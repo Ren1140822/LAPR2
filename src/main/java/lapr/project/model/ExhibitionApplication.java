@@ -414,6 +414,15 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
+     * validate if the stand is valid.
+     *
+     * @return true if it is, false otherwise
+     */
+    public boolean validateStand() {
+        return this.stand != null;
+    }
+
+    /**
      * Returns a new evaluation.
      *
      * @return new evaluation
@@ -583,7 +592,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
 
     @Override
     public boolean isInDecision() {
-           return this.currentState.isInDecision();
+        return this.currentState.isInDecision();
     }
 
 }
