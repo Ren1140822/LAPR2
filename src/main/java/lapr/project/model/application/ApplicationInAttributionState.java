@@ -5,7 +5,6 @@ package lapr.project.model.application;
 
 import lapr.project.model.Application;
 import lapr.project.model.ApplicationState;
-import lapr.project.model.StaffMember;
 
 /**
  * Represents the in attribution state for application.
@@ -21,21 +20,15 @@ public class ApplicationInAttributionState implements ApplicationState {
     /**
      * the application of the attribution.
      */
-    private Application application;
-
-    /**
-     * the staff member of the attribution
-     */
-    private StaffMember staffMember;
+    private final Application application;
 
     /**
      * Constructs a application in attribution state.
      *
      * @param application application to be manipulated
      */
-    public ApplicationInAttributionState(Application application, StaffMember staffMember) {
+    public ApplicationInAttributionState(Application application) {
         this.application = application;
-        this.staffMember = staffMember;
     }
 
     /**
@@ -290,6 +283,6 @@ public class ApplicationInAttributionState implements ApplicationState {
      */
     @Override
     public boolean validate() {
-        return this.application.getEvaluationsList().size() > 0;
+        return true;
     }
 }

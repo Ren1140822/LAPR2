@@ -15,19 +15,19 @@ import lapr.project.model.ApplicationState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ApplicationInitialState implements ApplicationState{
+public class ApplicationInitialState implements ApplicationState {
 
     /**
      * The application to be manipulated.
      */
     private final Application application;
-    
+
     /**
      * Constructs a application initial state.
-     * 
+     *
      * @param application application to be manipulated
      */
-    public ApplicationInitialState(Application application){
+    public ApplicationInitialState(Application application) {
         this.application = application;
     }
 
@@ -35,12 +35,12 @@ public class ApplicationInitialState implements ApplicationState{
     public boolean isInitial() {
         return true;
     }
-    
+
     @Override
     public boolean setInSubmission() {
         if (validate()) {
-             
-            ApplicationInSubmissionState newState = new  ApplicationInSubmissionState(application);
+
+            ApplicationInSubmissionState newState = new ApplicationInSubmissionState(application);
             application.setState(newState);
             return true;
         }
@@ -156,5 +156,5 @@ public class ApplicationInitialState implements ApplicationState{
     public boolean validate() {
         return application.validate();
     }
-    
+
 }

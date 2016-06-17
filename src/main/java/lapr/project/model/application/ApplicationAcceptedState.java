@@ -5,6 +5,8 @@ package lapr.project.model.application;
 
 import lapr.project.model.Application;
 import lapr.project.model.ApplicationState;
+import lapr.project.model.ExhibitionApplication;
+
 /**
  * Represents the in decided state for application.
  *
@@ -14,21 +16,22 @@ import lapr.project.model.ApplicationState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ApplicationInDecidedState implements ApplicationState {
+public class ApplicationAcceptedState implements ApplicationState {
+
     /**
      * the application to be manipulated.
      */
     private final Application application;
-    
+
     /**
      * Constructs a application in decided state.
-     * 
+     *
      * @param application application to be manipulated
      */
-    public ApplicationInDecidedState(Application application){
+    public ApplicationAcceptedState(Application application) {
         this.application = application;
     }
-    
+
     @Override
     public boolean isInitial() {
         return false;
@@ -76,7 +79,7 @@ public class ApplicationInDecidedState implements ApplicationState {
 
     @Override
     public boolean setNotEvaluated() {
-    
+
         return false;
     }
 
@@ -87,7 +90,7 @@ public class ApplicationInDecidedState implements ApplicationState {
 
     @Override
     public boolean setInDecision() {
-    
+
         return false;
     }
 
@@ -118,13 +121,12 @@ public class ApplicationInDecidedState implements ApplicationState {
 
     @Override
     public boolean setAssignedStand() {
-           if (validate()) {
-            // TODO
-            //ApplicationAttributedStand newState = new  ApplicationAttributedStand(application);
-            //application.setState(newState);
+        if (validate()) {
+            ApplicationAssignedStandState newState = new ApplicationAssignedStandState(application);
+            application.setState(newState);
             return true;
         }
-           return false;
+        return false;
     }
 
     @Override
@@ -154,8 +156,7 @@ public class ApplicationInDecidedState implements ApplicationState {
 
     @Override
     public boolean validate() {
-        return this.application.validate();
+        return this.application instanceof ExhibitionApplication ? ((ExhibitionApplication) application).validateStand() : false;
     }
-    
-   
+
 }

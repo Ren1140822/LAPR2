@@ -5,8 +5,6 @@ package lapr.project.model.application;
 
 import lapr.project.model.Application;
 import lapr.project.model.ApplicationState;
-import lapr.project.model.ExhibitorResponsible;
-import lapr.project.model.StaffMember;
 
 /**
  * Represents the application in removable state.
@@ -17,7 +15,7 @@ import lapr.project.model.StaffMember;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ApplicationInRemovableState implements ApplicationState {
+public class ApplicationRemovedState implements ApplicationState {
 
     /**
      * the application of the removable.
@@ -25,18 +23,12 @@ public class ApplicationInRemovableState implements ApplicationState {
     private Application application;
 
     /**
-     * the exhibitor responsible of the removable
-     */
-    private ExhibitorResponsible exhibitiorResponsible;
-
-    /**
      * Constructs a application in attribution state.
      *
      * @param application application to be manipulated
      */
-    public ApplicationInRemovableState(Application application, ExhibitorResponsible exhibitiorResponsible) {
+    public ApplicationRemovedState(Application application) {
         this.application = application;
-        this.exhibitiorResponsible = exhibitiorResponsible;
     }
 
     /**
@@ -279,6 +271,7 @@ public class ApplicationInRemovableState implements ApplicationState {
 
     /**
      * Returns false, that is no next state for application
+     *
      * @return false because that is no next state for application
      */
     @Override
@@ -286,4 +279,3 @@ public class ApplicationInRemovableState implements ApplicationState {
         return false;
     }
 }
-
