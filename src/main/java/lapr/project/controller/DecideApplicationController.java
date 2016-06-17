@@ -86,11 +86,31 @@ public class DecideApplicationController {
        return this.evaluationsList;
     }
     
+    
     /**
-     * Creates the decision of this decisable
-     * @param decisao the decision
+     * Creates the decision of this decisable.
      */
-    public void createDecision(boolean decisao){
+    public void createDecision(){
+        this.decisable.newDecision();
         
     }
+    
+    /**
+     * Sets the decision.
+     * @param decision boolean representing the decision
+     * @param justificativeText text aiding the decision
+     */
+    public void setDecision(boolean decision,String justificativeText){
+        this.decisable.setDecision(decision,justificativeText);
+    }
+    
+    /**
+     * Validates this decisable.
+     * @return true if all OK with decisable
+     */
+    public boolean validateDecision(){
+        return this.decisable.validateDecision();
+    }
+    
+    
 }
