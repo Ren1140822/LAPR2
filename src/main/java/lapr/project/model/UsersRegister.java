@@ -69,7 +69,37 @@ public class UsersRegister {
     public void setUsersList(List<User> usersList) {
         this.usersList = new ArrayList<>(usersList);
     }
-
+    
+    /**
+     * Registers a user
+     * 
+     * @param user user to be registered
+     * @return true if is successfully registered, false otherwise
+     */
+    public boolean registerUser(User user) {
+        return !this.usersList.contains(user) ? addUser(user) : false;
+    }
+    
+    /**
+     * Creates a new user.
+     * 
+     * @return new user
+     */
+    public User newUser() {
+        return new User();
+    }
+    
+     /**
+     * Adds a user to the users list.
+     * 
+     * @param user user to be added
+     * @return true if it is successfully added, false otherwise
+     */
+    private boolean addUser(User user) {
+        return this.usersList.add(user);
+    }
+    
+    
     /**
      * Return the textual representation of a usersRegister.
      *
