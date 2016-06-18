@@ -563,11 +563,16 @@ public class Exhibition implements Submittable {
         return this.currentState.setCreated();
     }
 
+    /**
+     * Returns true if exhibition has already defined the demonstations.
+     *
+     * @return true if exhibition has already defined the demonstations
+     */
     public boolean isNotDemonstrationsDefined() {
-        
+
         return this.currentState.isCreated() || this.currentState.isStaffDefined();
     }
-    
+
     /**
      * Changes to next state DemosWithoutStaff or Complete.
      *
@@ -620,10 +625,20 @@ public class Exhibition implements Submittable {
 
     @Override
     public boolean setInDetectedConflictsState() {
-        
+
         return this.currentState.setDetectedConficts();
     }
-    
+
+    /**
+     * Returns true if exhibition's applications are decided.
+     *
+     * @return true if exhibition's applications are decided
+     */
+    public boolean isApplicationsDecided() {
+
+        return this.currentState.isApplicationsDecided();
+    }
+
     /**
      * Validate the Exhibition.
      *

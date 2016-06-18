@@ -6,6 +6,7 @@ package lapr.project.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import lapr.project.model.exhibition.ExhibitionDecidedApplicationsState;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -58,6 +59,18 @@ public class ExhibitionTest {
         this.exhibition.setOrganizersList(new OrganizersList(organizersList));
 
         boolean result = this.exhibition.validate();
+        assertTrue(result);
+    }
+
+    /**
+     * Test of isApplicationsDecided method, of class Exhibition.
+     */
+    @Test
+    public void testIsApplicationsDecided() {
+        System.out.println("isApplicationsDecided");
+        Exhibition instance = new Exhibition();
+        instance.setState(new ExhibitionDecidedApplicationsState(instance));
+        boolean result = instance.isApplicationsDecided();
         assertTrue(result);
     }
 }

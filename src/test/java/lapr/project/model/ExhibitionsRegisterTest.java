@@ -6,8 +6,11 @@ package lapr.project.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import lapr.project.model.application.ApplicationInSubmissionState;
+import lapr.project.model.demonstration.DemonstrationDecidedApplicationsState;
+import lapr.project.model.demonstration.DemonstrationInChangedConflictsState;
+import lapr.project.model.exhibition.ExhibitionApplicationsInEvaluationState;
 import lapr.project.model.exhibition.ExhibitionCreatedState;
+import lapr.project.model.exhibition.ExhibitionDecidedApplicationsState;
 import lapr.project.model.exhibition.ExhibitionStaffWithoutDemosState;
 import lapr.project.utils.DefaultInstantiator;
 import org.junit.Before;
@@ -156,12 +159,6 @@ public class ExhibitionsRegisterTest {
 //    }
 
     /**
-     * Get the exhibitions list without Demonstrations defined by Organizer.
-     *
-     * @param organizer the organizer to filter exhibitions
-     * @return the exhibition list without Demonstrations defined by Organizer
-     */
-    /**
      * Test of getGetExhibitionsListWithoutDemosDefined method, of class
      * ExhibitionsRegister.
      */
@@ -195,6 +192,52 @@ public class ExhibitionsRegisterTest {
         List<Exhibition> result = instance.getExhibitionsListWithoutDemosDefined(organizer);
         assertEquals(expResult, result);
 
+    }
+
+    /**
+     * Test of getDecidedSubmittables method, of class ExhibitionsRegister.
+     */
+    public void testGetDecidedSubmittables() {
+
+        System.out.println("getDecidedSubmittables");
+
+        Demonstration demonstration1 = new Demonstration();
+        demonstration1.setCurrentState(new DemonstrationDecidedApplicationsState(demonstration1));
+        List<Demonstration> demonsList1 = new ArrayList<>();
+        demonsList1.add(demonstration1);
+
+        Exhibition exhibition1 = new Exhibition();
+        exhibition1.setState(new ExhibitionDecidedApplicationsState(exhibition1));
+        exhibition1.setDemonstrationsList(new DemonstrationsList(demonsList1));
+
+        Demonstration demonstration2 = new Demonstration();
+        demonstration1.setCurrentState(new DemonstrationInChangedConflictsState(demonstration2));
+        List<Demonstration> demonsList2 = new ArrayList<>();
+        demonsList2.add(demonstration2);
+
+        Exhibition exhibition2 = new Exhibition();
+        exhibition2.setState(new ExhibitionDecidedApplicationsState(exhibition2));
+        exhibition2.setDemonstrationsList(new DemonstrationsList(demonsList2));
+
+        Exhibition exhibition3 = new Exhibition();
+        exhibition2.setState(new ExhibitionApplicationsInEvaluationState(exhibition3));
+
+        List<Submittable> expResult = new ArrayList<>();
+        expResult.add(exhibition1);
+        expResult.add(exhibition2);
+        expResult.add(demonstration1);
+
+        List<Exhibition> exhibitionsList = new ArrayList<>();
+        exhibitionsList.add(exhibition1);
+        exhibitionsList.add(exhibition2);
+        exhibitionsList.add(exhibition);
+        this.exhibitionCenter.setExhibitionsRegister(new ExhibitionsRegister(exhibitionsList));
+
+        ExhibitionsRegister instance = this.exhibitionCenter.getExhibitionsRegister();
+
+        List<Submittable> result = instance.getDecidedSubmittables();
+
+        assertEquals(expResult, result);
     }
 
 //    @Test

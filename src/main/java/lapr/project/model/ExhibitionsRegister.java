@@ -259,9 +259,36 @@ public class ExhibitionsRegister implements Importable {
     }
 
     /**
-     * Gets the decisable list of this organizer in exhibition and demonstration applications.
+     * Obtain the submittables filtering by Decided state.
+     *
+     * @return the submittables filtering by Decided state
+     */
+    public List<Submittable> getDecidedSubmittables() {
+        List<Submittable> submittablesList = new ArrayList<>();
+
+        for (Exhibition exhibition : exhibitionsList) {
+
+            boolean isApplicationsDecided = exhibition.isApplicationsDecided();
+
+            if (isApplicationsDecided) {
+
+                submittablesList.add(exhibition);
+
+                DemonstrationsList demonstrationsList = exhibition.getDemonstrationsList();
+                List<Demonstration> decidedDemosntrations = demonstrationsList.getDecidedDemonstrations();
+
+                submittablesList.addAll(decidedDemosntrations);
+            }
+        }
+        return submittablesList;
+    }
+
+    /**
+     * Gets the decisable list of this organizer in exhibition and demonstration
+     * applications.
+     *
      * @param organizer the organizer to check for
-     * @return  the list of decisables
+     * @return the list of decisables
      */
     public List<Decisable> getDecisableListByOrganizer(Organizer organizer) {
         ApplicationsList applicationsList;
@@ -269,21 +296,22 @@ public class ExhibitionsRegister implements Importable {
         for (Exhibition exhibition : exhibitionsList) {
             boolean isOrganizer = exhibition.getOrganizersList().hasOrganizer(organizer);
             applicationsList = exhibition.getApplicationsList();
-             decisableList.addAll(loopDecisables(applicationsList,isOrganizer));
-              DemonstrationsList demonstrationsList = exhibition.getDemonstrationsList();
-               List<Demonstration> demonstrationArrayList = demonstrationsList.getDemonstrationsList();
-               for(Demonstration demonstration:demonstrationArrayList){
-                   isOrganizer = demonstration.getOrganizersList().hasOrganizer(organizer);
-                   applicationsList =demonstration.getApplicationsList();
-                   decisableList.addAll(loopDecisables(applicationsList, isOrganizer));
-               }
+            decisableList.addAll(loopDecisables(applicationsList, isOrganizer));
+            DemonstrationsList demonstrationsList = exhibition.getDemonstrationsList();
+            List<Demonstration> demonstrationArrayList = demonstrationsList.getDemonstrationsList();
+            for (Demonstration demonstration : demonstrationArrayList) {
+                isOrganizer = demonstration.getOrganizersList().hasOrganizer(organizer);
+                applicationsList = demonstration.getApplicationsList();
+                decisableList.addAll(loopDecisables(applicationsList, isOrganizer));
+            }
         }
-        
+
         return decisableList;
     }
 
     /**
      * Method that loops a application list to get the decisables
+     *
      * @param applicationsList the list of applications
      * @param isOrganizer true if current actor is organizer on a application
      * @return list of decisables
