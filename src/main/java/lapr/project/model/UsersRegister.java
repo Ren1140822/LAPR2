@@ -59,6 +59,22 @@ public class UsersRegister {
     public List<User> getUsersList() {
         return new ArrayList<>(this.usersList);
     }
+    
+    /**
+     * Obtain the users list.
+     * 
+     * @param confirmed confirmed status of the users to fill the list
+     * @return the users list
+     */
+    public List<User> getUsersList(boolean confirmed) {
+        List <User> resultList = new ArrayList<>();
+        for (User user: this.usersList) {
+            if(user.getConfirmedStatus() == confirmed) {
+                resultList.add(user);
+            }
+        }
+        return resultList;
+    }
 
     /**
      * Set the users list.
