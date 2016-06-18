@@ -46,4 +46,10 @@ public interface Decisable {
      * @return true if all O.K.
      */
     public boolean validateDecision();
+    
+    /**
+     * Sets the decisable as decided
+     * @return true if all OK
+     */
+    public boolean setDecided();
 }

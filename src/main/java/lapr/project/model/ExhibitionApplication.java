@@ -217,6 +217,15 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
+     * Gets the decision.
+     *
+     * @return the decision
+     */
+    public Decision getDecision() {
+        return decision;
+    }
+
+    /**
      * Returns list of demonstrations.
      *
      * @return the demonstrationList
@@ -645,6 +654,11 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     @Override
     public boolean validateDecision() {
         return this.decision.validate() && validate();
+    }
+
+    @Override
+    public boolean setDecided() {
+        return this.decision.isDecisionTrue() ? this.currentState.setAccepted() : this.currentState.setDeclined();
     }
 
 }
