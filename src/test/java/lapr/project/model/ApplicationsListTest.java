@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
+import lapr.project.model.application.ApplicationAssignedStandState;
 import lapr.project.utils.DefaultInstantiator;
 import org.junit.Before;
 import org.junit.Test;
@@ -127,7 +128,6 @@ public class ApplicationsListTest {
 //        Editable oldEditable = new ExhibitionApplication();
 //        assertTrue(this.applicationsList.validateEditable(newEditable, oldEditable));
 //    }
-    
     /**
      * Test of modifyEditable method, of class ApplicationsList.
      */
@@ -138,7 +138,39 @@ public class ApplicationsListTest {
         Editable oldEditable = (Editable) this.applicationsList.getApplicationsList().get(0);
         assertTrue(this.applicationsList.modifyEditable(newEditable, oldEditable));
     }
-    
+
+    /**
+     * Test of modifyEditable method, of class ApplicationsList.
+     */
+    @Test
+    public void testIsExhibitorResponsibleApplicaitonOnAssignedStand() {
+        System.out.println("isExhibitorResponsibleApplicaitonOnAssignedStand");
+        ExhibitorResponsible exhibitorResponsible = ((ExhibitionApplication) this.exhibitionCenter.getExhibitionsRegister().
+                getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)).getExhibitor().getExhibitorResponsible();
+        ((ExhibitionApplication) this.exhibitionCenter.getExhibitionsRegister().
+                getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0))
+                .setState(new ApplicationAssignedStandState(this.exhibitionCenter.getExhibitionsRegister().
+                        getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)));
+        assertTrue(this.applicationsList.isExhibitorResponsibleApplicaitonOnAssignedStand(exhibitorResponsible));
+    }
+
+    /**
+     * Test of modifyEditable method, of class ApplicationsList.
+     */
+    @Test
+    public void testGetExhibitorResponsibleApplication() {
+        System.out.println("getExhibitorResponsibleApplication");
+        ExhibitorResponsible exhibitorResponsible = ((ExhibitionApplication) this.exhibitionCenter.getExhibitionsRegister().
+                getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)).getExhibitor().getExhibitorResponsible();
+        ((ExhibitionApplication) this.exhibitionCenter.getExhibitionsRegister().
+                getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0))
+                .setState(new ApplicationAssignedStandState(this.exhibitionCenter.getExhibitionsRegister().
+                        getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)));
+        Application expResult = this.exhibitionCenter.getExhibitionsRegister().
+                getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0);
+        assertEquals(expResult, this.applicationsList.getExhibitorResponsibleApplication(exhibitorResponsible));
+    }
+
     /**
      * Test of equals method, of class ApplicationsList.
      */

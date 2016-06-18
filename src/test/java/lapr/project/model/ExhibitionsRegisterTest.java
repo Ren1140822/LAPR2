@@ -6,7 +6,6 @@ package lapr.project.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import lapr.project.model.application.ApplicationInSubmissionState;
 import lapr.project.model.exhibition.ExhibitionCreatedState;
 import lapr.project.model.exhibition.ExhibitionStaffWithoutDemosState;
 import lapr.project.utils.DefaultInstantiator;
@@ -213,5 +212,26 @@ public class ExhibitionsRegisterTest {
 //                .get(0);
 //        
 //        assertEquals(expResult, this.exhibitionsRegister.getSubmittablesApplicationInSubmissionByExhibitorResponsible(exhibitorResponsible));
+//    }
+//    /**
+//     * Test of getExhibitionApplicationsAssignedStandByExhibitorResponsible method, of class ExhibitionsRegister.
+//     */
+//    @Test
+//    public void testGetExhibitionApplicationsAssignedStandByExhibitorResponsible() {
+//        System.out.println("getExhibitionApplicationsAssignedStandByExhibitorResponsible");
+//        
+//        ExhibitorResponsible exhibitorResponsible = ((ExhibitionApplication)this.exhibitionsRegister.getExhibitionsList().get(0)
+//                .getApplicationsList().getApplicationsList().get(0)).getExhibitor().getExhibitorResponsible();
+//        
+//        ((ExhibitionApplication)this.exhibitionsRegister.getExhibitionsList().get(0)
+//                .getApplicationsList().getApplicationsList().get(0)).setState(new ApplicationAssignedStandState(this.exhibitionsRegister.getExhibitionsList().get(0)
+//                .getApplicationsList().getApplicationsList().get(0)));
+//        
+//         List<ExhibitionApplication> expResult = new ArrayList<>();
+//         expResult.add((ExhibitionApplication)this.exhibitionsRegister.getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0));
+//        
+//        List<ExhibitionApplication> result = this.exhibitionsRegister.getExhibitionApplicationsAssignedStandByExhibitorResponsible(exhibitorResponsible);
+//        
+//        assertEquals(expResult, result);
 //    }
 }
