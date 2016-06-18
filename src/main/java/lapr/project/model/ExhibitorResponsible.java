@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Ricardo Correia 1151231
  */
 @XmlRootElement
-public class ExhibitorResponsible {
+public class ExhibitorResponsible implements Actor {
 
     /**
      * the instance of user in this class
@@ -56,13 +56,13 @@ public class ExhibitorResponsible {
     /**
      * sets the current value of this user
      */
-    
     public void setUSer(User u) {
         this.user = new User(u);
     }
 
     /**
      * Returns the textual representation of the attributes of this class.
+     *
      * @return the textual representation of the attributes of this class.
      */
     @Override
@@ -75,7 +75,7 @@ public class ExhibitorResponsible {
         s.append("}");
         return s.toString();
     }
-    
+
     /**
      * Compares two ExhibitorResponsible objects.
      *

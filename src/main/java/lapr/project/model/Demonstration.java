@@ -326,8 +326,14 @@ public class Demonstration implements Submittable {
         this.conflictsList = new ConflictsList(conflictsList);
     }
 
+    @Override
+    public List<Conflict> getConflictListByStaffMember(StaffMember staffMember) {
+        return this.conflictsList.getConflictsListByStaffMember(staffMember);
+    }
+
     /**
-     * Adds a resouce to the list if it doesn't already contain that resouce.
+     * Adds a resource to the list if it doesn't already contain that resouce.
+     * Adds a resource to the list if it doesn't already contain that resouce.
      *
      * @param resource the resource to add
      * @return true if the resource is added
@@ -371,6 +377,105 @@ public class Demonstration implements Submittable {
     }
 
     /**
+     * Returns the staff attribtions list.
+     *
+     * @return staff attribtions list
+     */
+    @Override
+    public StaffAttributionsList getStaffAttributionsList() {
+        return new StaffAttributionsList(this.staffAttributionsList);
+    }
+
+    /**
+     * Returns the applications list of the demonstration.
+     *
+     * @return applications list.
+     */
+    @Override
+    public ApplicationsList getApplicationsList() {
+        return new ApplicationsList(this.applicationsList);
+    }
+
+    /**
+     * @param applicationsList the applicationsList to set
+     */
+    public void setApplicationsList(ApplicationsList applicationsList) {
+        this.applicationsList = applicationsList;
+    }
+
+    /**
+     * Set the staff attributions list
+     *
+     * @param staffAttributionsList the news staff attributions list
+     */
+    @Override
+    public void setStaffAttributionsList(StaffAttributionsList staffAttributionsList) {
+        this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
+    }
+
+    /**
+     * Return true if demonstration's current state is in
+     * detectedConflictsState, false otherwise.
+     *
+     * @return true if demonstration's current state is in
+     * detectedConflictsState, false otherwise
+     */
+    public boolean isDetectedConflictsState() {
+        return this.currentState.isDetectedConflicts();
+    }
+
+    /**
+     * Returns true if the staff member is in the staff list of this
+     * demonstration, false otherwise.
+     *
+     * @param staffMember staff member that is passed as parameter to check if
+     * he is in the staff list of this demonstration.
+     *
+     * @return true if the staff member is in the staff list of this
+     * demonstration, false otherwise.
+     */
+    public boolean isStaffMember(StaffMember staffMember) {
+        return this.staffList.getStaffList().contains(staffMember);
+    }
+
+    /**
+     * Returns a short version info of the demonstration.
+     *
+     * @return a short representation
+     */
+    @Override
+    public String getShortInfo() {
+        return String.format("Demonstration: %s", this.description);
+
+    }
+
+    /**
+     * Set the current demonstration state of the demonstration to
+     * applicationsInEvaluation state
+     */
+    @Override
+    public void setSubmittableInApplicationsInEvaluationState() {
+        this.currentState.setApplicationsInEvaluation();
+    }
+
+    @Override
+    public String[] getInfo() {
+        String[] info = new String[2];
+        info[0] = this.getShortInfo();
+        //TODO info[1] = this.getStartDate().toString();
+        info[1] = "por definir";
+        //TODO info[2] = this.getEndDate().toString();
+        info[2] = "por definir";
+        return info;
+    }
+
+    @Override
+    public boolean removeAttribution(StaffAttribution staffAttribution) {
+        return this.staffAttributionsList.removeStaffAttribution(staffAttribution);
+
+    }
+
+    /**
      * Equals method to check if two objects are the same
      *
      * @param otherObject the demonstration to compare to
@@ -410,80 +515,6 @@ public class Demonstration implements Submittable {
 
         s.append("}");
         return s.toString();
-    }
-
-    /**
-     * Returns the staff attribtions list.
-     *
-     * @return staff attribtions list
-     */
-    @Override
-    public StaffAttributionsList getStaffAttributionsList() {
-        return new StaffAttributionsList(this.staffAttributionsList);
-    }
-
-    /**
-     * Returns the applications list of the demonstration.
-     *
-     * @return applications list.
-     */
-    @Override
-    public ApplicationsList getApplicationsList() {
-        return new ApplicationsList(this.applicationsList);
-    }
-
-    /**
-     * @param applicationsList the applicationsList to set
-     */
-    public void setApplicationsList(ApplicationsList applicationsList) {
-        this.applicationsList = applicationsList;
-    }
-
-    /**
-     * Set the staff attributions list
-     *
-     * @param staffAttributionsList the news staff attributions list
-     */
-    @Override
-    public void setStaffAttributionsList(StaffAttributionsList staffAttributionsList) {
-        this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
-    }
-
-    /**
-     * Returns a short version info of the demonstration.
-     *
-     * @return a short representation
-     */
-    @Override
-    public String getShortInfo() {
-        return String.format("Demonstration: %s", this.description);
-
-    }
-
-    /**
-     * Set the current demonstration state of the demonstration to
-     * applicationsInEvaluation state
-     */
-    @Override
-    public void setSubmittableInApplicationsInEvaluationState() {
-        this.currentState.setApplicationsInEvaluation();
-    }
-
-    @Override
-    public String[] getInfo() {
-        String[] info = new String[2];
-        info[0] = this.getShortInfo();
-        //TODO info[1] = this.getStartDate().toString();
-        info[1] = "por definir";
-        //TODO info[2] = this.getEndDate().toString();
-        info[2] = "por definir";
-        return info;
-    }
-
-    @Override
-    public boolean removeAttribution(StaffAttribution staffAttribution) {
-        return this.staffAttributionsList.removeStaffAttribution(staffAttribution);
-
     }
 
     /**

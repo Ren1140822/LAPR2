@@ -281,6 +281,15 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
+     * Set the list of keywords.
+     *
+     * @param keywordsList the list of keywords to set
+     */
+    public void setKeywordsList(List<Keyword> keywordsList) {
+        this.keywordsList = new ArrayList<>(keywordsList);
+    }
+
+    /**
      * Sets the area of the exhibitor.
      *
      * @param exhibitorArea sets exhibitor area
@@ -457,6 +466,19 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      */
     boolean isAssignedStand() {
         return this.currentState.isAssignedStand();
+    }
+
+    /**
+     * Sets the application state given a decision.
+     *
+     * @param standDecision stand decision
+     */
+    public void confirmStand(boolean standDecision) {
+        if (standDecision) {
+            this.currentState.setAssignedStand();
+        } else {
+            this.currentState.setNotConfirmedStand();
+        }
     }
 
     /**
@@ -650,9 +672,17 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     @Override
+    public boolean isAccepted() {
+        return this.currentState.isAccepted();
+    }
+
+    @Override
+    public boolean isDeclined() {
+        return this.currentState.isDeclined();
+    }
+
+    @Override
     public boolean setDecided() {
         return this.decision.isDecisionTrue() ? this.currentState.setAccepted() : this.currentState.setDeclined();
     }
-
-   
 }
