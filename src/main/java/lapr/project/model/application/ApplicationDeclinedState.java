@@ -15,7 +15,7 @@ import lapr.project.model.ApplicationState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-class ApplicationDeclinedState implements ApplicationState {
+public class ApplicationDeclinedState implements ApplicationState {
 
     /**
      * The application to be manipulated.

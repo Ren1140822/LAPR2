@@ -256,14 +256,13 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
 
     /**
      * Sets the decision.
+     *
      * @param decision boolean indicating the decision
      */
     public void setDecision(Decision decision) {
         this.decision = decision;
     }
 
-    
-    
     /**
      * Sets the products list.
      *
@@ -461,18 +460,27 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     @Override
     public void newDecision() {
         this.decision = new Decision();
-         
+
     }
 
     @Override
-    public void setDecision(boolean decision,String justificativeText) {
+    public void setDecision(boolean decision, String justificativeText) {
         this.decision.setJustificativeText(justificativeText);
         this.decision.setDecision(decision);
     }
 
     @Override
-    public boolean validateDecision(){
-        return this.decision.validate()&&validate();
+    public boolean validateDecision() {
+        return this.decision.validate() && validate();
     }
-    
+
+    @Override
+    public boolean isAccepted() {
+        return this.currentState.isAccepted();
+    }
+
+    @Override
+    public boolean isDeclined() {
+        return this.currentState.isDeclined();
+    }
 }

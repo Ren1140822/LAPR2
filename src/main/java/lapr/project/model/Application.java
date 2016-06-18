@@ -24,6 +24,13 @@ public interface Application {
     List<Evaluation> getEvaluationsList();
     
     /**
+     * Gets the keywords list.
+     *
+     * @return keywords list
+     */
+    List<Keyword> getKeywordsList();
+    
+    /**
      * Changes the state of the application.
      * 
      * @param newState new state to be active
@@ -37,4 +44,18 @@ public interface Application {
      */
     public boolean validate();
     
+    
+    /**
+     * Verify if the application is in accepted state.
+     * 
+     * @return true if accepted
+     */
+    public boolean isAccepted();
+    
+    /**
+     * Verify if the application is in rejected state.
+     * 
+     * @return true if rejected
+     */
+    public boolean isDeclined();
 }

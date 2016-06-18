@@ -266,6 +266,15 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
+     * Set the list of keywords.
+     *
+     * @param keywordsList the list of keywords to set
+     */
+    public void setKeywordsList(List<Keyword> keywordsList) {
+        this.keywordsList = new ArrayList<>(keywordsList);
+    }
+
+    /**
      * Sets the area of the exhibitor.
      *
      * @param exhibitorArea sets exhibitor area
@@ -634,4 +643,13 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         return this.decision.validate() && validate();
     }
 
+    @Override
+    public boolean isAccepted() {
+        return this.currentState.isAccepted();
+    }
+
+    @Override
+    public boolean isDeclined() {
+        return this.currentState.isDeclined();
+    }
 }
