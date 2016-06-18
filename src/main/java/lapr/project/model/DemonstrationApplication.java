@@ -3,8 +3,13 @@
  */
 package lapr.project.model;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -13,6 +18,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import lapr.project.model.application.ApplicationInitialState;
+import lapr.project.utils.Importable;
 
 /**
  * Represents an demonstration application
@@ -25,7 +31,7 @@ import lapr.project.model.application.ApplicationInitialState;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class DemonstrationApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable, Removable, Editable {
+public class DemonstrationApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable, Removable, Editable{
 
     /**
      * The title of the application.
@@ -479,4 +485,6 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     public  boolean setDecided(){
        return this.decision.isDecisionTrue()?this.currentState.setAccepted():this.currentState.setDeclined();
     }
+    
+    
 }

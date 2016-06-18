@@ -96,8 +96,9 @@ public class ImportExhibitionControllerTest {
         System.out.println("readExhibitionFromFile");
         String filePath = "exhibitionTest.xml";
         ImportExhibitionController instance = controller;
-        instance.getExhibitionsRegister();
-        Exhibition exhibition = instance.readExhibitionFromFile(filePath);
+
+        instance.readExhibitionFromFile(filePath);
+        Exhibition exhibition = instance.getExhibition();
         Exhibition expectedExhibition = new Exhibition();
         assertEquals(exhibition, expectedExhibition);
 
