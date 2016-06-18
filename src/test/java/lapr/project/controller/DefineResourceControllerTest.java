@@ -26,7 +26,7 @@ public class DefineResourceControllerTest {
     private DefineResourceController defineResourceController;
     
     /**
-     * resource for testes.
+     * resource for tests.
      */
     private Resource resource;
     

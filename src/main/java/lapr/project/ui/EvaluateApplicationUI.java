@@ -28,7 +28,6 @@ import lapr.project.model.StaffAttribution;
 import lapr.project.model.StaffMember;
 import lapr.project.model.Submittable;
 import lapr.project.model.application.ApplicationInEvaluationState;
-import lapr.project.model.exhibition.ExhibitionApplicationsInEvaluationState;
 import lapr.project.ui.components.DialogEvaluateApplication;
 import lapr.project.ui.components.DialogSeeApplication;
 import lapr.project.ui.components.ModelListStaffAttributions;
@@ -49,17 +48,17 @@ public class EvaluateApplicationUI extends JFrame {
     /**
      * The controller to evaluate applications.
      */
-    private EvaluateApplicationsController controller;
+    private final EvaluateApplicationsController controller;
 
     /**
      * The exhibition center.
      */
-    private ExhibitionCenter exhibitionCenter;
+    private final ExhibitionCenter exhibitionCenter;
 
     /**
      * The logged staff member.
      */
-    private StaffMember staffMember;
+    private final StaffMember staffMember;
 
     /**
      * The evaluable.
@@ -69,7 +68,7 @@ public class EvaluateApplicationUI extends JFrame {
     /**
      * The submittables list.
      */
-    private List<Submittable> submittablesList;
+    private final List<Submittable> submittablesList;
 
     /**
      * The staff attributions list.
@@ -306,8 +305,8 @@ public class EvaluateApplicationUI extends JFrame {
 
         return exitButton;
     }
-    
-    public void updateStaffAtributionsList(){
+
+    public void updateStaffAtributionsList() {
         this.staffAttributionsList = controller.getAttributionsByStaff(staffMember);
         this.staffAttributionsJList.setModel(new ModelListStaffAttributions(EvaluateApplicationUI.this.staffAttributionsList));
     }

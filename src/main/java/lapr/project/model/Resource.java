@@ -66,6 +66,11 @@ public class Resource {
         this.designation = designation;
     }
     
+    /**
+     * Validates resource.
+     * 
+     * @return true if valid, false otherwise
+     */
     public boolean validate() {
         return this.designation.length() > 0;
     }
@@ -84,7 +89,7 @@ public class Resource {
      * Compares if this object is equal to otherObject.
      *
      * @param otherObject other object to compare with
-     * @return true if it repreents the same object, false otherwise
+     * @return true if it represents the same object, false otherwise
      */
     @Override
     public boolean equals(Object otherObject) {

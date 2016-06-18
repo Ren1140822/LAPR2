@@ -228,6 +228,49 @@ public class ApplicationsList {
     }
 
     /**
+     * Modify the given old editable with the new editable.
+     *
+     * @param newEditable new editable to be defined
+     * @param oldEditable old editable to be removed
+     * @return true if it is added with successfull, false otherwise
+     */
+    public boolean modifyEditable(Editable newEditable, Editable oldEditable) {
+        this.applicationsList.remove((Application) oldEditable);
+        return this.applicationsList.add((Application) newEditable);
+    }
+
+    /**
+     * Verify if the exhibitor responsible application is on assigned stand
+     * state.
+     *
+     * @param exhibitorResponsible exhibitor responsible to search
+     * @return true if it is, false otherwise
+     */
+    public boolean isExhibitorResponsibleApplicaitonOnAssignedStand(ExhibitorResponsible exhibitorResponsible) {
+        for (Application application : applicationsList) {
+            if (((ExhibitionApplication) application).isExhibitorResponsible(exhibitorResponsible) && ((ExhibitionApplication) application).isAssignedStand()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Gets the exhibitor resposible application.
+     *
+     * @param exhibitorResponsible exhibitor responsible
+     * @return application
+     */
+    public Application getExhibitorResponsibleApplication(ExhibitorResponsible exhibitorResponsible) {
+        for (Application application : applicationsList) {
+            if (((ExhibitionApplication) application).isExhibitorResponsible(exhibitorResponsible)) {
+                return application;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Return the textual representation of a ApplicationsList.
      *
      * @return the textual representation of a ApplicatiosList
@@ -261,17 +304,5 @@ public class ApplicationsList {
         ApplicationsList otherApplicationsList = (ApplicationsList) otherObject;
 
         return this.applicationsList.equals(otherApplicationsList.applicationsList);
-    }
-
-    /**
-     * Modify the given old editable with the new editable.
-     *
-     * @param newEditable new editable to be defined
-     * @param oldEditable old editable to be removed
-     * @return true if it is added with successfull, false otherwise
-     */
-    public boolean modifyEditable(Editable newEditable, Editable oldEditable) {
-        this.applicationsList.remove((Application) oldEditable);
-        return this.applicationsList.add((Application) newEditable);
     }
 }

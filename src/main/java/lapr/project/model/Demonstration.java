@@ -333,6 +333,7 @@ public class Demonstration implements Submittable {
 
     /**
      * Adds a resource to the list if it doesn't already contain that resouce.
+     * Adds a resource to the list if it doesn't already contain that resouce.
      *
      * @param resource the resource to add
      * @return true if the resource is added
@@ -516,4 +517,13 @@ public class Demonstration implements Submittable {
         return s.toString();
     }
 
+    /**
+     * Returns true if demonstration's applications are decided.
+     *
+     * @return true if demonstration's applications are decided
+     */
+    public boolean isApplicationsDecided() {
+
+        return this.currentState.isApplicationsDecided();
+    }
 }

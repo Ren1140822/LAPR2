@@ -625,6 +625,11 @@ public class Exhibition implements Submittable {
         return this.currentState.setDetectedConficts();
     }
 
+    /**
+     * Returns true if exhibition has already defined the demonstations.
+     *
+     * @return true if exhibition has already defined the demonstations
+     */
     public boolean isNotDemonstrationsDefined() {
 
         return this.currentState.isCreated() || this.currentState.isStaffDefined();
@@ -653,6 +658,18 @@ public class Exhibition implements Submittable {
      */
     public boolean isStaffMember(StaffMember staffMember) {
         return this.staffList.getStaffList().contains(staffMember);
+
+    }
+
+    /**
+     * Returns true if exhibition's applications are decided.
+     *
+     * @return true if exhibition's applications are decided
+     */
+    public boolean isApplicationsDecided() {
+
+        return this.currentState.isApplicationsDecided();
+
     }
 
     /**

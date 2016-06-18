@@ -1,0 +1,40 @@
+/**
+ * Package location for Model concept tests.
+ */
+package lapr.project.model;
+
+import lapr.project.model.demonstration.DemonstrationDecidedApplicationsState;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/**
+ * Tests a demonstration class.
+ *
+ * @author Daniel Gonçalves 1151452
+ * @author Eric Amaral 1141570
+ * @author Ivo Ferro 1151159
+ * @author Renato Oliveira 1140822
+ * @author Ricardo Correia 1151231
+ */
+public class DemonstrationTest {
+
+    
+    
+    @Before
+    public void setUp() {
+    }
+
+    /**
+     * Test of isApplicationsDecided method, of class Demonstration.
+     */
+    @Test
+    public void testIsApplicationsDecided() {
+        System.out.println("isApplicationsDecided");
+        Demonstration instance = new Demonstration();
+        instance.setCurrentState(new DemonstrationDecidedApplicationsState(instance));
+        boolean result = instance.isApplicationsDecided();
+        assertTrue(result);
+    }
+    
+}

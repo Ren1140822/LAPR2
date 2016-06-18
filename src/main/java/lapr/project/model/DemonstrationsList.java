@@ -183,6 +183,26 @@ public class DemonstrationsList {
     }
 
     /**
+     * Obtain the demonstrations filtering by Decided state.
+     *
+     * @return the demonstrations filtering by Decided state
+     */
+    public List<Demonstration> getDecidedDemonstrations() {
+        List<Demonstration> demonstrationsList = new ArrayList<>();
+
+        for (Demonstration demonstration : this.demonstrationList) {
+
+            boolean isApplicationsDecided = demonstration.isApplicationsDecided();
+
+            if (isApplicationsDecided) {
+
+                demonstrationsList.add(demonstration);
+            }
+        }
+        return demonstrationsList;
+    }
+
+    /**
      * Returns the list of removables of this demonstration list filtered out by
      * exhibitor responsible
      *

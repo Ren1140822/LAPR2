@@ -5,6 +5,7 @@ package lapr.project.model.application;
 
 import lapr.project.model.Application;
 import lapr.project.model.ApplicationState;
+
 /**
  * Represents the in submission state for application.
  *
@@ -15,17 +16,18 @@ import lapr.project.model.ApplicationState;
  * @author Ricardo Correia 1151231
  */
 public class ApplicationInSubmissionState implements ApplicationState {
-       /**
+
+    /**
      * The application to be manipulated.
      */
     private final Application application;
-    
+
     /**
      * Constructs a application initial state.
-     * 
+     *
      * @param application application to be manipulated
      */
-    public ApplicationInSubmissionState(Application application){
+    public ApplicationInSubmissionState(Application application) {
         this.application = application;
     }
 
@@ -33,10 +35,10 @@ public class ApplicationInSubmissionState implements ApplicationState {
     public boolean isInitial() {
         return false;
     }
-    
+
     @Override
     public boolean setInSubmission() {
-      
+
         return false;
     }
 
@@ -47,16 +49,14 @@ public class ApplicationInSubmissionState implements ApplicationState {
 
     @Override
     public boolean setRemoved() {
-//         if (validate()) {
-//             TODO:IMPLEMENT THE NEW CLASS
-//            ApplicationRemovedState newState = new  ApplicationRemovedState(application);
-//            application.setState(newState);
-//            return true;
-//        }
-         return false;
+        if (validate()) {
+            ApplicationRemovedState newState = new ApplicationRemovedState(application);
+            application.setState(newState);
+            return true;
+        }
+        return false;
     }
 
-    
     @Override
     public boolean isRemoved() {
         return false;
@@ -64,12 +64,11 @@ public class ApplicationInSubmissionState implements ApplicationState {
 
     @Override
     public boolean setInAttribution() {
-        //         if (validate()) {
-//             TODO:IMPLEMENT THE NEW CLASS
-//            ApplicationInAttributionState newState = new  ApplicationInAttributionState(application);
-//            application.setState(newState);
-//            return true;
-//        }
+        if (validate()) {
+            ApplicationInAttributionState newState = new ApplicationInAttributionState(application);
+            application.setState(newState);
+            return true;
+        }
         return false;
     }
 
@@ -162,5 +161,5 @@ public class ApplicationInSubmissionState implements ApplicationState {
     public boolean validate() {
         return application.validate();
     }
-    
+
 }

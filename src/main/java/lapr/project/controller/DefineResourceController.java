@@ -57,7 +57,7 @@ public class DefineResourceController {
     /**
      * Register a resource.
      *
-     * @return true if it is successfull registered, false otherwise
+     * @return true if it is successful registered, false otherwise
      */
     public boolean registerResource() {
         return this.resourcesRegister.registerResource(this.resource);

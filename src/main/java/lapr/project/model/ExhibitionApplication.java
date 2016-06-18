@@ -75,6 +75,10 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     private List<Evaluation> evaluationsList;
 
     /**
+     * This instances decision.
+     */
+    private Decision decision;
+    /**
      * The state of the application.
      */
     @XmlTransient
@@ -289,6 +293,15 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
+     * Sets the decision.
+     *
+     * @param decision boolean indicating the decision
+     */
+    public void setDecision(Decision decision) {
+        this.decision = decision;
+    }
+
+    /**
      * Sets the list of demonstrations.
      *
      * @param demonstrationsList the demonstration list
@@ -411,6 +424,24 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      */
     public boolean validateApplication() {
         return (this.exhibitor.validate() && !this.demonstrationsList.isEmpty() && !this.productsList.isEmpty() && this.keywordsList.size() > 1 && this.keywordsList.size() <= 5 && this.numberInvitations > 0 && this.exhibitorArea > 0);
+    }
+
+    /**
+     * validate if the stand is valid.
+     *
+     * @return true if it is, false otherwise
+     */
+    public boolean validateStand() {
+        return this.stand != null;
+    }
+
+    /**
+     * Verify if the application is on assigned stand.
+     *
+     * @return
+     */
+    boolean isAssignedStand() {
+        return this.currentState.isAssignedStand();
     }
 
     /**
@@ -583,7 +614,24 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
 
     @Override
     public boolean isInDecision() {
-           return this.currentState.isInDecision();
+        return this.currentState.isInDecision();
+    }
+
+    @Override
+    public void newDecision() {
+        this.decision = new Decision();
+
+    }
+
+    @Override
+    public void setDecision(boolean decision, String justificativeText) {
+        this.decision.setDecision(decision);
+        this.decision.setJustificativeText(justificativeText);
+    }
+
+    @Override
+    public boolean validateDecision() {
+        return this.decision.validate() && validate();
     }
 
 }

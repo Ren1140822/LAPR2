@@ -70,7 +70,38 @@ public class StandsRegister {
     public void setStandsList(List<Stand> standsList) {
         this.standsList = new ArrayList<>(standsList);
     }
-
+    
+    /**
+     * Creates a new instance of stand.
+     * 
+     * @param area
+     * @param description
+     * @return new stand
+     */
+    public Stand newStand(float area, String description) {
+        return new Stand(area, description);
+    }
+    
+    /**
+     * Registers a stand
+     * 
+     * @param stand stand to be registered
+     * @return true if is successfully registered, false otherwise
+     */
+    public boolean registerStand(Stand stand) {
+        return !this.standsList.contains(stand) ? addStand(stand) : false;
+    }
+    
+    /**
+     * Adds a stand to the stands list.
+     * 
+     * @param stand stand to be added
+     * @return true if it is successfully added, false otherwise
+     */
+    private boolean addStand(Stand stand) {
+        return this.standsList.add(stand);
+    }
+    
     /**
      * Return the textual representation of a standsRegister.
      *
