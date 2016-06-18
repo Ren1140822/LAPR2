@@ -12,7 +12,7 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ExhibitionsManager {
+public class ExhibitionsManager implements Actor {
 
     /**
      * The user for the exhibition manager.
@@ -59,7 +59,6 @@ public class ExhibitionsManager {
      *
      * @param user user of the exhibitionManager
      */
-    
     public void setUser(User user) {
         this.user = user;
     }
