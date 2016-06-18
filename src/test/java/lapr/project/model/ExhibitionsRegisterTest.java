@@ -240,6 +240,44 @@ public class ExhibitionsRegisterTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of getDecidedExhibitions method, of class ExhibitionsRegister.
+     */
+    @Test
+    public void testGetDecidedExhibitions() {
+        System.out.println("getDecidedExhibitions");
+
+        this.exhibitionsRegister = this.exhibitionCenter.getExhibitionsRegister();
+        this.exhibitionsRegister.getExhibitionsList().get(0).setState(new ExhibitionDecidedApplicationsState(this.exhibitionsRegister.getExhibitionsList().get(0)));
+
+        List<Exhibition> result = new ArrayList<>();
+        result.add(this.exhibitionsRegister.getExhibitionsList().get(0));
+
+        List<Exhibition> expResult = this.exhibitionsRegister.getDecidedExhibitions();
+
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getDecidedExhibitions method, of class ExhibitionsRegister.
+     */
+    @Test
+    public void testGetDecidedExhibitionsByOrganizer() {
+        System.out.println("getDecidedExhibitionsByOrganizer");
+
+        this.exhibitionsRegister = this.exhibitionCenter.getExhibitionsRegister();
+        this.exhibitionsRegister.getExhibitionsList().get(0).setState(new ExhibitionDecidedApplicationsState(this.exhibitionsRegister.getExhibitionsList().get(0)));
+
+        Organizer organizer = this.exhibitionsRegister.getExhibitionsList().get(0).getOrganizersList().getOrganizersList().get(0);
+
+        List<Exhibition> result = new ArrayList<>();
+        result.add(this.exhibitionsRegister.getExhibitionsList().get(0));
+
+        List<Exhibition> expResult = this.exhibitionsRegister.getDecidedExhibitionsByOrganizer(organizer);
+
+        assertEquals(expResult, result);
+    }
+
 //    @Test
 //    public void testGetSubmittablesApplicationInSubmissionByExhibitorResponsible() {
 //        System.out.println("getSubmittablesApplicationInSubmissionByExhibitorResponsible");
