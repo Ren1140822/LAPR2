@@ -259,6 +259,31 @@ public class ExhibitionsRegister implements Importable {
     }
 
     /**
+     * Obtain the submittables filtering by Decided state.
+     *
+     * @return the submittables filtering by Decided state
+     */
+    public List<Submittable> getDecidedSubmittables() {
+        List<Submittable> submittablesList = new ArrayList<>();
+
+        for (Exhibition exhibition : exhibitionsList) {
+
+            boolean isApplicationsDecided = exhibition.isApplicationsDecided();
+
+            if (isApplicationsDecided) {
+
+                submittablesList.add(exhibition);
+
+                DemonstrationsList demonstrationsList = exhibition.getDemonstrationsList();
+                List<Demonstration> decidedDemosntrations = demonstrationsList.getDecidedDemonstrations();
+
+                submittablesList.addAll(decidedDemosntrations);
+            }
+        }
+        return submittablesList;
+    }
+
+    /**
      * Gets the decisable list of this organizer in exhibition and demonstration
      * applications.
      *

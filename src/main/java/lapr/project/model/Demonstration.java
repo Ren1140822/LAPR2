@@ -137,7 +137,7 @@ public class Demonstration implements Submittable {
         this.title = DEFAULT_TITLE;
         this.description = description;
         this.demonstrationID = ID_PREFIX + demoCounter++;
-        
+
         this.place = new Place();
         this.staffList = new StaffList();
         this.organizersList = new OrganizersList();
@@ -167,7 +167,7 @@ public class Demonstration implements Submittable {
         this.title = title;
         this.description = description;
         this.demonstrationID = ID_PREFIX + demoCounter++;
-        
+
         this.place = place;
         this.staffList = new StaffList(staffList);
         this.organizersList = new OrganizersList(organizersList);
@@ -187,7 +187,7 @@ public class Demonstration implements Submittable {
         this.title = demonstration.title;
         this.description = demonstration.description;
         this.demonstrationID = ID_PREFIX + demoCounter++;
-        
+
         this.place = demonstration.place;
         this.staffList = new StaffList(demonstration.staffList);
         this.organizersList = new OrganizersList(demonstration.organizersList);
@@ -325,15 +325,15 @@ public class Demonstration implements Submittable {
     public void setConflictsList(ConflictsList conflictsList) {
         this.conflictsList = new ConflictsList(conflictsList);
     }
-    
+
     /**
      * Adds a resouce to the list if it doesn't already contain that resouce.
-     * 
+     *
      * @param resource the resource to add
      * @return true if the resource is added
      */
     public boolean addResource(Resource resource) {
-        
+
         return this.resourcesList.contains(resource) ? false : this.resourcesList.add(resource);
     }
 
@@ -486,4 +486,13 @@ public class Demonstration implements Submittable {
 
     }
 
+    /**
+     * Returns true if demonstration's applications are decided.
+     *
+     * @return true if demonstration's applications are decided
+     */
+    public boolean isApplicationsDecided() {
+
+        return this.currentState.isApplicationsDecided();
+    }
 }
