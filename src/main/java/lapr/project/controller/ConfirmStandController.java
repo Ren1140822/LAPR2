@@ -31,6 +31,16 @@ public class ConfirmStandController {
     private final ExhibitorResponsible exhibitorResponsible;
 
     /**
+     * The exhibition applicaiton to decide stand.
+     */
+    private ExhibitionApplication exhibitionApplication;
+
+    /**
+     * The stand decision.
+     */
+    private boolean standDecision;
+
+    /**
      * Create an instance of confirm stand controller.
      *
      * @param exhibitionCenter the exhibition center
@@ -45,10 +55,35 @@ public class ConfirmStandController {
      * Gets the exhibition applications on assigned stand state by exhibitor
      * responsible.
      *
-     * @return
+     * @return exhibition applications list
      */
     public List<ExhibitionApplication> getExhibitionApplicationsByExhibitorResponsible() {
         ExhibitionsRegister exhibitionsRegister = this.exhibitionCenter.getExhibitionsRegister();
         return exhibitionsRegister.getExhibitionApplicationsAssignedStandByExhibitorResponsible(this.exhibitorResponsible);
+    }
+
+    /**
+     * Sets the selected exhibition application.
+     *
+     * @param exhibitionApplication the exhibition application
+     */
+    public void setExhibitionApplication(ExhibitionApplication exhibitionApplication) {
+        this.exhibitionApplication = exhibitionApplication;
+    }
+
+    /**
+     * Sets the decision to the stand.
+     *
+     * @param decision decision to the stand
+     */
+    public void setStandDecision(boolean decision) {
+        this.standDecision = decision;
+    }
+
+    /**
+     * Confirms the decision to the stand.
+     */
+    public void confirmStandDecision() {
+        this.exhibitionApplication.confirmStand(this.standDecision);
     }
 }

@@ -445,6 +445,19 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
+     * Sets the application state given a decision.
+     *
+     * @param standDecision stand decision
+     */
+    public void confirmStand(boolean standDecision) {
+        if (standDecision) {
+            this.currentState.setAssignedStand();
+        } else {
+            this.currentState.setNotConfirmedStand();
+        }
+    }
+
+    /**
      * Returns a new evaluation.
      *
      * @return new evaluation
