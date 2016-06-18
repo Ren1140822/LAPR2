@@ -4,7 +4,10 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import javafx.util.Pair;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlElements;
@@ -268,6 +271,109 @@ public class ApplicationsList {
             }
         }
         return null;
+    }
+
+    /**
+     * Calculate the accepted applcations keywords ranking.
+     *
+     * @return the accepted applcations keywords ranking
+     */
+    public List<Pair<Keyword, Integer>> calculateAcceptedAppsKeywordsRankings() {
+
+        List<Keyword> keywordRanking = new ArrayList<>();
+        List<Integer> frequency = new ArrayList<>();
+
+        for (Application application : this.applicationsList) {
+
+            boolean isAccepted = application.isAccepted();
+
+            if (isAccepted) {
+
+                List<Keyword> keywordsList = application.getKeywordsList();
+
+                createRanking(keywordsList, keywordRanking, frequency);
+            }
+        }
+        return populateRankingPair(keywordRanking, frequency);
+    }
+
+    /**
+     * Calculate the declined applcations keywords ranking.
+     *
+     * @return the declined applcations keywords ranking
+     */
+    public List<Pair<Keyword, Integer>> calculateDeclinedAppsKeywordsRankings() {
+
+        List<Keyword> keywordRanking = new ArrayList<>();
+        List<Integer> frequency = new ArrayList<>();
+
+        for (Application application : this.applicationsList) {
+
+            boolean isDeclined = application.isDeclined();
+
+            if (isDeclined) {
+
+                List<Keyword> keywordsList = application.getKeywordsList();
+
+                createRanking(keywordsList, keywordRanking, frequency);
+            }
+        }
+        return populateRankingPair(keywordRanking, frequency);
+    }
+
+    /**
+     * Reorganizes the keywordsRanking & frequency into a List of Pairs.
+     *
+     * @param keywordRanking
+     * @param frequency
+     * @return the list of a keyword & its frequency pair.
+     */
+    private List<Pair<Keyword, Integer>> populateRankingPair(List<Keyword> keywordRanking, List<Integer> frequency) {
+
+        List<Pair<Keyword, Integer>> ranking = new ArrayList<>();
+
+        for (int i = 0; i < keywordRanking.size(); i++) {
+
+            Pair<Keyword, Integer> pair = new Pair<>(keywordRanking.get(i), frequency.get(i));
+            ranking.add(pair);
+        }
+        
+        // TODO : Verify if the requirements is alphabetic order
+        Comparator alfabeticOrder = (Comparator) (Object o1, Object o2) -> {
+            Keyword keyword1 = (Keyword)((Pair) o1).getKey();
+            Keyword keyword2 = (Keyword)((Pair) o2).getKey();
+            
+            return keyword1.getDescription().compareTo(keyword2.getDescription());
+        };
+        
+        Collections.sort(ranking, alfabeticOrder);
+
+        return ranking;
+    }
+
+    /**
+     * Creates the ranking of keywords of all applications.
+     *
+     * @param keywordsList application keywords
+     * @param keywordRanking keyword ranking
+     * @param frequency frequency of the keywords
+     */
+    private void createRanking(List<Keyword> keywordsList, List<Keyword> keywordRanking, List<Integer> frequency) {
+
+        for (Keyword keyword : keywordsList) {
+
+            if (keywordRanking.contains(keyword)) {
+
+                int index = keywordRanking.indexOf(keyword);
+
+                Integer integer = frequency.get(index);
+                integer++;
+                frequency.set(index, integer);
+            } else {
+                keywordRanking.add(keyword);
+                frequency.add(1);
+            }
+        }
     }
 
     /**

@@ -3,14 +3,22 @@
  */
 package lapr.project.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import lapr.project.controller.ImportExhibitionController;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsManager;
+import lapr.project.utils.DefaultInstantiator;
 
 /**
  * Represents an evaluation.
@@ -58,16 +66,62 @@ public class ImportExhibitionUI extends JFrame {
      */
     final Dimension SCROLL_SIZE = new Dimension(300, 500);
 
-    public ImportExhibitionUI(ExhibitionsManager manager,ExhibitionCenter exhibitionCenter){
+    public ImportExhibitionUI(ExhibitionsManager manager, ExhibitionCenter exhibitionCenter) {
         this.importExhibitionController = new ImportExhibitionController(manager, exhibitionCenter);
-       
-        
-        
+        this.setSize(WINDOW_SIZE);
+        createComponents();
+        this.setVisible(true);
+    }
+
+    public void createComponents() {
+        JMenuBar menu = createJMenuBar();
+        add(menu, BorderLayout.NORTH);
+    }
+
+    public JMenuBar createJMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menu = createJMenu();
+        menuBar.add(menu);
+        return menuBar;
+    }
+
+    public JMenu createJMenu() {
+        JMenu menu = new JMenu("File");
+        JMenuItem itemMenu = createJMenuItemImport();
+        menu.add(itemMenu);
+        return menu;
+
+    }
+
+    public JMenuItem createJMenuItemImport() {
+        JMenuItem itemMenu = new JMenuItem("Import exhibition from XML");
+        itemMenu.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                int result = fileChooser.showOpenDialog(rootPane);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    if (importExhibitionController.readExhibitionFromFile(fileChooser.getSelectedFile().getAbsolutePath())) {
+                        result = JOptionPane.showConfirmDialog(rootPane, "Exhibition imported sucessfully. Do you wish to register it on the system?", "Sucess", JOptionPane.YES_NO_OPTION);
+                        if (result == JOptionPane.YES_OPTION) {
+                            selectedExhibition = importExhibitionController.getExhibition();
+                            if(importExhibitionController.registerExhibition(selectedExhibition)){
+                                 JOptionPane.showConfirmDialog(rootPane, "Exhibition registered sucessfully!", "Sucess",JOptionPane.PLAIN_MESSAGE);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        return itemMenu;
     }
     
-    public JMenu createJMenu(){
-        JMenu menu = new JMenu("File");
-       return menu;
-       
+    
+
+    public static void main(String[] args) {
+        ExhibitionCenter exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
+        ExhibitionsManager manager = new ExhibitionsManager();
+        ImportExhibitionUI test = new ImportExhibitionUI(manager, exhibitionCenter);
     }
 }

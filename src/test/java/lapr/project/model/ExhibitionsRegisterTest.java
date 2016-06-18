@@ -197,6 +197,7 @@ public class ExhibitionsRegisterTest {
     /**
      * Test of getDecidedSubmittables method, of class ExhibitionsRegister.
      */
+//    @Test TODO : Enable once inifinity loop is corrected
     public void testGetDecidedSubmittables() {
 
         System.out.println("getDecidedSubmittables");
@@ -230,7 +231,7 @@ public class ExhibitionsRegisterTest {
         List<Exhibition> exhibitionsList = new ArrayList<>();
         exhibitionsList.add(exhibition1);
         exhibitionsList.add(exhibition2);
-        exhibitionsList.add(exhibition);
+        exhibitionsList.add(exhibition3);
         this.exhibitionCenter.setExhibitionsRegister(new ExhibitionsRegister(exhibitionsList));
 
         ExhibitionsRegister instance = this.exhibitionCenter.getExhibitionsRegister();

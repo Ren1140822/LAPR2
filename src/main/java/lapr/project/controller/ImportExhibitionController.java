@@ -37,6 +37,7 @@ public class ImportExhibitionController {
      * Temporary exhibition variable.
      */
     private Exhibition exhibition;
+
     /**
      * Builds instance of this class receiving an exhibitions manager and
      * exhibition center as parameters.
@@ -52,28 +53,39 @@ public class ImportExhibitionController {
     /**
      * Gets the exhibitions register for this instance of exhibition center.
      */
-    public  ExhibitionsRegister  getExhibitionsRegister() {
+    private void getExhibitionsRegister() {
         this.exhibitionsRegister = this.exhibitionCenter.getExhibitionsRegister();
-        return this.exhibitionsRegister;
-     
+
     }
 
     /**
      * Reads a exhibition from a file.
+     *
      * @param filePath The file path on the system
      */
-    public Exhibition readExhibitionFromFile(String filePath) {
-            this.exhibition = this.exhibitionsRegister.importExhibitionByFileName(filePath);
-            return this.exhibition;
+    public boolean readExhibitionFromFile(String filePath) {
+        getExhibitionsRegister();
+        this.exhibition = this.exhibitionsRegister.importByFileName(filePath);
+        return exhibition != null;
     }
-    
+
     /**
      * Registers the selected exhibition.
+     *
      * @param exhibition The exhibition to register
      */
-    public void registerExhibition(Exhibition exhibition){
-          this.exhibitionsRegister.registerImportedExhibition(exhibition);
-      
+    public boolean registerExhibition(Exhibition exhibition) {
+        return this.exhibitionsRegister.registerImportedExhibition(exhibition);
+
+    }
+
+    /**
+     * Gets current exhibition
+     *
+     * @return this exhibition
+     */
+    public Exhibition getExhibition() {
+        return exhibition;
     }
 
 }
