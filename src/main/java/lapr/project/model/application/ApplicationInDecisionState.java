@@ -23,7 +23,7 @@ public class ApplicationInDecisionState implements ApplicationState {
     private final Application application;
 
     /**
-     * Constructs a application in decided state.
+     * Constructs a application in decision state.
      *
      * @param application application to be manipulated
      */

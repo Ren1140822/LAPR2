@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -535,6 +536,11 @@ public class Exhibition implements Submittable {
         this.conflictsList = new ConflictsList(conflictsList);
     }
 
+    @Override
+    public List<Conflict> getConflictListByStaffMember(StaffMember staffMember) {
+        return this.conflictsList.getConflictsListByStaffMember(staffMember);
+    }
+
     /**
      * Returns the current exhibition state.
      *
@@ -561,16 +567,6 @@ public class Exhibition implements Submittable {
     public boolean setCreatedState() {
 
         return this.currentState.setCreated();
-    }
-
-    /**
-     * Returns true if exhibition has already defined the demonstations.
-     *
-     * @return true if exhibition has already defined the demonstations
-     */
-    public boolean isNotDemonstrationsDefined() {
-
-        return this.currentState.isCreated() || this.currentState.isStaffDefined();
     }
 
     /**
@@ -630,6 +626,42 @@ public class Exhibition implements Submittable {
     }
 
     /**
+     * Returns true if exhibition has already defined the demonstations.
+     *
+     * @return true if exhibition has already defined the demonstations
+     */
+    public boolean isNotDemonstrationsDefined() {
+
+        return this.currentState.isCreated() || this.currentState.isStaffDefined();
+    }
+
+    /**
+     * Return true if exhibition's current state is in detectedConflictsState,
+     * false otherwise.
+     *
+     * @return true if exhibition's current state is in detectedConflictsState,
+     * false otherwise
+     */
+    public boolean isDetectedConflicts() {
+        return this.currentState.isDetectedConficts();
+    }
+
+    /**
+     * Returns true if the staff member is in the staff list of this exhibition,
+     * false otherwise.
+     *
+     * @param staffMember staff member that is passed as parameter to check if
+     * he is in the staff list of this exhibition.
+     *
+     * @return true if the staff member is in the staff list of this exhibition,
+     * false otherwise.
+     */
+    public boolean isStaffMember(StaffMember staffMember) {
+        return this.staffList.getStaffList().contains(staffMember);
+
+    }
+
+    /**
      * Returns true if exhibition's applications are decided.
      *
      * @return true if exhibition's applications are decided
@@ -637,6 +669,7 @@ public class Exhibition implements Submittable {
     public boolean isApplicationsDecided() {
 
         return this.currentState.isApplicationsDecided();
+
     }
 
     /**
@@ -766,6 +799,7 @@ public class Exhibition implements Submittable {
         return info;
     }
 
+    @Override
     public boolean removeAttribution(StaffAttribution staffAttribution) {
         return this.staffAttributionsList.removeStaffAttribution(staffAttribution);
 
