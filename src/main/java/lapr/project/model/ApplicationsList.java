@@ -4,6 +4,8 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javafx.util.Pair;
 import javax.xml.bind.annotation.XmlElement;
@@ -335,6 +337,16 @@ public class ApplicationsList {
             Pair<Keyword, Integer> pair = new Pair<>(keywordRanking.get(i), frequency.get(i));
             ranking.add(pair);
         }
+        
+        // TODO : Verify if the requirements is alphabetic order
+        Comparator alfabeticOrder = (Comparator) (Object o1, Object o2) -> {
+            Keyword keyword1 = (Keyword)((Pair) o1).getKey();
+            Keyword keyword2 = (Keyword)((Pair) o2).getKey();
+            
+            return keyword1.getDescription().compareTo(keyword2.getDescription());
+        };
+        
+        Collections.sort(ranking, alfabeticOrder);
 
         return ranking;
     }
