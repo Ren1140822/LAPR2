@@ -3,8 +3,13 @@
  */
 package lapr.project.model;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -13,6 +18,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import lapr.project.model.application.ApplicationInitialState;
+import lapr.project.utils.Importable;
 
 /**
  * Represents an exhibition application
@@ -118,6 +124,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.keywordsList = new ArrayList<>();
         this.evaluationsList = new ArrayList<>();
         this.currentState = new ApplicationInitialState(this);
+        this.decision = new Decision();
     }
 
     /**
@@ -147,6 +154,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.evaluationsList = new ArrayList(evaluationsList);
         this.currentState = new ApplicationInitialState(this);
         this.stand = stand;
+        this.decision = new Decision();
 
     }
 
@@ -167,6 +175,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.keywordsList = new ArrayList(exhibitionApplication.keywordsList);
         this.currentState = exhibitionApplication.currentState;
         this.stand = exhibitionApplication.stand;
+        this.decision = exhibitionApplication.decision;
     }
 
     /**
@@ -272,6 +281,15 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     @Override
     public List<Keyword> getKeywordsList() {
         return keywordsList;
+    }
+
+    /**
+     * Set the list of keywords.
+     *
+     * @param keywordsList the list of keywords to set
+     */
+    public void setKeywordsList(List<Keyword> keywordsList) {
+        this.keywordsList = new ArrayList<>(keywordsList);
     }
 
     /**
@@ -657,8 +675,17 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     @Override
+    public boolean isDecisionAccepted() {
+        return this.decision.isDecisionTrue();
+    }
+
+    @Override
+    public boolean isDesionDeclined() {
+        return !this.decision.isDecisionTrue();
+    }
+
+    @Override
     public boolean setDecided() {
         return this.decision.isDecisionTrue() ? this.currentState.setAccepted() : this.currentState.setDeclined();
     }
-
 }

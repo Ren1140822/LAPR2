@@ -1,5 +1,5 @@
 /**
- * Package location for Create User Profile Controller concepts.
+ * Package location for Controller concepts.
  */
 package lapr.project.controller;
 
@@ -36,6 +36,8 @@ public class CreateUserProfileController {
     
     /**
      * Constructs a create user profile controller.
+     * 
+     * @param exhibitionCenter
      */
     public CreateUserProfileController(ExhibitionCenter exhibitionCenter) {
         this.exhibitionCenter = exhibitionCenter;

@@ -49,7 +49,7 @@ class Main {
         //ureg.xmlexp();
         ExhibitionCenter exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
 
-        Exhibition exhibitionTest = new Exhibition();//exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0);
+        Exhibition exhibitionTest = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0);
         
         
         // create JAXB context and instantiate marshaller
@@ -58,7 +58,7 @@ class Main {
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
         // Write to System.out
-        File xmlFile = new File("D:\\exhibition.xml");
+        File xmlFile = new File("D:\\exhibition3.xml");
 
         m.marshal(exhibitionTest, System.out);
 

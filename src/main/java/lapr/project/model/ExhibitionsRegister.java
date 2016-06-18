@@ -124,6 +124,11 @@ public class ExhibitionsRegister implements Importable {
         return (exhibition.setCreatedState() && validateExhibition(exhibition)) ? addExhibition(exhibition) : false;
     }
 
+    /**
+     * Registers the imported exhibition.
+     * @param exhibition the imported exhibition
+     * @return true if validated
+     */
     public boolean registerImportedExhibition(Exhibition exhibition) {
         return (validateExhibition(exhibition) ? addExhibition(exhibition) : false);
     }
@@ -506,7 +511,7 @@ public class ExhibitionsRegister implements Importable {
      * @return a exhibition created from the file
      */
     @Override
-    public Exhibition importExhibitionByFileName(String fileName) {
+    public Exhibition importByFileName(String fileName) {
         Exhibition exhibition;
         try {
             File xmlFile = new File(fileName);

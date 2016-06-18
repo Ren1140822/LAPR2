@@ -13,5 +13,5 @@ public interface Importable<T extends Exhibition> {
 	 *
 	 * @return Structured String containing content.
 	 */
-	T importExhibitionByFileName(String fileName);
+	T importByFileName(String fileName);
 }

@@ -4,6 +4,8 @@
 package lapr.project.controller;
 
 import java.util.List;
+import javafx.util.Pair;
+import lapr.project.model.ApplicationsList;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.ExhibitionsRegister;
@@ -32,19 +34,9 @@ public class GenerateKeywordRankingsController {
     private final ExhibitionsManager exhibitionsManager;
 
     /**
-     * The selected submittable.
+     * The submittable's applications list.
      */
-    private Submittable selectedSubmittable;
-
-    /**
-     * The accepted applications keywords ranking;
-     */
-    private List<Keyword> acceptedAppsKeywordsRanking;
-    
-    /**
-     * The rejected applications keywords ranking;
-     */
-    private List<Keyword> rejectedAppsKeywordsRanking;
+    private ApplicationsList applicationsList;
 
     /**
      * Constructs a GenerateKeywordRankingsController Class.
@@ -67,63 +59,46 @@ public class GenerateKeywordRankingsController {
     }
 
     /**
-     * Obtain the selected submittable.
-     * 
-     * @return the selected submittable
+     * Obtain list of submittables.
+     *
+     * @return list of submittables.
      */
-    public Submittable getSelectedSubmittable() {
-        return selectedSubmittable;
-    }
-
-    /**
-     * Set the selected submittable.
-     * 
-     * @param selectedSubmittable the selected submittable to set
-     */
-    public void setSelectedSubmittable(Submittable selectedSubmittable) {
-        this.selectedSubmittable = selectedSubmittable;
-    }
-
-    /**
-     * Obtain the accepted applications keywords ranking.
-     * 
-     * @return the accepted applications keywords ranking
-     */
-    public List<Keyword> getAcceptedAppsKeywordsRanking() {
-        return acceptedAppsKeywordsRanking;
-    }
-
-    /**
-     * Set the accepted applications keywords ranking.
-     * 
-     * @param acceptedAppsKeywordsRanking the accepted applications keywords ranking to set
-     */
-    public void setAcceptedAppsKeywordsRanking(List<Keyword> acceptedAppsKeywordsRanking) {
-        this.acceptedAppsKeywordsRanking = acceptedAppsKeywordsRanking;
-    }
-
-    /**
-     * Obtain the rejected applications keywords ranking.
-     * 
-     * @return the rejected applications keywords ranking
-     */
-    public List<Keyword> getRejectedAppsKeywordsRanking() {
-        return rejectedAppsKeywordsRanking;
-    }
-
-    /**
-     * Set the rejected applications keywords ranking.
-     * 
-     * @param rejectedAppsKeywordsRanking the rejected applications keywords ranking to set
-     */
-    public void setRejectedAppsKeywordsRanking(List<Keyword> rejectedAppsKeywordsRanking) {
-        this.rejectedAppsKeywordsRanking = rejectedAppsKeywordsRanking;
-    }
-
     public List<Submittable> getDecidedSubmittables() {
-        
+
         ExhibitionsRegister exhibitionsRegister = exhibitionCenter.getExhibitionsRegister();
-        
+
         return exhibitionsRegister.getDecidedSubmittables();
+    }
+
+    /**
+     * Set the applications list to which we are going to calculate the
+     * rankings.
+     *
+     * @param submittable the submittable that contains the required
+     * applications list
+     */
+    public void setApplicationsList(Submittable submittable) {
+
+        this.applicationsList = submittable.getApplicationsList();
+    }
+
+    /**
+     * Calculate submittable's accepted applications keywords ranking.
+     *
+     * @return submittable's accepted applications keywords ranking.
+     */
+    public List<Pair<Keyword, Integer>> calcuateAcceptedAppsRanking() {
+
+        return this.applicationsList.calculateAcceptedAppsKeywordsRankings();
+    }
+
+    /**
+     * Calculate submittable's declined applications keywords ranking.
+     *
+     * @return submittable's declined applications keywords ranking.
+     */
+    public List<Pair<Keyword, Integer>> calcuateDeclinedAppsRanking() {
+
+        return this.applicationsList.calculateDeclinedAppsKeywordsRankings();
     }
 }
