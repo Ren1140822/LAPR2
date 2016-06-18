@@ -3,6 +3,8 @@
  */
 package lapr.project.model;
 
+import java.util.List;
+
 /**
  * Interface for submittable applications.
  *
@@ -43,6 +45,22 @@ public interface Submittable {
     ConflictsList getConflictsList();
 
     /**
+     * Returns a short version info of the submittable.
+     *
+     * @return a short representation
+     */
+    String getShortInfo();
+
+    String[] getInfo();
+
+    /**
+     * Obtain the conflicts list filtered by staff member.
+     * @param staffMember the staff member used to filter the conflicts from conflicts list.
+     * @return the conflicts list filtered by staff member.
+     */
+    List<Conflict> getConflictListByStaffMember(StaffMember staffMember);
+
+    /**
      * Set staff attributions list
      *
      * @param staffAttributionsList the new staff attributions list
@@ -50,25 +68,16 @@ public interface Submittable {
     void setStaffAttributionsList(StaffAttributionsList staffAttributionsList);
 
     /**
-     * Returns a short version info of the submittable.
-     *
-     * @return a short representation
-     */
-    public String getShortInfo();
-
-    /**
      * Set submittable to InApplicationsInEvaluation state
      */
-    public void setSubmittableInApplicationsInEvaluationState();
+    void setSubmittableInApplicationsInEvaluationState();
 
     /**
      * Set submittable to Detected Conflicts State.
-     * 
+     *
      * @return true if submittable changes state to Detected Conflicts State
      */
-    public boolean setInDetectedConflictsState();
-
-    public String[] getInfo();
+    boolean setInDetectedConflictsState();
 
     /**
      * Remove a staff attribution.
@@ -76,5 +85,5 @@ public interface Submittable {
      * @param staffAttribution staff attribution
      * @return true if it is removed with successfull, false otherwise
      */
-    public boolean removeAttribution(StaffAttribution staffAttribution);
+    boolean removeAttribution(StaffAttribution staffAttribution);
 }

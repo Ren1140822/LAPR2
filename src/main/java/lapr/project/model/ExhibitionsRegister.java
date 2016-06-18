@@ -257,6 +257,8 @@ public class ExhibitionsRegister implements Importable {
         }
         return submittablesList;
     }
+    
+    
 
     /**
      * Gets the decisable list of this organizer in exhibition and demonstration applications.
@@ -281,23 +283,32 @@ public class ExhibitionsRegister implements Importable {
         
         return decisableList;
     }
-
+    
     /**
-     * Method that loops a application list to get the decisables
-     * @param applicationsList the list of applications
-     * @param isOrganizer true if current actor is organizer on a application
-     * @return list of decisables
+     * Gets the submittables filtering by a Staff Member and InDetectedConflicts
+     * state.
+     *
+     * @param staffMember staffMember to filter submittables
+     *
+     * @return the list of the staffMember's submittables which are
+     * InDetectedConflicts state
      */
-    private List<Decisable> loopDecisables(ApplicationsList applicationsList, boolean isOrganizer) {
-        List<Decisable> decisableList = new ArrayList<>();
-        List<Decisable> applicationsArrayList = new ArrayList(applicationsList.getApplicationsList());
-        for (Decisable decisable : applicationsArrayList) {
-            boolean isInDecision = decisable.isInDecision();
-            if (isOrganizer && isInDecision) {
-                decisableList.add(decisable);
+    public List<Submittable> getSubmittablesInDetectedConflictsByStaffMember(StaffMember staffMember){
+        List<Submittable> submittableListByOrganizer = new ArrayList();
+        
+        for (Exhibition exhibition : exhibitionsList) {
+            if ((exhibition.isStaffMember(staffMember)) && (exhibition.getState().isDetectedConficts())) {
+                submittableListByOrganizer.add(exhibition);
             }
+            
+            for (Demonstration demonstration : exhibition.getDemonstrationsList().getDemonstrationsList()) {
+                if ((demonstration.isStaffMember(staffMember)) && (demonstration.getCurrentState().isDetectedConflicts())) {
+                    submittableListByOrganizer.add(demonstration);
+                }
+            }        
         }
-        return decisableList;
+        
+        return submittableListByOrganizer;
     }
 
     /**
@@ -382,6 +393,24 @@ public class ExhibitionsRegister implements Importable {
         return removablesList;
     }
 
+      /**
+     * Method that loops a application list to get the decisables
+     * @param applicationsList the list of applications
+     * @param isOrganizer true if current actor is organizer on a application
+     * @return list of decisables
+     */
+    private List<Decisable> loopDecisables(ApplicationsList applicationsList, boolean isOrganizer) {
+        List<Decisable> decisableList = new ArrayList<>();
+        List<Decisable> applicationsArrayList = new ArrayList(applicationsList.getApplicationsList());
+        for (Decisable decisable : applicationsArrayList) {
+            boolean isInDecision = decisable.isInDecision();
+            if (isOrganizer && isInDecision) {
+                decisableList.add(decisable);
+            }
+        }
+        return decisableList;
+    }
+    
     /**
      * Returns the textual interpretation of the objects and attributes of this
      * class
