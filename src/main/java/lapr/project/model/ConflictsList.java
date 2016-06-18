@@ -66,6 +66,25 @@ public class ConflictsList {
     }
 
     /**
+     * Gets the list of conflicts filtered by staff member.
+     *
+     * @param staffMember staffed member passed as parameter used to filter
+     * conflicts.
+     *
+     * @return the list of conflict filtered by staff member.
+     *
+     */
+    public List<Conflict> getConflictsListByStaffMember(StaffMember staffMember) {
+        List<Conflict> conflictsListByStaffMember = new ArrayList();
+        for (Conflict conflict : conflictsList) {
+            if (conflict.isStaffMember(staffMember)) {
+                conflictsListByStaffMember.add(conflict);
+            }
+        }
+        return conflictsListByStaffMember;
+    }
+
+    /**
      * Sets the list of conflicts.
      *
      * @param conflictsList list of conflicts
@@ -75,25 +94,39 @@ public class ConflictsList {
     }
 
     /**
-     * Validate if the list doesn't contain a conflict already.
+     * Creates a new conflict with staffMember, conflictType and application
+     * passed as parameters
      *
-     * @param conflict the conflict to validate
-     * @return true if the list doesn't contain the conflict
+     * @param staffMember the staffMember
+     * @param conflictType the conflict type
+     * @param application the application
+     * @return returns new conflict
      */
-    private boolean validateConflict(Conflict conflict) {
-
-        return !this.conflictsList.contains(conflict);
+    public Conflict newConflict(StaffMember staffMember, ConflictType conflictType, Application application) {
+        Conflict conflict;
+        conflict = new Conflict(conflictType, staffMember, application);
+        return conflict;
     }
 
     /**
      * Add a conflict to the list.
      *
      * @param conflict the conflict to add
-     * @return true if the conflict is sucessfully added.
+     * @return true if the conflict is successfully added.
      */
-    private boolean addConflict(Conflict conflict) {
+    public boolean addConflict(Conflict conflict) {
 
         return this.conflictsList.add(conflict);
+    }
+
+    /**
+     * Remove a conflict from the conflicts list.
+     *
+     * @param conflict the conflict to remove
+     * @return true if the conflict is successfully removed.
+     */
+    public boolean removeConflict(Conflict conflict) {
+        return this.conflictsList.remove(conflict);
     }
 
     /**
@@ -102,14 +135,25 @@ public class ConflictsList {
      * @param staffMember Staff Member in conflict
      * @param application Application in conflict
      * @param conflictType Conflict type
-     * 
+     *
      * @return true if conflict is successfully added.
      */
     public boolean registerConflict(StaffMember staffMember, Application application, ConflictType conflictType) {
 
         Conflict conflict = new Conflict(conflictType, staffMember, application);
-        
+
         return (validateConflict(conflict)) ? addConflict(conflict) : false;
+    }
+
+    /**
+     * Validate if the list doesn't contain a conflict already.
+     *
+     * @param conflict the conflict to validate
+     * @return true if the list doesn't contain the conflict
+     */
+    public boolean validateConflict(Conflict conflict) {
+
+        return !this.conflictsList.contains(conflict);
     }
 
     /**

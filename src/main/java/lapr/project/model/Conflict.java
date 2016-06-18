@@ -72,6 +72,7 @@ public class Conflict {
     public Conflict(Conflict conflict) {
         this.conflictType = new ConflictType(conflict.conflictType);
         this.application = conflict.application;
+        this.staffMember = conflict.staffMember;
     }
 
     /**
@@ -126,6 +127,30 @@ public class Conflict {
      */
     public void setApplication(Application application) {
         this.application = application;
+    }
+
+    /**
+     * Return true if staff member is the same as the staff member passed as
+     * parameter, false otherwise.
+     *
+     * @param staffMember staff member passed as parameter.
+     *
+     * @return true if staff member is the same as the staff member passed as
+     * parameter, false otherwise.
+     */
+    public boolean isStaffMember(StaffMember staffMember) {
+        return this.staffMember.equals(staffMember);
+    }
+
+    /**
+     * It validates the conflict if it's staffMember and application and
+     * conflictType is not null it return true, false otherwise
+     *
+     * @return true if it's staffMember and application and conflictType is not
+     * null, false otherwise
+     */
+    public boolean validate() {
+        return (this.staffMember != null && this.application != null && this.conflictType != null);
     }
 
     /**

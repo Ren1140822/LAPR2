@@ -56,6 +56,27 @@ public class Decision {
         this.decision =decision.decision;
     }
 
+    
+    /**
+     * Gets the justificative text.
+     * @return the justificative text.
+     */
+    public String getJustificativeText() {
+        return justificativeText;
+    }
+
+    /**
+     * Returns true if the decision is true.
+     * @return true if decision is true, false otherwise
+     */
+    public boolean isDecisionTrue() {
+        return decision;
+    }
+
+    
+    
+    
+    
     /**
      * Sets the justificative text.
      * @param justificativeText the text to show
@@ -79,5 +100,18 @@ public class Decision {
     public boolean validate(){
         return !this.justificativeText.isEmpty();
     }
+    
+    public boolean equals(Object otherObject){
+            if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+        Decision decision = (Decision)otherObject;
+        return (this.decision==decision.decision&&this.justificativeText==decision.justificativeText);
+    }
+    
+    
     
 }
