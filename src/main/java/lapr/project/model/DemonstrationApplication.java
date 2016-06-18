@@ -475,4 +475,8 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         return this.decision.validate()&&validate();
     }
     
+    @Override
+    public  boolean setDecided(){
+       return this.decision.isDecisionTrue()?this.currentState.setAccepted():this.currentState.setDeclined();
+    }
 }
