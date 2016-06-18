@@ -124,6 +124,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.keywordsList = new ArrayList<>();
         this.evaluationsList = new ArrayList<>();
         this.currentState = new ApplicationInitialState(this);
+        this.decision = new Decision();
     }
 
     /**
@@ -153,6 +154,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.evaluationsList = new ArrayList(evaluationsList);
         this.currentState = new ApplicationInitialState(this);
         this.stand = stand;
+        this.decision = new Decision();
 
     }
 
@@ -173,6 +175,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.keywordsList = new ArrayList(exhibitionApplication.keywordsList);
         this.currentState = exhibitionApplication.currentState;
         this.stand = exhibitionApplication.stand;
+        this.decision = exhibitionApplication.decision;
     }
 
     /**
@@ -672,13 +675,13 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     @Override
-    public boolean isAccepted() {
-        return this.currentState.isAccepted();
+    public boolean isDecisionAccepted() {
+        return this.decision.isDecisionTrue();
     }
 
     @Override
-    public boolean isDeclined() {
-        return this.currentState.isDeclined();
+    public boolean isDesionDeclined() {
+        return !this.decision.isDecisionTrue();
     }
 
     @Override

@@ -192,6 +192,7 @@ public class ApplicationsListTest {
         keywordsList1.add(keyword2);
         ExhibitionApplication application1 = new ExhibitionApplication();
         application1.setState(new ApplicationAcceptedState(application1));
+        application1.setDecision(true, "test");
         application1.setKeywordsList(keywordsList1);
 
         List<Keyword> keywordsList2 = new ArrayList<>();
@@ -199,7 +200,8 @@ public class ApplicationsListTest {
         keywordsList2.add(keyword2);
         keywordsList2.add(keyword3);
         ExhibitionApplication application2 = new ExhibitionApplication();
-        application2.setState(new ApplicationAcceptedState(application2));
+        application2.setState(new ApplicationAssignedStandState(application2));
+        application2.setDecision(true, "test");
         application2.setKeywordsList(keywordsList2);
 
         ExhibitionApplication application3 = new ExhibitionApplication();
@@ -242,6 +244,7 @@ public class ApplicationsListTest {
         keywordsList1.add(keyword2);
         ExhibitionApplication application1 = new ExhibitionApplication();
         application1.setState(new ApplicationDeclinedState(application1));
+        application1.setDecision(false, "test");
         application1.setKeywordsList(keywordsList1);
 
         List<Keyword> keywordsList2 = new ArrayList<>();
@@ -254,6 +257,7 @@ public class ApplicationsListTest {
 
         ExhibitionApplication application3 = new ExhibitionApplication();
         application3.setState(new ApplicationAcceptedState(application3));
+        application3.setDecision(true, "test");
         application3.setKeywordsList(keywordsList2);
 
         List<Application> applications = new ArrayList<>();
