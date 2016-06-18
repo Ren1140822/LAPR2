@@ -436,6 +436,15 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
+     * Verify if the application is on assigned stand.
+     *
+     * @return
+     */
+    boolean isAssignedStand() {
+        return this.currentState.isAssignedStand();
+    }
+
+    /**
      * Returns a new evaluation.
      *
      * @return new evaluation

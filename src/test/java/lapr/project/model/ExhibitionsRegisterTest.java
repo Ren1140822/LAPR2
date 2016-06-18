@@ -257,4 +257,25 @@ public class ExhibitionsRegisterTest {
 //        
 //        assertEquals(expResult, this.exhibitionsRegister.getSubmittablesApplicationInSubmissionByExhibitorResponsible(exhibitorResponsible));
 //    }
+//    /**
+//     * Test of getExhibitionApplicationsAssignedStandByExhibitorResponsible method, of class ExhibitionsRegister.
+//     */
+//    @Test
+//    public void testGetExhibitionApplicationsAssignedStandByExhibitorResponsible() {
+//        System.out.println("getExhibitionApplicationsAssignedStandByExhibitorResponsible");
+//        
+//        ExhibitorResponsible exhibitorResponsible = ((ExhibitionApplication)this.exhibitionsRegister.getExhibitionsList().get(0)
+//                .getApplicationsList().getApplicationsList().get(0)).getExhibitor().getExhibitorResponsible();
+//        
+//        ((ExhibitionApplication)this.exhibitionsRegister.getExhibitionsList().get(0)
+//                .getApplicationsList().getApplicationsList().get(0)).setState(new ApplicationAssignedStandState(this.exhibitionsRegister.getExhibitionsList().get(0)
+//                .getApplicationsList().getApplicationsList().get(0)));
+//        
+//         List<ExhibitionApplication> expResult = new ArrayList<>();
+//         expResult.add((ExhibitionApplication)this.exhibitionsRegister.getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0));
+//        
+//        List<ExhibitionApplication> result = this.exhibitionsRegister.getExhibitionApplicationsAssignedStandByExhibitorResponsible(exhibitorResponsible);
+//        
+//        assertEquals(expResult, result);
+//    }
 }

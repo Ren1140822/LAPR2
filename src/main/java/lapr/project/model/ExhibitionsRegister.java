@@ -411,23 +411,6 @@ public class ExhibitionsRegister implements Importable {
     }
 
     /**
-     * Returns the textual interpretation of the objects and attributes of this
-     * class
-     *
-     * @return textual representation for this object
-     */
-    @Override
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        s.append("ExhibitionsRegister{");
-        for (Exhibition ex : exhibitionsList) {
-            s.append(String.format("%s%n", ex));
-        }
-        s.append("}");
-        return s.toString();
-    }
-
-    /**
      * Imports a exhibition from a XML file.
      *
      * @param fileName the name of the file with path
@@ -449,6 +432,63 @@ public class ExhibitionsRegister implements Importable {
             JOptionPane.showMessageDialog(null, "Error ocurred while importing.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return null;
+    }
+
+    /**
+     * Gets the exhibition applications on assigned stand state filtering by
+     * exhibitor responsible.
+     *
+     * @param exhibitorResponsible the exhibitor responsible
+     * @return exhibition applications on assigned stand state filtered by
+     * exhibitor responsible
+     */
+    public List<ExhibitionApplication> getExhibitionApplicationsAssignedStandByExhibitorResponsible(ExhibitorResponsible exhibitorResponsible) {
+        List<ExhibitionApplication> exhibitionApplications = new ArrayList<>();
+
+        for (Exhibition exhibition : this.exhibitionsList) {
+            ApplicationsList applicationsList = exhibition.getApplicationsList();
+            if (applicationsList.isExhibitorResponsibleApplicaitonOnAssignedStand(exhibitorResponsible)) {
+                exhibitionApplications.add((ExhibitionApplication) applicationsList.getExhibitorResponsibleApplication(exhibitorResponsible));
+            }
+        }
+
+        return exhibitionApplications;
+    }
+
+    /**
+     * Returns the textual interpretation of the objects and attributes of this
+     * class
+     *
+     * @return textual representation for this object
+     */
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append("ExhibitionsRegister{");
+        for (Exhibition ex : exhibitionsList) {
+            s.append(String.format("%s%n", ex));
+        }
+        s.append("}");
+        return s.toString();
+    }
+
+    /**
+     * Compares if this object is equal to otherObject.
+     *
+     * @param otherObject other object to compare with
+     * @return true if it represents the same object, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+        ExhibitionsRegister otherExhibitionsRegister = (ExhibitionsRegister) otherObject;
+
+        return this.exhibitionsList.equals(otherExhibitionsRegister.exhibitionsList);
     }
 
 }
