@@ -178,13 +178,11 @@ public class EvaluateApplicationUI extends JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (submittablesJList.getSelectedIndex() >= 0) {
-                    // TODO verify
                     Submittable selectedSubmittable = submittablesList.get(submittablesJList.getSelectedIndex());
                     EvaluateApplicationUI.this.controller.setSubmittable(selectedSubmittable);
                     EvaluateApplicationUI.this.staffAttributionsList = EvaluateApplicationUI.this.controller.getAttributionsByStaff(EvaluateApplicationUI.this.staffMember);
                     EvaluateApplicationUI.this.staffAttributionsJList.setModel(new ModelListStaffAttributions(EvaluateApplicationUI.this.staffAttributionsList));
                 } else {
-                    // TODO verify
                     EvaluateApplicationUI.this.staffAttributionsList = new ArrayList<>();
                     EvaluateApplicationUI.this.staffAttributionsJList.setModel(new ModelListStaffAttributions(EvaluateApplicationUI.this.staffAttributionsList));
                 }
@@ -214,7 +212,6 @@ public class EvaluateApplicationUI extends JFrame {
         this.staffAttributionsJList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                // TODO enable butons
                 EvaluateApplicationUI.this.seeApplicationButton.setEnabled(!EvaluateApplicationUI.this.staffAttributionsJList.isSelectionEmpty());
                 EvaluateApplicationUI.this.evaluateApplicationButton.setEnabled(!EvaluateApplicationUI.this.staffAttributionsJList.isSelectionEmpty());
 
@@ -259,7 +256,6 @@ public class EvaluateApplicationUI extends JFrame {
         this.seeApplicationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO open the see application dialog
                 new DialogSeeApplication(EvaluateApplicationUI.this.evaluable, EvaluateApplicationUI.this);
             }
         });
@@ -279,7 +275,6 @@ public class EvaluateApplicationUI extends JFrame {
         this.evaluateApplicationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO open the evaluate application dialog
                 new DialogEvaluateApplication(evaluable, controller, EvaluateApplicationUI.this);
             }
         });
@@ -293,13 +288,12 @@ public class EvaluateApplicationUI extends JFrame {
      * @return exit button
      */
     private JButton createExitButton() {
-        JButton exitButton = new JButton("Sair");
+        JButton exitButton = new JButton("Back");
 
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                // TODO go to the last naviagble window
             }
         });
 
@@ -312,7 +306,7 @@ public class EvaluateApplicationUI extends JFrame {
     }
 
     /**
-     * Starting method for testing purposes, later wil be removed.
+     * Starting method for testing purposes.
      *
      * @param args command line arguments.
      */
