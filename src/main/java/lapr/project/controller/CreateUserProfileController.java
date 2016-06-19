@@ -58,6 +58,7 @@ public class CreateUserProfileController {
      * @param username
      * @param email
      * @param password
+     * @return true if a user is valid and false otherwise
      */
     public boolean setUserData( String name, String username, String email, String password) {
         this.user.setName(name);

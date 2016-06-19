@@ -115,6 +115,19 @@ public class UsersRegister {
         return this.usersList.add(user);
     }
     
+    /**
+     * Removes a user from the users list.
+     * 
+     * @return true if user removed, false otherwise
+     */
+    private boolean removeUser(String username) {
+        for(User user : this.usersList) {
+            if(user.getUsername().equals(username)){
+                return this.usersList.remove(user);
+            }
+        }
+        return false;
+    }
     
     /**
      * Return the textual representation of a usersRegister.
@@ -131,7 +144,21 @@ public class UsersRegister {
         s.append("}");
         return s.toString();
     }
+
+    /**
+     * Gets user by username.
+     * 
+     * @param username
+     * @return the user or null if inexistent
+     */
+    public User getUser(String username) {
+        for(User user : this.usersList) {
+            if(user.getUsername().equals(username)){
+                return user;
+            }
+        }
+        return null;  
+    }
     
-    
-   
 }
+

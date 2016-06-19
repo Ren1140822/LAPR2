@@ -736,6 +736,35 @@ public class Exhibition implements Submittable {
     }
 
     /**
+     * Gets the acceptance rate of the exhibition.
+     *
+     * @return acceptance rate
+     */
+    public float getAcceptanceRate() {
+        float acceptanceRate = 0;
+
+        List<Application> applications = this.applicationsList.getApplicationsList();
+
+        for (Application application : applications) {
+            if (((ExhibitionApplication) application).getDecision().isDecisionTrue()) {
+                acceptanceRate++;
+            }
+        }
+
+        return acceptanceRate / applications.size();
+    }
+
+    /**
+     * Verify if the organizer belongs to this exhibition.
+     *
+     * @param organizer organizer to be verified
+     * @return true if the organizer belongs to that exhibition, false otherwise
+     */
+    public boolean isOrganizer(Organizer organizer) {
+        return this.organizersList.getOrganizersList().contains(organizer);
+    }
+
+    /**
      * Return the textual representation of a exhibition.
      *
      * @return the textual representation of a exhibition
