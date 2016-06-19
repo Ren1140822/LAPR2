@@ -3,9 +3,13 @@
  */
 package lapr.project.model;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -17,6 +21,7 @@ import lapr.project.model.exhibition.timers.ChangeToChangedConflicts;
 import lapr.project.model.exhibition.timers.ChangeToClosedApplications;
 import lapr.project.model.exhibition.timers.ChangeToOpenApplications;
 import lapr.project.model.exhibition.timers.DetectConflictsTask;
+import lapr.project.utils.Exportable;
 
 /**
  * Represents an Exhibition.
@@ -29,7 +34,7 @@ import lapr.project.model.exhibition.timers.DetectConflictsTask;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Exhibition implements Submittable {
+public class Exhibition implements Submittable, Exportable {
 
     /**
      * Exhibition's title.
@@ -764,6 +769,33 @@ public class Exhibition implements Submittable {
         return this.organizersList.getOrganizersList().contains(organizer);
     }
 
+    @Override
+    public String getData() {
+        return String.format("Exhibition: %s (%s) (%s)", this.title, this.startDate, this.endDate);
+    }
+    
+     /**
+      * Export this exhibition to xml file
+      */
+    @Override
+    public void jaxbObjectExportableToXML() {
+        try{
+            JAXBContext context = JAXBContext.newInstance(Exhibition.class);
+            
+            Marshaller m = context.createMarshaller();
+            //for pretty print XML in JAXB
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            
+            //write to system.out for debugging
+            m.marshal(this, System.out);
+            
+            //write to file
+            m.marshal(this, new File("D:\\exhibition4.xml"));
+        } catch (JAXBException e){
+            e.printStackTrace();
+        }
+    }
+    
     /**
      * Return the textual representation of a exhibition.
      *
@@ -849,4 +881,6 @@ public class Exhibition implements Submittable {
         return this.staffAttributionsList.removeStaffAttribution(staffAttribution);
 
     }
+
+    
 }

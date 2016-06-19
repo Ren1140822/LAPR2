@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import lapr.project.utils.Exportable;
 import lapr.project.utils.Importable;
 
 /**
@@ -370,7 +371,6 @@ public class ExhibitionsRegister implements Importable {
     }
     
     /**
-<<<<<<< HEAD
      * Gets the submittables filtering by a Staff Member and InDetectedConflicts
      * state.
      *
@@ -378,13 +378,6 @@ public class ExhibitionsRegister implements Importable {
      *
      * @return the list of the staffMember's submittables which are
      * InDetectedConflicts state
-=======
-     * Method that loops a application list to get the decisables
-     *
-     * @param applicationsList the list of applications
-     * @param isOrganizer true if current actor is organizer on a application
-     * @return list of decisables
->>>>>>> origin/master
      */
     public List<Submittable> getSubmittablesInDetectedConflictsByStaffMember(StaffMember staffMember){
         List<Submittable> submittableListByOrganizer = new ArrayList();
@@ -548,6 +541,23 @@ public class ExhibitionsRegister implements Importable {
 
         return exhibitionApplications;
     }
+    
+     /**
+     * Gets the exhibitions filtering by organizer.
+     * 
+     * @param organizer the organizer
+     * @return the exhibitions filtered by organizer
+     */
+     public List<Exportable> getExhibitionsListByOrganizer(Organizer organizer) {
+        List<Exportable> exhibitionsByOrganizer = new ArrayList();
+        
+         for (Exhibition exhibition : exhibitionsList) {
+             if (exhibition.isOrganizer(organizer)) {
+                 exhibitionsByOrganizer.add(exhibition);
+             }
+         }
+         return exhibitionsByOrganizer;
+    }
 
     /**
      * Returns the textual interpretation of the objects and attributes of this
@@ -584,5 +594,9 @@ public class ExhibitionsRegister implements Importable {
 
         return this.exhibitionsList.equals(otherExhibitionsRegister.exhibitionsList);
     }
+
+   
+
+    
 
 }
