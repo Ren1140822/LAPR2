@@ -7,7 +7,7 @@ import lapr.project.model.Demonstration;
 import lapr.project.model.DemonstrationState;
 
 /**
- * Represents the applications in evaluation state of a demonstration.
+ * Represents the closed applications state of a demonstration.
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
@@ -15,7 +15,7 @@ import lapr.project.model.DemonstrationState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class DemonstrationInApplicationsInEvaluationState implements DemonstrationState {
+public class DemonstrationClosedAppplicationsState implements DemonstrationState {
     
     /**
      * The demonstration to change state.
@@ -23,17 +23,37 @@ public class DemonstrationInApplicationsInEvaluationState implements Demonstrati
     private final Demonstration demonstration;
     
     /**
-     * Default constructor of an demonstration's created state.
+     * Default constructor of an demonstration's closed applications state.
      *
      * @param demonstration Demonstration to change state
      */
-    public DemonstrationInApplicationsInEvaluationState(Demonstration demonstration) {
+    public DemonstrationClosedAppplicationsState(Demonstration demonstration) {
 
         this.demonstration = demonstration;
     }
-    
+
     @Override
     public boolean isInicial() {
+        return false;
+    }
+
+    @Override
+    public boolean isCreated() {
+        return false;
+    }
+
+    @Override
+    public boolean setCreated() {
+        return false;
+    }
+
+    @Override
+    public boolean isDiscontinued() {
+        return false;
+    }
+
+    @Override
+    public boolean setDiscontinued() {
         return false;
     }
 
@@ -43,7 +63,7 @@ public class DemonstrationInApplicationsInEvaluationState implements Demonstrati
     }
 
     @Override
-    public boolean setInDecided() {
+    public boolean setDecided() {
         return false;
     }
 
@@ -58,8 +78,8 @@ public class DemonstrationInApplicationsInEvaluationState implements Demonstrati
     }
 
     @Override
-    public boolean isCLosedApplications() {
-        return false;
+    public boolean isClosedApplications() {
+        return true;
     }
 
     @Override
@@ -74,6 +94,10 @@ public class DemonstrationInApplicationsInEvaluationState implements Demonstrati
 
     @Override
     public boolean setDetectedConflicts() {
+        if (validate()) {
+            demonstration.setCurrentState(new DemonstrationDetectedConflictsState(demonstration));
+            return true;
+        }
         return false;
     }
 
@@ -89,7 +113,7 @@ public class DemonstrationInApplicationsInEvaluationState implements Demonstrati
 
     @Override
     public boolean isApplicationsInEvaluation() {
-        return true;
+        return false;
     }
 
     @Override
@@ -98,19 +122,13 @@ public class DemonstrationInApplicationsInEvaluationState implements Demonstrati
     }
 
     @Override
-    public boolean isApplicationsInDecisionPeriod() {
+    public boolean isApplicationsInDecision() {
         return false;
     }
 
     @Override
-    public boolean setApplicationsInDecisionPeriod() {
-          if (validate()) {
-            // TODO : Implement next state
-//            this.demonstration.setCurrentDemonstrationState(this);
-            return true;
-        } else {
-            return false;
-        }
+    public boolean setApplicationsInDecision() {
+        return false;
     }
 
     @Override
@@ -123,10 +141,16 @@ public class DemonstrationInApplicationsInEvaluationState implements Demonstrati
         return false;
     }
 
+    /**
+     * Returns false, there is no next state for the demonstration.
+     *
+     * @return false because there is no next state for the demonstration
+     */
     @Override
     public boolean validate() {
-        return (this.demonstration.getCurrentState().isApplicationsInEvaluation());
+
+        // Timer to set state change (no defined validation)
+        return true;
     }
     
 }
-

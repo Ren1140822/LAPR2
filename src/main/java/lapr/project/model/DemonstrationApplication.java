@@ -494,6 +494,11 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     public boolean setDecided() {
         return this.decision.isDecisionTrue() ? this.currentState.setAccepted() : this.currentState.setDeclined();
     }
+
+    @Override
+    public boolean isDecided() {
+        return this.currentState.isAccepted() || this.currentState.isDeclined();
+    }
     
     
 }

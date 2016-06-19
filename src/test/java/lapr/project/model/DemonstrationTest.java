@@ -3,7 +3,7 @@
  */
 package lapr.project.model;
 
-import lapr.project.model.demonstration.DemonstrationDecidedApplicationsState;
+import lapr.project.model.demonstration.DemonstrationApplicationsDecidedState;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -32,7 +32,7 @@ public class DemonstrationTest {
     public void testIsApplicationsDecided() {
         System.out.println("isApplicationsDecided");
         Demonstration instance = new Demonstration();
-        instance.setCurrentState(new DemonstrationDecidedApplicationsState(instance));
+        instance.setCurrentState(new DemonstrationApplicationsDecidedState(instance));
         boolean result = instance.isApplicationsDecided();
         assertTrue(result);
     }

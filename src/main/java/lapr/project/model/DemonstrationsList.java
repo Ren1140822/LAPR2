@@ -256,6 +256,8 @@ public class DemonstrationsList {
      */
     public boolean addAndValidateDemonstration(Demonstration demonstration) {
 
+        
+        
         return (demonstration.validate() && validateDemonstration(demonstration)) ? addDemonstration(demonstration) : false;
     }
 

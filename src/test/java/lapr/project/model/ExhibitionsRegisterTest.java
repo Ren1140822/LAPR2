@@ -6,8 +6,8 @@ package lapr.project.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import lapr.project.model.demonstration.DemonstrationDecidedApplicationsState;
-import lapr.project.model.demonstration.DemonstrationInChangedConflictsState;
+import lapr.project.model.demonstration.DemonstrationApplicationsDecidedState;
+import lapr.project.model.demonstration.DemonstrationChangedConflictsState;
 import lapr.project.model.exhibition.ExhibitionApplicationsInEvaluationState;
 import lapr.project.model.exhibition.ExhibitionCreatedState;
 import lapr.project.model.exhibition.ExhibitionDecidedApplicationsState;
@@ -203,7 +203,7 @@ public class ExhibitionsRegisterTest {
         System.out.println("getDecidedSubmittables");
 
         Demonstration demonstration1 = new Demonstration();
-        demonstration1.setCurrentState(new DemonstrationDecidedApplicationsState(demonstration1));
+        demonstration1.setCurrentState(new DemonstrationApplicationsDecidedState(demonstration1));
         List<Demonstration> demonsList1 = new ArrayList<>();
         demonsList1.add(demonstration1);
 
@@ -212,7 +212,7 @@ public class ExhibitionsRegisterTest {
         exhibition1.setDemonstrationsList(new DemonstrationsList(demonsList1));
 
         Demonstration demonstration2 = new Demonstration();
-        demonstration1.setCurrentState(new DemonstrationInChangedConflictsState(demonstration2));
+        demonstration1.setCurrentState(new DemonstrationChangedConflictsState(demonstration2));
         List<Demonstration> demonsList2 = new ArrayList<>();
         demonsList2.add(demonstration2);
 

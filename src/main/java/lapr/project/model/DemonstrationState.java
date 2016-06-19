@@ -17,9 +17,25 @@ public interface DemonstrationState {
     /**
      * Verify if the demonstration is in the initial state.
      *
-     * @return true if the demonstration is in the initial state, false otherwise
+     * @return true if the demonstration is in the initial state, false
+     * otherwise
      */
     boolean isInicial();
+
+    /**
+     * Verify if the demonstration is in the created state.
+     *
+     * @return true if the demonstration is in the created state, false
+     * otherwise
+     */
+    boolean isCreated();
+
+    /**
+     * Changes the current demonstration state to created state.
+     *
+     * @return true if the state is changed to created state, false otherwise
+     */
+    boolean setCreated();
 
     /**
      * Verify if the current demonstration state is decided state.
@@ -33,7 +49,21 @@ public interface DemonstrationState {
      *
      * @return true if the state is changed to decided state, false otherwise
      */
-    boolean setInDecided();
+    boolean setDecided();
+
+    /**
+     * Verify if the current demonstration state is discontinued state.
+     *
+     * @return true if the demonstration state is discontinued state, false otherwise
+     */
+    boolean isDiscontinued();
+
+    /**
+     * Changes the current demonstration state to discontinued state.
+     *
+     * @return true if the state is changed to discontinued state, false otherwise
+     */
+    boolean setDiscontinued();
 
     /**
      * Verify if the current demonstration state is in opened applications
@@ -58,7 +88,7 @@ public interface DemonstrationState {
      * @return true if the demonstration state is CLosedApplications state,
      * false otherwise
      */
-    boolean isCLosedApplications();
+    boolean isClosedApplications();
 
     /**
      * Changes the current demonstration state to ClosedApplications state.
@@ -124,7 +154,7 @@ public interface DemonstrationState {
      * @return true if the demonstration state is InDecisionPeriod state, false
      * otherwise
      */
-    boolean isApplicationsInDecisionPeriod();
+    boolean isApplicationsInDecision();
 
     /**
      * Changes the current demonstration state to InDecisionPeriod state.
@@ -132,7 +162,7 @@ public interface DemonstrationState {
      * @return true if the state is changed to InDecisionPeriod state, false
      * otherwise
      */
-    boolean setApplicationsInDecisionPeriod();
+    boolean setApplicationsInDecision();
 
     /**
      * Verify if the current demonstration state is isApplicationsDecided state.
@@ -150,5 +180,12 @@ public interface DemonstrationState {
      */
     boolean setApplicationsDecided();
 
+    /**
+     * Validate if the the state gathers all necessary information to transit to
+     * next state.
+     *
+     * @return true if the state gathers the information to transit, false
+     * otherwise
+     */
     boolean validate();
 }

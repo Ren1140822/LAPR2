@@ -44,16 +44,22 @@ public interface Application {
      */
     public boolean validate();
     
+    /**
+     * Verify if the application is decided state.
+     * 
+     * @return true if accepted
+     */
+    public boolean isDecided();
     
     /**
-     * Verify if the application is in accepted state.
+     * Verify if the application is accepted.
      * 
      * @return true if accepted
      */
     public boolean isDecisionAccepted();
     
     /**
-     * Verify if the application is in rejected state.
+     * Verify if the application is declined.
      * 
      * @return true if rejected
      */

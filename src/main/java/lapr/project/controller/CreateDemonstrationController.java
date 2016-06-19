@@ -14,7 +14,7 @@ import lapr.project.model.Resource;
 import lapr.project.model.ResourcesRegister;
 
 /**
- * Represents the controller to create a demonstration.
+ * Represents the controller to create a newDemonstration.
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
@@ -40,9 +40,9 @@ public class CreateDemonstrationController {
     private Exhibition selectedExhibition;
 
     /**
-     * The new demonstration
+     * The new newDemonstration
      */
-    private Demonstration demonstration;
+    private Demonstration newDemonstration;
 
     /**
      * Constructs a CreateDemonstrationController Class.
@@ -83,21 +83,21 @@ public class CreateDemonstrationController {
     }
 
     /**
-     * Obtain the demonstration.
+     * Obtain the newDemonstration.
      *
-     * @return the demonstration
+     * @return the newDemonstration
      */
     public Demonstration getDemonstration() {
-        return demonstration;
+        return newDemonstration;
     }
 
     /**
-     * Set the demonstration.
+     * Set the newDemonstration.
      *
-     * @param demonstration the demonstration to set
+     * @param demonstration the newDemonstration to set
      */
     public void setDemonstration(Demonstration demonstration) {
-        this.demonstration = demonstration;
+        this.newDemonstration = demonstration;
     }
 
     /**
@@ -114,7 +114,7 @@ public class CreateDemonstrationController {
     }
 
     /**
-     * Create a new demonstration.
+     * Create a new newDemonstration.
      */
     public void newDemonstration() {
 
@@ -126,11 +126,11 @@ public class CreateDemonstrationController {
     /**
      * Set Demonstration Data.
      *
-     * @param description demonstration description
+     * @param description newDemonstration description
      */
     public void setData(String description) {
 
-        this.demonstration.setDescription(description);
+        this.newDemonstration.setDescription(description);
     }
 
     /**
@@ -153,16 +153,31 @@ public class CreateDemonstrationController {
      */
     public boolean addResource(Resource resource) {
 
-        return this.demonstration.addResource(resource);
+        return this.newDemonstration.addResource(resource);
     }
 
     /**
-     * Register new demonstration.
+     * Validate and change state of new Demonstration.
      *
-     * @return true if demonstration is successfully added & validated.
+     * @return true if new Demonstration is valid and in created state.
+     */
+    public boolean validateAndChangeStateDemonstration() {
+
+        return this.newDemonstration.setCreated();
+    }
+
+    /**
+     * Register new Demonstration.
+     *
+     * @return true if Demonstration is successfully added & validated.
      */
     public boolean registerDemonstration() {
 
-        return this.selectedExhibition.getDemonstrationsList().addAndValidateDemonstration(this.demonstration);
+        return this.selectedExhibition.getDemonstrationsList().addAndValidateDemonstration(this.newDemonstration);
+    }
+
+    public boolean setDemonstrationDefined() {
+
+        return this.selectedExhibition.setDefinedDemos();
     }
 }

@@ -43,7 +43,7 @@ import lapr.project.model.StaffList;
 import lapr.project.model.StaffMember;
 import lapr.project.model.Submittable;
 import lapr.project.model.User;
-import lapr.project.model.demonstration.DemonstrationInChangedConflictsState;
+import lapr.project.model.demonstration.DemonstrationChangedConflictsState;
 import lapr.project.model.exhibition.ExhibitionChangedConflictsState;
 import lapr.project.model.mechanisms.attribution.EquitableLoadMechanism;
 import lapr.project.ui.components.DialogSelectSubmittable;
@@ -400,7 +400,7 @@ public class AssignApplicationUI extends JFrame {
 
         Demonstration demonstration = new Demonstration();
         demonstration.setStaffList(new StaffList(staffMemberList));
-        demonstration.setCurrentState(new DemonstrationInChangedConflictsState(demonstration));
+        demonstration.setCurrentState(new DemonstrationChangedConflictsState(demonstration));
         List<Demonstration> demonstrationsList = new ArrayList();
         demonstrationsList.add(demonstration);
         DemonstrationsList demonstrationsRegister = new DemonstrationsList(demonstrationsList);

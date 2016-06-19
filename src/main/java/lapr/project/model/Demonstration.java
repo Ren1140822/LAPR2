@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import lapr.project.model.demonstration.DemonstrationInicialState;
 
 /**
  * Represents a demonstration.
@@ -125,7 +126,7 @@ public class Demonstration implements Submittable {
         this.resourcesList = new ArrayList<>();
         this.staffAttributionsList = new StaffAttributionsList();
         this.conflictsList = new ConflictsList();
-        //this.currentState = new DemonstrationInitialState(this);
+        this.currentState = new DemonstrationInicialState(this);
     }
 
     /**
@@ -145,7 +146,7 @@ public class Demonstration implements Submittable {
         this.resourcesList = new ArrayList<>();
         this.staffAttributionsList = new StaffAttributionsList();
         this.conflictsList = new ConflictsList();
-        //this.currentState = new DemonstrationInitialState(this);
+        this.currentState = new DemonstrationInicialState(this);
     }
 
     /**
@@ -175,7 +176,7 @@ public class Demonstration implements Submittable {
         this.resourcesList = new ArrayList<>(resourcesList);
         this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
         this.conflictsList = new ConflictsList(conflictsList);
-        //this.currentState = new DemonstationInitialState(this);
+        this.currentState = new DemonstrationInicialState(this);
     }
 
     /**
@@ -332,8 +333,7 @@ public class Demonstration implements Submittable {
     }
 
     /**
-     * Adds a resource to the list if it doesn't already contain that resouce.
-     * Adds a resource to the list if it doesn't already contain that resouce.
+     * Adds a resource to the list if it doesn't already contain that resource.
      *
      * @param resource the resource to add
      * @return true if the resource is added
@@ -372,7 +372,9 @@ public class Demonstration implements Submittable {
      *
      * @return true if the description is valid, false otherwise
      */
-    boolean validate() {
+    public boolean validate() {
+
+        // TODO: Is it possible to not have any resource defined?
         return !this.description.isEmpty();
     }
 
@@ -438,6 +440,9 @@ public class Demonstration implements Submittable {
         return this.staffList.getStaffList().contains(staffMember);
     }
 
+//    public boolean setCreated() {
+//        return this.currentState.
+//    }
     /**
      * Returns a short version info of the demonstration.
      *
@@ -515,6 +520,16 @@ public class Demonstration implements Submittable {
 
         s.append("}");
         return s.toString();
+    }
+
+    /**
+     * Returns true if demonstration's is valid to change to created state.
+     *
+     * @return true if demonstration's is valid to change to created state
+     */
+    public boolean setCreated() {
+
+        return this.currentState.setCreated();
     }
 
     /**

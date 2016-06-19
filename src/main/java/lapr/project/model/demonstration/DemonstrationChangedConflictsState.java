@@ -7,7 +7,7 @@ import lapr.project.model.Demonstration;
 import lapr.project.model.DemonstrationState;
 
 /**
- * Represents the decided applications state of a demonstration.
+ * Represents the changed conflicts state of a demonstration.
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
@@ -15,7 +15,7 @@ import lapr.project.model.DemonstrationState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class DemonstrationDecidedApplicationsState implements DemonstrationState {
+public class DemonstrationChangedConflictsState implements DemonstrationState {
 
     /**
      * The demonstration to change state.
@@ -23,11 +23,11 @@ public class DemonstrationDecidedApplicationsState implements DemonstrationState
     private final Demonstration demonstration;
 
     /**
-     * Default constructor of an demonstration's decided applications state.
+     * Default constructor of an demonstration's changed conflicts state.
      *
      * @param demonstration Demonstration to change state
      */
-    public DemonstrationDecidedApplicationsState(Demonstration demonstration) {
+    public DemonstrationChangedConflictsState(Demonstration demonstration) {
 
         this.demonstration = demonstration;
     }
@@ -38,12 +38,32 @@ public class DemonstrationDecidedApplicationsState implements DemonstrationState
     }
 
     @Override
+    public boolean isCreated() {
+        return false;
+    }
+
+    @Override
+    public boolean setCreated() {
+        return false;
+    }
+
+    @Override
+    public boolean isDiscontinued() {
+        return false;
+    }
+
+    @Override
+    public boolean setDiscontinued() {
+        return false;
+    }
+
+    @Override
     public boolean isDecided() {
         return false;
     }
 
     @Override
-    public boolean setInDecided() {
+    public boolean setDecided() {
         return false;
     }
 
@@ -58,7 +78,7 @@ public class DemonstrationDecidedApplicationsState implements DemonstrationState
     }
 
     @Override
-    public boolean isCLosedApplications() {
+    public boolean isClosedApplications() {
         return false;
     }
 
@@ -79,7 +99,7 @@ public class DemonstrationDecidedApplicationsState implements DemonstrationState
 
     @Override
     public boolean isChangedConflicts() {
-        return false;
+        return true;
     }
 
     @Override
@@ -94,22 +114,26 @@ public class DemonstrationDecidedApplicationsState implements DemonstrationState
 
     @Override
     public boolean setApplicationsInEvaluation() {
+        if (validate()) {
+            demonstration.setCurrentState(new DemonstrationApplicationsInEvaluationState(demonstration));
+            return true;
+        }
         return false;
     }
 
     @Override
-    public boolean isApplicationsInDecisionPeriod() {
+    public boolean isApplicationsInDecision() {
         return false;
     }
 
     @Override
-    public boolean setApplicationsInDecisionPeriod() {
+    public boolean setApplicationsInDecision() {
         return false;
     }
 
     @Override
     public boolean isApplicationsDecided() {
-        return true;
+        return false;
     }
 
     @Override
@@ -124,7 +148,7 @@ public class DemonstrationDecidedApplicationsState implements DemonstrationState
      */
     @Override
     public boolean validate() {
-        return (this.demonstration.getCurrentState().isApplicationsInEvaluation());
-    }
 
+        return !demonstration.getStaffAttributionsList().getStaffAttributionsList().isEmpty();
+    }
 }
