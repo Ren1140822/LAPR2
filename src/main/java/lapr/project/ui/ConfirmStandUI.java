@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -24,6 +25,7 @@ import lapr.project.controller.ConfirmStandController;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitorResponsible;
+import lapr.project.model.application.ApplicationAssignedStandState;
 import lapr.project.ui.components.DialogSeeApplication;
 import lapr.project.ui.components.ModelListExhibitionApplications;
 import lapr.project.utils.DefaultInstantiator;
@@ -70,9 +72,9 @@ public class ConfirmStandUI extends JFrame {
     private JButton seeApplicationButton;
 
     /**
-     * Evaluate application button.
+     * Confirm stand button.
      */
-    private JButton decideStandButon;
+    private JButton confirmStandButon;
 
     /**
      * Title for the window.
@@ -149,7 +151,14 @@ public class ConfirmStandUI extends JFrame {
         this.exhibitionApplicationsJList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent lse) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                ConfirmStandUI.this.seeApplicationButton.setEnabled(!ConfirmStandUI.this.exhibitionApplicationsJList.isSelectionEmpty());
+                ConfirmStandUI.this.confirmStandButon.setEnabled(!ConfirmStandUI.this.exhibitionApplicationsJList.isSelectionEmpty());
+
+                if (ConfirmStandUI.this.exhibitionApplicationsJList.getSelectedIndex() >= 0) {
+                    ConfirmStandUI.this.controller.setExhibitionApplication(
+                            ConfirmStandUI.this.exhibitionApplicationsList.get(
+                                    ConfirmStandUI.this.exhibitionApplicationsJList.getSelectedIndex()));
+                }
             }
         });
 
@@ -186,9 +195,8 @@ public class ConfirmStandUI extends JFrame {
         this.seeApplicationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO validate
-                new DialogSeeApplication(ConfirmStandUI.this.exhibitionApplicationsList
-                        .get(ConfirmStandUI.this.exhibitionApplicationsJList.getSelectedIndex()),
+                new DialogSeeApplication(ConfirmStandUI.this.exhibitionApplicationsList.get(
+                        ConfirmStandUI.this.exhibitionApplicationsJList.getSelectedIndex()),
                         ConfirmStandUI.this);
             }
         });
@@ -202,17 +210,35 @@ public class ConfirmStandUI extends JFrame {
      * @return confirm stand button
      */
     private JButton createConfirmStandButton() {
-        this.decideStandButon = new JButton("Decide Application");
-        this.decideStandButon.setEnabled(false);
+        this.confirmStandButon = new JButton("Confirm Stand");
+        this.confirmStandButon.setEnabled(false);
 
-        this.decideStandButon.addActionListener(new ActionListener() {
+        this.confirmStandButon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                String[] options = {"Yes, accept stand", "No, discard stand"};
+
+                int standDecision = JOptionPane.showOptionDialog(ConfirmStandUI.this,
+                        "Do you wish to confirm this stand?",
+                        "Confirm Stand",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null, options,
+                        options[0]);
+
+                if (standDecision == 0) { //Stand accepted
+                    ConfirmStandUI.this.controller.setStandDecision(true);
+                    ConfirmStandUI.this.controller.confirmStandDecision();
+                    ConfirmStandUI.this.updateStaffAtributionsList();
+                } else if (standDecision == 1) { //Stand declined
+                    ConfirmStandUI.this.controller.setStandDecision(false);
+                    ConfirmStandUI.this.controller.confirmStandDecision();
+                    ConfirmStandUI.this.updateStaffAtributionsList();
+                }
             }
         });
 
-        return this.decideStandButon;
+        return this.confirmStandButon;
     }
 
     /**
@@ -227,11 +253,18 @@ public class ConfirmStandUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                // TODO go to the last naviagble window
             }
         });
 
         return backButton;
+    }
+    
+    /**
+     * Refresh the update staff attributions list.
+     */
+    private void updateStaffAtributionsList() {
+        this.exhibitionApplicationsList = controller.getExhibitionApplicationsByExhibitorResponsible();
+        this.exhibitionApplicationsJList.setModel(new ModelListExhibitionApplications(this.exhibitionApplicationsList));
     }
 
     /**
@@ -242,6 +275,9 @@ public class ConfirmStandUI extends JFrame {
     public static void main(String[] args) {
         ExhibitionCenter ec = DefaultInstantiator.createExhibitionCenter();
         ExhibitorResponsible er = ((ExhibitionApplication) ec.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)).getExhibitor().getExhibitorResponsible();
+        ((ExhibitionApplication) ec.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList()
+                .get(0)).setState(new ApplicationAssignedStandState(ec.getExhibitionsRegister().getExhibitionsList().get(0)
+                .getApplicationsList().getApplicationsList().get(0)));
         new ConfirmStandUI(ec, er);
     }
 }

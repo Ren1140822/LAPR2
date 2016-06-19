@@ -3,13 +3,8 @@
  */
 package lapr.project.model;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -18,7 +13,6 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import lapr.project.model.application.ApplicationInitialState;
-import lapr.project.utils.Importable;
 
 /**
  * Represents an exhibition application
@@ -478,7 +472,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      */
     public void confirmStand(boolean standDecision) {
         if (standDecision) {
-            this.currentState.setAssignedStand();
+            this.currentState.setConfirmedStand();
         } else {
             this.currentState.setNotConfirmedStand();
         }
