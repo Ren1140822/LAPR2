@@ -6,6 +6,7 @@ package lapr.project.model;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.util.Pair;
 import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -288,6 +289,58 @@ public class ExhibitionsRegister implements Importable {
             }
         }
         return submittablesList;
+    }
+    
+    /**
+     * Gets the decided exhibitions.
+     * 
+     * @return decided exhibitions
+     */
+    public List<Exhibition> getDecidedExhibitions(){
+        List<Exhibition> decidedExhibitions = new ArrayList<>();
+        
+        for (Exhibition exhibition : exhibitionsList) {
+            if (exhibition.isApplicationsDecided()) {
+                decidedExhibitions.add(exhibition);
+            }
+        }
+        
+        return decidedExhibitions;
+    }
+    
+    /**
+     * Gets the decided exhibitions filtering by organizer.
+     * 
+     * @param organizer the organizer
+     * @return decided exhibitions filtered by organizer
+     */
+    public List<Exhibition> getDecidedExhibitionsByOrganizer(Organizer organizer){
+        List<Exhibition> decidedExhibitionsByOrganizer = new ArrayList<>();
+        
+        for (Exhibition exhibition : exhibitionsList) {
+            if (exhibition.isApplicationsDecided() && exhibition.isOrganizer(organizer)) {
+                decidedExhibitionsByOrganizer.add(exhibition);
+            }
+        }
+        
+        return decidedExhibitionsByOrganizer;
+    }
+    
+    /**
+     * Gets the exhibitions acceptance rate.
+     * 
+     * @param exhibitionsList the list with exhibitions
+     * @return exhibitions with acceptance rate
+     */
+    public List<Pair<Exhibition, Float>> getPairExhibitionAcceptanceRate(List<Exhibition> exhibitionsList) {
+        List<Pair<Exhibition, Float>> pairExhibitionAcceptanceRate = new ArrayList<>();
+        
+        for (Exhibition exhibition : exhibitionsList) {
+            float acceptanceRate = exhibition.getAcceptanceRate();
+            pairExhibitionAcceptanceRate.add(new Pair<>(exhibition, acceptanceRate));
+        }
+        
+        return pairExhibitionAcceptanceRate;
     }
 
     /**

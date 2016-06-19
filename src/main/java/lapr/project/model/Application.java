@@ -50,12 +50,12 @@ public interface Application {
      * 
      * @return true if accepted
      */
-    public boolean isAccepted();
+    public boolean isDecisionAccepted();
     
     /**
      * Verify if the application is in rejected state.
      * 
      * @return true if rejected
      */
-    public boolean isDeclined();
+    public boolean isDesionDeclined();
 }

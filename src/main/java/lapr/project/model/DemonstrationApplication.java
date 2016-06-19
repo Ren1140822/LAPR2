@@ -481,13 +481,13 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     }
 
     @Override
-    public boolean isAccepted() {
-        return this.currentState.isAccepted();
+    public boolean isDecisionAccepted() {
+        return this.decision.isDecisionTrue();
     }
 
     @Override
-    public boolean isDeclined() {
-        return this.currentState.isDeclined();
+    public boolean isDesionDeclined() {
+        return !this.decision.isDecisionTrue();
     }
 
     @Override

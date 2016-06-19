@@ -285,7 +285,7 @@ public class ApplicationsList {
 
         for (Application application : this.applicationsList) {
 
-            boolean isAccepted = application.isAccepted();
+            boolean isAccepted = application.isDecisionAccepted();
 
             if (isAccepted) {
 
@@ -309,7 +309,7 @@ public class ApplicationsList {
 
         for (Application application : this.applicationsList) {
 
-            boolean isDeclined = application.isDeclined();
+            boolean isDeclined = application.isDesionDeclined();
 
             if (isDeclined) {
 
