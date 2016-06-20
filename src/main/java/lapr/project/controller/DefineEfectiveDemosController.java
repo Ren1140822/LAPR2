@@ -135,10 +135,10 @@ public class DefineEfectiveDemosController {
      *
      * @param startDate demonstration's start date
      * @param endDate demonstration's end date
-     * 
+     *
      * @return true if dates are valid
      */
-    public boolean  setDemonstrationDates(Date startDate, Date endDate) {
+    public boolean setDemonstrationDates(Date startDate, Date endDate) {
 
         this.efectiveDemo.setStartDate(startDate);
         this.efectiveDemo.setEndDate(endDate);
@@ -164,4 +164,21 @@ public class DefineEfectiveDemosController {
         }
         return isUpdated;
     }
+
+    /**
+     * Updates the selected exhibition's demonstrations list.
+     *
+     * @param selectedExhibition the selected exhibition
+     * @return true if all demonstrations are updated.
+     */
+    public boolean updateDemosntrationList(Exhibition selectedExhibition) {
+
+        boolean isUpdated = this.demonstrationsList.updateDemonstrationsList();
+        
+        selectedExhibition.setDemonstrationsList(demonstrationsList);
+        
+        return isUpdated;
+    }
+    
+    
 }

@@ -17,7 +17,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Tests a CreateExhibitionController class.
+ * Tests a DefineEfectiveDemosController class.
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
@@ -81,11 +81,78 @@ public class DefineEfectiveDemosControllerTest {
         controller.setDemonstrationsList(exhibition1);
 
         controller.updateDemonstration();
-        
+
         demonstration1.setCurrentState(new DemonstrationDecidedState(demonstration1));
         List<Demonstration> expResult = demonsList1;
-        
+
         List<Demonstration> result = controller.getDemonstrationsList();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of updateDemosntrationList method, of class
+     * DefineEfectiveDemosController, returns true.
+     */
+    @Test
+    public void testUpdateDemosntrationListTrue() {
+        System.out.println("updateDemosntrationList");
+
+        Demonstration demonstration1 = new Demonstration("demo1");
+        demonstration1.setCurrentState(new DemonstrationCreatedState(demonstration1));
+
+        Demonstration demonstration2 = new Demonstration("demo2");
+        demonstration2.setCurrentState(new DemonstrationDecidedState(demonstration2));
+
+        List<Demonstration> demonsList1 = new ArrayList<>();
+        demonsList1.add(demonstration1);
+        demonsList1.add(demonstration2);
+
+        Exhibition selectedExhibition = new Exhibition();
+        selectedExhibition.setDemonstrationsList(new DemonstrationsList(demonsList1));
+        controller.setDemonstrationsList(selectedExhibition);
+
+        boolean result = controller.updateDemosntrationList(selectedExhibition);
+        assertTrue(result);
+    }
+
+    /**
+     * Test of updateDemosntrationList method, of class
+     * DefineEfectiveDemosController.
+     */
+    @Test
+    public void testUpdateDemosntrationList() {
+        System.out.println("updateDemosntrationList");
+
+        Demonstration demonstration1 = new Demonstration("demo1");
+        demonstration1.setCurrentState(new DemonstrationCreatedState(demonstration1));
+
+        Demonstration demonstration2 = new Demonstration("demo2");
+        demonstration2.setCurrentState(new DemonstrationDecidedState(demonstration2));
+
+        List<Demonstration> demonsList1 = new ArrayList<>();
+        demonsList1.add(demonstration1);
+        demonsList1.add(demonstration2);
+
+        Exhibition selectedExhibition = new Exhibition();
+        selectedExhibition.setDemonstrationsList(new DemonstrationsList(demonsList1));
+        controller.setDemonstrationsList(selectedExhibition);
+
+        controller.updateDemosntrationList(selectedExhibition);
+        
+        Demonstration demonstration3 = new Demonstration("demo1");
+        demonstration3.setCurrentState(new DemonstrationCreatedState(demonstration3));
+
+        Demonstration demonstration4 = new Demonstration("demo2");
+        demonstration4.setCurrentState(new DemonstrationDecidedState(demonstration4));
+        List<Demonstration> demonsList2 = new ArrayList<>();
+        demonsList2.add(demonstration3);
+        demonsList2.add(demonstration4);
+        
+        
+        Exhibition expResult = new Exhibition();
+        expResult.setDemonstrationsList(new DemonstrationsList(demonsList2));
+        Exhibition result = selectedExhibition;
+        
         assertEquals(expResult, result);
     }
 
