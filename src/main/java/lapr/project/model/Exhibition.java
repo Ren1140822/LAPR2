@@ -120,7 +120,6 @@ public class Exhibition implements Submittable, Exportable {
     /**
      * The exhibition's current state.
      */
-     
 //    @XmlElements({
 //        @XmlElement(name = "exhibition_state", type = ExhibitionInicialState.class),
 //        @XmlElement(name = "exhibition_state", type = ExhibitionApplicationsInDecisionState.class),
@@ -773,29 +772,31 @@ public class Exhibition implements Submittable, Exportable {
     public String getData() {
         return String.format("Exhibition: %s (%s) (%s)", this.title, this.startDate, this.endDate);
     }
-    
-     /**
-      * Export this exhibition to xml file
-      */
+
+    /**
+     * Export this exhibition to xml file
+     *
+     * @param path the path where the file will be saved
+     */
     @Override
-    public void jaxbObjectExportableToXML() {
-        try{
+    public void jaxbObjectExportableToXML(String path) {
+        try {
             JAXBContext context = JAXBContext.newInstance(Exhibition.class);
-            
+
             Marshaller m = context.createMarshaller();
             //for pretty print XML in JAXB
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            
+
             //write to system.out for debugging
             m.marshal(this, System.out);
-            
+
             //write to file
-            m.marshal(this, new File("D:\\exhibition4.xml"));
-        } catch (JAXBException e){
+            m.marshal(this, new File(path));
+        } catch (JAXBException e) {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Return the textual representation of a exhibition.
      *
@@ -882,5 +883,4 @@ public class Exhibition implements Submittable, Exportable {
 
     }
 
-    
 }
