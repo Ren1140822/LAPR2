@@ -94,7 +94,7 @@ public class DemonstrationsList {
      */
     public DemonstrationsList() {
         this.demonstrationList = new ArrayList<>();
-        this.startDate = DEFAULT_START_DATE;
+        this.startDate = new Date(2016, 1, 1);
         this.endDate = DEFAULT_END_DATE;
         this.subStartDate = DEFAULT_SUB_START_DATE;
         this.subEndDate = DEFAULT_SUB_END_DATE;
@@ -256,8 +256,6 @@ public class DemonstrationsList {
      */
     public boolean addAndValidateDemonstration(Demonstration demonstration) {
 
-        
-        
         return (demonstration.validate() && validateDemonstration(demonstration)) ? addDemonstration(demonstration) : false;
     }
 
@@ -291,6 +289,27 @@ public class DemonstrationsList {
      */
     public boolean isDemonstration(Demonstration demonstration) {
         return this.demonstrationList.contains(demonstration);
+    }
+
+    /**
+     * Verify if demonstrations are in created state.
+     *
+     * @return true if demonstrations are in created state
+     */
+    public boolean isDemonstrationsInCreatedState() {
+
+        return isFirstDemonstrationCreatedState();
+    }
+
+    /**
+     * Verify if demonstrations (only need to verify one) are in created state.
+     *
+     * @return true if demonstrations are in created state
+     */
+    private boolean isFirstDemonstrationCreatedState() {
+
+        // TODO : If there is time modify state diagrams to not use this method (Will effect many UCs implementations)
+        return this.demonstrationList.isEmpty() ? false : this.demonstrationList.get(0).isCreated();
     }
 
     /**

@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import lapr.project.model.demonstration.DemonstrationApplicationsDecidedState;
 import lapr.project.model.demonstration.DemonstrationChangedConflictsState;
+import lapr.project.model.demonstration.DemonstrationCreatedState;
 import lapr.project.model.exhibition.ExhibitionApplicationsInEvaluationState;
 import lapr.project.model.exhibition.ExhibitionCreatedState;
 import lapr.project.model.exhibition.ExhibitionDecidedApplicationsState;
@@ -197,7 +198,7 @@ public class ExhibitionsRegisterTest {
     /**
      * Test of getDecidedSubmittables method, of class ExhibitionsRegister.
      */
-//    @Test TODO : Enable once inifinity loop is corrected
+    @Test
     public void testGetDecidedSubmittables() {
 
         System.out.println("getDecidedSubmittables");
@@ -212,7 +213,7 @@ public class ExhibitionsRegisterTest {
         exhibition1.setDemonstrationsList(new DemonstrationsList(demonsList1));
 
         Demonstration demonstration2 = new Demonstration();
-        demonstration1.setCurrentState(new DemonstrationChangedConflictsState(demonstration2));
+        demonstration2.setCurrentState(new DemonstrationChangedConflictsState(demonstration2));
         List<Demonstration> demonsList2 = new ArrayList<>();
         demonsList2.add(demonstration2);
 
@@ -221,12 +222,12 @@ public class ExhibitionsRegisterTest {
         exhibition2.setDemonstrationsList(new DemonstrationsList(demonsList2));
 
         Exhibition exhibition3 = new Exhibition();
-        exhibition2.setState(new ExhibitionApplicationsInEvaluationState(exhibition3));
+        exhibition3.setState(new ExhibitionApplicationsInEvaluationState(exhibition3));
 
         List<Submittable> expResult = new ArrayList<>();
         expResult.add(exhibition1);
-        expResult.add(exhibition2);
         expResult.add(demonstration1);
+        expResult.add(exhibition2);
 
         List<Exhibition> exhibitionsList = new ArrayList<>();
         exhibitionsList.add(exhibition1);
@@ -239,6 +240,56 @@ public class ExhibitionsRegisterTest {
         List<Submittable> result = instance.getDecidedSubmittables();
 
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getGetExhibitionsAppsDecidedAndDemosCreated method, of class
+     * ExhibitionsRegister.
+     */
+    @Test
+    public void testGetExhibitionsAppsDecidedAndDemosCreated() {
+
+        System.out.println("getExhibitionsAppsDecidedAndDemosCreated");
+
+        Organizer organizer = new Organizer(new User("Daniel", "daniel", "email@dd", "password", new ArrayList<>()));
+
+        Demonstration demonstration1 = new Demonstration();
+        demonstration1.setCurrentState(new DemonstrationApplicationsDecidedState(demonstration1));
+        List<Demonstration> demonsList1 = new ArrayList<>();
+        demonsList1.add(demonstration1);
+
+        Exhibition exhibition1 = new Exhibition();
+        exhibition1.getOrganizersList().addAndValidateOrganizer(organizer);
+        exhibition1.setState(new ExhibitionDecidedApplicationsState(exhibition1));
+        exhibition1.setDemonstrationsList(new DemonstrationsList(demonsList1));
+
+        Demonstration demonstration2 = new Demonstration();
+        demonstration1.setCurrentState(new DemonstrationCreatedState(demonstration2));
+        List<Demonstration> demonsList2 = new ArrayList<>();
+        demonsList2.add(demonstration2);
+
+        Exhibition exhibition2 = new Exhibition();
+        exhibition2.getOrganizersList().addAndValidateOrganizer(organizer);
+        exhibition2.setState(new ExhibitionDecidedApplicationsState(exhibition2));
+        exhibition2.setDemonstrationsList(new DemonstrationsList(demonsList2));
+
+        Exhibition exhibition3 = new Exhibition();
+        exhibition2.setState(new ExhibitionApplicationsInEvaluationState(exhibition3));
+
+        List<Exhibition> expResult = new ArrayList<>();
+        expResult.add(exhibition2);
+
+        List<Exhibition> exhibitionsList = new ArrayList<>();
+        exhibitionsList.add(exhibition1);
+        exhibitionsList.add(exhibition2);
+        exhibitionsList.add(exhibition3);
+        this.exhibitionCenter.setExhibitionsRegister(new ExhibitionsRegister(exhibitionsList));
+
+        ExhibitionsRegister instance = this.exhibitionCenter.getExhibitionsRegister();
+
+        List<Exhibition> result = instance.getExhibitionsAppsDecidedAndDemosCreated(organizer);
+        assertEquals(expResult, result);
+
     }
 
     /**

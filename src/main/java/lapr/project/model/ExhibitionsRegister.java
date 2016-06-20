@@ -127,6 +127,7 @@ public class ExhibitionsRegister implements Importable {
 
     /**
      * Registers the imported exhibition.
+     *
      * @param exhibition the imported exhibition
      * @return true if validated
      */
@@ -212,15 +213,38 @@ public class ExhibitionsRegister implements Importable {
      */
     public List<Exhibition> getExhibitionsListWithoutDemosDefined(Organizer organizer) {
 
-        List<Exhibition> exhibitionsList = new ArrayList();
+        List<Exhibition> exhibitions = new ArrayList();
 
         for (Exhibition exhibition : this.exhibitionsList) {
 
-            if (exhibition.isNotDemonstrationsDefined() && exhibition.getOrganizersList().hasOrganizer(organizer)) {
-                exhibitionsList.add(exhibition);
+            if (exhibition.isNotDemonstrationsDefined() && exhibition.hasOrganizer(organizer)) {
+                exhibitions.add(exhibition);
             }
         }
-        return exhibitionsList;
+        return exhibitions;
+    }
+
+    /**
+     * Get the exhibitions list with Applications Decided (and Demos in created
+     * state) by Organizer.
+     *
+     * @param organizer the organizer to filter exhibitions
+     * @return the exhibitions list with Applications Decided (and Demos in
+     * created state) by Organizer
+     */
+    public List<Exhibition> getExhibitionsAppsDecidedAndDemosCreated(Organizer organizer) {
+
+        List<Exhibition> exhibitions = new ArrayList();
+
+        for (Exhibition exhibition : this.exhibitionsList) {
+
+            if (exhibition.hasOrganizer(organizer) && exhibition.isApplicationsDecided()) {
+                if (exhibition.isDemonstrationsInCreatedState()) {
+                    exhibitions.add(exhibition);
+                }
+            }
+        }
+        return exhibitions;
     }
 
     /**
@@ -264,8 +288,6 @@ public class ExhibitionsRegister implements Importable {
         }
         return submittablesList;
     }
-    
-    
 
     /**
      * Obtain the submittables filtering by Decided state.
@@ -291,56 +313,56 @@ public class ExhibitionsRegister implements Importable {
         }
         return submittablesList;
     }
-    
+
     /**
      * Gets the decided exhibitions.
-     * 
+     *
      * @return decided exhibitions
      */
-    public List<Exhibition> getDecidedExhibitions(){
+    public List<Exhibition> getDecidedExhibitions() {
         List<Exhibition> decidedExhibitions = new ArrayList<>();
-        
+
         for (Exhibition exhibition : exhibitionsList) {
             if (exhibition.isApplicationsDecided()) {
                 decidedExhibitions.add(exhibition);
             }
         }
-        
+
         return decidedExhibitions;
     }
-    
+
     /**
      * Gets the decided exhibitions filtering by organizer.
-     * 
+     *
      * @param organizer the organizer
      * @return decided exhibitions filtered by organizer
      */
-    public List<Exhibition> getDecidedExhibitionsByOrganizer(Organizer organizer){
+    public List<Exhibition> getDecidedExhibitionsByOrganizer(Organizer organizer) {
         List<Exhibition> decidedExhibitionsByOrganizer = new ArrayList<>();
-        
+
         for (Exhibition exhibition : exhibitionsList) {
-            if (exhibition.isApplicationsDecided() && exhibition.isOrganizer(organizer)) {
+            if (exhibition.isApplicationsDecided() && exhibition.hasOrganizer(organizer)) {
                 decidedExhibitionsByOrganizer.add(exhibition);
             }
         }
-        
+
         return decidedExhibitionsByOrganizer;
     }
-    
+
     /**
      * Gets the exhibitions acceptance rate.
-     * 
+     *
      * @param exhibitionsList the list with exhibitions
      * @return exhibitions with acceptance rate
      */
     public List<Pair<Exhibition, Float>> getPairExhibitionAcceptanceRate(List<Exhibition> exhibitionsList) {
         List<Pair<Exhibition, Float>> pairExhibitionAcceptanceRate = new ArrayList<>();
-        
+
         for (Exhibition exhibition : exhibitionsList) {
             float acceptanceRate = exhibition.getAcceptanceRate();
             pairExhibitionAcceptanceRate.add(new Pair<>(exhibition, acceptanceRate));
         }
-        
+
         return pairExhibitionAcceptanceRate;
     }
 
@@ -369,7 +391,7 @@ public class ExhibitionsRegister implements Importable {
 
         return decisableList;
     }
-    
+
     /**
      * Gets the submittables filtering by a Staff Member and InDetectedConflicts
      * state.
@@ -379,21 +401,21 @@ public class ExhibitionsRegister implements Importable {
      * @return the list of the staffMember's submittables which are
      * InDetectedConflicts state
      */
-    public List<Submittable> getSubmittablesInDetectedConflictsByStaffMember(StaffMember staffMember){
+    public List<Submittable> getSubmittablesInDetectedConflictsByStaffMember(StaffMember staffMember) {
         List<Submittable> submittableListByOrganizer = new ArrayList();
-        
+
         for (Exhibition exhibition : exhibitionsList) {
             if ((exhibition.isStaffMember(staffMember)) && (exhibition.getState().isDetectedConficts())) {
                 submittableListByOrganizer.add(exhibition);
             }
-            
+
             for (Demonstration demonstration : exhibition.getDemonstrationsList().getDemonstrationsList()) {
                 if ((demonstration.isStaffMember(staffMember)) && (demonstration.getCurrentState().isDetectedConflicts())) {
                     submittableListByOrganizer.add(demonstration);
                 }
-            }        
+            }
         }
-        
+
         return submittableListByOrganizer;
     }
 
@@ -479,8 +501,9 @@ public class ExhibitionsRegister implements Importable {
         return removablesList;
     }
 
-      /**
+    /**
      * Method that loops a application list to get the decisables
+     *
      * @param applicationsList the list of applications
      * @param isOrganizer true if current actor is organizer on a application
      * @return list of decisables
@@ -496,7 +519,7 @@ public class ExhibitionsRegister implements Importable {
         }
         return decisableList;
     }
-    
+
     /**
      * Imports a exhibition from a XML file.
      *
@@ -541,22 +564,22 @@ public class ExhibitionsRegister implements Importable {
 
         return exhibitionApplications;
     }
-    
-     /**
+
+    /**
      * Gets the exhibitions filtering by organizer.
-     * 
+     *
      * @param organizer the organizer
      * @return the exhibitions filtered by organizer
      */
-     public List<Exportable> getExhibitionsListByOrganizer(Organizer organizer) {
+    public List<Exportable> getExhibitionsListByOrganizer(Organizer organizer) {
         List<Exportable> exhibitionsByOrganizer = new ArrayList();
-        
-         for (Exhibition exhibition : exhibitionsList) {
-             if (exhibition.isOrganizer(organizer)) {
-                 exhibitionsByOrganizer.add(exhibition);
-             }
-         }
-         return exhibitionsByOrganizer;
+
+        for (Exhibition exhibition : exhibitionsList) {
+            if (exhibition.hasOrganizer(organizer)) {
+                exhibitionsByOrganizer.add(exhibition);
+            }
+        }
+        return exhibitionsByOrganizer;
     }
 
     /**
@@ -594,9 +617,5 @@ public class ExhibitionsRegister implements Importable {
 
         return this.exhibitionsList.equals(otherExhibitionsRegister.exhibitionsList);
     }
-
-   
-
-    
 
 }
