@@ -3,13 +3,8 @@
  */
 package lapr.project.model;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -18,7 +13,6 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import lapr.project.model.application.ApplicationInitialState;
-import lapr.project.utils.Importable;
 
 /**
  * Represents an demonstration application
@@ -31,7 +25,7 @@ import lapr.project.utils.Importable;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class DemonstrationApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable, Removable, Editable{
+public class DemonstrationApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable, Removable, Editable {
 
     /**
      * The title of the application.
@@ -288,52 +282,6 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     }
 
     /**
-     * Returns the textual interpretation of the objects and attributes of this
-     * class
-     *
-     * @return textual representation of this application
-     */
-    @Override
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        s.append("DemonstrationApplication{");
-        s.append(String.format("%f%n", this.title));
-        s.append(String.format("%f%n", this.exhibitor));
-        s.append(String.format("%f%n", this.exhibitorArea));
-        s.append(String.format("%d%n", this.numberInvitations));
-        for (Product prod : productsList) {
-            s.append(String.format("%s%n", prod));
-        }
-        for (Evaluation appl : evaluationsList) {
-            s.append(String.format("%s%n", appl));
-        }
-        s.append("}");
-        return s.toString();
-    }
-
-    /**
-     * Compares if this object is equal to otherObject.
-     *
-     * @param otherObject other object to compare with
-     * @return true if it repreents the same object, false otherwise
-     */
-    @Override
-    public boolean equals(Object otherObject) {
-        if (this == otherObject) {
-            return true;
-        }
-        if (otherObject == null || this.getClass() != otherObject.getClass()) {
-            return false;
-        }
-        DemonstrationApplication otherDemonstrationApplication = (DemonstrationApplication) otherObject;
-
-        return this.title.equals(otherDemonstrationApplication.title) && this.exhibitor.equals(otherDemonstrationApplication.exhibitor)
-                && this.evaluationsList.equals(otherDemonstrationApplication.evaluationsList)
-                && this.productsList.equals(otherDemonstrationApplication.productsList) && this.exhibitorArea == otherDemonstrationApplication.exhibitorArea
-                && this.numberInvitations == otherDemonstrationApplication.numberInvitations;
-    }
-
-    /**
      * Returns a new evaluation.
      *
      * @return new evaluation
@@ -499,6 +447,51 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     public boolean isDecided() {
         return this.currentState.isAccepted() || this.currentState.isDeclined();
     }
-    
-    
+
+    /**
+     * Returns the textual interpretation of the objects and attributes of this
+     * class
+     *
+     * @return textual representation of this application
+     */
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append("DemonstrationApplication{");
+        s.append(String.format("%f%n", this.title));
+        s.append(String.format("%f%n", this.exhibitor));
+        s.append(String.format("%f%n", this.exhibitorArea));
+        s.append(String.format("%d%n", this.numberInvitations));
+        for (Product prod : productsList) {
+            s.append(String.format("%s%n", prod));
+        }
+        for (Evaluation appl : evaluationsList) {
+            s.append(String.format("%s%n", appl));
+        }
+        s.append("}");
+        return s.toString();
+    }
+
+    /**
+     * Compares if this object is equal to otherObject.
+     *
+     * @param otherObject other object to compare with
+     * @return true if it repreents the same object, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+        DemonstrationApplication otherDemonstrationApplication = (DemonstrationApplication) otherObject;
+
+        return this.title.equals(otherDemonstrationApplication.title) && this.exhibitor.equals(otherDemonstrationApplication.exhibitor)
+                && this.evaluationsList.equals(otherDemonstrationApplication.evaluationsList)
+                && this.productsList.equals(otherDemonstrationApplication.productsList) && this.exhibitorArea == otherDemonstrationApplication.exhibitorArea
+                && this.numberInvitations == otherDemonstrationApplication.numberInvitations;
+    }
+
 }

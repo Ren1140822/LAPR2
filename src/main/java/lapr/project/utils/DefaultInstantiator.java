@@ -42,10 +42,6 @@ public class DefaultInstantiator {
         StaffMember staffMemberRenato = new StaffMember(userRenato);
         StaffMember staffMemberRicardo = new StaffMember(userRicardo);
 
-        Exhibitor exhibitorSonae = new Exhibitor("Sonae", "trades@sonae.com", "912345678");
-        Exhibitor exhibitorBlip = new Exhibitor("Blip", "marketing@blip.pt", "918765432");
-        Exhibitor exhibitorCritical = new Exhibitor("Critical Software", "main@critical.software.com", "931245678");
-
         User userBelmiro = new User("Belmiro Azevedo", "belmiroazevedo", "belmirazevedo@sonae.com", "321+Ewq", new ArrayList<>());
         User userFabioSilva = new User("Fábio Silva", "fabiosilva", "fabiosilva@blip.pt", "Ewq+321", new ArrayList<>());
         User userGoncaloQuadros = new User("Gonçalo Quadros", "gonacaloquadros", "goncaloquadros@critical.software.com", "432+Rew", new ArrayList<>());
@@ -53,6 +49,13 @@ public class DefaultInstantiator {
         ExhibitorResponsible exhibitorResponsibleSonae = new ExhibitorResponsible(userBelmiro);
         ExhibitorResponsible exhibitorResponsibleBlip = new ExhibitorResponsible(userFabioSilva);
         ExhibitorResponsible exhibitorResponsibleCritical = new ExhibitorResponsible(userGoncaloQuadros);
+
+        Exhibitor exhibitorSonae = new Exhibitor("Sonae", "trades@sonae.com", "912345678");
+        Exhibitor exhibitorBlip = new Exhibitor("Blip", "marketing@blip.pt", "918765432");
+        Exhibitor exhibitorCritical = new Exhibitor("Critical Software", "main@critical.software.com", "931245678");
+
+        exhibitorBlip.setExhibitorResponsible(exhibitorResponsibleBlip);
+        exhibitorSonae.setExhibitorResponsible(exhibitorResponsibleSonae);
 
         Product product1 = new Product("Projetor");
         Product product2 = new Product("Table");
@@ -106,8 +109,6 @@ public class DefaultInstantiator {
         keyWordsNodeJs.add(new Keyword("WebBased"));
         keyWordsNodeJs.add(new Keyword("WWW"));
         keyWordsNodeJs.add(new Keyword("Development"));
-
-        exhibitorBlip.setExhibitorResponsible(exhibitorResponsibleBlip);
 
         ExhibitionApplication exhibitionApplicationNodeJs = new ExhibitionApplication("Node JS", exhibitorBlip, 105.3f,
                 30, new Stand(), productListNodeJs, new ArrayList<>(),

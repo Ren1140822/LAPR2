@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Represents an Exhibitor
@@ -65,6 +64,7 @@ public class Exhibitor {
         this.address = DEFAULT_ADDRESS;
         this.mobileNumber = DEFAULT_MOBILE_NUMBER;
         this.name = DEFAULT_NAME;
+        this.exhibitorResponsible = new ExhibitorResponsible();
     }
 
     /**
@@ -78,6 +78,7 @@ public class Exhibitor {
         this.name = name;
         this.address = address;
         this.mobileNumber = mobileNumber;
+        this.exhibitorResponsible = new ExhibitorResponsible(); // TODO
     }
 
     /**
@@ -90,6 +91,7 @@ public class Exhibitor {
         this.address = exhibitor.address;
         this.mobileNumber = exhibitor.mobileNumber;
         this.name = exhibitor.name;
+        this.exhibitorResponsible = exhibitor.exhibitorResponsible;
     }
 
     /**
