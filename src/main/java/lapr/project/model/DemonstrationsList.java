@@ -320,6 +320,28 @@ public class DemonstrationsList {
         return (demonstration.validate() && !validateDemonstration(demonstration)) ? 
                 replaceDemonstration(demonstration) : false;
     }
+    
+    /**
+     * Update all demonstrations that are not decided to discontinued state.
+     * 
+     * @return true if the update is successful
+     */
+    public boolean  updateDemonstrationsList() {
+        
+        boolean isAllUpdate = true;
+        
+        for (Demonstration demonstration : demonstrationList) {
+            
+            boolean isDecided = demonstration.isDecided();
+            
+            if (!isDecided) {
+                isAllUpdate = demonstration.setDiscontinued();
+            }
+            
+        }
+        
+        return isAllUpdate;
+    }
 
     /**
      * Validate if the list doesn't contain a demonstration.

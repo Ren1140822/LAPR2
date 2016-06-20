@@ -667,12 +667,31 @@ public class Demonstration implements Submittable {
     }
 
     /**
+     * Returns true if demonstration is decided.
+     *
+     * @return true if demonstration is decided
+     */
+    public boolean isDecided() {
+
+        return this.currentState.isDecided();
+    }
+
+    /**
      * Set the next stage to decided state.
      *
      * @return true if the change was successful
      */
     public boolean setDecided() {
         return this.currentState.setDecided();
+    }
+
+    /**
+     * Set the next stage to discontinued state.
+     *
+     * @return true if the change was successful
+     */
+    public boolean setDiscontinued() {
+        return this.currentState.setDiscontinued();
     }
 
     /**

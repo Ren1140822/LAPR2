@@ -792,9 +792,14 @@ public class Exhibition implements Submittable, Exportable {
 
     /**
      * Export this exhibition to xml file
+<<<<<<< HEAD
+     *
+     * @param path the path where the file will be saved
+=======
+>>>>>>> origin/master
      */
     @Override
-    public void jaxbObjectExportableToXML() {
+    public void jaxbObjectExportableToXML(String path) {
         try {
             JAXBContext context = JAXBContext.newInstance(Exhibition.class);
 
@@ -806,7 +811,7 @@ public class Exhibition implements Submittable, Exportable {
             m.marshal(this, System.out);
 
             //write to file
-            m.marshal(this, new File("D:\\exhibition4.xml"));
+            m.marshal(this, new File(path));
         } catch (JAXBException e) {
             e.printStackTrace();
         }
