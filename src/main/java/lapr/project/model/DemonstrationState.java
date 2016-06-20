@@ -80,7 +80,7 @@ public interface DemonstrationState {
      * @return true if the state is changed to OpenedApplications state, false
      * otherwise
      */
-    boolean setOpenedApplications();
+    boolean setOpenApplications();
 
     /**
      * Verify if the current demonstration state is CLosedApplications state.

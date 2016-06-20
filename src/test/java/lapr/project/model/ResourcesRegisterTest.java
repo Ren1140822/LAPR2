@@ -59,6 +59,15 @@ public class ResourcesRegisterTest {
         System.out.println("validateResource");
         assertTrue(resourcesRegister.validateResource(this.validResource));
     }
+    
+    /**
+     * Test of removeResource method, of class ResourcesRegister.
+     */
+    @Test
+    public void testRemoveResource() {
+        System.out.println("removeResource");
+        assertTrue(this.resourcesRegister.removeResource(this.existingResource));
+    }
 
     /**
      * Test of validateResource method, of class ResourcesRegister with an

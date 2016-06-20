@@ -16,11 +16,11 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import lapr.project.model.exhibition.ExhibitionInicialState;
-import lapr.project.model.exhibition.timers.ChangeToApplicationsInDecision;
-import lapr.project.model.exhibition.timers.ChangeToChangedConflicts;
-import lapr.project.model.exhibition.timers.ChangeToClosedApplications;
-import lapr.project.model.exhibition.timers.ChangeToOpenApplications;
-import lapr.project.model.exhibition.timers.DetectConflictsTask;
+import lapr.project.model.timers.ChangeToApplicationsInDecision;
+import lapr.project.model.timers.ChangeToChangedConflicts;
+import lapr.project.model.timers.ChangeToClosedApplications;
+import lapr.project.model.timers.ChangeToOpenApplications;
+import lapr.project.model.timers.DetectConflictsTask;
 import lapr.project.utils.Exportable;
 
 /**
@@ -513,7 +513,7 @@ public class Exhibition implements Submittable, Exportable {
      * @param demonstrationsList the Exhibition's demonstrations list to set
      */
     public void setDemonstrationsList(DemonstrationsList demonstrationsList) {
-        this.demonstrationsList = new DemonstrationsList(demonstrationsList);
+        this.demonstrationsList = demonstrationsList;
     }
 
     /**
@@ -604,6 +604,7 @@ public class Exhibition implements Submittable, Exportable {
      *
      * @return true if the state successfully changes
      */
+    @Override
     public boolean setOpenApplications() {
 
         return this.currentState.setOpenApplication();
@@ -614,6 +615,7 @@ public class Exhibition implements Submittable, Exportable {
      *
      * @return true if the state successfully changes
      */
+    @Override
     public boolean setClosedApplications() {
 
         return this.currentState.setClosedApplications();
@@ -624,9 +626,10 @@ public class Exhibition implements Submittable, Exportable {
      *
      * @return true if the state successfully changes
      */
+    @Override
     public boolean setChangedConflicts() {
 
-        return this.currentState.setChangedConflitcts();
+        return this.currentState.setChangedConflicts();
     }
 
     /**
@@ -634,15 +637,16 @@ public class Exhibition implements Submittable, Exportable {
      *
      * @return true if the state successfully changes
      */
+    @Override
     public boolean setApplicationsInDecision() {
 
         return this.currentState.setApplicationsInDecision();
     }
 
     @Override
-    public boolean setInDetectedConflictsState() {
+    public boolean setDetectedConflicts() {
 
-        return this.currentState.setDetectedConficts();
+        return this.currentState.setDetectedConflicts();
     }
 
     /**
@@ -693,6 +697,16 @@ public class Exhibition implements Submittable, Exportable {
     }
 
     /**
+     * Verify if demonstrations are in created state.
+     *
+     * @return true if demonstrations are in created state
+     */
+    public boolean isDemonstrationsInCreatedState() {
+
+        return demonstrationsList.isDemonstrationsInCreatedState();
+    }
+
+    /**
      * Validate the Exhibition.
      *
      * @return true if the exhibition is valid
@@ -708,14 +722,17 @@ public class Exhibition implements Submittable, Exportable {
                 && this.subEndDate.after(this.subStartDate)
                 && this.conflictLimitDate.after(this.subEndDate)
                 && this.evaluationLimitDate.after(this.conflictLimitDate)
-                && this.evaluationLimitDate.before(this.endDate)
+                && this.evaluationLimitDate.before(this.startDate)
                 && this.organizersList.getOrganizersList().size() > 1;
     }
 
     /**
      * Schedules the state changes.
+     *
+     * @param exhibitionCenter the exhibition center necessary to deploy the
+     * detect conlicts controller
      */
-    public void createTimers() {
+    public void createTimers(ExhibitionCenter exhibitionCenter) {
 
         ChangeToOpenApplications taskOpenApplications = new ChangeToOpenApplications(this);
 
@@ -725,7 +742,7 @@ public class Exhibition implements Submittable, Exportable {
 
         this.timer.schedule(taskClosedApplications, this.subEndDate);
 
-        DetectConflictsTask taskDetectConflicts = new DetectConflictsTask(this);
+        DetectConflictsTask taskDetectConflicts = new DetectConflictsTask(this, exhibitionCenter);
 
         this.timer.schedule(taskDetectConflicts, this.subEndDate);
 
@@ -764,7 +781,7 @@ public class Exhibition implements Submittable, Exportable {
      * @param organizer organizer to be verified
      * @return true if the organizer belongs to that exhibition, false otherwise
      */
-    public boolean isOrganizer(Organizer organizer) {
+    public boolean hasOrganizer(Organizer organizer) {
         return this.organizersList.getOrganizersList().contains(organizer);
     }
 
@@ -775,8 +792,11 @@ public class Exhibition implements Submittable, Exportable {
 
     /**
      * Export this exhibition to xml file
+<<<<<<< HEAD
      *
      * @param path the path where the file will be saved
+=======
+>>>>>>> origin/master
      */
     @Override
     public void jaxbObjectExportableToXML(String path) {

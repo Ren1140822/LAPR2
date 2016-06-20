@@ -152,6 +152,6 @@ public class CreateExhibitionController {
      */
     public boolean registerExhibition() {
 
-        return this.exhibitionCenter.getExhibitionsRegister().registerExhibition(this.exhibition);
+        return this.exhibitionCenter.getExhibitionsRegister().registerExhibition(this.exhibition, this.exhibitionCenter);
     }
 }

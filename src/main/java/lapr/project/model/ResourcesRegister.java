@@ -116,6 +116,16 @@ public class ResourcesRegister {
     }
 
     /**
+     * Removes a given resourse.
+     * 
+     * @param resource resource to be removed.
+     * @return true if it is successfull removed, false otherwise.
+     */
+    public boolean removeResource(Resource resource) {
+        return this.resourcesList.contains(resource) ? this.resourcesList.remove(resource) : false;
+    }
+
+    /**
      * Return the textual representation of this resource register.
      *
      * @return the textual representation of this resource register

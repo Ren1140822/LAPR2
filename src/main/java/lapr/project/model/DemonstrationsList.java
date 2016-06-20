@@ -30,16 +30,6 @@ public class DemonstrationsList {
     private List<Demonstration> demonstrationList;
 
     /**
-     * Demonstration's start date.
-     */
-    private Date startDate;
-
-    /**
-     * Demonstration's end date.
-     */
-    private Date endDate;
-
-    /**
      * Demonstration's application submissions start date.
      */
     private Date subStartDate;
@@ -58,16 +48,6 @@ public class DemonstrationsList {
      * Demonstration's evaluations limite date.
      */
     private Date evaluationLimitDate;
-
-    /**
-     * Demonstration's default start date.
-     */
-    private static final Date DEFAULT_START_DATE = new Date(2016, 1, 1);
-
-    /**
-     * Demonstration's default end date.
-     */
-    private static final Date DEFAULT_END_DATE = new Date(2016, 1, 1);
 
     /**
      * Demonstration's default application submissions start date.
@@ -94,8 +74,6 @@ public class DemonstrationsList {
      */
     public DemonstrationsList() {
         this.demonstrationList = new ArrayList<>();
-        this.startDate = DEFAULT_START_DATE;
-        this.endDate = DEFAULT_END_DATE;
         this.subStartDate = DEFAULT_SUB_START_DATE;
         this.subEndDate = DEFAULT_SUB_END_DATE;
         this.conflictLimitDate = DEFAUL_CONFLICT_LIMITE_DATE;
@@ -110,8 +88,6 @@ public class DemonstrationsList {
      */
     public DemonstrationsList(List<Demonstration> demonstrationList) {
         this.demonstrationList = new ArrayList<>(demonstrationList);
-        this.startDate = DEFAULT_START_DATE;
-        this.endDate = DEFAULT_END_DATE;
         this.subStartDate = DEFAULT_SUB_START_DATE;
         this.subEndDate = DEFAULT_SUB_END_DATE;
         this.conflictLimitDate = DEFAUL_CONFLICT_LIMITE_DATE;
@@ -131,8 +107,6 @@ public class DemonstrationsList {
      */
     public DemonstrationsList(List<Demonstration> demonstrationList, Date startDate, Date endDate, Date subStartDate, Date subEndDate, Date conflictLimitDate, Date evaluationLimitDate) {
         this.demonstrationList = demonstrationList;
-        this.startDate = startDate;
-        this.endDate = endDate;
         this.subStartDate = subStartDate;
         this.subEndDate = subEndDate;
         this.conflictLimitDate = conflictLimitDate;
@@ -147,6 +121,10 @@ public class DemonstrationsList {
      */
     public DemonstrationsList(DemonstrationsList demonstrationList) {
         this.demonstrationList = new ArrayList<>(demonstrationList.demonstrationList);
+        this.subStartDate = demonstrationList.subStartDate;
+        this.subEndDate = demonstrationList.subEndDate;
+        this.conflictLimitDate = demonstrationList.conflictLimitDate;
+        this.evaluationLimitDate = demonstrationList.evaluationLimitDate;
     }
 
     /**
@@ -165,6 +143,78 @@ public class DemonstrationsList {
      */
     public void setDemonstrationsList(List<Demonstration> demonstrationList) {
         this.demonstrationList = new ArrayList<>(demonstrationList);
+    }
+
+    /**
+     * Obtain the application submissions start date.
+     *
+     * @return the application submissions start date
+     */
+    public Date getSubStartDate() {
+        return subStartDate;
+    }
+
+    /**
+     * Set the application submissions start date.
+     *
+     * @param subStartDate the application submissions start date to set
+     */
+    public void setSubStartDate(Date subStartDate) {
+        this.subStartDate = subStartDate;
+    }
+
+    /**
+     * Obtain the application submissions end date.
+     *
+     * @return the application submissions start date
+     */
+    public Date getSubEndDate() {
+        return subEndDate;
+    }
+
+    /**
+     * Set the application submissions end date.
+     *
+     * @param subEndDate the application submissions end date to set
+     */
+    public void setSubEndDate(Date subEndDate) {
+        this.subEndDate = subEndDate;
+    }
+
+    /**
+     * Obtain the conflicts limite date.
+     *
+     * @return the conflicts limite date
+     */
+    public Date getConflictLimitDate() {
+        return conflictLimitDate;
+    }
+
+    /**
+     * Set the conflicts limite date.
+     *
+     * @param conflictLimitDate the conflicts limite date to set
+     */
+    public void setConflictLimitDate(Date conflictLimitDate) {
+        this.conflictLimitDate = conflictLimitDate;
+    }
+
+    /**
+     * Obtain the evaluations limite date.
+     *
+     * @return the evaluations Limite Date
+     */
+    public Date getEvaluationLimitDate() {
+        return evaluationLimitDate;
+    }
+
+    /**
+     * Set the evaluations limite date.
+     *
+     * @param evaluationLimitDate the evaluations limite date to set
+     */
+    public void setEvaluationLimitDate(Date evaluationLimitDate) {
+        this.evaluationLimitDate = evaluationLimitDate;
     }
 
     /**
@@ -256,9 +306,41 @@ public class DemonstrationsList {
      */
     public boolean addAndValidateDemonstration(Demonstration demonstration) {
 
-        
-        
         return (demonstration.validate() && validateDemonstration(demonstration)) ? addDemonstration(demonstration) : false;
+    }
+
+    /**
+     * Update a demonstration in the list.
+     *
+     * @param demonstration the demonstration to update
+     * @return true if demonstration is sucessfully updated.
+     */
+    public boolean updateDemonstration(Demonstration demonstration) {
+
+        return (demonstration.validate() && !validateDemonstration(demonstration)) ? 
+                replaceDemonstration(demonstration) : false;
+    }
+    
+    /**
+     * Update all demonstrations that are not decided to discontinued state.
+     * 
+     * @return true if the update is successful
+     */
+    public boolean  updateDemonstrationsList() {
+        
+        boolean isAllUpdate = true;
+        
+        for (Demonstration demonstration : demonstrationList) {
+            
+            boolean isDecided = demonstration.isDecided();
+            
+            if (!isDecided) {
+                isAllUpdate = demonstration.setDiscontinued();
+            }
+            
+        }
+        
+        return isAllUpdate;
     }
 
     /**
@@ -270,6 +352,17 @@ public class DemonstrationsList {
     private boolean validateDemonstration(Demonstration demonstration) {
 
         return !this.demonstrationList.contains(demonstration);
+    }
+
+    /**
+     * Replace a demonstration in the list.
+     *
+     * @param demonstration the demonstration to replace
+     * @return true if demonstration is sucessfully replaced.
+     */
+    private boolean replaceDemonstration(Demonstration demonstration) {
+
+        return this.demonstrationList.remove(demonstration) ? this.demonstrationList.add(demonstration) : false;
     }
 
     /**
@@ -291,6 +384,56 @@ public class DemonstrationsList {
      */
     public boolean isDemonstration(Demonstration demonstration) {
         return this.demonstrationList.contains(demonstration);
+    }
+
+    /**
+     * Verify if demonstrations are in created state.
+     *
+     * @return true if demonstrations are in created state
+     */
+    public boolean isDemonstrationsInCreatedState() {
+
+        return isFirstDemonstrationCreatedState();
+    }
+
+    /**
+     * Verify if demonstrations (only need to verify one) are in created state.
+     *
+     * @return true if demonstrations are in created state
+     */
+    private boolean isFirstDemonstrationCreatedState() {
+
+        // TODO : If there is time modify state diagrams to not use this method (Will effect many UCs implementations)
+        return this.demonstrationList.isEmpty() ? false : this.demonstrationList.get(0).isCreated();
+    }
+
+    /**
+     * Validate the Demonstration dates.
+     *
+     * @param demonstration the demosntration to validate
+     * @return true if the Demonstration dates are valid
+     */
+    public boolean validateDates(Demonstration demonstration) {
+
+        return demonstration.getStartDate().before(demonstration.getEndDate())
+                && this.subStartDate.before(demonstration.getStartDate())
+                && this.subEndDate.after(this.subStartDate)
+                && this.conflictLimitDate.after(this.subEndDate)
+                && this.evaluationLimitDate.after(this.conflictLimitDate)
+                && this.evaluationLimitDate.before(demonstration.getStartDate());
+    }
+
+    /**
+     * Schedule demonstration's timer with related tasks.
+     *
+     * @param demonstration demonstration to set Timer
+     * @param exhibitionCenter the exhibiton center
+     */
+    public void setTimers(Demonstration demonstration, ExhibitionCenter exhibitionCenter) {
+
+        Date[] dates = {this.subStartDate, this.subEndDate, this.conflictLimitDate, this.evaluationLimitDate};
+
+        demonstration.createTimers(exhibitionCenter, dates);
     }
 
     /**
@@ -327,8 +470,6 @@ public class DemonstrationsList {
         DemonstrationsList otherDemonstrationsList = (DemonstrationsList) otherObject;
 
         return this.demonstrationList.equals(otherDemonstrationsList.demonstrationList)
-                && this.startDate.equals(otherDemonstrationsList.startDate)
-                && this.endDate.equals(otherDemonstrationsList.endDate)
                 && this.subStartDate.equals(otherDemonstrationsList.subStartDate)
                 && this.subEndDate.equals(otherDemonstrationsList.subEndDate)
                 && this.conflictLimitDate.equals(otherDemonstrationsList.conflictLimitDate)

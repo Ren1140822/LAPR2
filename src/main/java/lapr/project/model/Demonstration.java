@@ -4,7 +4,9 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -13,6 +15,11 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import lapr.project.model.demonstration.DemonstrationInicialState;
+import lapr.project.model.timers.ChangeToApplicationsInDecision;
+import lapr.project.model.timers.ChangeToChangedConflicts;
+import lapr.project.model.timers.ChangeToClosedApplications;
+import lapr.project.model.timers.ChangeToOpenApplications;
+import lapr.project.model.timers.DetectConflictsTask;
 
 /**
  * Represents a demonstration.
@@ -47,6 +54,11 @@ public class Demonstration implements Submittable {
      * The place for the demonstration.
      */
     private Place place;
+
+    /**
+     * The exhibition's timer.
+     */
+    private final Timer timer;
 
     /**
      * The demonstration's staff list.
@@ -96,6 +108,26 @@ public class Demonstration implements Submittable {
     private static int demoCounter = 1;
 
     /**
+     * Demonstration's start date.
+     */
+    private Date startDate;
+
+    /**
+     * Demonstration's end date.
+     */
+    private Date endDate;
+
+    /**
+     * Demonstration's default start date.
+     */
+    private static final Date DEFAULT_START_DATE = new Date(2016, 1, 1);
+
+    /**
+     * Demonstration's default end date.
+     */
+    private static final Date DEFAULT_END_DATE = new Date(2016, 1, 1);
+
+    /**
      * Demonstration ID prefix.
      */
     private static final String ID_PREFIX = "Demonstration-";
@@ -119,6 +151,8 @@ public class Demonstration implements Submittable {
         // TODO : Review to count demos per exhibition only. 
         this.demonstrationID = ID_PREFIX + demoCounter++;
 
+        this.startDate = DEFAULT_START_DATE;
+        this.endDate = DEFAULT_END_DATE;
         this.place = new Place();
         this.staffList = new StaffList();
         this.organizersList = new OrganizersList();
@@ -127,6 +161,7 @@ public class Demonstration implements Submittable {
         this.staffAttributionsList = new StaffAttributionsList();
         this.conflictsList = new ConflictsList();
         this.currentState = new DemonstrationInicialState(this);
+        this.timer = new Timer();
     }
 
     /**
@@ -139,6 +174,8 @@ public class Demonstration implements Submittable {
         this.description = description;
         this.demonstrationID = ID_PREFIX + demoCounter++;
 
+        this.startDate = DEFAULT_START_DATE;
+        this.endDate = DEFAULT_END_DATE;
         this.place = new Place();
         this.staffList = new StaffList();
         this.organizersList = new OrganizersList();
@@ -147,6 +184,7 @@ public class Demonstration implements Submittable {
         this.staffAttributionsList = new StaffAttributionsList();
         this.conflictsList = new ConflictsList();
         this.currentState = new DemonstrationInicialState(this);
+        this.timer = new Timer();
     }
 
     /**
@@ -154,6 +192,8 @@ public class Demonstration implements Submittable {
      *
      * @param title demonstration's title
      * @param description demonstrations's description
+     * @param startDate Demonstrations start date
+     * @param endDate Demonstrations end date
      * @param place demonstration's place
      * @param staffList staff list
      * @param organizersList organizers list
@@ -162,13 +202,15 @@ public class Demonstration implements Submittable {
      * @param staffAttributionsList staff attributions list
      * @param conflictsList conficts list
      */
-    public Demonstration(String title, String description, Place place, StaffList staffList,
+    public Demonstration(String title, String description, Date startDate, Date endDate, Place place, StaffList staffList,
             OrganizersList organizersList, ApplicationsList applicationsList, List<Resource> resourcesList,
             StaffAttributionsList staffAttributionsList, ConflictsList conflictsList) {
         this.title = title;
         this.description = description;
         this.demonstrationID = ID_PREFIX + demoCounter++;
 
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.place = place;
         this.staffList = new StaffList(staffList);
         this.organizersList = new OrganizersList(organizersList);
@@ -177,6 +219,7 @@ public class Demonstration implements Submittable {
         this.staffAttributionsList = new StaffAttributionsList(staffAttributionsList);
         this.conflictsList = new ConflictsList(conflictsList);
         this.currentState = new DemonstrationInicialState(this);
+        this.timer = new Timer();
     }
 
     /**
@@ -189,6 +232,8 @@ public class Demonstration implements Submittable {
         this.description = demonstration.description;
         this.demonstrationID = ID_PREFIX + demoCounter++;
 
+        this.startDate = demonstration.startDate;
+        this.endDate = demonstration.endDate;
         this.place = demonstration.place;
         this.staffList = new StaffList(demonstration.staffList);
         this.organizersList = new OrganizersList(demonstration.organizersList);
@@ -197,6 +242,7 @@ public class Demonstration implements Submittable {
         this.staffAttributionsList = new StaffAttributionsList(demonstration.staffAttributionsList);
         this.currentState = demonstration.currentState;
         this.conflictsList = new ConflictsList(demonstration.conflictsList);
+        this.timer = new Timer();
     }
 
     /**
@@ -233,6 +279,42 @@ public class Demonstration implements Submittable {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Obtain the demonstration's start date.
+     *
+     * @return the demonstration's start date
+     */
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    /**
+     * Set the demonstration's start date.
+     *
+     * @param startDate the demonstration's start date to set
+     */
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    /**
+     * Obtain the demonstration's end date.
+     *
+     * @return the demonstration's end date
+     */
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    /**
+     * Set the demonstration's end date.
+     *
+     * @param endDate the demonstration's end date to set
+     */
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     /**
@@ -362,7 +444,7 @@ public class Demonstration implements Submittable {
     }
 
     @Override
-    public boolean setInDetectedConflictsState() {
+    public boolean setDetectedConflicts() {
 
         return this.currentState.setDetectedConflicts();
     }
@@ -481,6 +563,38 @@ public class Demonstration implements Submittable {
     }
 
     /**
+     * Schedules the state changes.
+     *
+     * @param exhibitionCenter the exhibition center necessary to deploy the
+     * detect conlicts controller
+     * @param dates dates necessary to deploy the tasks (order= subStartDate,
+     * subEndDate, ConflictsLimiteDate, evaluationsLimiteDate).
+     */
+    public void createTimers(ExhibitionCenter exhibitionCenter, Date[] dates) {
+
+        ChangeToOpenApplications taskOpenApplications = new ChangeToOpenApplications(this);
+
+        this.timer.schedule(taskOpenApplications, dates[0]);
+
+        ChangeToClosedApplications taskClosedApplications = new ChangeToClosedApplications(this);
+
+        this.timer.schedule(taskClosedApplications, dates[1]);
+
+        DetectConflictsTask taskDetectConflicts = new DetectConflictsTask(this, exhibitionCenter);
+
+        this.timer.schedule(taskDetectConflicts, dates[1]);
+
+        ChangeToChangedConflicts taskChangeToChangedConflicts = new ChangeToChangedConflicts(this);
+
+        this.timer.schedule(taskChangeToChangedConflicts, dates[2]);
+
+        ChangeToApplicationsInDecision taskChangeToApplicationsInDecision = new ChangeToApplicationsInDecision(this);
+
+        this.timer.schedule(taskChangeToApplicationsInDecision, dates[3]);
+
+    }
+
+    /**
      * Equals method to check if two objects are the same
      *
      * @param otherObject the demonstration to compare to
@@ -523,6 +637,16 @@ public class Demonstration implements Submittable {
     }
 
     /**
+     * Returns true if demonstration is created.
+     *
+     * @return true if demonstration is created
+     */
+    public boolean isCreated() {
+
+        return this.currentState.isCreated();
+    }
+
+    /**
      * Returns true if demonstration's is valid to change to created state.
      *
      * @return true if demonstration's is valid to change to created state
@@ -540,5 +664,77 @@ public class Demonstration implements Submittable {
     public boolean isApplicationsDecided() {
 
         return this.currentState.isApplicationsDecided();
+    }
+
+    /**
+     * Returns true if demonstration is decided.
+     *
+     * @return true if demonstration is decided
+     */
+    public boolean isDecided() {
+
+        return this.currentState.isDecided();
+    }
+
+    /**
+     * Set the next stage to decided state.
+     *
+     * @return true if the change was successful
+     */
+    public boolean setDecided() {
+        return this.currentState.setDecided();
+    }
+
+    /**
+     * Set the next stage to discontinued state.
+     *
+     * @return true if the change was successful
+     */
+    public boolean setDiscontinued() {
+        return this.currentState.setDiscontinued();
+    }
+
+    /**
+     * Changes to open applications state.
+     *
+     * @return true if the state successfully changes
+     */
+    @Override
+    public boolean setOpenApplications() {
+
+        return this.currentState.setOpenApplications();
+    }
+
+    /**
+     * Changes to closed applications state.
+     *
+     * @return true if the state successfully changes
+     */
+    @Override
+    public boolean setClosedApplications() {
+
+        return this.currentState.setClosedApplications();
+    }
+
+    /**
+     * Changes to changed conflicts state.
+     *
+     * @return true if the state successfully changes
+     */
+    @Override
+    public boolean setChangedConflicts() {
+
+        return this.currentState.setChangedConflicts();
+    }
+
+    /**
+     * Changes to applications in decision state.
+     *
+     * @return true if the state successfully changes
+     */
+    @Override
+    public boolean setApplicationsInDecision() {
+
+        return this.currentState.setApplicationsInDecision();
     }
 }

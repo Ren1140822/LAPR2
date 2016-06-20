@@ -1,10 +1,10 @@
 /**
  * Package location for the Exhibiton timertasks & related classes.
  */
-package lapr.project.model.exhibition.timers;
+package lapr.project.model.timers;
 
 import java.util.TimerTask;
-import lapr.project.model.Exhibition;
+import lapr.project.model.Submittable;
 
 /**
  * Represents the timertask to change state to open applications.
@@ -14,22 +14,24 @@ import lapr.project.model.Exhibition;
  * @author Ivo Ferro 1151159
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
+ * 
+ * @param <T> generic type to receive a submittable
  */
-public class ChangeToOpenApplications extends TimerTask {
+public class ChangeToOpenApplications<T extends Submittable> extends TimerTask {
 
     /**
      * Exhibiton wich preformes the task.
      */
-    private final Exhibition exhibition;
+    private final Submittable submittable;
 
     /**
      * Constructor of the timer task.
      * 
-     * @param exhibition Exhibiton wich preformes the task.
+     * @param submittable Submittable wich preformes the task.
      */
-    public ChangeToOpenApplications(Exhibition exhibition) {
+    public ChangeToOpenApplications(T submittable) {
 
-        this.exhibition = exhibition;
+        this.submittable = (Submittable) submittable;
     }
 
     /**
@@ -39,7 +41,7 @@ public class ChangeToOpenApplications extends TimerTask {
     public void run() {
         
         // TODO : What happens if the exhibition isn't complete?
-        this.exhibition.setOpenApplications();
+        this.submittable.setOpenApplications();
     }
 
 }

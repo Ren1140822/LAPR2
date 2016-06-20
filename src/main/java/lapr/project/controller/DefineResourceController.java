@@ -3,6 +3,7 @@
  */
 package lapr.project.controller;
 
+import java.util.List;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.Resource;
 import lapr.project.model.ResourcesRegister;
@@ -40,6 +41,16 @@ public class DefineResourceController {
      */
     public DefineResourceController(ExhibitionCenter exhibitionCenter) {
         this.exhibitionCenter = exhibitionCenter;
+        this.resourcesRegister = this.exhibitionCenter.getResourcesRegister();
+    }
+
+    /**
+     * Gets the resources list.
+     *
+     * @return resources list
+     */
+    public List<Resource> getResources() {
+        return this.resourcesRegister.getResourcesList();
     }
 
     /**
@@ -49,8 +60,8 @@ public class DefineResourceController {
      * @return true if the resource is valid, false otherwise
      */
     public boolean newResource(String description) {
-        this.resourcesRegister = this.exhibitionCenter.getResourcesRegister();
         this.resource = this.resourcesRegister.newResource();
+        this.resource.setDesignation(description);
         return this.resourcesRegister.validateResource(this.resource);
     }
 
@@ -61,5 +72,15 @@ public class DefineResourceController {
      */
     public boolean registerResource() {
         return this.resourcesRegister.registerResource(this.resource);
+    }
+    
+    /**
+     * Removes a given resource.
+     * 
+     * @param resource resource to be removed
+     * @return true if it is removed with success, false otherwise
+     */
+    public boolean removeResource(Resource resource) {
+        return this.resourcesRegister.removeResource(resource);
     }
 }

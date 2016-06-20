@@ -101,7 +101,7 @@ public interface ExhibitionState {
      * @return true if the state is changed to detected conflicts state, false
      * otherwise
      */
-    boolean setDetectedConficts();
+    boolean setDetectedConflicts();
 
     /**
      * Verify if the exhibition has detected conflicts.
@@ -116,7 +116,7 @@ public interface ExhibitionState {
      * @return true if the state is changed to changed conflicts state, false
      * otherwise
      */
-    boolean setChangedConflitcts();
+    boolean setChangedConflicts();
 
     /**
      * Verify if the exhibition has changed conflicts.

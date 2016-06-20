@@ -98,7 +98,7 @@ public class ExhibitionStaffWithoutDemosState implements ExhibitionState {
     }
 
     @Override
-    public boolean setDetectedConficts() {
+    public boolean setDetectedConflicts() {
         return false;
     }
 
@@ -108,7 +108,7 @@ public class ExhibitionStaffWithoutDemosState implements ExhibitionState {
     }
 
     @Override
-    public boolean setChangedConflitcts() {
+    public boolean setChangedConflicts() {
         return false;
     }
 

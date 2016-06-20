@@ -73,7 +73,7 @@ public class DemonstrationDecidedState implements DemonstrationState {
     }
 
     @Override
-    public boolean setOpenedApplications() {
+    public boolean setOpenApplications() {
         if (validate()) {
             demonstration.setCurrentState(new DemonstrationOpenAppplicationsState(demonstration));
             return true;
@@ -148,7 +148,7 @@ public class DemonstrationDecidedState implements DemonstrationState {
      */
     @Override
     public boolean validate() {
-        // Timer to change state
+        // Timer to set next stage
         return true;
     }
 }
