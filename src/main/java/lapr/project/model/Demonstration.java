@@ -523,6 +523,16 @@ public class Demonstration implements Submittable {
     }
 
     /**
+     * Returns true if demonstration is created.
+     *
+     * @return true if demonstration is created
+     */
+    public boolean isCreated() {
+
+        return this.currentState.isCreated();
+    }
+
+    /**
      * Returns true if demonstration's is valid to change to created state.
      *
      * @return true if demonstration's is valid to change to created state

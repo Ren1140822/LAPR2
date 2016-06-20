@@ -514,7 +514,7 @@ public class Exhibition implements Submittable, Exportable {
      * @param demonstrationsList the Exhibition's demonstrations list to set
      */
     public void setDemonstrationsList(DemonstrationsList demonstrationsList) {
-        this.demonstrationsList = new DemonstrationsList(demonstrationsList);
+        this.demonstrationsList = demonstrationsList;
     }
 
     /**
@@ -692,6 +692,16 @@ public class Exhibition implements Submittable, Exportable {
         return this.currentState.isApplicationsDecided();
 
     }
+    
+    /**
+     * Verify if demonstrations are in created state.
+     *
+     * @return true if demonstrations are in created state
+     */
+    public boolean isDemonstrationsInCreatedState() {
+
+        return demonstrationsList.isDemonstrationsInCreatedState();
+    }
 
     /**
      * Validate the Exhibition.
@@ -765,7 +775,7 @@ public class Exhibition implements Submittable, Exportable {
      * @param organizer organizer to be verified
      * @return true if the organizer belongs to that exhibition, false otherwise
      */
-    public boolean isOrganizer(Organizer organizer) {
+    public boolean hasOrganizer(Organizer organizer) {
         return this.organizersList.getOrganizersList().contains(organizer);
     }
 
