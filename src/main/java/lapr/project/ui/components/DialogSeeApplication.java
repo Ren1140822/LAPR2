@@ -248,7 +248,7 @@ public class DialogSeeApplication extends JDialog {
         JLabel titleLabel = new JLabel("Products:", SwingConstants.CENTER);
         JList productsJList = new JList();
 
-        productsJList.setModel(new ModelListProducts(this.evaluable.getProductsList()));
+        productsJList.setModel(new ModelListSelectable(this.evaluable.getProductsList()));
         JScrollPane productsJScroll = new JScrollPane(productsJList);
 
         productsPanel.add(titleLabel, BorderLayout.NORTH);
@@ -268,7 +268,7 @@ public class DialogSeeApplication extends JDialog {
         JLabel titleLabel = new JLabel("Demonstrations:", SwingConstants.CENTER);
         JList demonstrationsJList = new JList();
 
-        demonstrationsJList.setModel(new ModelListDemonstrations(((ExhibitionApplication) this.evaluable).getDemonstrationsList()));
+        demonstrationsJList.setModel(new ModelListSelectable(((ExhibitionApplication) this.evaluable).getDemonstrationsList()));
         JScrollPane demonstrationsJScroll = new JScrollPane(demonstrationsJList);
 
         demonstrationsPanel.add(titleLabel, BorderLayout.NORTH);

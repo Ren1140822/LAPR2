@@ -13,7 +13,7 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.Organizer;
 import lapr.project.model.Submittable;
-import lapr.project.ui.components.DialogSelectSubmittable;
+import lapr.project.ui.components.DialogSelectable;
 
 /**
  * Represents an evaluation.
@@ -24,9 +24,9 @@ import lapr.project.ui.components.DialogSelectSubmittable;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class AssignStandsUI extends JFrame{
-    
-      /**
+public class AssignStandsUI extends JFrame {
+
+    /**
      * The controller of exhibition importing mechanism.
      */
     private AssignStandsController assignStandsController;
@@ -60,12 +60,13 @@ public class AssignStandsUI extends JFrame{
      * Scroll size.
      */
     final Dimension SCROLL_SIZE = new Dimension(300, 500);
-    public AssignStandsUI(Organizer organizer,ExhibitionCenter exhibitionCenter){
+
+    public AssignStandsUI(Organizer organizer, ExhibitionCenter exhibitionCenter) {
         this.assignStandsController = new AssignStandsController(organizer, exhibitionCenter);
         this.setSize(WINDOW_SIZE);
         List<Submittable> submittableList = new ArrayList(assignStandsController.getExhibitionsListByOrganizerInApplicationsDecidedState(organizer));
-        DialogSelectSubmittable selectSubmittable = new DialogSelectSubmittable(this, submittableList, exhibitionCenter);
-        
+        DialogSelectable dialogSelectable = new DialogSelectable(this, submittableList);
+
     }
-    
+
 }

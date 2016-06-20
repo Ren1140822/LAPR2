@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Product {
+public class Product implements Selectable {
 
     /**
      * The product's designation.
@@ -90,6 +90,11 @@ public class Product {
     @Override
     public String toString() {
         return String.format("Product{%ndesignation=%s%n", this.designation);
+    }
+
+    @Override
+    public String getDisplayInfo() {
+        return this.getDesignation();
     }
 
 

@@ -31,7 +31,7 @@ import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.Organizer;
 import lapr.project.model.Place;
 import lapr.project.model.User;
-import lapr.project.ui.components.ModelListUsers;
+import lapr.project.ui.components.ModelListSelectable;
 
 /**
  * Graphic user interface to create exhibitions.
@@ -328,7 +328,7 @@ public class CreateExhibitionUI extends JFrame {
         // End
 
 //        usersList = controller.getUsersList();
-        ModelListUsers usersModel = new ModelListUsers(usersList);
+        ModelListSelectable usersModel = new ModelListSelectable(usersList);
         usersJList = new JList(usersModel);
 
         JScrollPane scrollPane = new JScrollPane(usersJList);

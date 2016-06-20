@@ -27,7 +27,7 @@ import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.application.ApplicationAssignedStandState;
 import lapr.project.ui.components.DialogSeeApplication;
-import lapr.project.ui.components.ModelListExhibitionApplications;
+import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 
 /**
@@ -146,7 +146,7 @@ public class ConfirmStandUI extends JFrame {
 
         this.exhibitionApplicationsJList = new JList();
         this.exhibitionApplicationsJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.exhibitionApplicationsJList.setModel(new ModelListExhibitionApplications(this.exhibitionApplicationsList));
+        this.exhibitionApplicationsJList.setModel(new ModelListSelectable(this.exhibitionApplicationsList));
 
         this.exhibitionApplicationsJList.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -264,7 +264,7 @@ public class ConfirmStandUI extends JFrame {
      */
     private void updateStaffAtributionsList() {
         this.exhibitionApplicationsList = controller.getExhibitionApplicationsByExhibitorResponsible();
-        this.exhibitionApplicationsJList.setModel(new ModelListExhibitionApplications(this.exhibitionApplicationsList));
+        this.exhibitionApplicationsJList.setModel(new ModelListSelectable(this.exhibitionApplicationsList));
     }
 
     /**
@@ -277,7 +277,7 @@ public class ConfirmStandUI extends JFrame {
         ExhibitorResponsible er = ((ExhibitionApplication) ec.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)).getExhibitor().getExhibitorResponsible();
         ((ExhibitionApplication) ec.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList()
                 .get(0)).setState(new ApplicationAssignedStandState(ec.getExhibitionsRegister().getExhibitionsList().get(0)
-                .getApplicationsList().getApplicationsList().get(0)));
+                                .getApplicationsList().getApplicationsList().get(0)));
         new ConfirmStandUI(ec, er);
     }
 }

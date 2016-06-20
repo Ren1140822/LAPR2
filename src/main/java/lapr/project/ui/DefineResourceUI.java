@@ -25,7 +25,7 @@ import javax.swing.event.ListSelectionListener;
 import lapr.project.controller.DefineResourceController;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.Resource;
-import lapr.project.ui.components.ModelListResources;
+import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 
 /**
@@ -133,7 +133,7 @@ public class DefineResourceUI extends JFrame {
 
         this.resourcesJList = new JList();
         this.resourcesJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.resourcesJList.setModel(new ModelListResources(this.resourcesList));
+        this.resourcesJList.setModel(new ModelListSelectable(this.resourcesList));
         DefaultListCellRenderer renderer = (DefaultListCellRenderer) this.resourcesJList.getCellRenderer();
         renderer.setHorizontalAlignment(JLabel.CENTER);
 
@@ -258,7 +258,7 @@ public class DefineResourceUI extends JFrame {
      */
     private void updateResourcesList() {
         this.resourcesList = controller.getResources();
-        this.resourcesJList.setModel(new ModelListResources(this.resourcesList));
+        this.resourcesJList.setModel(new ModelListSelectable(this.resourcesList));
     }
 
     /**

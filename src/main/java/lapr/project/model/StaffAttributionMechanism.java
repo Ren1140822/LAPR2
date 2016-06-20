@@ -14,7 +14,7 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public interface StaffAttributionMechanism {
+public interface StaffAttributionMechanism extends Selectable {
 
     /**
      * Creates attributions list
@@ -23,11 +23,4 @@ public interface StaffAttributionMechanism {
      * @return attributionsList
      */
     List<StaffAttribution> toAssign(Submittable submittable);
-
-    /**
-     * Gets the description of the mechanism
-     *
-     * @return mechanism's description
-     */
-    String getDescription();
 }

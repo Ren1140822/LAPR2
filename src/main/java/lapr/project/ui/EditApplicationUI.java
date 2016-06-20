@@ -4,17 +4,21 @@
 package lapr.project.ui;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.border.EmptyBorder;
 import lapr.project.controller.EditApplicationController;
 import lapr.project.model.Editable;
+import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitorResponsible;
+import lapr.project.model.Product;
+import lapr.project.model.Stand;
 import lapr.project.model.Submittable;
 import lapr.project.model.application.ApplicationInSubmissionState;
-import lapr.project.ui.components.DialogChooseSubmittable;
+import lapr.project.ui.components.DialogSelectable;
 import lapr.project.utils.DefaultInstantiator;
 
 /**
@@ -82,10 +86,10 @@ public class EditApplicationUI extends JFrame {
         this.controller = new EditApplicationController(this.exhibitionCenter, this.exhibitorResponsible);
 
         this.submittablesList = this.controller.getSubmittablesByExhibitorResponsible();
-
+        
         final String chooseSubmittableText = "Which exhibition/demonstration you wish to edit the application?";
-        DialogChooseSubmittable dialogChooseSubmittable = new DialogChooseSubmittable(this, this.submittablesList, chooseSubmittableText);
-        Submittable selectedSubmittable = dialogChooseSubmittable.getSelectedSubmitable();
+        DialogSelectable dialogChooseSubmittable = new DialogSelectable(this, this.submittablesList, chooseSubmittableText);
+        Submittable selectedSubmittable = (Submittable) dialogChooseSubmittable.getSelectedItem();
         
         if (selectedSubmittable == null) {
             // TODO voltar à janela anterior.

@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Keyword {
+public class Keyword implements Selectable {
 
     /**
      * the description of this keyword
@@ -111,6 +111,11 @@ public class Keyword {
         s.append(this.description);
         s.append("}");
         return s.toString();
+    }
+
+    @Override
+    public String getDisplayInfo() {
+        return this.getDescription();
     }
 
 }

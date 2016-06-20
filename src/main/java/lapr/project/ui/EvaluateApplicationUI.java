@@ -30,8 +30,7 @@ import lapr.project.model.Submittable;
 import lapr.project.model.application.ApplicationInEvaluationState;
 import lapr.project.ui.components.DialogEvaluateApplication;
 import lapr.project.ui.components.DialogSeeApplication;
-import lapr.project.ui.components.ModelListStaffAttributions;
-import lapr.project.ui.components.ModelListSubmittables;
+import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 
 /**
@@ -171,7 +170,7 @@ public class EvaluateApplicationUI extends JFrame {
         JLabel titleLabel = new JLabel("Select a submittable:", SwingConstants.CENTER);
         this.submittablesJList = new JList();
         this.submittablesJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.submittablesJList.setModel(new ModelListSubmittables(this.submittablesList));
+        this.submittablesJList.setModel(new ModelListSelectable(this.submittablesList));
 
         this.submittablesJList.addListSelectionListener(new ListSelectionListener() {
 
@@ -181,10 +180,10 @@ public class EvaluateApplicationUI extends JFrame {
                     Submittable selectedSubmittable = submittablesList.get(submittablesJList.getSelectedIndex());
                     EvaluateApplicationUI.this.controller.setSubmittable(selectedSubmittable);
                     EvaluateApplicationUI.this.staffAttributionsList = EvaluateApplicationUI.this.controller.getAttributionsByStaff(EvaluateApplicationUI.this.staffMember);
-                    EvaluateApplicationUI.this.staffAttributionsJList.setModel(new ModelListStaffAttributions(EvaluateApplicationUI.this.staffAttributionsList));
+                    EvaluateApplicationUI.this.staffAttributionsJList.setModel(new ModelListSelectable(EvaluateApplicationUI.this.staffAttributionsList));
                 } else {
                     EvaluateApplicationUI.this.staffAttributionsList = new ArrayList<>();
-                    EvaluateApplicationUI.this.staffAttributionsJList.setModel(new ModelListStaffAttributions(EvaluateApplicationUI.this.staffAttributionsList));
+                    EvaluateApplicationUI.this.staffAttributionsJList.setModel(new ModelListSelectable(EvaluateApplicationUI.this.staffAttributionsList));
                 }
             }
         });
@@ -302,7 +301,7 @@ public class EvaluateApplicationUI extends JFrame {
 
     public void updateStaffAtributionsList() {
         this.staffAttributionsList = controller.getAttributionsByStaff(staffMember);
-        this.staffAttributionsJList.setModel(new ModelListStaffAttributions(EvaluateApplicationUI.this.staffAttributionsList));
+        this.staffAttributionsJList.setModel(new ModelListSelectable(EvaluateApplicationUI.this.staffAttributionsList));
     }
 
     /**

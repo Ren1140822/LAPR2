@@ -687,4 +687,9 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         s.append("}");
         return s.toString();
     }
+
+    @Override
+    public String getDisplayInfo() {
+        return this.getTitle();
+    }
 }

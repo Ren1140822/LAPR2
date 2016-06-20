@@ -494,4 +494,9 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
                 && this.numberInvitations == otherDemonstrationApplication.numberInvitations;
     }
 
+    @Override
+    public String getDisplayInfo() {
+        return this.getTitle();
+    }
+
 }
