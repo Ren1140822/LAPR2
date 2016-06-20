@@ -20,10 +20,7 @@ import lapr.project.model.Product;
  */
 public class ModelProductList extends AbstractListModel {
 
-    /**
-     * exhibition application controller.
-     */
-    private final ExhibitionApplicationController controller;
+   
     /**
      * List of products.
      */
@@ -34,10 +31,10 @@ public class ModelProductList extends AbstractListModel {
      *
      * @param controller controller of an exhibition application
      */
-    public ModelProductList( ExhibitionApplicationController controller) {
+    public ModelProductList( List<Product> productsList) {
 
-        this.controller = controller;
-         this.productsList = controller.getProductsList();
+    
+         this.productsList = productsList;
     }
 
     /**
@@ -69,16 +66,16 @@ public class ModelProductList extends AbstractListModel {
      * @param designation the product designation
      * @return true if added sucessfully
      */
-    public boolean addRow(String designation) {
+    public boolean addRow(boolean addedProduct, String designation,List<Product> productList) {
         int rowCount = getSize();
 
-        boolean produtoAdicionado = this.controller.newProduct(designation);
+      
 
-        if (produtoAdicionado) {
-           productsList  = this.controller.getProductsList();
+        if (addedProduct) {
+           productsList  =productList;
             fireIntervalAdded(this, rowCount, rowCount);
         }
-        return produtoAdicionado;
+        return addedProduct;
     }
 
     /**
@@ -87,13 +84,13 @@ public class ModelProductList extends AbstractListModel {
      * @param index the index
      * @return true if removed sucessfully
      */
-    public boolean removeRow(int index) {
+    public boolean removeRow(int index,boolean productRemovedd,List<Product>productList) {
 
-        String designation = (String) getElementAt(index);
+       
 
-        boolean productRemoved = this.controller.removeProduct(designation);
+        boolean productRemoved =productRemovedd;
         if (productRemoved) {
-          productsList  = this.controller.getProductsList();
+          productsList  = productList;
             fireIntervalRemoved(this, index, index);
         }
         return productRemoved;

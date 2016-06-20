@@ -3,7 +3,6 @@
  */
 package lapr.project.ui;
 
-import lapr.project.ui.components.DialogSelectExhibition;
 import lapr.project.ui.components.NewProductDialog;
 import lapr.project.ui.components.ModelTableDemonstrationsList;
 import lapr.project.ui.components.ModelProductList;
@@ -39,7 +38,9 @@ import lapr.project.model.DemonstrationsList;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
+import lapr.project.model.Submittable;
 import lapr.project.model.exhibition.ExhibitionOpenApplicationsState;
+import lapr.project.ui.components.DialogChooseSubmittable;
 import lapr.project.ui.components.ModelKeywordsList;
 
 /**
@@ -165,7 +166,8 @@ public class ExhibitionApplicationUI extends JFrame {
         this.exhibitionApplicationController = new ExhibitionApplicationController(exhibitionCenter);
         this.exhibitionList = exhibitionApplicationController.getExhibitionList();
 
-        new DialogSelectExhibition<>(this, this.exhibitionList, exhibitionCenter);
+        DialogChooseSubmittable submittable = new DialogChooseSubmittable(this, new ArrayList<Submittable>(this.exhibitionList));
+        this.selectedExhibition = (Exhibition) submittable.getSelectedSubmitable();
         if (this.selectedExhibition == null) {
             dispose();
         } else {
@@ -277,25 +279,25 @@ public class ExhibitionApplicationUI extends JFrame {
 
         return panel;
     }
+
     /**
      * Creates panel for keywords
+     *
      * @return panel for keywords
      */
-        private JPanel createPanelKeywordt() {
+    private JPanel createPanelKeywordt() {
 
         JPanel panel2 = new JPanel(new BorderLayout());
         panel2.setBorder(PADDING_BORDER);
 
         JPanel panelButton = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panelButton.add(createButtonAddKeyword());
-        
 
         panel2.add(createScrollPaneKeyWords(), BorderLayout.NORTH);
         panel2.add(panelButton, BorderLayout.CENTER);
 
         return panel2;
     }
-
 
     /**
      * Returns demonstrations panel.
@@ -347,7 +349,7 @@ public class ExhibitionApplicationUI extends JFrame {
         panelScroll.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
                 "Products List: ", TitledBorder.LEFT, TitledBorder.TOP));
 
-        this.setModelProductsList(new ModelProductList(exhibitionApplicationController));
+        this.setModelProductsList(new ModelProductList(this.exhibitionApplicationController.getProductsList()));
         this.jListProduct = new JList(modelProductsList);
         this.jListProduct.addListSelectionListener(new ListSelectionListener() {
 
@@ -367,10 +369,12 @@ public class ExhibitionApplicationUI extends JFrame {
 
         return panelScroll;
     }
-/**
- * Creates the keyword scrollpanel
- * @return a scroll panel
- */
+
+    /**
+     * Creates the keyword scrollpanel
+     *
+     * @return a scroll panel
+     */
     private JPanel createScrollPaneKeyWords() {
 
         JPanel panelScroll = new JPanel(new GridLayout());
@@ -433,15 +437,15 @@ public class ExhibitionApplicationUI extends JFrame {
                     if (jListProduct.getModel().getSize() < 1) {
                         throw new IllegalArgumentException("Please create at least one product.");
                     }
-                         if (jListKeyword.getModel().getSize() < 2||jListKeyword.getModel().getSize()>=5) {
+                    if (jListKeyword.getModel().getSize() < 2 || jListKeyword.getModel().getSize() >= 5) {
                         throw new IllegalArgumentException("Please insert a minimum of two keywords and a maximum of five.");
                     }
-                         
-                         Pattern p = Pattern.compile("[a-zA-Z]+");
-                         Matcher m = p.matcher(txtCellphone.getText());
-                         if(txtCellphone.getText().length()!=9||m.find()){
-                                 throw new IllegalArgumentException("Invalid phone number length or letter inserted.");
-                         }
+
+                    Pattern p = Pattern.compile("[a-zA-Z]+");
+                    Matcher m = p.matcher(txtCellphone.getText());
+                    if (txtCellphone.getText().length() != 9 || m.find()) {
+                        throw new IllegalArgumentException("Invalid phone number length or letter inserted.");
+                    }
 
                     String companyName = txtCompanyName.getText();
                     String address = txtAddress.getText();
@@ -558,18 +562,20 @@ public class ExhibitionApplicationUI extends JFrame {
 
         return btn;
     }
-/**
- * creates button to add keyword
- * @return the button
- */
+
+    /**
+     * creates button to add keyword
+     *
+     * @return the button
+     */
     private JButton createButtonAddKeyword() {
 
         JButton btn = new JButton("Add Keyword");
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(newKeyword(JOptionPane.showInputDialog("Insert a Keyword"))){
-                    JOptionPane.showMessageDialog(rootPane, "Keyword inserted sucessfully!","Sucess",JOptionPane.PLAIN_MESSAGE);
+                if (newKeyword(JOptionPane.showInputDialog("Insert a Keyword"))) {
+                    JOptionPane.showMessageDialog(rootPane, "Keyword inserted sucessfully!", "Sucess", JOptionPane.PLAIN_MESSAGE);
                 }
 
             }
@@ -624,7 +630,9 @@ public class ExhibitionApplicationUI extends JFrame {
      * @return a new product
      */
     public boolean newProduct(String designation) {
-        return this.modelProductsList.addRow(designation);
+        boolean addedProduct = exhibitionApplicationController.newProduct(designation);
+
+        return this.modelProductsList.addRow(addedProduct, designation, exhibitionApplicationController.getProductsList());
 
     }
 
@@ -646,8 +654,10 @@ public class ExhibitionApplicationUI extends JFrame {
      * @return true if removed
      */
     public boolean removeProduct(int index) {
+        String designation = (String) this.modelProductsList.getElementAt(index);
 
-        return this.modelProductsList.removeRow(index);
+        boolean productRemoved = exhibitionApplicationController.removeProduct(designation);
+        return this.modelProductsList.removeRow(index,productRemoved,exhibitionApplicationController.getProductsList());
     }
 
     /**
