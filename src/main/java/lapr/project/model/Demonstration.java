@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -96,6 +97,26 @@ public class Demonstration implements Submittable {
     private static int demoCounter = 1;
 
     /**
+     * Demonstration's start date.
+     */
+    private Date startDate;
+
+    /**
+     * Demonstration's end date.
+     */
+    private Date endDate;
+
+    /**
+     * Demonstration's default start date.
+     */
+    private static final Date DEFAULT_START_DATE = new Date(2016, 1, 1);
+
+    /**
+     * Demonstration's default end date.
+     */
+    private static final Date DEFAULT_END_DATE = new Date(2016, 1, 1);
+
+    /**
      * Demonstration ID prefix.
      */
     private static final String ID_PREFIX = "Demonstration-";
@@ -119,6 +140,8 @@ public class Demonstration implements Submittable {
         // TODO : Review to count demos per exhibition only. 
         this.demonstrationID = ID_PREFIX + demoCounter++;
 
+        this.startDate = DEFAULT_START_DATE;
+        this.endDate = DEFAULT_END_DATE;
         this.place = new Place();
         this.staffList = new StaffList();
         this.organizersList = new OrganizersList();
@@ -139,6 +162,8 @@ public class Demonstration implements Submittable {
         this.description = description;
         this.demonstrationID = ID_PREFIX + demoCounter++;
 
+        this.startDate = DEFAULT_START_DATE;
+        this.endDate = DEFAULT_END_DATE;
         this.place = new Place();
         this.staffList = new StaffList();
         this.organizersList = new OrganizersList();
@@ -154,6 +179,8 @@ public class Demonstration implements Submittable {
      *
      * @param title demonstration's title
      * @param description demonstrations's description
+     * @param startDate Demonstrations start date
+     * @param endDate Demonstrations end date
      * @param place demonstration's place
      * @param staffList staff list
      * @param organizersList organizers list
@@ -162,13 +189,15 @@ public class Demonstration implements Submittable {
      * @param staffAttributionsList staff attributions list
      * @param conflictsList conficts list
      */
-    public Demonstration(String title, String description, Place place, StaffList staffList,
+    public Demonstration(String title, String description, Date startDate, Date endDate, Place place, StaffList staffList,
             OrganizersList organizersList, ApplicationsList applicationsList, List<Resource> resourcesList,
             StaffAttributionsList staffAttributionsList, ConflictsList conflictsList) {
         this.title = title;
         this.description = description;
         this.demonstrationID = ID_PREFIX + demoCounter++;
 
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.place = place;
         this.staffList = new StaffList(staffList);
         this.organizersList = new OrganizersList(organizersList);
@@ -189,6 +218,8 @@ public class Demonstration implements Submittable {
         this.description = demonstration.description;
         this.demonstrationID = ID_PREFIX + demoCounter++;
 
+        this.startDate = demonstration.startDate;
+        this.endDate = demonstration.endDate;
         this.place = demonstration.place;
         this.staffList = new StaffList(demonstration.staffList);
         this.organizersList = new OrganizersList(demonstration.organizersList);
@@ -233,6 +264,42 @@ public class Demonstration implements Submittable {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Obtain the demonstration's start date.
+     *
+     * @return the demonstration's start date
+     */
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    /**
+     * Set the demonstration's start date.
+     *
+     * @param startDate the demonstration's start date to set
+     */
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    /**
+     * Obtain the demonstration's end date.
+     *
+     * @return the demonstration's end date
+     */
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    /**
+     * Set the demonstration's end date.
+     *
+     * @param endDate the demonstration's end date to set
+     */
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     /**

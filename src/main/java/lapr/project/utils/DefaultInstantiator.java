@@ -141,7 +141,8 @@ public class DefaultInstantiator {
 
         // Demonstrations for computer science
         Demonstration demonstrationAngularJs = new Demonstration("Angular JS", "Get started with angular js.",
-                placeComputerScience, staffListComputerScience, organizersListComputerScience,
+                new Date(2015, 7, 23), new Date(2015, 8, 11), placeComputerScience, 
+                staffListComputerScience, organizersListComputerScience,
                 new ApplicationsList(), new ArrayList<>(), new StaffAttributionsList(),
                 new ConflictsList());
 

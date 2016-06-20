@@ -719,7 +719,7 @@ public class Exhibition implements Submittable, Exportable {
                 && this.subEndDate.after(this.subStartDate)
                 && this.conflictLimitDate.after(this.subEndDate)
                 && this.evaluationLimitDate.after(this.conflictLimitDate)
-                && this.evaluationLimitDate.before(this.endDate)
+                && this.evaluationLimitDate.before(this.startDate)
                 && this.organizersList.getOrganizersList().size() > 1;
     }
 

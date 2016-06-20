@@ -32,6 +32,11 @@ public class DefineEfectiveDemosController {
      * The exhibitions demonstrations list.
      */
     private DemonstrationsList demonstrationsList;
+    
+    /**
+     * The efective demonstration.
+     */
+    private Demonstration efectiveDemo;
 
     /**
      * Constructs a DefineEfectiveDemosController Class.
@@ -98,12 +103,40 @@ public class DefineEfectiveDemosController {
      * @param evaluationLimiteDate Demonstration's applications evaluation limit
      * date
      */
-    public void setCommonDates(Date startDate, Date endDate, Date startSubDate,
+    public void setCommonDates(Date startSubDate,
             Date endSubDate, Date conflictLimitDate, Date evaluationLimiteDate) {
 
         this.demonstrationsList.setSubStartDate(startSubDate);
         this.demonstrationsList.setSubEndDate(endSubDate);
         this.demonstrationsList.setConflictLimitDate(conflictLimitDate);
         this.demonstrationsList.setEvaluationLimitDate(evaluationLimiteDate);
+    }
+    
+    /**
+     * Set the selected efective demonstration.
+     * 
+     * @param demonstration selected efective demonstration to set
+     */
+    public void setEfectiveDemonstration(Demonstration demonstration) {
+        
+        this.efectiveDemo = demonstration;
+    }
+    
+    /**
+     * Obtain a short info of a demnstration to display on the UI.
+     * 
+     * @return a short info of a demnstration to display on the UI
+     */
+    public String getInfo() {
+        
+        return this.efectiveDemo.getShortInfo();
+    }
+    
+    public void setDemonstrationDates(Date startDate, Date endDate) {
+        
+        this.efectiveDemo.setStartDate(startDate);
+        this.efectiveDemo.setEndDate(endDate);
+        
+        this.demonstrationsList.validateDates(efectiveDemo);
     }
 }
