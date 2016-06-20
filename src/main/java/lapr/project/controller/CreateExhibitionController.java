@@ -71,7 +71,7 @@ public class CreateExhibitionController {
     public Exhibition getExhibition() {
         return this.exhibition;
     }
-    
+
     /**
      * Set the Exhibition.
      *
@@ -137,6 +137,17 @@ public class CreateExhibitionController {
     }
 
     /**
+     * Remove a organizer from the Exhibition's organizersList.
+     *
+     * @param organizer the organizer to remove
+     * @return true if organizer is removed from the list.
+     */
+    public boolean removeOrganizer(Organizer organizer) {
+
+        return exhibition.getOrganizersList().removeOrganizer(organizer);
+    }
+
+    /**
      * Validate the Exhibition.
      *
      * @return true if the exhibition is valid
@@ -152,6 +163,6 @@ public class CreateExhibitionController {
      */
     public boolean registerExhibition() {
 
-        return this.exhibitionCenter.getExhibitionsRegister().registerExhibition(this.exhibition);
+        return this.exhibitionCenter.getExhibitionsRegister().registerExhibition(this.exhibition, this.exhibitionCenter);
     }
 }

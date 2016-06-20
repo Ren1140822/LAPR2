@@ -310,6 +310,40 @@ public class DemonstrationsList {
     }
 
     /**
+     * Update a demonstration in the list.
+     *
+     * @param demonstration the demonstration to update
+     * @return true if demonstration is sucessfully updated.
+     */
+    public boolean updateDemonstration(Demonstration demonstration) {
+
+        return (demonstration.validate() && !validateDemonstration(demonstration)) ? 
+                replaceDemonstration(demonstration) : false;
+    }
+    
+    /**
+     * Update all demonstrations that are not decided to discontinued state.
+     * 
+     * @return true if the update is successful
+     */
+    public boolean  updateDemonstrationsList() {
+        
+        boolean isAllUpdate = true;
+        
+        for (Demonstration demonstration : demonstrationList) {
+            
+            boolean isDecided = demonstration.isDecided();
+            
+            if (!isDecided) {
+                isAllUpdate = demonstration.setDiscontinued();
+            }
+            
+        }
+        
+        return isAllUpdate;
+    }
+
+    /**
      * Validate if the list doesn't contain a demonstration.
      *
      * @param demonstration the demonstration to validate
@@ -318,6 +352,17 @@ public class DemonstrationsList {
     private boolean validateDemonstration(Demonstration demonstration) {
 
         return !this.demonstrationList.contains(demonstration);
+    }
+
+    /**
+     * Replace a demonstration in the list.
+     *
+     * @param demonstration the demonstration to replace
+     * @return true if demonstration is sucessfully replaced.
+     */
+    private boolean replaceDemonstration(Demonstration demonstration) {
+
+        return this.demonstrationList.remove(demonstration) ? this.demonstrationList.add(demonstration) : false;
     }
 
     /**
@@ -376,6 +421,19 @@ public class DemonstrationsList {
                 && this.conflictLimitDate.after(this.subEndDate)
                 && this.evaluationLimitDate.after(this.conflictLimitDate)
                 && this.evaluationLimitDate.before(demonstration.getStartDate());
+    }
+
+    /**
+     * Schedule demonstration's timer with related tasks.
+     *
+     * @param demonstration demonstration to set Timer
+     * @param exhibitionCenter the exhibiton center
+     */
+    public void setTimers(Demonstration demonstration, ExhibitionCenter exhibitionCenter) {
+
+        Date[] dates = {this.subStartDate, this.subEndDate, this.conflictLimitDate, this.evaluationLimitDate};
+
+        demonstration.createTimers(exhibitionCenter, dates);
     }
 
     /**

@@ -116,11 +116,14 @@ public class ExhibitionsRegister implements Importable {
      * Register exhibition.
      *
      * @param exhibition Exhibition to add
+     * @param exhibitionCenter the exhibition center necessary to deploy the
+     * detect conlicts controller
+     * 
      * @return true if exhibition is successfully added.
      */
-    public boolean registerExhibition(Exhibition exhibition) {
+    public boolean registerExhibition(Exhibition exhibition, ExhibitionCenter exhibitionCenter) {
 
-        exhibition.createTimers();
+        exhibition.createTimers(exhibitionCenter);
 
         return (exhibition.setCreatedState() && validateExhibition(exhibition)) ? addExhibition(exhibition) : false;
     }

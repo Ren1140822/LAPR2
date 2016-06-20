@@ -74,7 +74,7 @@ public class DemonstrationApplicationsInEvaluationState implements Demonstration
     }
 
     @Override
-    public boolean setOpenedApplications() {
+    public boolean setOpenApplications() {
         return false;
     }
 

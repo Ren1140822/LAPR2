@@ -77,7 +77,7 @@ public class DemonstrationInicialState implements DemonstrationState {
     }
 
     @Override
-    public boolean setOpenedApplications() {
+    public boolean setOpenApplications() {
         return false;
     }
 

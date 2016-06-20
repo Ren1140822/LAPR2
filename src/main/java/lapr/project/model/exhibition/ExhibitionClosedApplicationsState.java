@@ -89,7 +89,7 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
     }
 
     @Override
-    public boolean setDetectedConficts() {
+    public boolean setDetectedConflicts() {
         if (validate()) {
             this.exhibition.setState(new ExhibitionDetectedConflictsState(this.exhibition));
             return true;
@@ -104,7 +104,7 @@ public class ExhibitionClosedApplicationsState implements ExhibitionState {
     }
 
     @Override
-    public boolean setChangedConflitcts() {
+    public boolean setChangedConflicts() {
         return false;
     }
 

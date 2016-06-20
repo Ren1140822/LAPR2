@@ -10,9 +10,15 @@ import javax.swing.AbstractListModel;
 import lapr.project.controller.DefineStaffController;
 import lapr.project.model.User;
 
+
 /**
+ * Model list for products.
  *
- * @author Renato Oliveira 1140822@isep.ipp.pt
+ * @author Daniel Gonçalves 1151452
+ * @author Eric Amaral 1141570
+ * @author Ivo Ferro 1151159
+ * @author Renato Oliveira 1140822
+ * @author Ricardo Correia 1151231
  */
 public class ModelUserList extends AbstractListModel {
 

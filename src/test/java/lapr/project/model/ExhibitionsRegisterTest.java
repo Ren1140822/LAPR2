@@ -112,7 +112,7 @@ public class ExhibitionsRegisterTest {
     public void testRegisterExhibition() {
 
         System.out.println("registerExhibition");
-        this.exhibitionsRegister.registerExhibition(this.exhibition);
+        this.exhibitionsRegister.registerExhibition(this.exhibition, this.exhibitionCenter);
         List<Exhibition> expResult = new ArrayList<>();
         expResult.add(this.exhibition);
 
@@ -129,7 +129,7 @@ public class ExhibitionsRegisterTest {
 
         System.out.println("registerExhibition");
 
-        boolean result = exhibitionsRegister.registerExhibition(this.exhibition);
+        boolean result = exhibitionsRegister.registerExhibition(this.exhibition, this.exhibitionCenter);
         assertTrue(result);
     }
 
@@ -141,7 +141,7 @@ public class ExhibitionsRegisterTest {
     public void testRegisterExhibitionReturnFalse() {
 
         System.out.println("registerExhibition");
-        boolean result = exhibitionsRegister.registerExhibition(new Exhibition());
+        boolean result = exhibitionsRegister.registerExhibition(new Exhibition(), this.exhibitionCenter);
         assertFalse(result);
     }
 // // TODO : Implement when states are all defined.

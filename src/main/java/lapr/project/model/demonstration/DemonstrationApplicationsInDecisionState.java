@@ -75,7 +75,7 @@ public class DemonstrationApplicationsInDecisionState implements DemonstrationSt
     }
 
     @Override
-    public boolean setOpenedApplications() {
+    public boolean setOpenApplications() {
         return false;
     }
 

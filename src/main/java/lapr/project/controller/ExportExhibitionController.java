@@ -75,8 +75,10 @@ public class ExportExhibitionController {
 
     /**
      * Export the selected exportable to a XML file.
+     *
+     * @param path the path where the file will be saved
      */
-    public void exportExportable() {
-        this.selectedExportable.jaxbObjectExportableToXML();
+    public void exportExportable(String path) {
+        this.selectedExportable.jaxbObjectExportableToXML(path);
     }
 }

@@ -26,8 +26,10 @@ public interface Exportable {
 
     /**
      * Exports with help of JAXB library the object to a XML file.
+     *
+     * @param path the path where the file will be saved
      */
-    void jaxbObjectExportableToXML();
+    void jaxbObjectExportableToXML(String path);
 
 //	/**
 //	 * Exports the object content to a string format.
