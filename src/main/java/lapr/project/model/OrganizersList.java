@@ -98,6 +98,17 @@ public class OrganizersList {
     }
 
     /**
+     * Remove a organizer from the organizers list.
+     *
+     * @param organizer the organizer to remove
+     * @return true if organizer is removed from the list.
+     */
+    public boolean removeOrganizer(Organizer organizer) {
+
+        return this.organizersList.remove(organizer);
+    }
+
+    /**
      * Validate if the list doesn't contain an organizer.
      *
      * @param organizer the organizer to validate
