@@ -149,8 +149,10 @@ public class EditApplicationUI extends JFrame {
             this.controller.setSubmittable(selectedSubmittable);
             this.editable = this.controller.cloneEditable();
 
-            this.productsList = new ArrayList<>();
-            this.demonstrationsList = new ArrayList<>();
+            this.productsList = this.editable.getProductsList();
+            if (this.editable instanceof ExhibitionApplication) {
+                this.demonstrationsList = ((ExhibitionApplication)this.editable).getDemonstrationsList();
+            }
 
             createComponents();
 
@@ -200,20 +202,20 @@ public class EditApplicationUI extends JFrame {
         final int NUMBER_COLS = 10;
 
         JLabel titleLabel = new JLabel("Title:");
-        JTextField titleTextField = new JTextField(TEXT_COLS);
+        JTextField titleTextField = new JTextField(this.editable.getTitle(), TEXT_COLS);
         titleLabel.setLabelFor(titleTextField);
         fieldsPanel.add(titleLabel);
         fieldsPanel.add(titleTextField);;
 
         JLabel invitationsNumberLabel = new JLabel("Number of Invitations:");
-        JTextField invitationsNumberTextField = new JTextField(NUMBER_COLS);
+        JTextField invitationsNumberTextField = new JTextField(Integer.toString(this.editable.getNumberInvitations()), NUMBER_COLS);
         invitationsNumberLabel.setLabelFor(invitationsNumberTextField);
         fieldsPanel.add(invitationsNumberLabel);
         fieldsPanel.add(invitationsNumberTextField);
 
         if (this.editable instanceof ExhibitionApplication) {
             JLabel exhibitorAreaLabel = new JLabel("Exhibitor Area:");
-            JTextField exhibitorAreaTextField = new JTextField(NUMBER_COLS);
+            JTextField exhibitorAreaTextField = new JTextField(Float.toString(((ExhibitionApplication)this.editable).getExhibitorArea()), NUMBER_COLS);
             exhibitorAreaLabel.setLabelFor(exhibitorAreaTextField);
             fieldsPanel.add(exhibitorAreaLabel);
             fieldsPanel.add(exhibitorAreaTextField);
@@ -230,8 +232,10 @@ public class EditApplicationUI extends JFrame {
     private JPanel createKeywordsPanel() {
         JPanel keywordsPanel = new JPanel(new BorderLayout(0, 10));
 
+        String keywords = this.editable.getKeywordsCSV();
+        
         JLabel keywordsLabel = new JLabel("Keywords (comma separated):", SwingConstants.CENTER);
-        JTextArea keywordsTextArea = new JTextArea(3, 10);
+        JTextArea keywordsTextArea = new JTextArea(keywords, 3, 10);
         keywordsLabel.setLabelFor(keywordsTextArea);
 
         keywordsPanel.add(keywordsLabel, BorderLayout.NORTH);
@@ -308,7 +312,7 @@ public class EditApplicationUI extends JFrame {
         this.productsJList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent lse) {
-                // TODO
+                EditApplicationUI.this.removeProductsButton.setEnabled(!EditApplicationUI.this.productsJList.isSelectionEmpty());
             }
         });
 
@@ -403,7 +407,7 @@ public class EditApplicationUI extends JFrame {
         this.demonstrationsJList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent lse) {
-                // TODO
+                EditApplicationUI.this.removeDemonstrationsButton.setEnabled(!EditApplicationUI.this.demonstrationsJList.isSelectionEmpty());
             }
         });
 
