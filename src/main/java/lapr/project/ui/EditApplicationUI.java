@@ -21,7 +21,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import lapr.project.controller.EditApplicationController;
@@ -141,22 +144,23 @@ public class EditApplicationUI extends JFrame {
         if (selectedSubmittable == null) {
             // TODO voltar à janela anterior.
             dispose();
+        } else {
+
+            this.controller.setSubmittable(selectedSubmittable);
+            this.editable = this.controller.cloneEditable();
+
+            this.productsList = new ArrayList<>();
+            this.demonstrationsList = new ArrayList<>();
+
+            createComponents();
+
+            pack();
+            setMinimumSize(new Dimension(getWidth(), getHeight()));
+            setSize(WINDOW_DIMEMNSION);
+            setLocationRelativeTo(null);
+            setVisible(true);
+
         }
-
-        this.controller.setSubmittable(selectedSubmittable);
-        this.editable = this.controller.cloneEditable();
-        
-        this.productsList = new ArrayList<>();
-        this.demonstrationsList = new ArrayList<>();
-        
-
-        createComponents();
-
-        pack();
-        setMinimumSize(new Dimension(getWidth(), getHeight()));
-        setSize(WINDOW_DIMEMNSION);
-        setLocationRelativeTo(null);
-        setVisible(true);
     }
 
     /**
@@ -165,7 +169,7 @@ public class EditApplicationUI extends JFrame {
     private void createComponents() {
         JPanel componentsPanel = new JPanel(new GridLayout(2, 1, 0, 10));
         componentsPanel.add(createDataPanel());
-        componentsPanel.add(createListPanel());
+        componentsPanel.add(createListsButtonsPanel());
         componentsPanel.setBorder(PADDING_BORDER);
         add(componentsPanel);
     }
@@ -237,6 +241,20 @@ public class EditApplicationUI extends JFrame {
     }
 
     /**
+     * Creates the lists and buttons panel.
+     *
+     * @return lists and buttons panel
+     */
+    private JPanel createListsButtonsPanel() {
+        JPanel listsButtonsPanel = new JPanel(new BorderLayout(0, 10));
+
+        listsButtonsPanel.add(createListPanel(), BorderLayout.CENTER);
+        listsButtonsPanel.add(createButtonsPanel(), BorderLayout.SOUTH);
+
+        return listsButtonsPanel;
+    }
+
+    /**
      * Creates the lists panel.
      *
      * @return lists panel
@@ -245,7 +263,7 @@ public class EditApplicationUI extends JFrame {
         JPanel listsPanel;
 
         if (this.editable instanceof ExhibitionApplication) {
-            listsPanel = new JPanel(new GridLayout(1, 2, 10, 0));
+            listsPanel = new JPanel(new GridLayout(1, 2, 10, 10));
             listsPanel.add(createProductsListSectionPanel());
             listsPanel.add(createDemonstrationsListSectionPanel());
         } else {
@@ -262,11 +280,15 @@ public class EditApplicationUI extends JFrame {
      * @return products list section panel
      */
     private JPanel createProductsListSectionPanel() {
-        JPanel productsListSectionPanel = new JPanel(new BorderLayout(0, 10));
+        JPanel productsListSectionPanel = new JPanel(new BorderLayout(10, 10));
 
         productsListSectionPanel.add(new JLabel("Products List:", SwingConstants.CENTER), BorderLayout.NORTH);
         productsListSectionPanel.add(createProductsListPanel(), BorderLayout.CENTER);
         productsListSectionPanel.add(createProductsButtonsPanel(), BorderLayout.SOUTH);
+
+        Border border = new EtchedBorder();
+        Border margin = new EmptyBorder(10, 10, 10, 10);
+        productsListSectionPanel.setBorder(new CompoundBorder(border, margin));
 
         return productsListSectionPanel;
     }
@@ -359,6 +381,10 @@ public class EditApplicationUI extends JFrame {
         demonsrationsListSectionPanel.add(createDemonstrationsListPanel(), BorderLayout.CENTER);
         demonsrationsListSectionPanel.add(createDemonstrationsButtonsPanel(), BorderLayout.SOUTH);
 
+        Border border = new EtchedBorder();
+        Border margin = new EmptyBorder(10, 10, 10, 10);
+        demonsrationsListSectionPanel.setBorder(new CompoundBorder(border, margin));
+
         return demonsrationsListSectionPanel;
     }
 
@@ -436,6 +462,57 @@ public class EditApplicationUI extends JFrame {
         });
 
         return this.removeDemonstrationsButton;
+    }
+
+    /**
+     * Creates the buttons panel.
+     *
+     * @return buttons panel
+     */
+    private JPanel createButtonsPanel() {
+        JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+
+        buttonsPanel.add(createSaveChangesButton());
+        buttonsPanel.add(createCancelButton());
+
+        return buttonsPanel;
+    }
+
+    /**
+     * Creates the save changes button.
+     *
+     * @return save changes button
+     */
+    private JButton createSaveChangesButton() {
+        JButton saveChangesButton = new JButton("Save Changes");
+
+        saveChangesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                // TODO save changes
+                dispose();
+            }
+        });
+
+        return saveChangesButton;
+    }
+
+    /**
+     * Creates the cancel button.
+     *
+     * @return cancel button
+     */
+    private JButton createCancelButton() {
+        JButton cancelButton = new JButton("Cancel");
+
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                dispose();
+            }
+        });
+
+        return cancelButton;
     }
 
     /**
