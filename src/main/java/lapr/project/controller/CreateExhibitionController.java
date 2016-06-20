@@ -71,7 +71,7 @@ public class CreateExhibitionController {
     public Exhibition getExhibition() {
         return this.exhibition;
     }
-    
+
     /**
      * Set the Exhibition.
      *
@@ -134,6 +134,17 @@ public class CreateExhibitionController {
         Organizer newOrganizer = exhibition.getOrganizersList().newOrganizer(user);
 
         return exhibition.getOrganizersList().addAndValidateOrganizer(newOrganizer);
+    }
+
+    /**
+     * Remove a organizer from the Exhibition's organizersList.
+     *
+     * @param organizer the organizer to remove
+     * @return true if organizer is removed from the list.
+     */
+    public boolean removeOrganizer(Organizer organizer) {
+
+        return exhibition.getOrganizersList().removeOrganizer(organizer);
     }
 
     /**

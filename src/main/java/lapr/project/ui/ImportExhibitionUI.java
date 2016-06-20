@@ -66,6 +66,11 @@ public class ImportExhibitionUI extends JFrame {
      */
     final Dimension SCROLL_SIZE = new Dimension(300, 500);
 
+    /**
+     * Creates instance of this class.
+     * @param manager the exhibitions manager
+     * @param exhibitionCenter the exhibitions center
+     */
     public ImportExhibitionUI(ExhibitionsManager manager, ExhibitionCenter exhibitionCenter) {
         this.importExhibitionController = new ImportExhibitionController(manager, exhibitionCenter);
         this.setSize(WINDOW_SIZE);
@@ -73,11 +78,18 @@ public class ImportExhibitionUI extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Creates the frame components.
+     */
     public void createComponents() {
         JMenuBar menu = createJMenuBar();
         add(menu, BorderLayout.NORTH);
     }
 
+    /**
+     * Creates the JMenuBar.
+     * @return The jmenu bar
+     */
     public JMenuBar createJMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = createJMenu();
@@ -85,6 +97,10 @@ public class ImportExhibitionUI extends JFrame {
         return menuBar;
     }
 
+    /**
+     * Creates the JMenu.
+     * @return  the jmenu
+     */
     public JMenu createJMenu() {
         JMenu menu = new JMenu("File");
         JMenuItem itemMenu = createJMenuItemImport();
@@ -93,6 +109,10 @@ public class ImportExhibitionUI extends JFrame {
 
     }
 
+    /**
+     * Creates the JMenu import.
+     * @return the jmenu import
+     */
     public JMenuItem createJMenuItemImport() {
         JMenuItem itemMenu = new JMenuItem("Import exhibition from XML");
         itemMenu.addActionListener(new ActionListener() {
@@ -103,6 +123,7 @@ public class ImportExhibitionUI extends JFrame {
                 int result = fileChooser.showOpenDialog(rootPane);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     if (importExhibitionController.readExhibitionFromFile(fileChooser.getSelectedFile().getAbsolutePath())) {
+                        
                         result = JOptionPane.showConfirmDialog(rootPane, "Exhibition imported sucessfully. Do you wish to register it on the system?", "Sucess", JOptionPane.YES_NO_OPTION);
                         if (result == JOptionPane.YES_OPTION) {
                             selectedExhibition = importExhibitionController.getExhibition();
