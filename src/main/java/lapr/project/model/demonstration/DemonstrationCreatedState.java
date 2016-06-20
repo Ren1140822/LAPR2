@@ -55,7 +55,7 @@ public class DemonstrationCreatedState implements DemonstrationState {
     @Override
     public boolean setDiscontinued() {
 
-//            demonstration.setCurrentState(new Dem);
+            demonstration.setCurrentState(new DemonstrationDiscontinuedState(demonstration));
             return true;
     }
 
@@ -67,7 +67,7 @@ public class DemonstrationCreatedState implements DemonstrationState {
     @Override
     public boolean setDecided() {
         if (validate()) {
-//            demonstration.setCurrentState(new Dem);
+            demonstration.setCurrentState(new DemonstrationDecidedState(demonstration));
             return true;
         }
         return false;
@@ -79,7 +79,7 @@ public class DemonstrationCreatedState implements DemonstrationState {
     }
 
     @Override
-    public boolean setOpenedApplications() {
+    public boolean setOpenApplications() {
         return false;
     }
 
@@ -151,8 +151,7 @@ public class DemonstrationCreatedState implements DemonstrationState {
     @Override
     public boolean validate() {
         
-        // TODO : Develope demoDecidedValidation
-        
+        // Dates are already validated in the demonstration list.
         return true;
     }
 }

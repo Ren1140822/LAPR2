@@ -16,11 +16,11 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import lapr.project.model.exhibition.ExhibitionInicialState;
-import lapr.project.model.exhibition.timers.ChangeToApplicationsInDecision;
-import lapr.project.model.exhibition.timers.ChangeToChangedConflicts;
-import lapr.project.model.exhibition.timers.ChangeToClosedApplications;
-import lapr.project.model.exhibition.timers.ChangeToOpenApplications;
-import lapr.project.model.exhibition.timers.DetectConflictsTask;
+import lapr.project.model.timers.ChangeToApplicationsInDecision;
+import lapr.project.model.timers.ChangeToChangedConflicts;
+import lapr.project.model.timers.ChangeToClosedApplications;
+import lapr.project.model.timers.ChangeToOpenApplications;
+import lapr.project.model.timers.DetectConflictsTask;
 import lapr.project.utils.Exportable;
 
 /**
@@ -120,7 +120,6 @@ public class Exhibition implements Submittable, Exportable {
     /**
      * The exhibition's current state.
      */
-     
 //    @XmlElements({
 //        @XmlElement(name = "exhibition_state", type = ExhibitionInicialState.class),
 //        @XmlElement(name = "exhibition_state", type = ExhibitionApplicationsInDecisionState.class),
@@ -605,6 +604,7 @@ public class Exhibition implements Submittable, Exportable {
      *
      * @return true if the state successfully changes
      */
+    @Override
     public boolean setOpenApplications() {
 
         return this.currentState.setOpenApplication();
@@ -615,6 +615,7 @@ public class Exhibition implements Submittable, Exportable {
      *
      * @return true if the state successfully changes
      */
+    @Override
     public boolean setClosedApplications() {
 
         return this.currentState.setClosedApplications();
@@ -625,9 +626,10 @@ public class Exhibition implements Submittable, Exportable {
      *
      * @return true if the state successfully changes
      */
+    @Override
     public boolean setChangedConflicts() {
 
-        return this.currentState.setChangedConflitcts();
+        return this.currentState.setChangedConflicts();
     }
 
     /**
@@ -635,15 +637,16 @@ public class Exhibition implements Submittable, Exportable {
      *
      * @return true if the state successfully changes
      */
+    @Override
     public boolean setApplicationsInDecision() {
 
         return this.currentState.setApplicationsInDecision();
     }
 
     @Override
-    public boolean setInDetectedConflictsState() {
+    public boolean setDetectedConflicts() {
 
-        return this.currentState.setDetectedConficts();
+        return this.currentState.setDetectedConflicts();
     }
 
     /**
@@ -692,7 +695,7 @@ public class Exhibition implements Submittable, Exportable {
         return this.currentState.isApplicationsDecided();
 
     }
-    
+
     /**
      * Verify if demonstrations are in created state.
      *
@@ -725,8 +728,11 @@ public class Exhibition implements Submittable, Exportable {
 
     /**
      * Schedules the state changes.
+     *
+     * @param exhibitionCenter the exhibition center necessary to deploy the
+     * detect conlicts controller
      */
-    public void createTimers() {
+    public void createTimers(ExhibitionCenter exhibitionCenter) {
 
         ChangeToOpenApplications taskOpenApplications = new ChangeToOpenApplications(this);
 
@@ -736,7 +742,7 @@ public class Exhibition implements Submittable, Exportable {
 
         this.timer.schedule(taskClosedApplications, this.subEndDate);
 
-        DetectConflictsTask taskDetectConflicts = new DetectConflictsTask(this);
+        DetectConflictsTask taskDetectConflicts = new DetectConflictsTask(this, exhibitionCenter);
 
         this.timer.schedule(taskDetectConflicts, this.subEndDate);
 
@@ -783,29 +789,29 @@ public class Exhibition implements Submittable, Exportable {
     public String getData() {
         return String.format("Exhibition: %s (%s) (%s)", this.title, this.startDate, this.endDate);
     }
-    
-     /**
-      * Export this exhibition to xml file
-      */
+
+    /**
+     * Export this exhibition to xml file
+     */
     @Override
     public void jaxbObjectExportableToXML() {
-        try{
+        try {
             JAXBContext context = JAXBContext.newInstance(Exhibition.class);
-            
+
             Marshaller m = context.createMarshaller();
             //for pretty print XML in JAXB
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            
+
             //write to system.out for debugging
             m.marshal(this, System.out);
-            
+
             //write to file
             m.marshal(this, new File("D:\\exhibition4.xml"));
-        } catch (JAXBException e){
+        } catch (JAXBException e) {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Return the textual representation of a exhibition.
      *
@@ -892,5 +898,4 @@ public class Exhibition implements Submittable, Exportable {
 
     }
 
-    
 }

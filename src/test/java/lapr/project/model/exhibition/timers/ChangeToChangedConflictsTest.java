@@ -3,6 +3,7 @@
  */
 package lapr.project.model.exhibition.timers;
 
+import lapr.project.model.timers.ChangeToChangedConflicts;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

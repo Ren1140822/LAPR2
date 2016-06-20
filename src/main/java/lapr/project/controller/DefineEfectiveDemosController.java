@@ -32,7 +32,7 @@ public class DefineEfectiveDemosController {
      * The exhibitions demonstrations list.
      */
     private DemonstrationsList demonstrationsList;
-    
+
     /**
      * The efective demonstration.
      */
@@ -95,8 +95,6 @@ public class DefineEfectiveDemosController {
     /**
      * Set the demonstrations common dates.
      *
-     * @param startDate Demonstration's start date
-     * @param endDate Demonstration's end date
      * @param startSubDate Demonstration's applications submission start date
      * @param endSubDate Demonstration's applications submission end date
      * @param conflictLimitDate Demonstration's conflicts limit date
@@ -111,32 +109,59 @@ public class DefineEfectiveDemosController {
         this.demonstrationsList.setConflictLimitDate(conflictLimitDate);
         this.demonstrationsList.setEvaluationLimitDate(evaluationLimiteDate);
     }
-    
+
     /**
      * Set the selected efective demonstration.
-     * 
+     *
      * @param demonstration selected efective demonstration to set
      */
     public void setEfectiveDemonstration(Demonstration demonstration) {
-        
+
         this.efectiveDemo = demonstration;
     }
-    
+
     /**
      * Obtain a short info of a demnstration to display on the UI.
-     * 
+     *
      * @return a short info of a demnstration to display on the UI
      */
     public String getInfo() {
-        
+
         return this.efectiveDemo.getShortInfo();
     }
-    
-    public void setDemonstrationDates(Date startDate, Date endDate) {
-        
+
+    /**
+     * Set demosntration's start and end dates
+     *
+     * @param startDate demonstration's start date
+     * @param endDate demonstration's end date
+     * 
+     * @return true if dates are valid
+     */
+    public boolean  setDemonstrationDates(Date startDate, Date endDate) {
+
         this.efectiveDemo.setStartDate(startDate);
         this.efectiveDemo.setEndDate(endDate);
-        
-        this.demonstrationsList.validateDates(efectiveDemo);
+
+        return this.demonstrationsList.validateDates(efectiveDemo);
+    }
+
+    /**
+     * Update a demonstration in the demonstrations list.
+     *
+     * @return true if demonstration is sucessfully updated.
+     */
+    public boolean updateDemonstration() {
+
+        boolean isUpdated;
+
+        isUpdated = this.efectiveDemo.setDecided();
+
+        if (isUpdated) {
+
+            this.demonstrationsList.setTimers(this.efectiveDemo, exhibitionCenter);
+            this.demonstrationsList.updateDemonstration(this.efectiveDemo);
+        }
+        return isUpdated;
     }
 }

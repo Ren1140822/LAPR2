@@ -55,7 +55,9 @@ public interface Submittable {
 
     /**
      * Obtain the conflicts list filtered by staff member.
-     * @param staffMember the staff member used to filter the conflicts from conflicts list.
+     *
+     * @param staffMember the staff member used to filter the conflicts from
+     * conflicts list.
      * @return the conflicts list filtered by staff member.
      */
     List<Conflict> getConflictListByStaffMember(StaffMember staffMember);
@@ -73,11 +75,40 @@ public interface Submittable {
     void setSubmittableInApplicationsInEvaluationState();
 
     /**
+     * Set submittable to open Applications State.
+     *
+     * @return true if submittable changes state to open Applications State
+     */
+    boolean setOpenApplications();
+
+    /**
+     * Set submittable to Closed Applications State.
+     *
+     * @return true if submittable changes state to Closed Applications State
+     */
+    boolean setClosedApplications();
+
+    /**
      * Set submittable to Detected Conflicts State.
      *
      * @return true if submittable changes state to Detected Conflicts State
      */
-    boolean setInDetectedConflictsState();
+    boolean setDetectedConflicts();
+
+    /**
+     * Set submittable to Changed Conflicts State.
+     *
+     * @return true if submittable changes state to Changed Conflicts State
+     */
+    boolean setChangedConflicts();
+
+    /**
+     * Set submittable to Applications in Decison State.
+     *
+     * @return true if submittable changes state to Applications in Decison
+     * State
+     */
+    boolean setApplicationsInDecision();
 
     /**
      * Remove a staff attribution.
