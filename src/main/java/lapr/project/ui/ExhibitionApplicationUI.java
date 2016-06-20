@@ -631,9 +631,10 @@ public class ExhibitionApplicationUI extends JFrame {
      */
     public boolean newProduct(String designation) {
         boolean addedProduct = exhibitionApplicationController.newProduct(designation);
-
+        if(addedProduct){
         return this.modelProductsList.addRow(addedProduct, designation, exhibitionApplicationController.getProductsList());
-
+        }
+        return false;
     }
 
     /**

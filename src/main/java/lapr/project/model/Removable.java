@@ -12,7 +12,7 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public interface Removable {
+public interface Removable{
 
     /**
      * Gets the current state of the application.
