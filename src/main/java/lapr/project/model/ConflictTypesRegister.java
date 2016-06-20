@@ -79,6 +79,17 @@ public class ConflictTypesRegister {
     }
 
     /**
+     * Constructs new Conflict type
+     *
+     * @param description the description of the new conflict type
+     * @return the new Conflict type
+     */
+    public ConflictType newConflictType(String description) {
+        ConflictType conflictType = new ConflictType(description);
+        return conflictType;
+    }
+
+    /**
      * Return true if the conflictTypesList does not contain the conflictType
      * passed as parameter, false otherwise
      *
