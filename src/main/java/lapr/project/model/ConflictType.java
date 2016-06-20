@@ -59,6 +59,15 @@ public class ConflictType {
         this.conflictDetectionMechanism = conflictDetectionMechanism;
         this.description = description;
     }
+    
+    /**
+     * Constructs a conflict type receiving a description.
+     *
+     * @param description description
+     */
+    public ConflictType(String description){
+        this.description = description;
+    }
 
     /**
      * Constructs a conflict type copying another conflict type.
