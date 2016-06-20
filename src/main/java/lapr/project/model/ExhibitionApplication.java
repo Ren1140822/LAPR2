@@ -534,61 +534,6 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
-     * Equals method to verify if two objects are equal.
-     *
-     * @param otherObject the other exhibition application to compare to
-     * @return true if equal
-     */
-    @Override
-    public boolean equals(Object otherObject) {
-        if (this == otherObject) {
-            return true;
-        }
-        if (otherObject == null || this.getClass() != otherObject.getClass()) {
-            return false;
-        }
-        ExhibitionApplication otherExhibitionApplication = (ExhibitionApplication) otherObject;
-        return (this.title.equals(otherExhibitionApplication.title) && this.exhibitor.equals(otherExhibitionApplication.exhibitor)
-                && this.exhibitorArea == otherExhibitionApplication.exhibitorArea
-                && this.numberInvitations == otherExhibitionApplication.numberInvitations
-                && this.demonstrationsList.equals(otherExhibitionApplication.demonstrationsList)
-                && this.productsList.equals(otherExhibitionApplication.productsList)
-                && this.evaluationsList.equals(otherExhibitionApplication.evaluationsList)
-                && this.keywordsList.equals(otherExhibitionApplication.keywordsList));
-
-    }
-
-    /**
-     * Returns the textual interpretation of the objects and attributes of this
-     * class
-     *
-     * @return textual representation for this object
-     */
-    @Override
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        s.append("ExhibitionApplication{");
-        s.append(String.format("%s%n", this.title));
-        s.append(String.format("%s%n", this.exhibitor));
-        s.append(String.format("%f%n", this.exhibitorArea));
-        s.append(String.format("%d%n", this.numberInvitations));
-        for (Demonstration demonstration : demonstrationsList) {
-            s.append(String.format("%s%n", demonstration));
-        }
-        for (Product product : productsList) {
-            s.append(String.format("%s%n", product));
-        }
-        for (Evaluation evaluation : evaluationsList) {
-            s.append(String.format("%s%n", evaluation));
-        }
-        for (Keyword keyword : keywordsList) {
-            s.append(String.format("%s%n", keyword));
-        }
-        s.append("}");
-        return s.toString();
-    }
-
-    /**
      * Set exbibition application inEvaluationState
      */
     @Override
@@ -686,5 +631,60 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     @Override
     public boolean isDecided() {
         return this.currentState.isAccepted() || this.currentState.isDeclined();
+    }
+
+    /**
+     * Equals method to verify if two objects are equal.
+     *
+     * @param otherObject the other exhibition application to compare to
+     * @return true if equal
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+        ExhibitionApplication otherExhibitionApplication = (ExhibitionApplication) otherObject;
+        return (this.title.equals(otherExhibitionApplication.title) && this.exhibitor.equals(otherExhibitionApplication.exhibitor)
+                && this.exhibitorArea == otherExhibitionApplication.exhibitorArea
+                && this.numberInvitations == otherExhibitionApplication.numberInvitations
+                && this.demonstrationsList.equals(otherExhibitionApplication.demonstrationsList)
+                && this.productsList.equals(otherExhibitionApplication.productsList)
+                && this.evaluationsList.equals(otherExhibitionApplication.evaluationsList)
+                && this.keywordsList.equals(otherExhibitionApplication.keywordsList));
+
+    }
+
+    /**
+     * Returns the textual interpretation of the objects and attributes of this
+     * class
+     *
+     * @return textual representation for this object
+     */
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append("ExhibitionApplication{");
+        s.append(String.format("%s%n", this.title));
+        s.append(String.format("%s%n", this.exhibitor));
+        s.append(String.format("%f%n", this.exhibitorArea));
+        s.append(String.format("%d%n", this.numberInvitations));
+        for (Demonstration demonstration : demonstrationsList) {
+            s.append(String.format("%s%n", demonstration));
+        }
+        for (Product product : productsList) {
+            s.append(String.format("%s%n", product));
+        }
+        for (Evaluation evaluation : evaluationsList) {
+            s.append(String.format("%s%n", evaluation));
+        }
+        for (Keyword keyword : keywordsList) {
+            s.append(String.format("%s%n", keyword));
+        }
+        s.append("}");
+        return s.toString();
     }
 }
