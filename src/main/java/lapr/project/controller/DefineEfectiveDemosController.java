@@ -3,7 +3,10 @@
  */
 package lapr.project.controller;
 
+import java.util.Date;
 import java.util.List;
+import lapr.project.model.Demonstration;
+import lapr.project.model.DemonstrationsList;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
@@ -26,6 +29,11 @@ public class DefineEfectiveDemosController {
     private final ExhibitionCenter exhibitionCenter;
 
     /**
+     * The exhibitions demonstrations list.
+     */
+    private DemonstrationsList demonstrationsList;
+
+    /**
      * Constructs a DefineEfectiveDemosController Class.
      *
      * @param exhibitionCenter Exhibition Center
@@ -33,6 +41,7 @@ public class DefineEfectiveDemosController {
     public DefineEfectiveDemosController(ExhibitionCenter exhibitionCenter) {
 
         this.exhibitionCenter = exhibitionCenter;
+        this.demonstrationsList = new DemonstrationsList();
     }
 
     /**
@@ -59,4 +68,42 @@ public class DefineEfectiveDemosController {
         return exhibitionsRegister.getExhibitionsAppsDecidedAndDemosCreated(organizer);
     }
 
+    /**
+     * Set the demonstration list class.
+     *
+     * @param exhibition exhibtion that contains the selected demonstrations
+     * list class
+     */
+    public void setDemonstrationsList(Exhibition exhibition) {
+        this.demonstrationsList = exhibition.getDemonstrationsList();
+    }
+
+    /**
+     * Obtain the list of demonstrations.
+     *
+     * @return the list of demonstrations
+     */
+    public List<Demonstration> getDemonstrationsList() {
+        return this.demonstrationsList.getDemonstrationsList();
+    }
+
+    /**
+     * Set the demonstrations common dates.
+     *
+     * @param startDate Demonstration's start date
+     * @param endDate Demonstration's end date
+     * @param startSubDate Demonstration's applications submission start date
+     * @param endSubDate Demonstration's applications submission end date
+     * @param conflictLimitDate Demonstration's conflicts limit date
+     * @param evaluationLimiteDate Demonstration's applications evaluation limit
+     * date
+     */
+    public void setCommonDates(Date startDate, Date endDate, Date startSubDate,
+            Date endSubDate, Date conflictLimitDate, Date evaluationLimiteDate) {
+
+        this.demonstrationsList.setSubStartDate(startSubDate);
+        this.demonstrationsList.setSubEndDate(endSubDate);
+        this.demonstrationsList.setConflictLimitDate(conflictLimitDate);
+        this.demonstrationsList.setEvaluationLimitDate(evaluationLimiteDate);
+    }
 }

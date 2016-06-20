@@ -168,6 +168,78 @@ public class DemonstrationsList {
     }
 
     /**
+     * Obtain the application submissions start date.
+     *
+     * @return the application submissions start date
+     */
+    public Date getSubStartDate() {
+        return subStartDate;
+    }
+
+    /**
+     * Set the application submissions start date.
+     *
+     * @param subStartDate the application submissions start date to set
+     */
+    public void setSubStartDate(Date subStartDate) {
+        this.subStartDate = subStartDate;
+    }
+
+    /**
+     * Obtain the application submissions end date.
+     *
+     * @return the application submissions start date
+     */
+    public Date getSubEndDate() {
+        return subEndDate;
+    }
+
+    /**
+     * Set the application submissions end date.
+     *
+     * @param subEndDate the application submissions end date to set
+     */
+    public void setSubEndDate(Date subEndDate) {
+        this.subEndDate = subEndDate;
+    }
+
+    /**
+     * Obtain the conflicts limite date.
+     *
+     * @return the conflicts limite date
+     */
+    public Date getConflictLimitDate() {
+        return conflictLimitDate;
+    }
+
+    /**
+     * Set the conflicts limite date.
+     *
+     * @param conflictLimitDate the conflicts limite date to set
+     */
+    public void setConflictLimitDate(Date conflictLimitDate) {
+        this.conflictLimitDate = conflictLimitDate;
+    }
+
+    /**
+     * Obtain the evaluations limite date.
+     *
+     * @return the evaluations Limite Date
+     */
+    public Date getEvaluationLimitDate() {
+        return evaluationLimitDate;
+    }
+
+    /**
+     * Set the evaluations limite date.
+     *
+     * @param evaluationLimitDate the evaluations limite date to set
+     */
+    public void setEvaluationLimitDate(Date evaluationLimitDate) {
+        this.evaluationLimitDate = evaluationLimitDate;
+    }
+
+    /**
      * Gets the list of demonstrations in changed conflicts state
      *
      * @return list of demonstrations in changed conflicts state
