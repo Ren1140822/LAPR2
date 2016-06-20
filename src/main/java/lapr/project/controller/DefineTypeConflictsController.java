@@ -3,6 +3,7 @@
  */
 package lapr.project.controller;
 
+import java.util.List;
 import lapr.project.model.ConflictDetectionMechanism;
 import lapr.project.model.ConflictType;
 import lapr.project.model.ConflictTypesRegister;
@@ -36,9 +37,14 @@ public class DefineTypeConflictsController {
     private ConflictType conflictType;
 
     /**
-     * The conflictTypesRegister
+     * The conflict Types Register.
      */
-    private final ConflictTypesRegister conflictTypesRegister;
+    private ConflictTypesRegister conflictTypesRegister;
+
+    /**
+     * The conflict types list.
+     */
+    private List<ConflictType> conflictTypesList;
 
     /**
      * Constructs a DefineTypeConflictsController Class.
@@ -51,6 +57,16 @@ public class DefineTypeConflictsController {
         this.exhibitionCenter = exhibitionCenter;
         this.exhibitionsManager = exhibitionsManger;
         this.conflictTypesRegister = this.exhibitionCenter.getConflictTypesRegister();
+        this.conflictTypesList = this.conflictTypesRegister.getConflictTypesList();
+    }
+
+    /**
+     * Gets the conflict types list.
+     *
+     * @return the conflict types list.
+     */
+    public List<ConflictType> getConflictTypesList() {
+        return this.conflictTypesList;
     }
 
     /**
@@ -63,7 +79,16 @@ public class DefineTypeConflictsController {
         return this.conflictType;
     }
 
-    public boolean newConflictType(ConflictDetectionMechanism conflictDetectionMechanism, String descricao) {
+    /**
+     * Creates new conflict type and return the new conflict type
+     *
+     * @return the new conflict type created
+     */
+    public ConflictType newConflictType(String description) {
+        return this.conflictTypesRegister.newConflictType(description);
+    }
+
+    public boolean newConflictType(ConflictDetectionMechanism conflictDetectionMechanism, String description) {
         return (this.conflictTypesRegister.newConflictType() != null);
 
     }
@@ -89,9 +114,17 @@ public class DefineTypeConflictsController {
 
     /**
      * Registers the new conflict type
+     *
+     * @return
      */
-    public void registerTypeConflict() {
-        this.conflictTypesRegister.registerTypeConflict(this.conflictType);
+    public boolean registerTypeConflict() {
+        if (this.conflictTypesRegister.registerTypeConflict(this.conflictType)) {
+            this.conflictTypesList = this.conflictTypesRegister.getConflictTypesList();
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 }

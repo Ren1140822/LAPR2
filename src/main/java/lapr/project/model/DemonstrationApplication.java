@@ -448,6 +448,24 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         return this.currentState.isAccepted() || this.currentState.isDeclined();
     }
 
+    @Override
+    public String getKeywordsCSV() {
+        StringBuilder s = new StringBuilder();
+
+        boolean isFirst = true;
+
+        for (Keyword keyword : this.keywordsList) {
+            if (isFirst) {
+                s.append(keyword.getDescription());
+                isFirst = false;
+            } else {
+                s.append("," + keyword.getDescription());
+            }
+        }
+
+        return s.toString();
+    }
+
     /**
      * Returns the textual interpretation of the objects and attributes of this
      * class
