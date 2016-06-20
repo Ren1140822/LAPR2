@@ -258,9 +258,9 @@ public class ConfirmStandUI extends JFrame {
 
         return backButton;
     }
-    
+
     /**
-     * Refresh the update staff attributions list.
+     * Refresh the staff attributions list.
      */
     private void updateStaffAtributionsList() {
         this.exhibitionApplicationsList = controller.getExhibitionApplicationsByExhibitorResponsible();

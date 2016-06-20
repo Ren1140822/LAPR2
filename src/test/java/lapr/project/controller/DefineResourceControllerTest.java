@@ -3,6 +3,8 @@
  */
 package lapr.project.controller;
 
+import java.util.List;
+import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.Resource;
 import lapr.project.utils.DefaultInstantiator;
 import org.junit.Before;
@@ -26,14 +28,37 @@ public class DefineResourceControllerTest {
     private DefineResourceController defineResourceController;
     
     /**
-     * resource for tests.
+     * Exhibition center used for tests.
+     */
+    private ExhibitionCenter exhibitionCenter;
+    
+    /**
+     * Resource for tests.
      */
     private Resource resource;
     
+    /**
+     * Existing resource for tests.
+     */
+    private Resource existingResource;
+    
     @Before
     public void setUp() {
-        this.defineResourceController = new DefineResourceController(DefaultInstantiator.createExhibitionCenter());
+        this.exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
+        this.defineResourceController = new DefineResourceController(this.exhibitionCenter);
         this.resource = new Resource("Grass");
+        this.existingResource = this.exhibitionCenter.getResourcesRegister().getResourcesList().get(0);
+    }
+
+    /**
+     * Test of getResources method, of class DefineResourceController.
+     */
+    @Test
+    public void testGetResources() {
+        System.out.println("getResources");
+        List<Resource> expResult = this.exhibitionCenter.getResourcesRegister().getResourcesList();
+        List<Resource> result = this.defineResourceController.getResources();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -55,6 +80,15 @@ public class DefineResourceControllerTest {
         String description = "Grass";
         this.defineResourceController.newResource(description);
         assertTrue(this.defineResourceController.registerResource());
+    }
+    
+    /**
+     * Test of removeResource method, of class DefineResourceController.
+     */
+    @Test
+    public void testRemoveResource() {
+        System.out.println("removeResource");
+        assertTrue(this.defineResourceController.removeResource(this.existingResource));
     }
 
 }
