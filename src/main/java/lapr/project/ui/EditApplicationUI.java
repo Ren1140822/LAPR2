@@ -494,7 +494,14 @@ public class EditApplicationUI extends JFrame {
         this.removeDemonstrationsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                // TODO
+                Demonstration demonstration = EditApplicationUI.this.demonstrationsList
+                        .get(EditApplicationUI.this.demonstrationsJList.getSelectedIndex());
+                EditApplicationUI.this.demonstrationsList.remove(demonstration);
+                EditApplicationUI.this.updateDemonstrationsList();
+                JOptionPane.showMessageDialog(EditApplicationUI.this,
+                        "The demonstration was successful removed!",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
@@ -553,10 +560,17 @@ public class EditApplicationUI extends JFrame {
     }
 
     /**
-     * Refresh the resources list.
+     * Refresh the products list.
      */
     private void updateProductsList() {
         this.productsJList.setModel(new ModelListSelectable(this.productsList));
+    }
+
+    /**
+     * Refresh the demonstrations list.
+     */
+    private void updateDemonstrationsList() {
+        this.demonstrationsJList.setModel(new ModelListSelectable(this.demonstrationsList));
     }
 
     /**

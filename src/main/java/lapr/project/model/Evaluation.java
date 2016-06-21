@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Evaluation {
+public class Evaluation implements Selectable {
 
     /**
      * The question's list.
@@ -205,6 +205,11 @@ public class Evaluation {
 
         return this.questionsList.equals(otherEvaluation.questionsList) && this.answersList.equals(otherEvaluation.answersList)
                 && this.staffAttribution.equals(otherEvaluation.staffAttribution);
+    }
+
+    @Override
+    public String getDisplayInfo() {
+        return "Evaluation";
     }
 
 }
