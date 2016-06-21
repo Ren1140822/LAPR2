@@ -33,6 +33,7 @@ import lapr.project.model.Editable;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitorResponsible;
+import lapr.project.model.Keyword;
 import lapr.project.model.Product;
 import lapr.project.model.Submittable;
 import lapr.project.model.application.ApplicationInSubmissionState;
@@ -112,6 +113,26 @@ public class EditApplicationUI extends JFrame {
     private JButton removeDemonstrationsButton;
 
     /**
+     * The title JTextField.
+     */
+    private JTextField titleTextField;
+
+    /**
+     * The invitations number JTextField.
+     */
+    private JTextField invitationsNumberTextField;
+
+    /**
+     * The exhibitor area JTextField.
+     */
+    private JTextField exhibitorAreaTextField;
+
+    /**
+     * The keywords text area.
+     */
+    private JTextArea keywordsTextArea;
+
+    /**
      * Title for the window.
      */
     private static final String WINDOW_TITLE = "Edit Application";
@@ -146,7 +167,6 @@ public class EditApplicationUI extends JFrame {
         Submittable selectedSubmittable = (Submittable) dialogSelectable.getSelectedItem();
 
         if (selectedSubmittable == null) {
-            // TODO voltar à janela anterior.
             dispose();
         } else {
 
@@ -207,20 +227,20 @@ public class EditApplicationUI extends JFrame {
         final int NUMBER_COLS = 10;
 
         JLabel titleLabel = new JLabel("Title:");
-        JTextField titleTextField = new JTextField(this.editable.getTitle(), TEXT_COLS);
-        titleLabel.setLabelFor(titleTextField);
+        this.titleTextField = new JTextField(this.editable.getTitle(), TEXT_COLS);
+        titleLabel.setLabelFor(this.titleTextField);
         fieldsPanel.add(titleLabel);
-        fieldsPanel.add(titleTextField);;
+        fieldsPanel.add(this.titleTextField);;
 
         JLabel invitationsNumberLabel = new JLabel("Number of Invitations:");
-        JTextField invitationsNumberTextField = new JTextField(Integer.toString(this.editable.getNumberInvitations()), NUMBER_COLS);
-        invitationsNumberLabel.setLabelFor(invitationsNumberTextField);
+        this.invitationsNumberTextField = new JTextField(Integer.toString(this.editable.getNumberInvitations()), NUMBER_COLS);
+        invitationsNumberLabel.setLabelFor(this.invitationsNumberTextField);
         fieldsPanel.add(invitationsNumberLabel);
-        fieldsPanel.add(invitationsNumberTextField);
+        fieldsPanel.add(this.invitationsNumberTextField);
 
         if (this.editable instanceof ExhibitionApplication) {
             JLabel exhibitorAreaLabel = new JLabel("Exhibitor Area:");
-            JTextField exhibitorAreaTextField = new JTextField(Float.toString(((ExhibitionApplication) this.editable).getExhibitorArea()), NUMBER_COLS);
+            this.exhibitorAreaTextField = new JTextField(Float.toString(((ExhibitionApplication) this.editable).getExhibitorArea()), NUMBER_COLS);
             exhibitorAreaLabel.setLabelFor(exhibitorAreaTextField);
             fieldsPanel.add(exhibitorAreaLabel);
             fieldsPanel.add(exhibitorAreaTextField);
@@ -240,11 +260,11 @@ public class EditApplicationUI extends JFrame {
         String keywords = this.editable.getKeywordsCSV();
 
         JLabel keywordsLabel = new JLabel("Keywords (comma separated):", SwingConstants.CENTER);
-        JTextArea keywordsTextArea = new JTextArea(keywords, 3, 10);
-        keywordsLabel.setLabelFor(keywordsTextArea);
+        this.keywordsTextArea = new JTextArea(keywords, 3, 10);
+        keywordsLabel.setLabelFor(this.keywordsTextArea);
 
         keywordsPanel.add(keywordsLabel, BorderLayout.NORTH);
-        keywordsPanel.add(keywordsTextArea, BorderLayout.CENTER);
+        keywordsPanel.add(this.keywordsTextArea, BorderLayout.CENTER);
 
         return keywordsPanel;
     }
@@ -571,9 +591,40 @@ public class EditApplicationUI extends JFrame {
         saveChangesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                // TODO save changes
                 try {
-                    dispose();
+                    // Get the data
+                    String title = EditApplicationUI.this.titleTextField.getText();
+                    int invitationsNumber = Integer.parseInt(EditApplicationUI.this.invitationsNumberTextField.getText());
+                    float exhibitorArea = Float.parseFloat(EditApplicationUI.this.exhibitorAreaTextField.getText());
+                    List<Keyword> keywords = Keyword.toKeywordsList(EditApplicationUI.this.keywordsTextArea.getText());
+
+                    // Set the data
+                    EditApplicationUI.this.editable.setTitle(title);
+                    EditApplicationUI.this.editable.setNumberInvitations(invitationsNumber);
+                    EditApplicationUI.this.editable.setKeywordsList(keywords);
+                    EditApplicationUI.this.editable.setProductsList(EditApplicationUI.this.productsList);
+                    if (EditApplicationUI.this.editable instanceof ExhibitionApplication) {
+                        ((ExhibitionApplication) EditApplicationUI.this.editable).setExhibitorArea(exhibitorArea);
+                        ((ExhibitionApplication) EditApplicationUI.this.editable).setDemonstrationsList(EditApplicationUI.this.demonstrationsList);
+                    }
+
+                    // Save the editable
+                    if (EditApplicationUI.this.controller.validate(EditApplicationUI.this.editable)) { //Rever validate da application
+                        EditApplicationUI.this.controller.modifyEditable();
+                        
+                        JOptionPane.showMessageDialog(EditApplicationUI.this,
+                        String.format("The application was successfull edited!"),
+                            "Success",
+                            JOptionPane.INFORMATION_MESSAGE);
+                        
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(EditApplicationUI.this,
+                            String.format("The values didn't change"),
+                            "Invalid Data",
+                            JOptionPane.ERROR_MESSAGE);
+                    }
+
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(EditApplicationUI.this,
                             String.format("The introduced values are invalid.%nPlease review your data."),
