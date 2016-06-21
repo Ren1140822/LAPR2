@@ -41,4 +41,12 @@ public class ModelListSelectable extends AbstractListModel {
     public Object getElementAt(int i) {
         return this.selectablesList.get(i).getDisplayInfo();
     }
+    
+    public Object getObject(int i){
+        return this.selectablesList.get(i);
+    }
+    
+    public void clear(){
+        this.selectablesList.clear();
+    }
 }

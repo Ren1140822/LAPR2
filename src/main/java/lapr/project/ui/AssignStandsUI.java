@@ -6,14 +6,19 @@ package lapr.project.ui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import lapr.project.controller.AssignStandsController;
 import lapr.project.model.Application;
 import lapr.project.model.Exhibition;
@@ -83,17 +88,34 @@ public class AssignStandsUI extends JFrame {
      */
     final Dimension SCROLL_SIZE = new Dimension(300, 500);
 
+    /**
+     * The list of applications.
+     */
+    private JList listApplications;
+
+    /**
+     * The list of stands.
+     */
+    private JList listStands;
+
+    /**
+     * The list model of selectables.
+     */
+    ModelListSelectable modelSelectable;
+    
+     /**
+     * The list model of selectables.
+     */
+    ModelListSelectable modelSelectableStands;
+
     public AssignStandsUI(Organizer organizer, ExhibitionCenter exhibitionCenter) {
         this.assignStandsController = new AssignStandsController(organizer, exhibitionCenter);
         List<Submittable> submittableList = new ArrayList(assignStandsController.getExhibitionsListByOrganizerInApplicationsDecidedState(organizer));
-
+        setTitle("Assign Stands");
         DialogSelectable dialogSelectable = new DialogSelectable(this, submittableList);
 
         this.selectedExhibition = (Exhibition) dialogSelectable.getSelectedItem();
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
         this.applicationsList = assignStandsController.getApplicationsList(selectedExhibition);
         this.standsList = assignStandsController.getStandsList();
         createComponents();
@@ -108,13 +130,19 @@ public class AssignStandsUI extends JFrame {
         JPanel panel = createPanelLists();
         this.setLayout(new BorderLayout(0, 2));
         add(panel, BorderLayout.CENTER);
+         JPanel panelButton =createButtonPanel();
+         add(panelButton,BorderLayout.SOUTH);
     }
 
     public JPanel createPanelLists() {
 
         JPanel panel = new JPanel(new FlowLayout());
         JPanel panelApplications = createJPanelApplications();
+        JPanel panelStands = createJPanelStands();
+       
+      
         panel.add(panelApplications);
+        panel.add(panelStands);
         //JList listStands = createJListStands();
         //panel.add(listCandidaturas);
         //panel.add(listStands);
@@ -122,33 +150,84 @@ public class AssignStandsUI extends JFrame {
     }
 
     public JPanel createJPanelApplications() {
-        JList listApplications = createJListApplications();
-        JLabel label = new JLabel("Applications List");
-        label.setSize(LBL_SIZE);
+        listApplications = createJListApplications();
 
         JPanel panel = new JPanel(new BorderLayout(0, 3));
-        panel.add(label, BorderLayout.NORTH);
-        panel.add(listApplications, BorderLayout.CENTER);
 
+        panel.add(listApplications, BorderLayout.CENTER);
+        panel.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
+                "Applications List:", TitledBorder.LEFT, TitledBorder.TOP));
+        JScrollPane scrollPane = new JScrollPane(listApplications);
+        scrollPane.setBorder(PADDING_BORDER);
+      
+        
+        panel.setMinimumSize(SCROLL_SIZE);
+        panel.add(scrollPane);
         return panel;
     }
 
+    public JPanel createJPanelStands() {
+        listStands = createJListStands();
+
+        JPanel panel = new JPanel(new BorderLayout(0, 3));
+
+        panel.add(listStands, BorderLayout.CENTER);
+        panel.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
+                "Stands list:", TitledBorder.LEFT, TitledBorder.TOP));
+        JScrollPane scrollPane = new JScrollPane(listStands);
+        scrollPane.setBorder(PADDING_BORDER);
+
+        panel.setMinimumSize(SCROLL_SIZE);
+        panel.add(scrollPane);
+        return panel;
+    }
+
+    public JPanel createButtonPanel(){
+        JPanel panel  = new JPanel(new FlowLayout());
+        JButton button = createConfirmJButton();
+        panel.add(button);
+         return panel;
+    }
+    
     public JList createJListApplications() {
         JList list = new JList();
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
-        list.setModel(new ModelListSelectable(applicationsList));
-
+        list.setPreferredSize(new Dimension(100, 370));
+        modelSelectable = new ModelListSelectable(applicationsList);
+        list.setModel(modelSelectable);
         return list;
     }
 
     public JList createJListStands() {
         JList list = new JList();
-        list.setModel(new ModelListSelectable(new ArrayList(applicationsList)));
-
+        list.setPreferredSize(new Dimension(200, 370));
+        modelSelectableStands = new ModelListSelectable(standsList);
+        list.setModel(modelSelectableStands);
         return list;
+    }
+
+    public JButton createConfirmJButton() {
+        JButton button = new JButton("Pair selected application and stand");
+        button.setPreferredSize(new Dimension(250, 40));
+        button.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int result = JOptionPane.showConfirmDialog(rootPane, "Do you wish to assign the selected stand to the selected application?", "Stand assignment", JOptionPane.YES_NO_OPTION);
+                if(listApplications.getSelectedValue()!=null&&listStands.getSelectedValue()!=null){
+                if (result == JOptionPane.YES_OPTION) {
+                     JOptionPane.showMessageDialog(rootPane,assignStandsController.setStand((ExhibitionApplication)modelSelectable.getObject(listApplications.getSelectedIndex()), (Stand)modelSelectableStands.getObject(listStands.getSelectedIndex()))? "Operation performed sucessfully!":"Error performing the desired operation", "Stand assignment", JOptionPane.PLAIN_MESSAGE);
+                     modelSelectable.clear();
+                      applicationsList = assignStandsController.getApplicationsList(selectedExhibition);
+                      modelSelectable = new ModelListSelectable(applicationsList);
+                      listApplications.repaint();
+                }
+            }
+                else{
+                    JOptionPane.showMessageDialog(rootPane, "Please select one item from each list.","Error",JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        return button;
     }
 
     public static void main(String[] args) {

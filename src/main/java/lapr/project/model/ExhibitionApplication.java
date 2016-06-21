@@ -300,8 +300,12 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param stand the stand to set
      */
-    public void setStand(Stand stand) {
+    public boolean setStand(Stand stand) {
+        if(stand.validate()){
         this.stand = stand;
+        return true;
+        }
+        return false;
     }
 
     /**

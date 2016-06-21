@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class Stand {
+public class Stand implements Selectable {
 
     /**
      * Stand's unique number identification.
@@ -171,6 +171,11 @@ public class Stand {
         Stand otherStand = (Stand) otherObject;
 
         return this.area == otherStand.area && this.description.equals(otherStand.description) && this.numberID == otherStand.numberID;
+    }
+
+    @Override
+    public String getDisplayInfo() {
+        return this.description;
     }
 
 }
