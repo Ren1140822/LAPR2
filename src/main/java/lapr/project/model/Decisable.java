@@ -14,7 +14,7 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public interface Decisable {
+public interface Decisable extends Selectable{
     
     /**
      * Returns true if the decisable is in decision.
