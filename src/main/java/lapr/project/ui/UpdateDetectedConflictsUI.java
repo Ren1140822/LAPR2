@@ -26,7 +26,7 @@ import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.StaffMember;
 import lapr.project.model.Submittable;
 import lapr.project.model.exhibition.ExhibitionDetectedConflictsState;
-import lapr.project.ui.components.ModelListSubmittables;
+import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 
 /**
@@ -171,7 +171,7 @@ public class UpdateDetectedConflictsUI extends JFrame {
 
         this.submittablesJList = new JList();
         this.submittablesJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.submittablesJList.setModel(new ModelListSubmittables(this.submittablesList));
+        this.submittablesJList.setModel(new ModelListSelectable(this.submittablesList));
         DefaultListCellRenderer renderer = (DefaultListCellRenderer) this.submittablesJList.getCellRenderer();
         renderer.setHorizontalAlignment(JLabel.CENTER);
 

@@ -28,7 +28,7 @@ import lapr.project.model.ConflictType;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.User;
-import lapr.project.ui.components.ModelListTypeConflicts;
+import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 
 /**
@@ -143,7 +143,7 @@ public class DefineTypeConflictsUI extends JFrame {
 
         this.typeConflictsJList = new JList();
         this.typeConflictsJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.typeConflictsJList.setModel(new ModelListTypeConflicts(this.typeConflictsList));
+        this.typeConflictsJList.setModel(new ModelListSelectable(this.typeConflictsList));
         DefaultListCellRenderer renderer = (DefaultListCellRenderer) this.typeConflictsJList.getCellRenderer();
         renderer.setHorizontalAlignment(JLabel.CENTER);
 
@@ -245,7 +245,7 @@ public class DefineTypeConflictsUI extends JFrame {
      */
     private void updateTypeConflictsList() {
         this.typeConflictsList = controller.getConflictTypesList();
-        this.typeConflictsJList.setModel(new ModelListTypeConflicts(this.typeConflictsList));
+        this.typeConflictsJList.setModel(new ModelListSelectable(this.typeConflictsList));
     }
 
     /**

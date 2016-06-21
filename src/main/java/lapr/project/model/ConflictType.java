@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ConflictType {
+public class ConflictType implements Selectable{
 
     /**
      * The conflict detection mechanism.
@@ -151,6 +151,11 @@ public class ConflictType {
         ConflictType otherConflictType = (ConflictType) otherObject;
 
         return this.conflictDetectionMechanism.equals(otherConflictType.conflictDetectionMechanism) && this.description.equals(otherConflictType.description);
+    }
+
+    @Override
+    public String getDisplayInfo() {
+        return this.description;
     }
 
 }
