@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Conflict {
+public class Conflict implements Selectable {
 
     /**
      * The type of the conflict.
@@ -180,6 +180,11 @@ public class Conflict {
         Conflict otherConflict = (Conflict) otherObject;
 
         return this.conflictType.equals(otherConflict.conflictType) && this.staffMember.equals(otherConflict.staffMember) && this.application.equals(otherConflict.application);
+    }
+
+    @Override
+    public String getDisplayInfo() {
+        return String.format("Conflict{conflictType=%s;application=%s}", this.conflictType.getDescription(), this.application.getDisplayInfo());
     }
 
 }
