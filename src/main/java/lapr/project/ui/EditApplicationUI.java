@@ -373,7 +373,7 @@ public class EditApplicationUI extends JFrame {
                                 JOptionPane.ERROR_MESSAGE);
                     }
 
-                } else {
+                } else if (productDesignation != null) {
                     JOptionPane.showMessageDialog(EditApplicationUI.this,
                             "The product is invalid.",
                             "Error",
@@ -572,7 +572,14 @@ public class EditApplicationUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 // TODO save changes
-                dispose();
+                try {
+                    dispose();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(EditApplicationUI.this,
+                            String.format("The introduced values are invalid.%nPlease review your data."),
+                            "Invalid Data",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
