@@ -97,6 +97,11 @@ public class EditApplicationUI extends JFrame {
     private JList<Demonstration> demonstrationsJList;
 
     /**
+     * The list of avaliable demonstrations on the selected exhibition.
+     */
+    private List<Demonstration> avaliableDemonstrationsInExhibition;
+
+    /**
      * The remove products button.
      */
     private JButton removeProductsButton;
@@ -151,6 +156,7 @@ public class EditApplicationUI extends JFrame {
             this.productsList = this.editable.getProductsList();
             if (this.editable instanceof ExhibitionApplication) {
                 this.demonstrationsList = ((ExhibitionApplication) this.editable).getDemonstrationsList();
+                this.avaliableDemonstrationsInExhibition = this.controller.getAvailableDemonstrationsInExhibition();
             }
 
             createComponents();
@@ -367,7 +373,7 @@ public class EditApplicationUI extends JFrame {
                                 JOptionPane.ERROR_MESSAGE);
                     }
 
-                } else {
+                } else if (productDesignation != null) {
                     JOptionPane.showMessageDialog(EditApplicationUI.this,
                             "The product is invalid.",
                             "Error",
@@ -475,7 +481,39 @@ public class EditApplicationUI extends JFrame {
         addDemonstrationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                // TODO
+                Demonstration[] choices = new Demonstration[EditApplicationUI.this.avaliableDemonstrationsInExhibition.size()];
+                boolean isChoicesEmpty = true;
+                for (int i = 0; i < choices.length; i++) {
+                    if (!EditApplicationUI.this.demonstrationsList
+                            .contains(EditApplicationUI.this.avaliableDemonstrationsInExhibition.get(i))) {
+                        choices[i] = EditApplicationUI.this.avaliableDemonstrationsInExhibition.get(i);
+                        isChoicesEmpty = false;
+                    }
+                }
+                if (isChoicesEmpty) {
+                    JOptionPane.showMessageDialog(EditApplicationUI.this,
+                            "There is no available demonstrations to add.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } else {
+                    Demonstration demonstration = (Demonstration) JOptionPane.showInputDialog(
+                            EditApplicationUI.this,
+                            "Select an available demonstration to add:",
+                            "Add Demonstration",
+                            JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            choices,
+                            choices[0]);
+
+                    if (demonstration != null) {
+                        EditApplicationUI.this.demonstrationsList.add(demonstration);
+                        EditApplicationUI.this.updateDemonstrationsList();
+                        JOptionPane.showMessageDialog(EditApplicationUI.this,
+                                "The demonstration was successful added!",
+                                "Success",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
             }
         });
 
@@ -534,7 +572,14 @@ public class EditApplicationUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 // TODO save changes
-                dispose();
+                try {
+                    dispose();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(EditApplicationUI.this,
+                            String.format("The introduced values are invalid.%nPlease review your data."),
+                            "Invalid Data",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
