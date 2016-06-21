@@ -135,7 +135,7 @@ public class ExhibitionApplicationUI extends JFrame {
     /**
      * Window size.
      */
-    final Dimension WINDOW_SIZE = new Dimension(1200, 600);
+    final Dimension WINDOW_SIZE = new Dimension(1500, 600);
     /**
      * Field margins.
      */
