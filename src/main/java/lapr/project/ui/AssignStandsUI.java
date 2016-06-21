@@ -90,7 +90,10 @@ public class AssignStandsUI extends JFrame {
         DialogSelectable dialogSelectable = new DialogSelectable(this, submittableList);
 
         this.selectedExhibition = (Exhibition) dialogSelectable.getSelectedItem();
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
         this.applicationsList = assignStandsController.getApplicationsList(selectedExhibition);
         this.standsList = assignStandsController.getStandsList();
         createComponents();
@@ -132,7 +135,10 @@ public class AssignStandsUI extends JFrame {
 
     public JList createJListApplications() {
         JList list = new JList();
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
         list.setModel(new ModelListSelectable(applicationsList));
 
         return list;
