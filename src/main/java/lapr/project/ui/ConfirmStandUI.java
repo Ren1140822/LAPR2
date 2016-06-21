@@ -27,7 +27,7 @@ import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.application.ApplicationAssignedStandState;
 import lapr.project.ui.components.DialogSeeApplication;
-import lapr.project.ui.components.ModelListExhibitionApplications;
+import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 
 /**
@@ -146,7 +146,7 @@ public class ConfirmStandUI extends JFrame {
 
         this.exhibitionApplicationsJList = new JList();
         this.exhibitionApplicationsJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.exhibitionApplicationsJList.setModel(new ModelListExhibitionApplications(this.exhibitionApplicationsList));
+        this.exhibitionApplicationsJList.setModel(new ModelListSelectable(this.exhibitionApplicationsList));
 
         this.exhibitionApplicationsJList.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -229,11 +229,11 @@ public class ConfirmStandUI extends JFrame {
                 if (standDecision == 0) { //Stand accepted
                     ConfirmStandUI.this.controller.setStandDecision(true);
                     ConfirmStandUI.this.controller.confirmStandDecision();
-                    ConfirmStandUI.this.updateStaffAtributionsList();
+                    ConfirmStandUI.this.updateExhibitionApplications();
                 } else if (standDecision == 1) { //Stand declined
                     ConfirmStandUI.this.controller.setStandDecision(false);
                     ConfirmStandUI.this.controller.confirmStandDecision();
-                    ConfirmStandUI.this.updateStaffAtributionsList();
+                    ConfirmStandUI.this.updateExhibitionApplications();
                 }
             }
         });
@@ -262,9 +262,9 @@ public class ConfirmStandUI extends JFrame {
     /**
      * Refresh the staff attributions list.
      */
-    private void updateStaffAtributionsList() {
+    private void updateExhibitionApplications() {
         this.exhibitionApplicationsList = controller.getExhibitionApplicationsByExhibitorResponsible();
-        this.exhibitionApplicationsJList.setModel(new ModelListExhibitionApplications(this.exhibitionApplicationsList));
+        this.exhibitionApplicationsJList.setModel(new ModelListSelectable(this.exhibitionApplicationsList));
     }
 
     /**
@@ -277,7 +277,7 @@ public class ConfirmStandUI extends JFrame {
         ExhibitorResponsible er = ((ExhibitionApplication) ec.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)).getExhibitor().getExhibitorResponsible();
         ((ExhibitionApplication) ec.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList()
                 .get(0)).setState(new ApplicationAssignedStandState(ec.getExhibitionsRegister().getExhibitionsList().get(0)
-                .getApplicationsList().getApplicationsList().get(0)));
+                                .getApplicationsList().getApplicationsList().get(0)));
         new ConfirmStandUI(ec, er);
     }
 }

@@ -32,7 +32,7 @@ import lapr.project.model.timers.DetectConflictsTask;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Demonstration implements Submittable {
+public class Demonstration implements Submittable, Selectable {
 
     /**
      * Unique demoonstration ID.
@@ -531,7 +531,7 @@ public class Demonstration implements Submittable {
      * @return a short representation
      */
     @Override
-    public String getShortInfo() {
+    public String getDisplayInfo() {
         return String.format("Demonstration: %s", this.description);
 
     }
@@ -548,7 +548,7 @@ public class Demonstration implements Submittable {
     @Override
     public String[] getInfo() {
         String[] info = new String[2];
-        info[0] = this.getShortInfo();
+        info[0] = this.getDisplayInfo();
         //TODO info[1] = this.getStartDate().toString();
         info[1] = "por definir";
         //TODO info[2] = this.getEndDate().toString();

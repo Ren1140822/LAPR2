@@ -14,7 +14,7 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public interface Application {
+public interface Application extends Selectable {
 
     /**
      * Gets the evaluations list.
@@ -22,45 +22,45 @@ public interface Application {
      * @return evaluations list
      */
     List<Evaluation> getEvaluationsList();
-    
+
     /**
      * Gets the keywords list.
      *
      * @return keywords list
      */
     List<Keyword> getKeywordsList();
-    
+
     /**
      * Changes the state of the application.
-     * 
+     *
      * @param newState new state to be active
      */
     void setState(ApplicationState newState);
 
     /**
      * Verify if an application is valid.
-     * 
+     *
      * @return true if it is valid, false otherwise
      */
     public boolean validate();
-    
+
     /**
      * Verify if the application is decided state.
-     * 
+     *
      * @return true if accepted
      */
     public boolean isDecided();
-    
+
     /**
      * Verify if the application is accepted.
-     * 
+     *
      * @return true if accepted
      */
     public boolean isDecisionAccepted();
-    
+
     /**
      * Verify if the application is declined.
-     * 
+     *
      * @return true if rejected
      */
     public boolean isDesionDeclined();

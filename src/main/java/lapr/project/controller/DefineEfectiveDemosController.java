@@ -127,7 +127,7 @@ public class DefineEfectiveDemosController {
      */
     public String getInfo() {
 
-        return this.efectiveDemo.getShortInfo();
+        return this.efectiveDemo.getDisplayInfo();
     }
 
     /**

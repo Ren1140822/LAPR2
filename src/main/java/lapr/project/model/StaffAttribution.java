@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class StaffAttribution {
+public class StaffAttribution implements Selectable {
 
     /**
      * The staffAttribution's application.
@@ -141,6 +141,11 @@ public class StaffAttribution {
         StaffAttribution otherStaffAttribution = (StaffAttribution) otherObject;
 
         return this.application.equals(otherStaffAttribution.application) && this.staffMember.equals(otherStaffAttribution.staffMember);
+    }
+
+    @Override
+    public String getDisplayInfo() {
+        return this.application.getTitle();
     }
 
 }

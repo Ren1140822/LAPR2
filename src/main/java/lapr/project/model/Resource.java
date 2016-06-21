@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Resource {
+public class Resource implements Selectable {
 
     /**
      * The Resource's designation.
@@ -102,5 +102,10 @@ public class Resource {
         Resource otherResource = (Resource) otherObject;
 
         return this.designation.equals(otherResource.designation);
+    }
+
+    @Override
+    public String getDisplayInfo() {
+        return this.getDesignation();
     }
 }

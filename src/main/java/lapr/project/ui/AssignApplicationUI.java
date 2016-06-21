@@ -46,8 +46,8 @@ import lapr.project.model.User;
 import lapr.project.model.demonstration.DemonstrationChangedConflictsState;
 import lapr.project.model.exhibition.ExhibitionChangedConflictsState;
 import lapr.project.model.mechanisms.attribution.EquitableLoadMechanism;
-import lapr.project.ui.components.DialogSelectSubmittable;
-import lapr.project.ui.components.ModelListMechanisms;
+import lapr.project.ui.components.DialogSelectable;
+import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.ui.components.ModelTableAttributions;
 
 /**
@@ -127,7 +127,8 @@ public class AssignApplicationUI extends JFrame {
         this.controller = new AssignApplicationController(exhibitionsCenter, organizer);
 
         List<Submittable> listaExposicoes = this.controller.getSubmittablesInChangedConflictsByOrganizer(organizer);
-        new DialogSelectSubmittable(this, listaExposicoes, exhibitionsCenter);
+        DialogSelectable dialogSelectable = new DialogSelectable(this, listaExposicoes);
+        this.submittableSelected = (Submittable) dialogSelectable.getSelectedItem();
         if (this.submittableSelected == null) {
             dispose();
         } else {
@@ -204,7 +205,7 @@ public class AssignApplicationUI extends JFrame {
         jPanelScroll.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
                 "Select the desired mechanism:", TitledBorder.LEFT, TitledBorder.TOP));
 
-        this.jListMechanismsUI = new JList(new ModelListMechanisms(this.staffAttributionMechanismList));
+        this.jListMechanismsUI = new JList(new ModelListSelectable(this.staffAttributionMechanismList));
         this.jListMechanismsUI.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.jListMechanismsUI.addListSelectionListener(new ListSelectionListener() {
 

@@ -29,8 +29,8 @@ import lapr.project.model.OrganizersList;
 import lapr.project.model.User;
 import lapr.project.model.UsersRegister;
 import lapr.project.model.exhibition.ExhibitionOpenApplicationsState;
-import lapr.project.ui.components.DialogSelectExhibition;
-import lapr.project.ui.components.ModelUserList;
+import lapr.project.ui.components.DialogSelectable;
+import lapr.project.ui.components.ModelListSelectable;
 
 /**
  * GUI for DefineStaffMember
@@ -98,9 +98,9 @@ public class DefineStaffMemberUI extends JFrame {
      */
     private JList jListUsers;
     /**
-     * The users model.
+     * The users list.
      */
-    private ModelUserList modelUserList;
+    private List<User> userList;
 
     public DefineStaffMemberUI(ExhibitionCenter exhibitionCenter, Organizer organizer) {
         super(WINDOW_TITLE);
@@ -108,7 +108,9 @@ public class DefineStaffMemberUI extends JFrame {
         this.organizer = organizer;
         this.defineStaffController = new DefineStaffController(this.organizer, this.exhibitionCenter);
         this.exhibitionList = defineStaffController.getExhibitionList(this.organizer);
-        new DialogSelectExhibition<>(this, this.exhibitionList, exhibitionCenter);
+        DialogSelectable dialogSelectable = new DialogSelectable(this, this.exhibitionList);
+        this.selectedExhibition = (Exhibition) dialogSelectable.getSelectedItem();
+
         if (this.selectedExhibition == null) {
             dispose();
         } else {
@@ -132,8 +134,8 @@ public class DefineStaffMemberUI extends JFrame {
         panelScroll.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
                 "Users list", TitledBorder.LEFT, TitledBorder.TOP));
 
-        this.setModelUsersList(new ModelUserList(defineStaffController));
-        this.jListUsers = new JList(modelUserList);
+        this.userList = defineStaffController.getUserList();
+        this.jListUsers = new JList(new ModelListSelectable(this.userList));
         this.jListUsers.addMouseListener(new MouseListener() {
 
             @Override
@@ -141,11 +143,12 @@ public class DefineStaffMemberUI extends JFrame {
                 if (jListUsers.getSelectedValue() != null) {
                     int response = JOptionPane.showConfirmDialog(rootPane, "Do you wish to define this user as Staff member?", "Define Staff member", JOptionPane.YES_NO_OPTION);
                     if (response == JOptionPane.YES_OPTION) {
-                        modelUserList.addRow(jListUsers.getSelectedValue());
+
+
                         response = JOptionPane.showConfirmDialog(rootPane, "User added as Staff Member. Do you wish to confirm?", "Define Staff member", JOptionPane.YES_NO_OPTION);
                         if (response == JOptionPane.YES_OPTION) {
                             JOptionPane.showConfirmDialog(rootPane, defineStaffController.addStaffMember() ? "Operation completed sucessfully." : "An error occured while performing this operation or this user is already a Staff Member.", "Confirm", JOptionPane.PLAIN_MESSAGE);
-
+                            updateStaffList();
                         }
                     }
                 }
@@ -181,15 +184,6 @@ public class DefineStaffMemberUI extends JFrame {
     }
 
     /**
-     * Sets the model user list
-     *
-     * @param modelUserList the model to set
-     */
-    public void setModelUsersList(ModelUserList modelUserList) {
-        this.modelUserList = modelUserList;
-    }
-
-    /**
      * Modifies the selected exhibition
      *
      * @param exhibition the new exhibition to set
@@ -197,6 +191,14 @@ public class DefineStaffMemberUI extends JFrame {
     public void setExhibition(Exhibition exhibition) {
 
         selectedExhibition = exhibition;
+    }
+
+    /**
+     * Refresh the staff list.
+     */
+    private void updateStaffList() {
+        this.userList = defineStaffController.getUserList();
+        this.jListUsers.setModel(new ModelListSelectable(this.userList));
     }
 
     public static void main(String[] args) {

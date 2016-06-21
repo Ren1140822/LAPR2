@@ -22,11 +22,10 @@ import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.Organizer;
 import lapr.project.model.Stand;
 import lapr.project.model.Submittable;
+import lapr.project.ui.components.DialogSelectable;
 import lapr.project.model.application.ApplicationAcceptedState;
 import lapr.project.model.exhibition.ExhibitionDecidedApplicationsState;
-import lapr.project.ui.components.DialogChooseSubmittable;
-import lapr.project.ui.components.ModelListExhibitionApplications;
-import lapr.project.ui.components.ModelListSubmittables;
+import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 
 /**
@@ -87,8 +86,11 @@ public class AssignStandsUI extends JFrame {
     public AssignStandsUI(Organizer organizer, ExhibitionCenter exhibitionCenter) {
         this.assignStandsController = new AssignStandsController(organizer, exhibitionCenter);
         List<Submittable> submittableList = new ArrayList(assignStandsController.getExhibitionsListByOrganizerInApplicationsDecidedState(organizer));
-        DialogChooseSubmittable selectSubmittable = new DialogChooseSubmittable(this, submittableList);
-        this.selectedExhibition = (Exhibition) selectSubmittable.getSelectedSubmitable();
+
+        DialogSelectable dialogSelectable = new DialogSelectable(this, submittableList);
+
+        this.selectedExhibition = (Exhibition) dialogSelectable.getSelectedItem();
+
         this.applicationsList = assignStandsController.getApplicationsList(selectedExhibition);
         this.standsList = assignStandsController.getStandsList();
         createComponents();
@@ -120,26 +122,25 @@ public class AssignStandsUI extends JFrame {
         JList listApplications = createJListApplications();
         JLabel label = new JLabel("Applications List");
         label.setSize(LBL_SIZE);
-        
-        JPanel panel = new JPanel(new BorderLayout(0,3));
-         panel.add(label,BorderLayout.NORTH);
-        panel.add(listApplications,BorderLayout.CENTER);
-       
+
+        JPanel panel = new JPanel(new BorderLayout(0, 3));
+        panel.add(label, BorderLayout.NORTH);
+        panel.add(listApplications, BorderLayout.CENTER);
+
         return panel;
     }
 
     public JList createJListApplications() {
         JList list = new JList();
 
-        list.setPreferredSize(new Dimension(100, 360));
-        list.setModel(new ModelListExhibitionApplications(applicationsList));
+        list.setModel(new ModelListSelectable(applicationsList));
 
         return list;
     }
 
     public JList createJListStands() {
         JList list = new JList();
-        list.setModel(new ModelListSubmittables(new ArrayList(applicationsList)));
+        list.setModel(new ModelListSelectable(new ArrayList(applicationsList)));
 
         return list;
     }

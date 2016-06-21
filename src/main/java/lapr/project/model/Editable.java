@@ -3,6 +3,8 @@
  */
 package lapr.project.model;
 
+import java.util.List;
+
 /**
  * Interface for editable applications.
  *
@@ -43,4 +45,39 @@ public interface Editable {
      * @return copy of the editable
      */
     public Editable cloneToEditable();
+
+    /**
+     * Gets the products lists.
+     *
+     * @return products lists
+     */
+    public List<Product> getProductsList();
+
+    /**
+     * Gets the title of the application.
+     *
+     * @return application title
+     */
+    public String getTitle();
+
+    /**
+     * Gets the invitations number.
+     *
+     * @return invitations number
+     */
+    public int getNumberInvitations();
+
+    /**
+     * Gets the keywords list.
+     *
+     * @return keywords list
+     */
+    public List<Keyword> getKeywordsList();
+
+    /**
+     * Gets the keywords in comma separated value format.
+     * 
+     * @return keywords in comma separated value format
+     */
+    public String getKeywordsCSV();
 }

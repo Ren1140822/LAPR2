@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class User {
+public class User implements Selectable {
 
     /**
      * The user's name.
@@ -44,14 +44,14 @@ public class User {
      */
     // TODO: Implement password encryptation when stored.
     private String password;
-    
+
     /**
      * The user's confirmed register status.
-     * 
-     *  By default this parameter is initialized as false
+     *
+     * By default this parameter is initialized as false
      */
     private boolean confirmedStatus;
-    
+
     /**
      * List of related users.
      */
@@ -190,19 +190,19 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     /**
      * Obtain the user's confirmed status.
-     * 
+     *
      * @return the user's confirmedStatus
      */
     public boolean getConfirmedStatus() {
         return confirmedStatus;
     }
-    
+
     /**
      * Sets the user's confirmed status.
-     * 
+     *
      * @param confirmedStatus the user's confirmed status to set
      */
     public void setConfirmedStatus(boolean confirmedStatus) {
@@ -211,7 +211,7 @@ public class User {
 
     /**
      * Obtain the related users list.
-     * 
+     *
      * @return the related users list
      */
     public List<User> getRelatedUsers() {
@@ -220,7 +220,7 @@ public class User {
 
     /**
      * Set the related users list.
-     * 
+     *
      * @param relatedUsers the related users list to set
      */
     public void setRelatedUsers(List<User> relatedUsers) {
@@ -233,9 +233,9 @@ public class User {
      * @return true if the user is valid, false otherwise
      */
     public boolean validate() {
-        return !this.username.isEmpty() 
-                && this.username.length() > 3 
-                && !this.email.isEmpty() 
+        return !this.username.isEmpty()
+                && this.username.length() > 3
+                && !this.email.isEmpty()
                 && this.email.length() > 5;
     }
 
@@ -266,6 +266,11 @@ public class User {
         User otherUser = (User) otherObject;
 
         return this.username.equals(otherUser.username) || this.email.equals(otherUser.email);
+    }
+
+    @Override
+    public String getDisplayInfo() {
+        return String.format("%s (%s)", this.getName(), this.getUsername());
     }
 
 }

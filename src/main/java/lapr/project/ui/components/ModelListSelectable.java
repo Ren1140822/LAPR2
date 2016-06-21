@@ -5,7 +5,7 @@ package lapr.project.ui.components;
 
 import java.util.List;
 import javax.swing.AbstractListModel;
-import lapr.project.model.Submittable;
+import lapr.project.model.Selectable;
 
 /**
  * Model list for submittables.
@@ -16,29 +16,29 @@ import lapr.project.model.Submittable;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ModelListSubmittables extends AbstractListModel {
+public class ModelListSelectable extends AbstractListModel {
 
     /**
-     * The submittables list;
+     * The selectables list;
      */
-    private final List<Submittable> submittablesList;
+    private final List<? extends Selectable> selectablesList;
 
     /**
-     * Constructs a model list for submittables.
+     * Constructs a model list for selectables.
      *
-     * @param submittablesList submittables list
+     * @param selectablesList submittables list
      */
-    public ModelListSubmittables(List<Submittable> submittablesList) {
-        this.submittablesList = submittablesList;
+    public ModelListSelectable(List<? extends Selectable> selectablesList) {
+        this.selectablesList = selectablesList;
     }
 
     @Override
     public int getSize() {
-        return this.submittablesList.size();
+        return this.selectablesList.size();
     }
 
     @Override
     public Object getElementAt(int i) {
-        return this.submittablesList.get(i).getShortInfo();
+        return this.selectablesList.get(i).getDisplayInfo();
     }
 }
