@@ -80,7 +80,7 @@ public class DefineResourceUI extends JFrame {
     final static EmptyBorder PADDING_BORDER = new EmptyBorder(10, 10, 10, 10);
 
     /**
-     * Creates an instance of defin resources user interface.
+     * Creates an instance of define resources user interface.
      *
      * @param exhibitionCenter the exhibition center
      */

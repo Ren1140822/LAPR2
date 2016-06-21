@@ -3,6 +3,7 @@
  */
 package lapr.project.controller;
 
+import java.util.List;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.Stand;
 import lapr.project.model.StandsRegister;
@@ -40,6 +41,15 @@ public class DefineStandController {
      */
     public DefineStandController(ExhibitionCenter exhibitionCenter) {
         this.exhibitionCenter = exhibitionCenter;
+    }
+    
+    /**
+     * Gets the stand list.
+     * 
+     * @return stand list
+     */
+    public List<Stand> getStands() {
+        return this.standsRegister.getStandsList();
     }
     
     /**
