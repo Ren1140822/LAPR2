@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -27,7 +28,7 @@ import lapr.project.model.ConflictType;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.User;
-import lapr.project.ui.components.ModelListTypeConflicts;
+import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 
 /**
@@ -57,17 +58,17 @@ public class DefineTypeConflictsUI extends JFrame {
     private final ExhibitionsManager exhibitionsManager;
 
     /**
-     * The resources list.
+     * The conflict types list.
      */
     private List<ConflictType> typeConflictsList;
 
     /**
-     * Resources JList.
+     * The conflict types JList.
      */
     private JList typeConflictsJList;
 
     /**
-     * Remove resource button.
+     * Remove conflict types button.
      */
     private JButton removeTypeConflictButton;
 
@@ -142,7 +143,7 @@ public class DefineTypeConflictsUI extends JFrame {
 
         this.typeConflictsJList = new JList();
         this.typeConflictsJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.typeConflictsJList.setModel(new ModelListTypeConflicts(this.typeConflictsList));
+        this.typeConflictsJList.setModel(new ModelListSelectable(this.typeConflictsList));
         DefaultListCellRenderer renderer = (DefaultListCellRenderer) this.typeConflictsJList.getCellRenderer();
         renderer.setHorizontalAlignment(JLabel.CENTER);
 
@@ -186,23 +187,24 @@ public class DefineTypeConflictsUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-//                String typeConflict = JOptionPane.showInputDialog(DefineTypeConflictsUI.this,
-//                        "Insert the TypeConflict designation:",
-//                        "Add TypeConflict",
-//                        JOptionPane.QUESTION_MESSAGE);
-//
-//                if (DefineTypeConflictsUI.this.controller.newConflictType(typeConflict) != null && typeConflict != null) {
-//
-//                    DefineTypeConflictsUI.this.controller.registerTypeConflict();
-//                    DefineTypeConflictsUI.this.updateTypeConflictsList();
-//
-//                } else if (typeConflict != null) {
-//
-//                    JOptionPane.showMessageDialog(DefineTypeConflictsUI.this,
-//                            "The type conflict is invalid or already exists.",
-//                            "Error",
-//                            JOptionPane.ERROR_MESSAGE);
-//                }
+                controller.newConflictType();
+                
+                String typeConflict = JOptionPane.showInputDialog(DefineTypeConflictsUI.this,
+                        "Insert the TypeConflict designation:",
+                        "Add TypeConflict",
+                        JOptionPane.QUESTION_MESSAGE);
+                
+                controller.setDataConflictType(typeConflict);
+
+                if (controller.registerTypeConflict()) {
+                    DefineTypeConflictsUI.this.updateTypeConflictsList();
+                } else if (typeConflict != null) {
+
+                    JOptionPane.showMessageDialog(DefineTypeConflictsUI.this,
+                            "The type conflict is invalid or already exists.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -243,7 +245,7 @@ public class DefineTypeConflictsUI extends JFrame {
      */
     private void updateTypeConflictsList() {
         this.typeConflictsList = controller.getConflictTypesList();
-        this.typeConflictsJList.setModel(new ModelListTypeConflicts(this.typeConflictsList));
+        this.typeConflictsJList.setModel(new ModelListSelectable(this.typeConflictsList));
     }
 
     /**

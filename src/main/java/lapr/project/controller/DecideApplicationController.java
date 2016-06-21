@@ -127,8 +127,11 @@ public class DecideApplicationController {
         return this.decisable.validateDecision();
     }
 
-    public void registerDecision() {
-        this.decisable.setDecided();
+    public boolean registerDecision() {
+        if(validateDecision()){
+        return this.decisable.setDecided();
+        }
+        return false;
     }
 
 }

@@ -108,14 +108,18 @@ public class AssignStandsUI extends JFrame {
      */
     ModelListSelectable modelSelectableStands;
 
+    
+    /**
+     * Builds instance of this class receiving organizer and exhibition center as parameters.
+     * @param organizer the organizer
+     * @param exhibitionCenter  the exhibition center
+     */
     public AssignStandsUI(Organizer organizer, ExhibitionCenter exhibitionCenter) {
         this.assignStandsController = new AssignStandsController(organizer, exhibitionCenter);
         List<Submittable> submittableList = new ArrayList(assignStandsController.getExhibitionsListByOrganizerInApplicationsDecidedState(organizer));
         setTitle("Assign Stands");
         DialogSelectable dialogSelectable = new DialogSelectable(this, submittableList);
-
         this.selectedExhibition = (Exhibition) dialogSelectable.getSelectedItem();
-
         this.applicationsList = assignStandsController.getApplicationsList(selectedExhibition);
         this.standsList = assignStandsController.getStandsList();
         createComponents();
@@ -126,6 +130,9 @@ public class AssignStandsUI extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Creates the jframe components.
+     */
     public void createComponents() {
         JPanel panel = createPanelLists();
         this.setLayout(new BorderLayout(0, 2));
@@ -134,54 +141,58 @@ public class AssignStandsUI extends JFrame {
          add(panelButton,BorderLayout.SOUTH);
     }
 
+    /**
+     * Creates the jPanel's lists.
+     * @return  the jPanel that has the lists
+     */
     public JPanel createPanelLists() {
 
         JPanel panel = new JPanel(new FlowLayout());
         JPanel panelApplications = createJPanelApplications();
         JPanel panelStands = createJPanelStands();
-       
-      
         panel.add(panelApplications);
         panel.add(panelStands);
-        //JList listStands = createJListStands();
-        //panel.add(listCandidaturas);
-        //panel.add(listStands);
         return panel;
     }
 
+    /**
+     * Creates the jpanel of applications.
+     * @return the jpanel of applications
+     */
     public JPanel createJPanelApplications() {
         listApplications = createJListApplications();
-
         JPanel panel = new JPanel(new BorderLayout(0, 3));
-
         panel.add(listApplications, BorderLayout.CENTER);
         panel.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
                 "Applications List:", TitledBorder.LEFT, TitledBorder.TOP));
         JScrollPane scrollPane = new JScrollPane(listApplications);
         scrollPane.setBorder(PADDING_BORDER);
-      
-        
         panel.setMinimumSize(SCROLL_SIZE);
         panel.add(scrollPane);
         return panel;
     }
 
+    /**
+     * Creates the Jpanel of stands.
+     * @return The jpanel of stands
+     */
     public JPanel createJPanelStands() {
         listStands = createJListStands();
-
         JPanel panel = new JPanel(new BorderLayout(0, 3));
-
         panel.add(listStands, BorderLayout.CENTER);
         panel.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
                 "Stands list:", TitledBorder.LEFT, TitledBorder.TOP));
         JScrollPane scrollPane = new JScrollPane(listStands);
         scrollPane.setBorder(PADDING_BORDER);
-
         panel.setMinimumSize(SCROLL_SIZE);
         panel.add(scrollPane);
         return panel;
     }
-
+    
+/**
+ * Creates the buttons panel.
+ * @return  the buttons panel
+ */
     public JPanel createButtonPanel(){
         JPanel panel  = new JPanel(new FlowLayout());
         JButton button = createConfirmJButton();
@@ -189,6 +200,10 @@ public class AssignStandsUI extends JFrame {
          return panel;
     }
     
+    /**
+     * Creates the JList of applications.
+     * @return the jlist of applications
+     */
     public JList createJListApplications() {
         JList list = new JList();
         list.setPreferredSize(new Dimension(100, 370));
@@ -197,6 +212,10 @@ public class AssignStandsUI extends JFrame {
         return list;
     }
 
+    /**
+     * Creates the jlist of stands.
+     * @return the jlist of stands
+     */
     public JList createJListStands() {
         JList list = new JList();
         list.setPreferredSize(new Dimension(200, 370));
@@ -205,6 +224,10 @@ public class AssignStandsUI extends JFrame {
         return list;
     }
 
+    /**
+     * Creates the confirm button.
+     * @return the confirm button
+     */
     public JButton createConfirmJButton() {
         JButton button = new JButton("Pair selected application and stand");
         button.setPreferredSize(new Dimension(250, 40));
@@ -216,10 +239,12 @@ public class AssignStandsUI extends JFrame {
                 if(listApplications.getSelectedValue()!=null&&listStands.getSelectedValue()!=null){
                 if (result == JOptionPane.YES_OPTION) {
                      JOptionPane.showMessageDialog(rootPane,assignStandsController.setStand((ExhibitionApplication)modelSelectable.getObject(listApplications.getSelectedIndex()), (Stand)modelSelectableStands.getObject(listStands.getSelectedIndex()))? "Operation performed sucessfully!":"Error performing the desired operation", "Stand assignment", JOptionPane.PLAIN_MESSAGE);
-                     modelSelectable.clear();
                       applicationsList = assignStandsController.getApplicationsList(selectedExhibition);
                       modelSelectable = new ModelListSelectable(applicationsList);
-                      listApplications.repaint();
+                      listApplications.setModel(modelSelectable);
+                      standsList.remove(listStands.getSelectedIndex());
+                      modelSelectableStands=new ModelListSelectable(standsList);
+                      listStands.setModel(modelSelectableStands);
                 }
             }
                 else{
