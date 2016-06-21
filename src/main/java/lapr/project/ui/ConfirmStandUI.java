@@ -229,11 +229,11 @@ public class ConfirmStandUI extends JFrame {
                 if (standDecision == 0) { //Stand accepted
                     ConfirmStandUI.this.controller.setStandDecision(true);
                     ConfirmStandUI.this.controller.confirmStandDecision();
-                    ConfirmStandUI.this.updateStaffAtributionsList();
+                    ConfirmStandUI.this.updateExhibitionApplications();
                 } else if (standDecision == 1) { //Stand declined
                     ConfirmStandUI.this.controller.setStandDecision(false);
                     ConfirmStandUI.this.controller.confirmStandDecision();
-                    ConfirmStandUI.this.updateStaffAtributionsList();
+                    ConfirmStandUI.this.updateExhibitionApplications();
                 }
             }
         });
@@ -262,7 +262,7 @@ public class ConfirmStandUI extends JFrame {
     /**
      * Refresh the staff attributions list.
      */
-    private void updateStaffAtributionsList() {
+    private void updateExhibitionApplications() {
         this.exhibitionApplicationsList = controller.getExhibitionApplicationsByExhibitorResponsible();
         this.exhibitionApplicationsJList.setModel(new ModelListSelectable(this.exhibitionApplicationsList));
     }

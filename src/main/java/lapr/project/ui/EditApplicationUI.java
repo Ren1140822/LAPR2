@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -345,7 +346,33 @@ public class EditApplicationUI extends JFrame {
         addProductsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                // TODO
+                String productDesignation = JOptionPane.showInputDialog(EditApplicationUI.this,
+                        "Insert the product designation:",
+                        "Add Product",
+                        JOptionPane.QUESTION_MESSAGE);
+
+                if (productDesignation != null && productDesignation.length() > 1) {
+                    Product product = new Product(productDesignation);
+                    if (!EditApplicationUI.this.productsList.contains(product)) {
+                        EditApplicationUI.this.productsList.add(product);
+                        JOptionPane.showMessageDialog(EditApplicationUI.this,
+                                "The product was successful insert!",
+                                "Success",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        EditApplicationUI.this.updateProductsList();
+                    } else {
+                        JOptionPane.showMessageDialog(EditApplicationUI.this,
+                                "The product already exists.",
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(EditApplicationUI.this,
+                            "The product is invalid.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -364,7 +391,15 @@ public class EditApplicationUI extends JFrame {
         this.removeProductsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                // TODO
+                Product product = EditApplicationUI.this.productsList
+                        .get(EditApplicationUI.this.productsJList.getSelectedIndex());
+                EditApplicationUI.this.productsList.remove(product);
+                EditApplicationUI.this.updateProductsList();
+                JOptionPane.showMessageDialog(EditApplicationUI.this,
+                        "The product was successful removed!",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+
             }
         });
 
@@ -518,6 +553,13 @@ public class EditApplicationUI extends JFrame {
     }
 
     /**
+     * Refresh the resources list.
+     */
+    private void updateProductsList() {
+        this.productsJList.setModel(new ModelListSelectable(this.productsList));
+    }
+
+    /**
      * Starting method for testing purposes.
      *
      * @param args command line arguments.
@@ -527,7 +569,7 @@ public class EditApplicationUI extends JFrame {
         ExhibitorResponsible er = ((ExhibitionApplication) ec.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)).getExhibitor().getExhibitorResponsible();
         ((ExhibitionApplication) ec.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList()
                 .get(0)).setState(new ApplicationInSubmissionState(ec.getExhibitionsRegister().getExhibitionsList().get(0)
-                                .getApplicationsList().getApplicationsList().get(0)));
+                .getApplicationsList().getApplicationsList().get(0)));
         new EditApplicationUI(ec, er);
     }
 
