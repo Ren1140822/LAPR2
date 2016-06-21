@@ -6,9 +6,11 @@ package lapr.project.ui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -63,7 +65,7 @@ public class AssignStandsUI extends JFrame {
     /**
      * Window size.
      */
-    final Dimension WINDOW_SIZE = new Dimension(1200, 600);
+    final Dimension WINDOW_SIZE = new Dimension(800, 450);
     /**
      * Field margins.
      */
@@ -84,33 +86,52 @@ public class AssignStandsUI extends JFrame {
 
     public AssignStandsUI(Organizer organizer, ExhibitionCenter exhibitionCenter) {
         this.assignStandsController = new AssignStandsController(organizer, exhibitionCenter);
-        this.setSize(WINDOW_SIZE);
         List<Submittable> submittableList = new ArrayList(assignStandsController.getExhibitionsListByOrganizerInApplicationsDecidedState(organizer));
         DialogChooseSubmittable selectSubmittable = new DialogChooseSubmittable(this, submittableList);
         this.selectedExhibition = (Exhibition) selectSubmittable.getSelectedSubmitable();
-        this.applicationsList =assignStandsController.getApplicationsList(selectedExhibition);
+        this.applicationsList = assignStandsController.getApplicationsList(selectedExhibition);
         this.standsList = assignStandsController.getStandsList();
         createComponents();
-        this.setVisible(true);
+        pack();
+        setSize(WINDOW_SIZE);
+        setMinimumSize(new Dimension(getWidth(), getHeight()));
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     public void createComponents() {
         JPanel panel = createPanelLists();
+        this.setLayout(new BorderLayout(0, 2));
         add(panel, BorderLayout.CENTER);
     }
 
     public JPanel createPanelLists() {
 
         JPanel panel = new JPanel(new FlowLayout());
-        JList listCandidaturas = createJListCandidaturas();
+        JPanel panelApplications = createJPanelApplications();
+        panel.add(panelApplications);
         //JList listStands = createJListStands();
-        panel.add(listCandidaturas);
+        //panel.add(listCandidaturas);
         //panel.add(listStands);
         return panel;
     }
 
-    public JList createJListCandidaturas() {
+    public JPanel createJPanelApplications() {
+        JList listApplications = createJListApplications();
+        JLabel label = new JLabel("Applications List");
+        label.setSize(LBL_SIZE);
+        
+        JPanel panel = new JPanel(new BorderLayout(0,3));
+         panel.add(label,BorderLayout.NORTH);
+        panel.add(listApplications,BorderLayout.CENTER);
+       
+        return panel;
+    }
+
+    public JList createJListApplications() {
         JList list = new JList();
+
+        list.setPreferredSize(new Dimension(100, 360));
         list.setModel(new ModelListExhibitionApplications(applicationsList));
 
         return list;
