@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -57,17 +58,17 @@ public class DefineTypeConflictsUI extends JFrame {
     private final ExhibitionsManager exhibitionsManager;
 
     /**
-     * The resources list.
+     * The conflict types list.
      */
     private List<ConflictType> typeConflictsList;
 
     /**
-     * Resources JList.
+     * The conflict types JList.
      */
     private JList typeConflictsJList;
 
     /**
-     * Remove resource button.
+     * Remove conflict types button.
      */
     private JButton removeTypeConflictButton;
 
@@ -186,23 +187,24 @@ public class DefineTypeConflictsUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-//                String typeConflict = JOptionPane.showInputDialog(DefineTypeConflictsUI.this,
-//                        "Insert the TypeConflict designation:",
-//                        "Add TypeConflict",
-//                        JOptionPane.QUESTION_MESSAGE);
-//
-//                if (DefineTypeConflictsUI.this.controller.newConflictType(typeConflict) != null && typeConflict != null) {
-//
-//                    DefineTypeConflictsUI.this.controller.registerTypeConflict();
-//                    DefineTypeConflictsUI.this.updateTypeConflictsList();
-//
-//                } else if (typeConflict != null) {
-//
-//                    JOptionPane.showMessageDialog(DefineTypeConflictsUI.this,
-//                            "The type conflict is invalid or already exists.",
-//                            "Error",
-//                            JOptionPane.ERROR_MESSAGE);
-//                }
+                controller.newConflictType();
+                
+                String typeConflict = JOptionPane.showInputDialog(DefineTypeConflictsUI.this,
+                        "Insert the TypeConflict designation:",
+                        "Add TypeConflict",
+                        JOptionPane.QUESTION_MESSAGE);
+                
+                controller.setDataConflictType(typeConflict);
+
+                if (controller.registerTypeConflict()) {
+                    DefineTypeConflictsUI.this.updateTypeConflictsList();
+                } else if (typeConflict != null) {
+
+                    JOptionPane.showMessageDialog(DefineTypeConflictsUI.this,
+                            "The type conflict is invalid or already exists.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
