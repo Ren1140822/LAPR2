@@ -14,7 +14,7 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public interface Submittable {
+public interface Submittable extends Selectable {
 
     /**
      * Returns the staff attributions list.
@@ -49,7 +49,7 @@ public interface Submittable {
      *
      * @return a short representation
      */
-    String getShortInfo();
+    String getDisplayInfo();
 
     String[] getInfo();
 

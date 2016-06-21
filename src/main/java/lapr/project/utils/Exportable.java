@@ -1,6 +1,9 @@
 package lapr.project.utils;
 
 //import org.w3c.dom.Node;
+
+import lapr.project.model.Selectable;
+
 //import javax.xml.transform.TransformerException;
 /**
  * Interface that allows object's content to be exported.
@@ -15,7 +18,7 @@ package lapr.project.utils;
  * @author Ricardo Correia 1151231
  */
 //@FunctionalInterface
-public interface Exportable {
+public interface Exportable extends Selectable {
 
     /**
      * Get some part of exportable information

@@ -448,6 +448,24 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
         return this.currentState.isAccepted() || this.currentState.isDeclined();
     }
 
+    @Override
+    public String getKeywordsCSV() {
+        StringBuilder s = new StringBuilder();
+
+        boolean isFirst = true;
+
+        for (Keyword keyword : this.keywordsList) {
+            if (isFirst) {
+                s.append(keyword.getDescription());
+                isFirst = false;
+            } else {
+                s.append("," + keyword.getDescription());
+            }
+        }
+
+        return s.toString();
+    }
+
     /**
      * Returns the textual interpretation of the objects and attributes of this
      * class
@@ -492,6 +510,11 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
                 && this.evaluationsList.equals(otherDemonstrationApplication.evaluationsList)
                 && this.productsList.equals(otherDemonstrationApplication.productsList) && this.exhibitorArea == otherDemonstrationApplication.exhibitorArea
                 && this.numberInvitations == otherDemonstrationApplication.numberInvitations;
+    }
+
+    @Override
+    public String getDisplayInfo() {
+        return this.getTitle();
     }
 
 }

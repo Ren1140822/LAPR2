@@ -66,12 +66,12 @@ public class EquitableLoadMechanism implements StaffAttributionMechanism {
     }
 
     /**
-     * Returns Mechanism's description
+     * Get the Mechanism's description
      *
-     * @return
+     * @return the Mechanism's description
      */
     @Override
-    public String getDescription() {
+    public String getDisplayInfo() {
         return MECHANISM_DESCRIPTION;
     }
 

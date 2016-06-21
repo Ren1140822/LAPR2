@@ -9,12 +9,12 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -36,9 +36,8 @@ import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.Product;
 import lapr.project.model.Submittable;
 import lapr.project.model.application.ApplicationInSubmissionState;
-import lapr.project.ui.components.DialogChooseSubmittable;
-import lapr.project.ui.components.ModelListDemonstrations;
-import lapr.project.ui.components.ModelListProducts;
+import lapr.project.ui.components.DialogSelectable;
+import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 
 /**
@@ -138,8 +137,8 @@ public class EditApplicationUI extends JFrame {
         this.submittablesList = this.controller.getSubmittablesByExhibitorResponsible();
 
         final String chooseSubmittableText = "Which exhibition/demonstration you wish to edit the application?";
-        DialogChooseSubmittable dialogChooseSubmittable = new DialogChooseSubmittable(this, this.submittablesList, chooseSubmittableText);
-        Submittable selectedSubmittable = dialogChooseSubmittable.getSelectedSubmitable();
+        DialogSelectable dialogSelectable = new DialogSelectable(this, this.submittablesList, chooseSubmittableText);
+        Submittable selectedSubmittable = (Submittable) dialogSelectable.getSelectedItem();
 
         if (selectedSubmittable == null) {
             // TODO voltar à janela anterior.
@@ -149,8 +148,10 @@ public class EditApplicationUI extends JFrame {
             this.controller.setSubmittable(selectedSubmittable);
             this.editable = this.controller.cloneEditable();
 
-            this.productsList = new ArrayList<>();
-            this.demonstrationsList = new ArrayList<>();
+            this.productsList = this.editable.getProductsList();
+            if (this.editable instanceof ExhibitionApplication) {
+                this.demonstrationsList = ((ExhibitionApplication) this.editable).getDemonstrationsList();
+            }
 
             createComponents();
 
@@ -200,20 +201,20 @@ public class EditApplicationUI extends JFrame {
         final int NUMBER_COLS = 10;
 
         JLabel titleLabel = new JLabel("Title:");
-        JTextField titleTextField = new JTextField(TEXT_COLS);
+        JTextField titleTextField = new JTextField(this.editable.getTitle(), TEXT_COLS);
         titleLabel.setLabelFor(titleTextField);
         fieldsPanel.add(titleLabel);
         fieldsPanel.add(titleTextField);;
 
         JLabel invitationsNumberLabel = new JLabel("Number of Invitations:");
-        JTextField invitationsNumberTextField = new JTextField(NUMBER_COLS);
+        JTextField invitationsNumberTextField = new JTextField(Integer.toString(this.editable.getNumberInvitations()), NUMBER_COLS);
         invitationsNumberLabel.setLabelFor(invitationsNumberTextField);
         fieldsPanel.add(invitationsNumberLabel);
         fieldsPanel.add(invitationsNumberTextField);
 
         if (this.editable instanceof ExhibitionApplication) {
             JLabel exhibitorAreaLabel = new JLabel("Exhibitor Area:");
-            JTextField exhibitorAreaTextField = new JTextField(NUMBER_COLS);
+            JTextField exhibitorAreaTextField = new JTextField(Float.toString(((ExhibitionApplication) this.editable).getExhibitorArea()), NUMBER_COLS);
             exhibitorAreaLabel.setLabelFor(exhibitorAreaTextField);
             fieldsPanel.add(exhibitorAreaLabel);
             fieldsPanel.add(exhibitorAreaTextField);
@@ -230,8 +231,10 @@ public class EditApplicationUI extends JFrame {
     private JPanel createKeywordsPanel() {
         JPanel keywordsPanel = new JPanel(new BorderLayout(0, 10));
 
+        String keywords = this.editable.getKeywordsCSV();
+
         JLabel keywordsLabel = new JLabel("Keywords (comma separated):", SwingConstants.CENTER);
-        JTextArea keywordsTextArea = new JTextArea(3, 10);
+        JTextArea keywordsTextArea = new JTextArea(keywords, 3, 10);
         keywordsLabel.setLabelFor(keywordsTextArea);
 
         keywordsPanel.add(keywordsLabel, BorderLayout.NORTH);
@@ -303,12 +306,12 @@ public class EditApplicationUI extends JFrame {
 
         this.productsJList = new JList();
         this.productsJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.productsJList.setModel(new ModelListProducts(this.productsList));
+        this.productsJList.setModel(new ModelListSelectable(this.productsList));
 
         this.productsJList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent lse) {
-                // TODO
+                EditApplicationUI.this.removeProductsButton.setEnabled(!EditApplicationUI.this.productsJList.isSelectionEmpty());
             }
         });
 
@@ -343,7 +346,33 @@ public class EditApplicationUI extends JFrame {
         addProductsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                // TODO
+                String productDesignation = JOptionPane.showInputDialog(EditApplicationUI.this,
+                        "Insert the product designation:",
+                        "Add Product",
+                        JOptionPane.QUESTION_MESSAGE);
+
+                if (productDesignation != null && productDesignation.length() > 1) {
+                    Product product = new Product(productDesignation);
+                    if (!EditApplicationUI.this.productsList.contains(product)) {
+                        EditApplicationUI.this.productsList.add(product);
+                        JOptionPane.showMessageDialog(EditApplicationUI.this,
+                                "The product was successful insert!",
+                                "Success",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        EditApplicationUI.this.updateProductsList();
+                    } else {
+                        JOptionPane.showMessageDialog(EditApplicationUI.this,
+                                "The product already exists.",
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(EditApplicationUI.this,
+                            "The product is invalid.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -362,7 +391,15 @@ public class EditApplicationUI extends JFrame {
         this.removeProductsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                // TODO
+                Product product = EditApplicationUI.this.productsList
+                        .get(EditApplicationUI.this.productsJList.getSelectedIndex());
+                EditApplicationUI.this.productsList.remove(product);
+                EditApplicationUI.this.updateProductsList();
+                JOptionPane.showMessageDialog(EditApplicationUI.this,
+                        "The product was successful removed!",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+
             }
         });
 
@@ -398,12 +435,12 @@ public class EditApplicationUI extends JFrame {
 
         this.demonstrationsJList = new JList();
         this.demonstrationsJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.demonstrationsJList.setModel(new ModelListDemonstrations(this.demonstrationsList));
+        this.demonstrationsJList.setModel(new ModelListSelectable(this.demonstrationsList));
 
         this.demonstrationsJList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent lse) {
-                // TODO
+                EditApplicationUI.this.removeDemonstrationsButton.setEnabled(!EditApplicationUI.this.demonstrationsJList.isSelectionEmpty());
             }
         });
 
@@ -513,6 +550,13 @@ public class EditApplicationUI extends JFrame {
         });
 
         return cancelButton;
+    }
+
+    /**
+     * Refresh the resources list.
+     */
+    private void updateProductsList() {
+        this.productsJList.setModel(new ModelListSelectable(this.productsList));
     }
 
     /**

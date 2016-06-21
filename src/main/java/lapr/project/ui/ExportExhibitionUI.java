@@ -21,7 +21,7 @@ import javax.swing.border.EmptyBorder;
 import lapr.project.controller.ExportExhibitionController;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.Organizer;
-import lapr.project.ui.components.ModelListExportables;
+import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 import lapr.project.utils.Exportable;
 
@@ -130,7 +130,7 @@ public class ExportExhibitionUI extends JFrame {
 
         this.exportablesJList = new JList();
         this.exportablesJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.exportablesJList.setModel(new ModelListExportables(this.exportablesList));
+        this.exportablesJList.setModel(new ModelListSelectable(this.exportablesList));
 
         this.exportablesJList.addMouseListener(new MouseListener() {
 

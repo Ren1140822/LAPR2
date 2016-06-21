@@ -875,7 +875,7 @@ public class Exhibition implements Submittable, Exportable {
     }
 
     @Override
-    public String getShortInfo() {
+    public String getDisplayInfo() {
         return String.format("Exhibition: %s (%s)", this.title, this.startDate);
     }
 

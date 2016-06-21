@@ -300,8 +300,12 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param stand the stand to set
      */
-    public void setStand(Stand stand) {
+    public boolean setStand(Stand stand) {
+        if(stand.validate()){
         this.stand = stand;
+        return true;
+        }
+        return false;
     }
 
     /**
@@ -632,6 +636,25 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     public boolean isDecided() {
         return this.currentState.isAccepted() || this.currentState.isDeclined();
     }
+    
+    @Override
+    public String getKeywordsCSV(){
+        StringBuilder s = new StringBuilder();
+        
+        boolean isFirst = true;
+        
+        for (Keyword keyword : this.keywordsList) {
+            if (isFirst) {
+                s.append(keyword.getDescription());
+                isFirst = false;
+            }
+            else{
+                s.append("," + keyword.getDescription());
+            }
+        }
+        
+        return s.toString();
+    }
 
     /**
      * Equals method to verify if two objects are equal.
@@ -686,5 +709,10 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         }
         s.append("}");
         return s.toString();
+    }
+
+    @Override
+    public String getDisplayInfo() {
+        return this.getTitle();
     }
 }

@@ -5,7 +5,6 @@ package lapr.project.ui;
 
 import lapr.project.ui.components.NewProductDialog;
 import lapr.project.ui.components.ModelTableDemonstrationsList;
-import lapr.project.ui.components.ModelProductList;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -38,10 +37,11 @@ import lapr.project.model.DemonstrationsList;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
-import lapr.project.model.Submittable;
+import lapr.project.model.Keyword;
+import lapr.project.model.Product;
 import lapr.project.model.exhibition.ExhibitionOpenApplicationsState;
-import lapr.project.ui.components.DialogChooseSubmittable;
-import lapr.project.ui.components.ModelKeywordsList;
+import lapr.project.ui.components.DialogSelectable;
+import lapr.project.ui.components.ModelListSelectable;
 
 /**
  * GUI for exhibition applications
@@ -76,13 +76,13 @@ public class ExhibitionApplicationUI extends JFrame {
     private final ExhibitionCenter exhibitionCenter;
 
     /**
-     * Model for the product list.
+     * the product list.
      */
-    private ModelProductList modelProductsList;
+    private List<Product> productsList;
     /**
-     * Model for the keywords list
+     * the keywords list
      */
-    private ModelKeywordsList modelKeyWordList;
+    private List<Keyword> keywordList;
     /**
      * JList to insert products.
      */
@@ -135,7 +135,7 @@ public class ExhibitionApplicationUI extends JFrame {
     /**
      * Window size.
      */
-    final Dimension WINDOW_SIZE = new Dimension(1200, 600);
+    final Dimension WINDOW_SIZE = new Dimension(1500, 600);
     /**
      * Field margins.
      */
@@ -166,8 +166,8 @@ public class ExhibitionApplicationUI extends JFrame {
         this.exhibitionApplicationController = new ExhibitionApplicationController(exhibitionCenter);
         this.exhibitionList = exhibitionApplicationController.getExhibitionList();
 
-        DialogChooseSubmittable submittable = new DialogChooseSubmittable(this, new ArrayList<Submittable>(this.exhibitionList));
-        this.selectedExhibition = (Exhibition) submittable.getSelectedSubmitable();
+        DialogSelectable dialogSelectable = new DialogSelectable(this, this.exhibitionList);
+        this.selectedExhibition = (Exhibition) dialogSelectable.getSelectedItem();
         if (this.selectedExhibition == null) {
             dispose();
         } else {
@@ -349,8 +349,8 @@ public class ExhibitionApplicationUI extends JFrame {
         panelScroll.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
                 "Products List: ", TitledBorder.LEFT, TitledBorder.TOP));
 
-        this.setModelProductsList(new ModelProductList(this.exhibitionApplicationController.getProductsList()));
-        this.jListProduct = new JList(modelProductsList);
+        this.productsList = this.exhibitionApplicationController.getProductsList();
+        this.jListProduct = new JList(new ModelListSelectable(this.productsList));
         this.jListProduct.addListSelectionListener(new ListSelectionListener() {
 
             @Override
@@ -381,8 +381,8 @@ public class ExhibitionApplicationUI extends JFrame {
         panelScroll.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
                 "Keywords List ", TitledBorder.LEFT, TitledBorder.TOP));
 
-        this.setModelKeywordsList(new ModelKeywordsList(exhibitionApplicationController));
-        this.jListKeyword = new JList(modelKeyWordList);
+        this.keywordList = exhibitionApplicationController.getKeyWordList();
+        this.jListKeyword = new JList(new ModelListSelectable(keywordList));
         this.jListKeyword.addListSelectionListener(new ListSelectionListener() {
 
             @Override
@@ -631,10 +631,10 @@ public class ExhibitionApplicationUI extends JFrame {
      */
     public boolean newProduct(String designation) {
         boolean addedProduct = exhibitionApplicationController.newProduct(designation);
-        if(addedProduct){
-        return this.modelProductsList.addRow(addedProduct, designation, exhibitionApplicationController.getProductsList());
-        }
-        return false;
+        updateProductsList();
+
+        return addedProduct;
+
     }
 
     /**
@@ -644,7 +644,10 @@ public class ExhibitionApplicationUI extends JFrame {
      * @return a new keyword
      */
     public boolean newKeyword(String designation) {
-        return this.modelKeyWordList.addRow(designation);
+        boolean addedKeyword = exhibitionApplicationController.newKeyword(designation);
+        updateKeywordsList();
+
+        return addedKeyword;
 
     }
 
@@ -655,37 +658,27 @@ public class ExhibitionApplicationUI extends JFrame {
      * @return true if removed
      */
     public boolean removeProduct(int index) {
-        String designation = (String) this.modelProductsList.getElementAt(index);
+        String designation = (String) this.jListProduct.getModel().getElementAt(index);
 
         boolean productRemoved = exhibitionApplicationController.removeProduct(designation);
-        return this.modelProductsList.removeRow(index,productRemoved,exhibitionApplicationController.getProductsList());
+        updateProductsList();
+        return productRemoved;
     }
 
     /**
-     * Returns model product list.
-     *
-     * @return the model products list
+     * Refresh the products list.
      */
-    public ModelProductList getModelProductsList() {
-        return modelProductsList;
+    private void updateProductsList() {
+        this.productsList = exhibitionApplicationController.getProductsList();
+        this.jListProduct.setModel(new ModelListSelectable(this.productsList));
     }
 
     /**
-     * Sets the model product list
-     *
-     * @param modelProductsList the model products list to set
+     * Refresh the keywords list.
      */
-    public void setModelProductsList(ModelProductList modelProductsList) {
-        this.modelProductsList = modelProductsList;
-    }
-
-    /**
-     * Sets the model keywords list
-     *
-     * @param modelKeywordsList the list to set
-     */
-    public void setModelKeywordsList(ModelKeywordsList modelKeywordsList) {
-        this.modelKeyWordList = modelKeywordsList;
+    private void updateKeywordsList() {
+        this.keywordList = exhibitionApplicationController.getKeyWordList();
+        this.jListKeyword.setModel(new ModelListSelectable(this.keywordList));
     }
 
     /**
