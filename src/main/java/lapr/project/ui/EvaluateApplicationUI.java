@@ -280,6 +280,7 @@ public class EvaluateApplicationUI extends JFrame {
                 if (answersList != null) {
                     EvaluateApplicationUI.this.controller.setEvaluation(answersList);
                     EvaluateApplicationUI.this.controller.registerEvaluation();
+                    EvaluateApplicationUI.this.controller.addToRecord();
                     EvaluateApplicationUI.this.controller.removeStaffAttributions();
                     EvaluateApplicationUI.this.updateStaffAtributionsList();
                 }
