@@ -250,8 +250,24 @@ public class DefaultInstantiator {
         staffAttributionMechanisms.add(staffAttributionMechanism1);
         MechanismsRegister mechanismsRegister = new MechanismsRegister(staffAttributionMechanisms);
 
+        
+        List<StaffMember> staffListRecord = new ArrayList<>();
+        staffListRecord.add(staffMemberIvo);
+        staffListRecord.add(staffMemberEric);
+        
+        List<Application> applicationsListRecord = new ArrayList<>();
+        applicationsListRecord.add(exhibitionApplicationNodeJs);
+        applicationsListRecord.add(demonstrationApplicationAngularJs);
+        
+        Float[][] evaluationsMatrixRecord = new Float[2][2];
+        evaluationsMatrixRecord[0][0] = 3.41f;
+        evaluationsMatrixRecord[0][1] = 4.23f;
+        evaluationsMatrixRecord[1][1] = 1.11f;
+        
+        Record record = new Record(staffListRecord, applicationsListRecord, evaluationsMatrixRecord);
+        
         ExhibitionCenter exhibitionCenter = new ExhibitionCenter(exhibitionsRegister, usersRegister,
-                resourcesRegister, standsRegister, mechanismsRegister, new ConflictTypesRegister(), new ExhibitionsManagerRegister(), new Record());
+                resourcesRegister, standsRegister, mechanismsRegister, new ConflictTypesRegister(), new ExhibitionsManagerRegister(), record);
 
         return exhibitionCenter;
     }
