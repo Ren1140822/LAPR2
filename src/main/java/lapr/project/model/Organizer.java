@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Organizer implements Actor {
+public class Organizer implements Actor, Selectable {
 
     /**
      * The user for the organizer.
@@ -105,6 +105,11 @@ public class Organizer implements Actor {
         Organizer otherOrganizer = (Organizer) otherObject;
 
         return this.user.equals(otherOrganizer.user);
+    }
+
+    @Override
+    public String getDisplayInfo() {
+        return this.user.getDisplayInfo();
     }
 
 }
