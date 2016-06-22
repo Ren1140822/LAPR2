@@ -80,4 +80,12 @@ public interface Editable {
      * @return keywords in comma separated value format
      */
     public String getKeywordsCSV();
+
+    public void setTitle(String title);
+
+    public void setNumberInvitations(int invitationsNumber);
+
+    public void setKeywordsList(List<Keyword> keywords);
+
+    public void setProductsList(List<Product> productsList);
 }

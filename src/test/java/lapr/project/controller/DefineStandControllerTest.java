@@ -1,5 +1,5 @@
 /**
- * Package location for Model concept tests.
+ * Package location for Controller concept tests.
  */
 package lapr.project.controller;
 

@@ -33,6 +33,7 @@ import lapr.project.model.Editable;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitorResponsible;
+import lapr.project.model.Keyword;
 import lapr.project.model.Product;
 import lapr.project.model.Submittable;
 import lapr.project.model.application.ApplicationInSubmissionState;
@@ -97,6 +98,11 @@ public class EditApplicationUI extends JFrame {
     private JList<Demonstration> demonstrationsJList;
 
     /**
+     * The list of avaliable demonstrations on the selected exhibition.
+     */
+    private List<Demonstration> avaliableDemonstrationsInExhibition;
+
+    /**
      * The remove products button.
      */
     private JButton removeProductsButton;
@@ -105,6 +111,26 @@ public class EditApplicationUI extends JFrame {
      * The remove demonstrations button.
      */
     private JButton removeDemonstrationsButton;
+
+    /**
+     * The title JTextField.
+     */
+    private JTextField titleTextField;
+
+    /**
+     * The invitations number JTextField.
+     */
+    private JTextField invitationsNumberTextField;
+
+    /**
+     * The exhibitor area JTextField.
+     */
+    private JTextField exhibitorAreaTextField;
+
+    /**
+     * The keywords text area.
+     */
+    private JTextArea keywordsTextArea;
 
     /**
      * Title for the window.
@@ -141,7 +167,6 @@ public class EditApplicationUI extends JFrame {
         Submittable selectedSubmittable = (Submittable) dialogSelectable.getSelectedItem();
 
         if (selectedSubmittable == null) {
-            // TODO voltar à janela anterior.
             dispose();
         } else {
 
@@ -151,6 +176,7 @@ public class EditApplicationUI extends JFrame {
             this.productsList = this.editable.getProductsList();
             if (this.editable instanceof ExhibitionApplication) {
                 this.demonstrationsList = ((ExhibitionApplication) this.editable).getDemonstrationsList();
+                this.avaliableDemonstrationsInExhibition = this.controller.getAvailableDemonstrationsInExhibition();
             }
 
             createComponents();
@@ -201,20 +227,20 @@ public class EditApplicationUI extends JFrame {
         final int NUMBER_COLS = 10;
 
         JLabel titleLabel = new JLabel("Title:");
-        JTextField titleTextField = new JTextField(this.editable.getTitle(), TEXT_COLS);
-        titleLabel.setLabelFor(titleTextField);
+        this.titleTextField = new JTextField(this.editable.getTitle(), TEXT_COLS);
+        titleLabel.setLabelFor(this.titleTextField);
         fieldsPanel.add(titleLabel);
-        fieldsPanel.add(titleTextField);;
+        fieldsPanel.add(this.titleTextField);;
 
         JLabel invitationsNumberLabel = new JLabel("Number of Invitations:");
-        JTextField invitationsNumberTextField = new JTextField(Integer.toString(this.editable.getNumberInvitations()), NUMBER_COLS);
-        invitationsNumberLabel.setLabelFor(invitationsNumberTextField);
+        this.invitationsNumberTextField = new JTextField(Integer.toString(this.editable.getNumberInvitations()), NUMBER_COLS);
+        invitationsNumberLabel.setLabelFor(this.invitationsNumberTextField);
         fieldsPanel.add(invitationsNumberLabel);
-        fieldsPanel.add(invitationsNumberTextField);
+        fieldsPanel.add(this.invitationsNumberTextField);
 
         if (this.editable instanceof ExhibitionApplication) {
             JLabel exhibitorAreaLabel = new JLabel("Exhibitor Area:");
-            JTextField exhibitorAreaTextField = new JTextField(Float.toString(((ExhibitionApplication) this.editable).getExhibitorArea()), NUMBER_COLS);
+            this.exhibitorAreaTextField = new JTextField(Float.toString(((ExhibitionApplication) this.editable).getExhibitorArea()), NUMBER_COLS);
             exhibitorAreaLabel.setLabelFor(exhibitorAreaTextField);
             fieldsPanel.add(exhibitorAreaLabel);
             fieldsPanel.add(exhibitorAreaTextField);
@@ -234,11 +260,11 @@ public class EditApplicationUI extends JFrame {
         String keywords = this.editable.getKeywordsCSV();
 
         JLabel keywordsLabel = new JLabel("Keywords (comma separated):", SwingConstants.CENTER);
-        JTextArea keywordsTextArea = new JTextArea(keywords, 3, 10);
-        keywordsLabel.setLabelFor(keywordsTextArea);
+        this.keywordsTextArea = new JTextArea(keywords, 3, 10);
+        keywordsLabel.setLabelFor(this.keywordsTextArea);
 
         keywordsPanel.add(keywordsLabel, BorderLayout.NORTH);
-        keywordsPanel.add(keywordsTextArea, BorderLayout.CENTER);
+        keywordsPanel.add(this.keywordsTextArea, BorderLayout.CENTER);
 
         return keywordsPanel;
     }
@@ -367,7 +393,7 @@ public class EditApplicationUI extends JFrame {
                                 JOptionPane.ERROR_MESSAGE);
                     }
 
-                } else {
+                } else if (productDesignation != null) {
                     JOptionPane.showMessageDialog(EditApplicationUI.this,
                             "The product is invalid.",
                             "Error",
@@ -475,7 +501,39 @@ public class EditApplicationUI extends JFrame {
         addDemonstrationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                // TODO
+                Demonstration[] choices = new Demonstration[EditApplicationUI.this.avaliableDemonstrationsInExhibition.size()];
+                boolean isChoicesEmpty = true;
+                for (int i = 0; i < choices.length; i++) {
+                    if (!EditApplicationUI.this.demonstrationsList
+                            .contains(EditApplicationUI.this.avaliableDemonstrationsInExhibition.get(i))) {
+                        choices[i] = EditApplicationUI.this.avaliableDemonstrationsInExhibition.get(i);
+                        isChoicesEmpty = false;
+                    }
+                }
+                if (isChoicesEmpty) {
+                    JOptionPane.showMessageDialog(EditApplicationUI.this,
+                            "There is no available demonstrations to add.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } else {
+                    Demonstration demonstration = (Demonstration) JOptionPane.showInputDialog(
+                            EditApplicationUI.this,
+                            "Select an available demonstration to add:",
+                            "Add Demonstration",
+                            JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            choices,
+                            choices[0]);
+
+                    if (demonstration != null) {
+                        EditApplicationUI.this.demonstrationsList.add(demonstration);
+                        EditApplicationUI.this.updateDemonstrationsList();
+                        JOptionPane.showMessageDialog(EditApplicationUI.this,
+                                "The demonstration was successful added!",
+                                "Success",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
             }
         });
 
@@ -533,8 +591,46 @@ public class EditApplicationUI extends JFrame {
         saveChangesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                // TODO save changes
-                dispose();
+                try {
+                    // Get the data
+                    String title = EditApplicationUI.this.titleTextField.getText();
+                    int invitationsNumber = Integer.parseInt(EditApplicationUI.this.invitationsNumberTextField.getText());
+                    float exhibitorArea = Float.parseFloat(EditApplicationUI.this.exhibitorAreaTextField.getText());
+                    List<Keyword> keywords = Keyword.toKeywordsList(EditApplicationUI.this.keywordsTextArea.getText());
+
+                    // Set the data
+                    EditApplicationUI.this.editable.setTitle(title);
+                    EditApplicationUI.this.editable.setNumberInvitations(invitationsNumber);
+                    EditApplicationUI.this.editable.setKeywordsList(keywords);
+                    EditApplicationUI.this.editable.setProductsList(EditApplicationUI.this.productsList);
+                    if (EditApplicationUI.this.editable instanceof ExhibitionApplication) {
+                        ((ExhibitionApplication) EditApplicationUI.this.editable).setExhibitorArea(exhibitorArea);
+                        ((ExhibitionApplication) EditApplicationUI.this.editable).setDemonstrationsList(EditApplicationUI.this.demonstrationsList);
+                    }
+
+                    // Save the editable
+                    if (EditApplicationUI.this.controller.validate(EditApplicationUI.this.editable)) { //Rever validate da application
+                        EditApplicationUI.this.controller.modifyEditable();
+                        
+                        JOptionPane.showMessageDialog(EditApplicationUI.this,
+                        String.format("The application was successfull edited!"),
+                            "Success",
+                            JOptionPane.INFORMATION_MESSAGE);
+                        
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(EditApplicationUI.this,
+                            String.format("The values didn't change"),
+                            "Invalid Data",
+                            JOptionPane.ERROR_MESSAGE);
+                    }
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(EditApplicationUI.this,
+                            String.format("The introduced values are invalid.%nPlease review your data."),
+                            "Invalid Data",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
