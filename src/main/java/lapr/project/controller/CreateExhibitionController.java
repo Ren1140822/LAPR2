@@ -94,6 +94,16 @@ public class CreateExhibitionController {
     }
 
     /**
+     * Obtain organizers list.
+     *
+     * @return organizers list
+     */
+    public List<Organizer> getOrganizersList() {
+
+        return this.exhibition.getOrganizersList().getOrganizersList();
+    }
+
+    /**
      * Set the exhibition data.
      *
      * @param title Exhibition's title
@@ -139,12 +149,12 @@ public class CreateExhibitionController {
     /**
      * Remove a organizer from the Exhibition's organizersList.
      *
-     * @param organizer the organizer to remove
+     * @param index index of the organizer to remove.
      * @return true if organizer is removed from the list.
      */
-    public boolean removeOrganizer(Organizer organizer) {
+    public boolean removeOrganizer(int index) {
 
-        return exhibition.getOrganizersList().removeOrganizer(organizer);
+        return exhibition.getOrganizersList().removeOrganizer(index);
     }
 
     /**

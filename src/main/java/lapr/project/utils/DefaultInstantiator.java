@@ -251,7 +251,7 @@ public class DefaultInstantiator {
         MechanismsRegister mechanismsRegister = new MechanismsRegister(staffAttributionMechanisms);
 
         ExhibitionCenter exhibitionCenter = new ExhibitionCenter(exhibitionsRegister, usersRegister,
-                resourcesRegister, standsRegister, mechanismsRegister, new ConflictTypesRegister());
+                resourcesRegister, standsRegister, mechanismsRegister, new ConflictTypesRegister(), new ExhibitionsManagerRegister());
 
         return exhibitionCenter;
     }

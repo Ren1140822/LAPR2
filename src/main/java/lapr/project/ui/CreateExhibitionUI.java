@@ -25,12 +25,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import lapr.project.controller.CreateExhibitionController;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.Organizer;
 import lapr.project.model.Place;
 import lapr.project.model.User;
+import lapr.project.model.UsersRegister;
+import lapr.project.ui.components.DialogSelectable;
 import lapr.project.ui.components.ModelListSelectable;
 
 /**
@@ -59,8 +63,7 @@ public class CreateExhibitionUI extends JFrame {
      */
     private final ExhibitionsManager exhibitionsManager;
 
-    private List<User> usersList;
-
+//    private List<User> usersList;
     /**
      * Title Textfield component.
      */
@@ -114,7 +117,12 @@ public class CreateExhibitionUI extends JFrame {
     /**
      * Users JList component.
      */
-    private JList usersJList;
+    private JList organizersJList;
+
+    /**
+     * Remove a organizer button.
+     */
+    private JButton removeOrganizerBtn;
 
     /**
      * Title for the window.
@@ -188,7 +196,7 @@ public class CreateExhibitionUI extends JFrame {
     private void createComponents() {
 
         add(createSetDataPanel());
-        add(createUserListAndButtonsPanel());
+        add(createOrganizersListAndButtonsPanel());
     }
 
     /**
@@ -307,49 +315,160 @@ public class CreateExhibitionUI extends JFrame {
     }
 
     /**
-     * Create scroll panel for users list.
+     * Create scroll panel for organizers list.
      *
-     * @return scroll panel for users list
+     * @return scroll panel for organizers list
      */
-    public JPanel createUsersListScrollPanel() {
+    public JPanel createOrganizersPanel() {
 
-        JPanel panel = new JPanel(new GridLayout());
-        panel.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
+        JPanel panel = new JPanel(new BorderLayout());
+
+        JPanel listPanel = new JPanel(new GridLayout());
+        listPanel.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
                 "Select Organizers:", TitledBorder.LEFT, TitledBorder.TOP));
 
-        // TODO: Testing
-        List testList = new ArrayList();
-        testList.add(new User("Daniel", "username1", "email@s1", "password", new ArrayList<>()));
-        testList.add(new User("Ivo", "username2", "email@s2", "password", new ArrayList<>()));
-        testList.add(new User("Eric", "username3", "email@s3", "password", new ArrayList<>()));
-        testList.add(new User("Renato", "username4", "email@s4", "password", new ArrayList<>()));
-        testList.add(new User("Ricardo", "username5", "email@s5", "password", new ArrayList<>()));
-        usersList = testList;
-        // End
+        ModelListSelectable organizersModel = new ModelListSelectable(controller.getOrganizersList());
+        organizersJList = new JList(organizersModel);
 
-//        usersList = controller.getUsersList();
-        ModelListSelectable usersModel = new ModelListSelectable(usersList);
-        usersJList = new JList(usersModel);
+        organizersJList.addListSelectionListener(new ListSelectionListener() {
 
-        JScrollPane scrollPane = new JScrollPane(usersJList);
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                removeOrganizerBtn.setEnabled(!organizersJList.isSelectionEmpty());
+            }
+        });
+
+        JScrollPane scrollPane = new JScrollPane(organizersJList);
         scrollPane.setBorder(PADDING_BORDER);
-        panel.setMinimumSize(scrollPane.getMinimumSize());
-        panel.add(scrollPane);
+        listPanel.setMinimumSize(scrollPane.getMinimumSize());
+        listPanel.add(scrollPane);
+
+        panel.add(listPanel, BorderLayout.NORTH);
+        panel.add(createAddAndRemoveButtons(), BorderLayout.CENTER);
 
         return panel;
     }
 
     /**
-     * Create panel with users list & confirmation buttons.
+     * Create panel with add & remove organizers buttons.
      *
-     * @return panel with users list & confirmation buttons
+     * @return panel with add & remove organizers buttons
      */
-    private JPanel createUserListAndButtonsPanel() {
+    private JPanel createAddAndRemoveButtons() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        panel.add(createAddOrganizerButton());
+        panel.add(createRemoveOrganizerButton());
+
+        return panel;
+    }
+
+    /**
+     * Create Add Organizer Button.
+     *
+     * @return Add Organizer Button
+     */
+    private JButton createAddOrganizerButton() {
+
+        JButton addBtn = new JButton("Add");
+        addBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+
+                    List<User> usersList = controller.getUsersList();
+
+                    for (Organizer organizer : controller.getOrganizersList()) {
+                        usersList.remove(organizer.getUser());
+                    }
+
+                    if (usersList.isEmpty()) {
+                        throw new IllegalArgumentException();
+                    }
+
+                    DialogSelectable dialogoNewOrganizer = new DialogSelectable(CreateExhibitionUI.this, usersList, "Select User from list:");
+                    User selectedUser = (User) dialogoNewOrganizer.getSelectedItem();
+
+                    if (controller.newOrganizer(selectedUser)) {
+                        updateOrganizersList();
+                        String successMessage = "Organizer added successfully!";
+                        String successTitle = "Organizer added.";
+
+                        JOptionPane.showMessageDialog(rootPane, successMessage, successTitle, JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } catch (NullPointerException ex) {
+
+                } catch (IllegalArgumentException ex) {
+
+                    String warningMessage = "There is no more users to add";
+                    String warningTitle = "No more users in system";
+
+                    JOptionPane.showMessageDialog(rootPane, warningMessage, warningTitle, JOptionPane.WARNING_MESSAGE);
+
+                } catch (Exception ex) {
+
+                    String warningMessage = "Something wen't wrong please try again.";
+                    String warningTitle = "ERROR 404";
+
+                    JOptionPane.showMessageDialog(rootPane, warningMessage, warningTitle, JOptionPane.WARNING_MESSAGE);
+                }
+
+            }
+        });
+        return addBtn;
+    }
+
+    /**
+     * Create Remove Organizer Button.
+     *
+     * @return Remove Organizer Button
+     */
+    private JButton createRemoveOrganizerButton() {
+
+        removeOrganizerBtn = new JButton("Remove");
+        removeOrganizerBtn.setEnabled(false);
+        removeOrganizerBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                try {
+
+                    int index = organizersJList.getSelectedIndex();
+
+                    if (controller.removeOrganizer(index)) {
+                        updateOrganizersList();
+                        String successMessage = "Organizer removed successfully!";
+                        String successTitle = "Organizer removed.";
+
+                        JOptionPane.showMessageDialog(rootPane, successMessage, successTitle, JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+
+                        throw new IllegalArgumentException();
+                    }
+                } catch (Exception ex) {
+
+                    String warningMessage = "Something wen't wrong please try again.";
+                    String warningTitle = "ERROR 404";
+
+                    JOptionPane.showMessageDialog(rootPane, warningMessage, warningTitle, JOptionPane.WARNING_MESSAGE);
+                }
+
+                removeOrganizerBtn.setEnabled(!organizersJList.isSelectionEmpty());
+            }
+        });
+        return removeOrganizerBtn;
+    }
+
+    /**
+     * Create panel with organizers list & confirmation buttons.
+     *
+     * @return panel with organizers list & confirmation buttons
+     */
+    private JPanel createOrganizersListAndButtonsPanel() {
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(PADDING_BORDER);
 
-        panel.add(createUsersListScrollPanel(), BorderLayout.NORTH);
+        panel.add(createOrganizersPanel(), BorderLayout.NORTH);
         panel.add(createConfirmButtons(), BorderLayout.SOUTH);
 
         return panel;
@@ -381,6 +500,10 @@ public class CreateExhibitionUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
 
+                    if (controller.getOrganizersList().size() < 2) {
+                        throw new IllegalArgumentException("You need to select al teast 2 organizers");
+                    }
+
                     String title = txtFieldTitle.getText();
                     String description = txtFieldDescription.getText();
                     Place place = new Place(description);
@@ -392,18 +515,6 @@ public class CreateExhibitionUI extends JFrame {
                     Date evaluationsDate = evaluationsLimitDatePicker.getDate();
 
                     controller.setData(title, description, place, startDate, endDate, openAppsDate, closedAppsDate, conflictsDate, evaluationsDate);
-
-                    int[] selectIndexs = usersJList.getSelectedIndices();
-                    if (selectIndexs.length < 2) {
-                        throw new IllegalArgumentException("Select at least 2 Organizers please.");
-                    }
-                    for (int index : selectIndexs) {
-                        User selectedUser = usersList.get(index);
-                        boolean newOrganizer = controller.newOrganizer(selectedUser);
-                        if (!newOrganizer) {
-                            throw new IllegalArgumentException(selectedUser.getName() + " is already a organizer of the list.");
-                        }
-                    }
 
                     if (!controller.validateExhibition()) {
                         throw new IllegalArgumentException("Invalid Data, please verify");
@@ -473,12 +584,27 @@ public class CreateExhibitionUI extends JFrame {
     }
 
     /**
+     * Refresh the organizers list.
+     */
+    private void updateOrganizersList() {
+        this.organizersJList.setModel(new ModelListSelectable(controller.getOrganizersList()));
+    }
+
+    /**
      * Starting method for testing purposes, later wil be removed.
      *
      * @param args command line arguments.
      */
     public static void main(String[] args) {
         ExhibitionCenter ec = new ExhibitionCenter();
+
+        List<User> lu = new ArrayList<>();
+        lu.add(new User("Daniel", "daniell", "email@dd23", "password", new ArrayList<>()));
+        lu.add(new User("Fabio", "fabioA", "email@dd24", "password", new ArrayList<>()));
+        lu.add(new User("Andre", "andree", "email@dd25", "password", new ArrayList<>()));
+        lu.add(new User("Jonas", "pistolas", "email@dd26", "password", new ArrayList<>()));
+        ec.setUsersRegister(new UsersRegister(lu));
+
         ExhibitionsManager em = new ExhibitionsManager();
         new CreateExhibitionUI(ec, em);
     }

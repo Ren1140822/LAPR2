@@ -545,6 +545,9 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.currentState.setInEvaluation();
     }
 
+    
+    
+    
     /**
      * Gets the exhibitor.
      *
