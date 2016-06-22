@@ -3,6 +3,8 @@
  */
 package lapr.project.utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -112,6 +114,38 @@ public class CalculatorTest {
         float average = 30.80f;
         float expResult = 4.60f;
         float result = Calculator.calculateDeviation(value, average);
+        assertEquals(expResult, result, 0.01);
+    }
+    
+    /**
+     * Test of calculateListAverage method, of class Calculator.
+     */
+    @Test
+    public void testCalculateListAverage() {
+        System.out.println("calculateListAverage");
+        List<Integer> valuesList = new ArrayList<>();
+        valuesList.add(3);
+        valuesList.add(4);
+        valuesList.add(null);
+        valuesList.add(4);
+        float expResult = 3.67f;
+        float result = Calculator.calculateListAverage(valuesList);
+        assertEquals(expResult, result, 0.01);
+    }
+    
+    /**
+     * Test of calculateListAverage method with negative dividend, of class Calculator.
+     */
+    @Test
+    public void testCalculateListAverageNegativeDividend() {
+        System.out.println("calculateListAverage with a negative dividend");
+        List<Integer> valuesList = new ArrayList<>();
+        valuesList.add(-3);
+        valuesList.add(-4);
+        valuesList.add(null);
+        valuesList.add(2);
+        float expResult = -1.67f;
+        float result = Calculator.calculateListAverage(valuesList);
         assertEquals(expResult, result, 0.01);
     }
 }
