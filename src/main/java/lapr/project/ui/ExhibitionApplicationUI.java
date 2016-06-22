@@ -3,8 +3,6 @@
  */
 package lapr.project.ui;
 
-import lapr.project.ui.components.NewProductDialog;
-import lapr.project.ui.components.ModelTableDemonstrationsList;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -42,6 +40,8 @@ import lapr.project.model.Product;
 import lapr.project.model.exhibition.ExhibitionOpenApplicationsState;
 import lapr.project.ui.components.DialogSelectable;
 import lapr.project.ui.components.ModelListSelectable;
+import lapr.project.ui.components.ModelTableDemonstrationsList;
+import lapr.project.ui.components.NewProductDialog;
 
 /**
  * GUI for exhibition applications

@@ -17,9 +17,10 @@ import lapr.project.model.Place;
 import lapr.project.model.StaffAttributionsList;
 import lapr.project.model.StaffList;
 import lapr.project.model.User;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Tests a CreateExhibitionController class.

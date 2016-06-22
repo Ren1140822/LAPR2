@@ -1,20 +1,16 @@
 package lapr.project.utils;
 
-import lapr.project.model.KeywordExample;
+import java.io.FileNotFoundException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXParseException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.FileNotFoundException;
-
-import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author Nuno Bettencourt [nmb@isep.ipp.pt] on 29/05/16.

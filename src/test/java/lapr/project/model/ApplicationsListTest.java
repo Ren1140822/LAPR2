@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.util.Pair;
 import lapr.project.model.application.ApplicationAcceptedState;
-import lapr.project.model.application.ApplicationDeclinedState;
 import lapr.project.model.application.ApplicationAssignedStandState;
+import lapr.project.model.application.ApplicationDeclinedState;
 import lapr.project.utils.DefaultInstantiator;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Tests an application list.

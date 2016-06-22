@@ -3,7 +3,6 @@
  */
 package lapr.project.ui;
 
-import lapr.project.ui.components.ModelTableDemonstrationsList;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -30,8 +29,6 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import lapr.project.controller.CreateDemonstrationApplicationController;
 import lapr.project.model.Demonstration;
 import lapr.project.model.Exhibition;
@@ -43,6 +40,7 @@ import lapr.project.model.Product;
 import lapr.project.model.exhibition.ExhibitionDecidedApplicationsState;
 import lapr.project.ui.components.DialogSelectable;
 import lapr.project.ui.components.ModelListSelectable;
+import lapr.project.ui.components.ModelTableDemonstrationsList;
 import lapr.project.utils.DefaultInstantiator;
 
 /**
