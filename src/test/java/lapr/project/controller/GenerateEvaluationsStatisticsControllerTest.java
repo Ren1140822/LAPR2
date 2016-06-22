@@ -5,11 +5,12 @@ package lapr.project.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.util.Pair;
 import lapr.project.model.Actor;
+import lapr.project.model.ApplicationAnalysis;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsManager;
+import lapr.project.model.exhibition.ExhibitionDecidedApplicationsState;
 import lapr.project.utils.DefaultInstantiator;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,21 +45,45 @@ public class GenerateEvaluationsStatisticsControllerTest {
     @Before
     public void setUp() {
         this.exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
+        this.exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0)
+                .setState(new ExhibitionDecidedApplicationsState(this.exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0)));
         this.actor = new ExhibitionsManager();
+        this.generateEvaluationsStatisticsController = new GenerateEvaluationsStatisticsController(this.exhibitionCenter, this.actor);
     }
-    
+
+    /**
+     * Test of getExhibitionsList method, of class GenerateEvaluationsStatisticsController.
+     */
+    @Test
+    public void testGetExhibitionsList() {
+        System.out.println("getExhibitionsList");
+        List<Exhibition> expResult = this.exhibitionCenter.getExhibitionsRegister().getExhibitionsList();
+        List<Exhibition> result = this.generateEvaluationsStatisticsController.getExhibitionsList();
+        assertEquals(expResult, result);
+    }
+
     /**
      * Test of getAcceptanceRate method, of class GenerateEvaluationsStatisticsController.
      */
-    // TODO
-    //@Test
+    @Test
     public void testGetAcceptanceRate() {
         System.out.println("getAcceptanceRate");
-        
-        List<Pair<Exhibition, Float>> expResult = new ArrayList<>();
-        expResult.add(new Pair<>(this.exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0), 50f));
-        List<Pair<Exhibition, Float>> result = this.generateEvaluationsStatisticsController.getAcceptanceRate();
+        float expResult = 0.00f;
+        this.generateEvaluationsStatisticsController.selectExhibition(this.exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0));
+        float result = this.generateEvaluationsStatisticsController.getAcceptanceRate();
+        assertEquals(expResult, result, 0.01);
+    }
+
+    /**
+     * Test of getApplicationsAnalysis method, of class GenerateEvaluationsStatisticsController.
+     */
+    @Test
+    public void testGetApplicationsAnalysis() {
+        System.out.println("getApplicationsAnalysis");
+        this.generateEvaluationsStatisticsController.selectExhibition(this.exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0));
+        List<ApplicationAnalysis> expResult = new ArrayList<>();
+        expResult.add(new ApplicationAnalysis(this.exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)));
+        List<ApplicationAnalysis> result = this.generateEvaluationsStatisticsController.getApplicationsAnalysis();
         assertEquals(expResult, result);
     }
-    
 }
