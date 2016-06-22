@@ -5,6 +5,7 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -152,7 +153,6 @@ public class ConflictsList {
      * @return true if the list doesn't contain the conflict
      */
     public boolean validateConflict(Conflict conflict) {
-
         return !this.conflictsList.contains(conflict);
     }
 

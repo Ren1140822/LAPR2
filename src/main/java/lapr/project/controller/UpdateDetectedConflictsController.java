@@ -122,14 +122,15 @@ public class UpdateDetectedConflictsController {
      * @return true if creates new conflict in the conflicts list of the
      * selected submittable, false otherwise.
      */
-    public Conflict newConflict(Application application, ConflictType conflictType) {
+    public boolean newConflict(Application application, ConflictType conflictType) {
         Conflict conflict = new Conflict();
         this.conflictsList = this.selectedSubmittable.getConflictsList();
         conflict = this.conflictsList.newConflict(this.staffMember, conflictType, application);
         if (conflict.validate() && this.conflictsList.validateConflict(conflict)) {
             this.conflictsList.addConflict(conflict);
+            return true;
         }
-        return conflict;
+        return false;
     }
 
     /**
