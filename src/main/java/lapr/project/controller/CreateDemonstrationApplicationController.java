@@ -130,7 +130,7 @@ public class CreateDemonstrationApplicationController {
      *
      * @param keywordsList the new keywords list
      */
-    private void setKeywordsList(List<Keyword> keywordsList) {
+    public void setKeywordsList(List<Keyword> keywordsList) {
         this.demonstrationApplication.setKeywordsList(keywordsList);
     }
 
@@ -152,6 +152,10 @@ public class CreateDemonstrationApplicationController {
         return ((ExhibitionApplication) applicationOfExhibitorResponsible).getKeywordsList();
     }
 
+    /**
+     * Validates and registers the demonstration application.
+     * @return the demonstration application.
+     */
     public boolean registerDemonstrationApplication() {
         if (this.applicationsList.validateDemonstrationApplication(this.demonstrationApplication)) {
             this.applicationsList.registerDemonstrationApplication(this.demonstrationApplication);
@@ -166,6 +170,14 @@ public class CreateDemonstrationApplicationController {
      */
     public DemonstrationApplication getDemonstrationApplication() {
         return demonstrationApplication;
+    }
+
+    /**
+     * Gets the application of the exhibitor Responsible
+     * @return the application
+     */
+    public ExhibitionApplication getApplicationOfExhibitorResponsible() {
+        return (ExhibitionApplication)applicationOfExhibitorResponsible;
     }
     
     

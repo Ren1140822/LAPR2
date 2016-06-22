@@ -3,6 +3,9 @@
  */
 package lapr.project.model;
 
+import com.sun.media.sound.InvalidFormatException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -20,6 +23,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Keyword implements Selectable {
+
+    /**
+     * Converts a String of keywords in comma separated value (csv) format, to a
+     * List of keywords.
+     *
+     * @param keywordsCSV keywords in comma separated value format (csv)
+     * @return keywords list
+     * @throws com.sun.media.sound.InvalidFormatException keywords are invalid
+     */
+    public static List<Keyword> toKeywordsList(String keywordsCSV) throws InvalidFormatException {
+        List<Keyword> keywordsList = new ArrayList<>();
+
+        String[] keywords = keywordsCSV.split(",");
+        for (String keyword : keywords) {
+            if (keyword.trim().length() < 2 || keyword == null) { //Improve with REGEX
+                throw new InvalidFormatException();
+            } else {
+                keywordsList.add(new Keyword(keyword.trim()));
+            }
+        }
+
+        return keywordsList;
+    }
 
     /**
      * the description of this keyword
@@ -45,7 +71,7 @@ public class Keyword implements Selectable {
      * @param description the keyword to define.
      */
     public Keyword(String description) {
-        this.description = new String(description);
+        this.description = description;
     }
 
     /**
@@ -54,14 +80,16 @@ public class Keyword implements Selectable {
      * @param k the instance of KeyWord to copy.
      */
     public Keyword(Keyword k) {
-        this.description = new String(k.description);
+        this.description = k.description;
     }
 
     /**
-     * gets the string value of description
+     * Gets the string value of description.
+     *
+     * @return the description
      */
     public String getDescription() {
-        return new String(this.description);
+        return this.description;
     }
 
     /**
@@ -71,7 +99,7 @@ public class Keyword implements Selectable {
      */
     public void setDescription(String description) {
 
-        this.description = new String(description);
+        this.description = description;
     }
 
     /**
@@ -89,6 +117,7 @@ public class Keyword implements Selectable {
      * @param otherObject the other object to compare to
      * @return true of equal
      */
+    @Override
     public boolean equals(Object otherObject) {
         if (this == otherObject) {
             return true;

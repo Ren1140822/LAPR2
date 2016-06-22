@@ -28,11 +28,11 @@ public class Record {
     private List<Application> applicationsList;
 
     /**
-     * Matriz with evaluations from a Staff Member to Application (Each line is
+     * Matrix with evaluations from a Staff Member to Application (Each line is
      * a Staff Member each column is a Application) eg. | A1 | A2 | A3 S1 | 2,3
      * | 3,4 | N/A S2 | 3,6 | 4,2 | 3,2
      */
-    private float[][] evaluationsMatriz;
+    private float[][] evaluationsMatrix;
 
     /**
      * Default constructor of a Record.
@@ -41,7 +41,7 @@ public class Record {
 
         this.staffList = new ArrayList<>();
         this.applicationsList = new ArrayList<>();
-        this.evaluationsMatriz = new float[0][0];
+        this.evaluationsMatrix = new float[0][0];
     }
 
     /**
@@ -49,13 +49,13 @@ public class Record {
      *
      * @param staffList the staff list
      * @param applicationsList applications list
-     * @param evaluationsMatriz evaluations matriz
+     * @param evaluationsMatrix evaluations matrix
      */
-    public Record(List<StaffMember> staffList, List<Application> applicationsList, float[][] evaluationsMatriz) {
+    public Record(List<StaffMember> staffList, List<Application> applicationsList, float[][] evaluationsMatrix) {
 
         this.staffList = new ArrayList<>(staffList);
         this.applicationsList = new ArrayList<>(applicationsList);
-        this.evaluationsMatriz = evaluationsMatriz.clone();
+        this.evaluationsMatrix = evaluationsMatrix.clone();
     }
 
     /**
@@ -67,7 +67,7 @@ public class Record {
 
         this.staffList = new ArrayList<>(record.staffList);
         this.applicationsList = new ArrayList<>(record.applicationsList);
-        this.evaluationsMatriz = record.evaluationsMatriz.clone();
+        this.evaluationsMatrix = record.evaluationsMatrix.clone();
     }
 
     /**
@@ -83,10 +83,10 @@ public class Record {
             s.append(String.format("%-5s\t|", application.getDisplayInfo()));
         }
         s.append("\n");
-        for (int i = 0; i < evaluationsMatriz.length; i++) {
+        for (int i = 0; i < evaluationsMatrix.length; i++) {
             s.append(String.format("%-10s\t|", staffList.get(i).getUser().getUsername()));
-            for (int j = 0; j < evaluationsMatriz[i].length; j++) {
-                s.append(String.format("%-10.2f\t|", evaluationsMatriz[i][j]));
+            for (int j = 0; j < evaluationsMatrix[i].length; j++) {
+                s.append(String.format("%-10.2f\t|", evaluationsMatrix[i][j]));
             }
             s.append("\n");
         }
@@ -113,7 +113,7 @@ public class Record {
 
         return this.applicationsList.equals(otherRecord.applicationsList)
                 && this.staffList.equals(otherRecord.staffList)
-                && this.evaluationsMatriz.equals(otherRecord.evaluationsMatriz);
+                && this.evaluationsMatrix.equals(otherRecord.evaluationsMatrix);
     }
 
     public static void main(String[] args) {
