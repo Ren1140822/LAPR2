@@ -3,10 +3,17 @@
  */
 package lapr.project.controller;
 
+import java.util.List;
+import lapr.project.model.Application;
+import lapr.project.model.Conflict;
+import lapr.project.model.Demonstration;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.ExhibitionsRegister;
+import lapr.project.model.Organizer;
+import lapr.project.model.StaffAttribution;
+import lapr.project.model.StaffMember;
 
 /**
  * Represents a import exhibitions controller.
@@ -88,4 +95,55 @@ public class ImportExhibitionController {
         return exhibition;
     }
 
+    /**
+     * Gets the staff list.
+     * @param exhibition the exhibition
+     * @return the staff list
+     */
+    public List<StaffMember> getStaffList(Exhibition exhibition){
+        return exhibition.getStaffList().getStaffList();
+    }
+    /**
+     * Gets the organizers list.
+     * @param exhibition the exhibition
+     * @return the organizers list
+     */
+    public List<Organizer> getOrganizersList(Exhibition exhibition){
+        return exhibition.getOrganizersList().getOrganizersList();
+    }
+    /**
+     * Gets the applications list.
+     * @param exhibition the exhibition
+     * @return the applications list
+     */
+    public List<Application> getApplicationsList(Exhibition exhibition){
+        return exhibition.getApplicationsList().getApplicationsList();
+    }
+    /**
+     * Gets the demonstrations list.
+     * @param exhibition the exhibition
+     * @return the demonstrations list
+     */
+    public List<Demonstration> getDemonstrationsList(Exhibition exhibition){
+        return exhibition.getDemonstrationsList().getDemonstrationsList();
+    }
+    /**
+     * Gets the staff attributions list.
+     * @param exhibition the exhibition
+     * @return the staff attributions  list
+     */
+    public List<StaffAttribution> getStaffAttributionsList(Exhibition exhibition){
+        return exhibition.getStaffAttributionsList().getStaffAttributionsList();
+    }
+    /**
+     * Gets the conflicts  list.
+     * @param exhibition the exhibition
+     * @return the conflicts list
+     */
+    public List<Conflict> getConflictsList(Exhibition exhibition){
+        return exhibition.getConflictsList().getConflictsList();
+    }
+    
+  
+    
 }

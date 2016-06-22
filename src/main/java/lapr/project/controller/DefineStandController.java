@@ -51,7 +51,7 @@ public class DefineStandController {
     public List<Stand> getStands() {
         return this.standsRegister.getStandsList();
     }
-    
+          
     /**
      * Creates a new stand with a description, validating the stand.
      * 

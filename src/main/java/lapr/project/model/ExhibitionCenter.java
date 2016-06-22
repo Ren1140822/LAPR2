@@ -44,19 +44,28 @@ public class ExhibitionCenter {
      */
     private ConflictTypesRegister conflictTypesRegister;
 
+    /**
+     * The exhibitions magnagers register.
+     */
     private ExhibitionsManagerRegister exhibitionsManagerRegister;
+
+    /**
+     * Record with all application evaluations.
+     */
+    private Record record;
 
     /**
      * Creates an instance of exhibition center with its default values.
      */
     public ExhibitionCenter() {
-        exhibitionsRegister = new ExhibitionsRegister();
-        usersRegister = new UsersRegister();
-        resourcesRegister = new ResourcesRegister();
-        standsRegister = new StandsRegister();
-        mechanismsRegister = new MechanismsRegister();
-        conflictTypesRegister = new ConflictTypesRegister();
-        exhibitionsManagerRegister = new ExhibitionsManagerRegister();
+        this.exhibitionsRegister = new ExhibitionsRegister();
+        this.usersRegister = new UsersRegister();
+        this.resourcesRegister = new ResourcesRegister();
+        this.standsRegister = new StandsRegister();
+        this.mechanismsRegister = new MechanismsRegister();
+        this.conflictTypesRegister = new ConflictTypesRegister();
+        this.exhibitionsManagerRegister = new ExhibitionsManagerRegister();
+        this.record = new Record();
     }
 
     /**
@@ -71,10 +80,11 @@ public class ExhibitionCenter {
      * @param mechanismsRegister register for mechanisms
      * @param conflictTypesRegister register for conflict types
      * @param exhibitionsManagerRegister register for exhibitions manager
+     * @param record record with all application evaluations
      */
     public ExhibitionCenter(ExhibitionsRegister exhibitionsRegister, UsersRegister usersRegister,
             ResourcesRegister resourcesRegister, StandsRegister standsRegister,
-            MechanismsRegister mechanismsRegister, ConflictTypesRegister conflictTypesRegister, ExhibitionsManagerRegister exhibitionsManagerRegister) {
+            MechanismsRegister mechanismsRegister, ConflictTypesRegister conflictTypesRegister, ExhibitionsManagerRegister exhibitionsManagerRegister, Record record) {
         this.exhibitionsRegister = new ExhibitionsRegister(exhibitionsRegister);
         this.usersRegister = new UsersRegister(usersRegister);
         this.resourcesRegister = new ResourcesRegister(resourcesRegister);
@@ -82,6 +92,7 @@ public class ExhibitionCenter {
         this.mechanismsRegister = new MechanismsRegister(mechanismsRegister);
         this.conflictTypesRegister = new ConflictTypesRegister(conflictTypesRegister);
         this.exhibitionsManagerRegister = new ExhibitionsManagerRegister(exhibitionsManagerRegister);
+        this.record = record;
     }
 
     /**
@@ -91,13 +102,14 @@ public class ExhibitionCenter {
      * @param exhibitionCenter another exhibition center
      */
     public ExhibitionCenter(ExhibitionCenter exhibitionCenter) {
-        exhibitionsRegister = new ExhibitionsRegister(exhibitionCenter.exhibitionsRegister);
-        usersRegister = new UsersRegister(exhibitionCenter.usersRegister);
-        resourcesRegister = new ResourcesRegister(exhibitionCenter.resourcesRegister);
-        standsRegister = new StandsRegister(exhibitionCenter.standsRegister);
-        mechanismsRegister = new MechanismsRegister(exhibitionCenter.mechanismsRegister);
-        conflictTypesRegister = new ConflictTypesRegister(exhibitionCenter.conflictTypesRegister);
-        exhibitionsManagerRegister = new ExhibitionsManagerRegister(exhibitionCenter.exhibitionsManagerRegister);
+        this.exhibitionsRegister = new ExhibitionsRegister(exhibitionCenter.exhibitionsRegister);
+        this.usersRegister = new UsersRegister(exhibitionCenter.usersRegister);
+        this.resourcesRegister = new ResourcesRegister(exhibitionCenter.resourcesRegister);
+        this.standsRegister = new StandsRegister(exhibitionCenter.standsRegister);
+        this.mechanismsRegister = new MechanismsRegister(exhibitionCenter.mechanismsRegister);
+        this.conflictTypesRegister = new ConflictTypesRegister(exhibitionCenter.conflictTypesRegister);
+        this.exhibitionsManagerRegister = new ExhibitionsManagerRegister(exhibitionCenter.exhibitionsManagerRegister);
+        this.record = exhibitionCenter.record;
     }
 
     /**
@@ -225,6 +237,24 @@ public class ExhibitionCenter {
      */
     public void setExhibitionsManagerRegister(ExhibitionsManagerRegister exhibitionsManagerRegister) {
         this.exhibitionsManagerRegister = exhibitionsManagerRegister;
+    }
+
+    /**
+     * Gets the record.
+     *
+     * @return record with all application evaluations
+     */
+    public Record getRecord() {
+        return record;
+    }
+
+    /**
+     * Sets the record.
+     *
+     * @param record record with all application evaluations
+     */
+    public void setRecord(Record record) {
+        this.record = record;
     }
 
     @Override

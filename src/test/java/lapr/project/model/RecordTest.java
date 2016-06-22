@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import lapr.project.utils.DefaultInstantiator;
 import org.junit.Before;
@@ -33,7 +34,7 @@ public class RecordTest {
     @Before
     public void setUp() {
         this.exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
-//        this.record = this.exhibitionCenter.getRecord();
+        this.record = this.exhibitionCenter.getRecord();
     }
 
     /**
@@ -49,4 +50,35 @@ public class RecordTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+
+//    /**
+//     * Test of equals method, of class Record.
+//     */
+//    @Test
+//    public void testEquals() {
+//        System.out.println("equals");
+//        Object otherObject = DefaultInstantiator.createExhibitionCenter().getRecord();
+//        assertTrue(this.record.equals(otherObject));
+//    }
+    /**
+     * Test of equals method, of class Record.
+     */
+    @Test
+    public void testEqualsFalse() {
+        System.out.println("equals - with different object");
+        Object otherObject = new Record();
+        assertFalse(this.record.equals(otherObject));
+    }
+
+//    /**
+//     * Test of addEvaluation method, of class Record.
+//     */
+//    @Test // How can i test this without getters and setters? should this have an unit test?
+//    public void testAddEvaluation() {
+//        System.out.println("addEvaluation");
+//        float average = 3.3F;
+//        StaffMember staffMember = new StaffMember();
+//        Application application = new ExhibitionApplication();
+//        this.record.addEvaluation(average, staffMember, application);
+//    }
 }
