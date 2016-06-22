@@ -7,9 +7,10 @@ import java.util.List;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.Resource;
 import lapr.project.utils.DefaultInstantiator;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Tests the define resource controller.

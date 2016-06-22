@@ -5,8 +5,8 @@ package lapr.project.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Tests the classe Calculator.

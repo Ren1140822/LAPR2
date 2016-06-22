@@ -3,15 +3,11 @@
  */
 package lapr.project.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitorResponsible;
 import lapr.project.utils.DefaultInstantiator;
 import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Tests a confirm stand controller.

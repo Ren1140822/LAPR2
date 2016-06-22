@@ -47,14 +47,25 @@ public class LoginUI extends JFrame {
      * The textfield size.
      */
     static final int TEXTFIELD_SIZE = 9;
-    
+
+    /**
+     * The textfield for username.
+     */
     private JTextField txtUsername;
-    
+    /**
+     * The textfield for password.
+     */
     private JPasswordField txtPassword;
 
+    /**
+     * The window size.
+     */
     final static Dimension WINDOW_SIZE = new Dimension(550, 450);
+    /**
+     * The padding border.
+     */
+    final static EmptyBorder PADDING_BORDER = new EmptyBorder(10, 10, 10, 10);
 
-    final static EmptyBorder PADDING_BORDER = new EmptyBorder(10,10,10,10);
     /**
      * Builds an instance of this class receiving an exhibition center as
      * parameter.
@@ -76,6 +87,9 @@ public class LoginUI extends JFrame {
 
     }
 
+    /**
+     * Creates the JFrame components.
+     */
     public void createComponents() {
         JPanel panelUser = createPanelUserName();
         JPanel panelPassword = createPanelPasswords();
@@ -86,26 +100,38 @@ public class LoginUI extends JFrame {
 
     }
 
+    /**
+     * Creates the jpanel for username.
+     * @return the jpanel
+     */
     public JPanel createPanelUserName() {
         JPanel panel = new JPanel(new FlowLayout());
         Label label = new Label("Username: ");
-         txtUsername = new JTextField(TEXTFIELD_SIZE);
+        txtUsername = new JTextField(TEXTFIELD_SIZE);
         panel.add(label);
         panel.add(txtUsername);
         panel.setBorder(BorderFactory.createBevelBorder(2, Color.lightGray, Color.BLACK));
         return panel;
     }
 
+    /**
+     * Creates the jpanel for passwords.
+     * @return the jpanel
+     */
     public JPanel createPanelPasswords() {
         JPanel panel = new JPanel(new FlowLayout());
         Label label = new Label("Password: ");
-         txtPassword = new JPasswordField(TEXTFIELD_SIZE);
+        txtPassword = new JPasswordField(TEXTFIELD_SIZE);
         panel.add(label);
         panel.add(txtPassword);
         panel.setBorder(BorderFactory.createBevelBorder(2, Color.lightGray, Color.BLACK));
         return panel;
     }
 
+    /**
+     * Creates the jpanel for buttons.
+     * @return the jpanel
+     */
     public JPanel createButtonsPanel() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 0));
         JButton buttonLogin = createLoginButton();
@@ -116,18 +142,26 @@ public class LoginUI extends JFrame {
         return panel;
     }
 
+    /**
+     * Creates the login button.
+     * @return the login button
+     */
     public JButton createLoginButton() {
         JButton button = new JButton("Login");
         button.addActionListener(new ActionListener() {
-       
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                User user =loginController.verifyLogin(txtUsername.getText(), txtPassword.getText());
+                User user = loginController.verifyLogin(txtUsername.getText(), txtPassword.getText());
             }
         });
         return button;
     }
 
+    /**
+     * Creates the register button.
+     * @return the register button
+     */
     public JButton createRegisterButton() {
         JButton button = new JButton("Register");
         button.addActionListener(new ActionListener() {
@@ -139,8 +173,8 @@ public class LoginUI extends JFrame {
         });
         return button;
     }
-    
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         ExhibitionCenter ex = DefaultInstantiator.createExhibitionCenter();
         LoginUI ui = new LoginUI(ex);
     }

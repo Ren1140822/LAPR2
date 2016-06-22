@@ -3,7 +3,6 @@
  */
 package lapr.project.model.exhibition.timers;
 
-import lapr.project.model.timers.ChangeToApplicationsInDecision;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,9 +16,10 @@ import lapr.project.model.Place;
 import lapr.project.model.StaffAttributionsList;
 import lapr.project.model.StaffList;
 import lapr.project.model.exhibition.ExhibitionApplicationsInEvaluationState;
+import lapr.project.model.timers.ChangeToApplicationsInDecision;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Tests change to applications in decision timer task

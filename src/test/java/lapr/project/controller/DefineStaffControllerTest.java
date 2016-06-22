@@ -3,20 +3,13 @@
  */
 package lapr.project.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
-import lapr.project.model.Organizer;
-import lapr.project.model.StaffMember;
 import lapr.project.model.User;
 import lapr.project.utils.DefaultInstantiator;
-import org.junit.After;
-import org.junit.AfterClass;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Tests the define staff controller.

@@ -4,9 +4,9 @@
 package lapr.project.model;
 
 import lapr.project.model.demonstration.DemonstrationApplicationsDecidedState;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Tests a demonstration class.

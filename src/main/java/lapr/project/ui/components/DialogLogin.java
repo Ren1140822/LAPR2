@@ -7,6 +7,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -15,8 +17,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import lapr.project.controller.LoginController;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.User;
+import lapr.project.utils.DefaultInstantiator;
 
 /**
  * Represents a dialog to login as.
@@ -40,11 +44,6 @@ public class DialogLogin extends JDialog {
     private final User user;
 
     /**
-     * The choose text
-     */
-    private final String chooseText;
-
-    /**
      * The ok button.
      */
     private JButton okButton;
@@ -57,24 +56,37 @@ public class DialogLogin extends JDialog {
     /**
      * Window title.
      */
-    private static final String WINDOW_TITLE = "Login as";
+    private static final String WINDOW_TITLE = "Login";
 
     /**
      * The exhibitionsCenter.
      */
-    private ExhibitionCenter exhibitionsCenter;
+    private final ExhibitionCenter exhibitionsCenter;
+
+    /**
+     * The login controller.
+     */
+    private final LoginController loginController;
 
     /**
      * Padding border.
      */
     final static EmptyBorder PADDING_BORDER = new EmptyBorder(10, 10, 10, 10);
 
-    public DialogLogin(JFrame parentFrame, User user, String chooseText) {
+    /**
+     * Creates an instance of DialogLogin
+     *
+     * @param parentFrame
+     * @param user
+     * @param exhibitionsCenter
+     */
+    public DialogLogin(JFrame parentFrame, User user, ExhibitionCenter exhibitionsCenter) {
         super(parentFrame, WINDOW_TITLE, true);
 
         this.parentFrame = parentFrame;
-        this.chooseText = chooseText;
         this.user = user;
+        this.exhibitionsCenter = exhibitionsCenter;
+        this.loginController = new LoginController(this.exhibitionsCenter);
 
         createComponents();
 
@@ -100,17 +112,20 @@ public class DialogLogin extends JDialog {
     /**
      * Creates the top label with the text to choose a type of user to login.
      *
-     * @return choose type of user JLabel
+     * @return string of JLabel
      */
     private JLabel createChooseTextLabel() {
-        return new JLabel(this.chooseText, SwingConstants.CENTER);
+        return new JLabel("Login as: ", SwingConstants.CENTER);
     }
 
+    /**
+     * Creates the panel with the ComboBox to choose a type of user to login.
+     *
+     * @return returns comboPanel
+     */
     private JPanel createComboPanel() {
         JPanel comboPanel = new JPanel(new BorderLayout(0, 10));
-
         comboPanel.add(createComboBox());
-
         return comboPanel;
     }
 
@@ -139,6 +154,7 @@ public class DialogLogin extends JDialog {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //TODO: OPEN DASHBOARD
                 dispose();
             }
         });
@@ -160,20 +176,36 @@ public class DialogLogin extends JDialog {
                 dispose();
             }
         });
-
         return cancelButton;
     }
 
     /**
      * Creates the combo box
-     * 
-     * @return the combo box 
+     *
+     * @return the combo box
      */
     private JComboBox createComboBox() {
-        String[] userPossibilities = new String[]{"StaffMember", "Organizer",
-            "ExhibitiorResponsible"};
-        JComboBox<String> usersPossibilitiesListJcomboBox = new JComboBox<>(userPossibilities);
+        List<String> userPossibilities = new ArrayList();
+        if (loginController.verifyUserByStaffMember(user)) {
+            userPossibilities.add("Staff Member");
+        }
+        if (loginController.verifyUserByOrganizer(user)) {
+            userPossibilities.add("Organizer");
+        }
+        if (loginController.verifyUserByExhibitorResponsible(user)) {
+            userPossibilities.add("Exhibitor Responsible");
+        }
+
+        JComboBox<String> usersPossibilitiesListJcomboBox = new JComboBox<>();
+        for (String string : userPossibilities) {
+            usersPossibilitiesListJcomboBox.addItem(string);
+        }
         return usersPossibilitiesListJcomboBox;
     }
 
+    //Main to test dialog
+    public static void main(String[] args) {
+        ExhibitionCenter ex = DefaultInstantiator.createExhibitionCenter();
+        DialogLogin dialog = new DialogLogin(null, ex.getExhibitionsRegister().getExhibitionsList().get(0).getStaffList().getStaffList().get(0).getUser(), ex);
+    }
 }
