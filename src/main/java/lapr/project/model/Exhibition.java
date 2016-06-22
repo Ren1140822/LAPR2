@@ -13,9 +13,21 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import lapr.project.model.exhibition.ExhibitionApplicationsInDecisionState;
+import lapr.project.model.exhibition.ExhibitionApplicationsInEvaluationState;
+import lapr.project.model.exhibition.ExhibitionChangedConflictsState;
+import lapr.project.model.exhibition.ExhibitionClosedApplicationsState;
+import lapr.project.model.exhibition.ExhibitionCompleteState;
+import lapr.project.model.exhibition.ExhibitionCreatedState;
+import lapr.project.model.exhibition.ExhibitionDecidedApplicationsState;
+import lapr.project.model.exhibition.ExhibitionDemosWithoutStaffState;
+import lapr.project.model.exhibition.ExhibitionDetectedConflictsState;
 import lapr.project.model.exhibition.ExhibitionInicialState;
+import lapr.project.model.exhibition.ExhibitionOpenApplicationsState;
+import lapr.project.model.exhibition.ExhibitionStaffWithoutDemosState;
 import lapr.project.model.timers.ChangeToApplicationsInDecision;
 import lapr.project.model.timers.ChangeToChangedConflicts;
 import lapr.project.model.timers.ChangeToClosedApplications;
@@ -120,22 +132,20 @@ public class Exhibition implements Submittable, Exportable {
     /**
      * The exhibition's current state.
      */
-//    @XmlElements({
-//        @XmlElement(name = "exhibition_state", type = ExhibitionInicialState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionApplicationsInDecisionState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionApplicationsInEvaluationState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionChangedConflictsState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionClosedApplicationsState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionCreatedState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionDecidedApplicationsState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionDemosWithoutStaffState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionStaffWithoutDemosState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionOpenApplicationsState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionDetectedConflictsState.class)
-//        
-//        
-//    })
-    @XmlTransient
+    @XmlElements({
+        @XmlElement(name = "exhibition_state", type = ExhibitionInicialState.class),
+        @XmlElement(name = "exhibition_state", type = ExhibitionApplicationsInDecisionState.class),
+        @XmlElement(name = "exhibition_state", type = ExhibitionApplicationsInEvaluationState.class),
+        @XmlElement(name = "exhibition_state", type = ExhibitionChangedConflictsState.class),
+        @XmlElement(name = "exhibition_state", type = ExhibitionClosedApplicationsState.class),
+        @XmlElement(name = "exhibition_state", type = ExhibitionCreatedState.class),
+        @XmlElement(name = "exhibition_state", type = ExhibitionDecidedApplicationsState.class),
+        @XmlElement(name = "exhibition_state", type = ExhibitionDemosWithoutStaffState.class),
+        @XmlElement(name = "exhibition_state", type = ExhibitionStaffWithoutDemosState.class),
+        @XmlElement(name = "exhibition_state", type = ExhibitionOpenApplicationsState.class),
+        @XmlElement(name = "exhibition_state", type = ExhibitionDetectedConflictsState.class),
+         @XmlElement(name = "exhibition_state", type = ExhibitionCompleteState.class)
+    })
     private ExhibitionState currentState;
 
     /**

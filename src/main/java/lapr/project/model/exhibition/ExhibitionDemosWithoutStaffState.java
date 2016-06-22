@@ -3,6 +3,9 @@
  */
 package lapr.project.model.exhibition;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionState;
 
@@ -15,13 +18,21 @@ import lapr.project.model.ExhibitionState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-
+@XmlRootElement
 public class ExhibitionDemosWithoutStaffState implements ExhibitionState {
 
     /**
      * The exhibition to change state.
      */
     private final Exhibition exhibition;
+
+    /**
+     * JAXB only constructor.
+     */
+    public ExhibitionDemosWithoutStaffState() {
+        this.exhibition = new Exhibition();
+
+    }
 
     /**
      * Default constructor of an exhibition's staffWithoutDemos state.
@@ -70,7 +81,7 @@ public class ExhibitionDemosWithoutStaffState implements ExhibitionState {
     @Override
     public boolean setDemonstrationsDefined() {
 
-       return false;
+        return false;
     }
 
     @Override

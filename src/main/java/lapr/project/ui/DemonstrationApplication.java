@@ -163,6 +163,8 @@ public class DemonstrationApplication extends JFrame {
      * The model for the demonstrations list.
      */
     private ModelTableDemonstrationsList modelDemonstration;
+    
+   private static  final String WINDOW_TITLE ="Demonstration application";
 
     /**
      * Constructs instance of this class.
@@ -170,7 +172,7 @@ public class DemonstrationApplication extends JFrame {
      * @param exhibitionCenter the exhibition center
      */
     public DemonstrationApplication(ExhibitorResponsible exhibitorResponsible, ExhibitionCenter exhibitionCenter) {
-        super("Exhibition Application");
+        super(WINDOW_TITLE);
         
         this.exhibitionCenter = exhibitionCenter;
         this.demonstrationApplicationController = new CreateDemonstrationApplicationController(exhibitorResponsible, exhibitionCenter);
@@ -205,7 +207,7 @@ public class DemonstrationApplication extends JFrame {
         add(createDataPanel());
         add(createPanelProduct());
         add(createPanelKeywordt());
-        add(createPanelDemonstrations());
+        //add(createPanelDemonstrations());
     }
 
     /**
@@ -312,7 +314,7 @@ public class DemonstrationApplication extends JFrame {
         
         panel2.add(createScrollPaneKeyWords(), BorderLayout.NORTH);
         panel2.add(panelButton, BorderLayout.CENTER);
-        
+          panel2.add(createConfirmButtonsPanel(), BorderLayout.SOUTH);
         return panel2;
     }
 
@@ -327,7 +329,7 @@ public class DemonstrationApplication extends JFrame {
         panel.setBorder(PADDING_BORDER);
         
         panel.add(createScrollPaneDemonstrations(), BorderLayout.NORTH);
-        panel.add(createConfirmButtonsPanel(), BorderLayout.SOUTH);
+      
         
         return panel;
     }
@@ -374,17 +376,6 @@ public class DemonstrationApplication extends JFrame {
         
         this.productsList = this.demonstrationApplicationController.getProductsList();
         this.jListProduct = new JList(new ModelListSelectable(this.productsList));
-        this.jListProduct.addListSelectionListener(new ListSelectionListener() {
-            
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                
-                if (!jListProduct.isSelectionEmpty()) {
-                    buttonRemoveProduct.setEnabled(true);
-                }
-            }
-        });
-        
         JScrollPane scrollPane = new JScrollPane(jListProduct);
         scrollPane.setBorder(PADDING_BORDER);
         
@@ -406,16 +397,6 @@ public class DemonstrationApplication extends JFrame {
         
         this.keywordList = demonstrationApplicationController.getKeywordsList();
         this.jListKeyword = new JList(new ModelListSelectable(keywordList));
-        this.jListKeyword.addListSelectionListener(new ListSelectionListener() {
-            
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                
-                if (!jListProduct.isSelectionEmpty()) {
-                    buttonRemoveProduct.setEnabled(true);
-                }
-            }
-        });
         
         JScrollPane scrollPane = new JScrollPane(jListKeyword);
         scrollPane.setBorder(PADDING_BORDER);
@@ -490,8 +471,9 @@ public class DemonstrationApplication extends JFrame {
                     if (confirm == JOptionPane.YES_OPTION) {
                         
                         if (demonstrationApplicationController.registerDemonstrationApplication()) {
-                            message = String.format("Application submitted!");
+                            message = String.format("Application submitted sucessfully!");
                             confirm = JOptionPane.showConfirmDialog(rootPane, message, "Sucess!", JOptionPane.PLAIN_MESSAGE);
+                           new LoginUI(exhibitionCenter);
                             dispose();
                         }
                         //new LoginUI(centroExposicoes);
@@ -562,7 +544,7 @@ public class DemonstrationApplication extends JFrame {
         this.txtAddress = new JTextArea(4, FIELD_TXT_WIDTH);
         JLabel lblAddress = new JLabel("Address: ", JLabel.RIGHT);
         JPanel panelAddress = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelAddress.setBorder(new EmptyBorder(MARGIN_S_FIELD, MARGIN_E_FIELD,
+         panelAddress.setBorder(new EmptyBorder(MARGIN_S_FIELD, MARGIN_E_FIELD,
                 MARGIN_I_FIELD, MARGIN_D_FIELD));
         panelAddress.add(lblAddress);
         panelAddress.add(this.txtAddress);

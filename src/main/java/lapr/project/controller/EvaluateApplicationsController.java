@@ -4,14 +4,17 @@
 package lapr.project.controller;
 
 import java.util.List;
+import lapr.project.model.Application;
 import lapr.project.model.Evaluable;
 import lapr.project.model.Evaluation;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
+import lapr.project.model.Record;
 import lapr.project.model.StaffAttribution;
 import lapr.project.model.StaffAttributionsList;
 import lapr.project.model.StaffMember;
 import lapr.project.model.Submittable;
+import lapr.project.utils.Calculator;
 
 /**
  * Represents the controller to evaluate applications.
@@ -132,8 +135,24 @@ public class EvaluateApplicationsController {
     public boolean registerEvaluation() {
         return this.evaluable.registerEvaluation(evaluation);
     }
-    
-    public boolean removeStaffAttributions(){
+
+    /**
+     * Adds the evaluation to the recod.
+     */
+    public void addToRecord() {
+        Record record = this.exhibitionCenter.getRecord();
+        float average = Calculator.calculateListAverage(this.evaluation.getAnswersList());
+        StaffMember staffMember = this.staffAttribution.getStaffMember();
+        Application application = (Application) this.staffAttribution.getApplication();
+        record.addEvaluation(average, staffMember, application);
+    }
+
+    /**
+     * Removes the staff attribution from list after the evaluation is done.
+     *
+     * @return true if it is successful removed
+     */
+    public boolean removeStaffAttributions() {
         return this.submittable.removeAttribution(this.staffAttribution);
     }
 

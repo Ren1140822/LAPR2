@@ -3,6 +3,8 @@
  */
 package lapr.project.utils;
 
+import java.util.List;
+
 /**
  * Contains useful methods for calculations.
  *
@@ -31,7 +33,7 @@ public class Calculator {
             }
         }
 
-        return count == 0 ? 0 : sum / count;
+        return count < 1 ? 0 : sum / count;
     }
 
     /**
@@ -45,17 +47,18 @@ public class Calculator {
         int count = 0;
 
         for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
+            if (matrix[i] != null) {
+                for (int j = 0; j < matrix[i].length; j++) {
 
-                if (matrix[i][j] != null) {
-                    sum += matrix[i][j];
-                    count++;
+                    if (matrix[i][j] != null) {
+                        sum += matrix[i][j];
+                        count++;
+                    }
                 }
-
             }
         }
 
-        return count == 0 ? 0 : sum / count;
+        return count < 1 ? 0 : sum / count;
     }
 
     /**
@@ -67,5 +70,25 @@ public class Calculator {
      */
     public static float calculateDeviation(float value, float average) {
         return Math.abs(value - average);
+    }
+
+    /**
+     * Calculate the average of a given list.
+     *
+     * @param valuesList values list
+     * @return average of the values in the list
+     */
+    public static float calculateListAverage(List<Integer> valuesList) {
+        int sum = 0;
+        int count = 0;
+
+        for (Integer value : valuesList) {
+            if (value != null) {
+                sum += value;
+                count++;
+            }
+        }
+
+        return count < 1 ? 0f : (float) sum / count;
     }
 }

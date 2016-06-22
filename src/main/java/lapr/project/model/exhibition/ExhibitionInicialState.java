@@ -3,6 +3,7 @@
  */
 package lapr.project.model.exhibition;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionState;
 
@@ -15,12 +16,21 @@ import lapr.project.model.ExhibitionState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
+
 public class ExhibitionInicialState implements ExhibitionState {
 
     /**
      * The exhibition to change state.
      */
     private final Exhibition exhibition;
+
+    /**
+     * JAXB only constructor.
+     */
+    public ExhibitionInicialState() {
+        this.exhibition = new Exhibition();
+    }
 
     /**
      * Default constructor of an exhibition's incial state.
@@ -148,7 +158,5 @@ public class ExhibitionInicialState implements ExhibitionState {
     public boolean validate() {
         return this.exhibition.validate();
     }
-
- 
 
 }

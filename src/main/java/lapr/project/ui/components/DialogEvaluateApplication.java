@@ -15,12 +15,6 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import lapr.project.controller.EvaluateApplicationsController;
-import lapr.project.model.Evaluable;
-import lapr.project.model.Evaluation;
-import lapr.project.model.ExhibitionApplication;
-import lapr.project.model.ExhibitionCenter;
-import lapr.project.model.StaffMember;
 import lapr.project.ui.EvaluateApplicationUI;
 
 /**
@@ -35,29 +29,19 @@ import lapr.project.ui.EvaluateApplicationUI;
 public class DialogEvaluateApplication extends JDialog {
 
     /**
-     * The parent's frame.
+     * The questions list.
      */
-    private EvaluateApplicationUI parentFrame;
+    private final List<String> questionsList;
 
     /**
-     * The controller to evaluate applications.
+     * The answersList list.
      */
-    private EvaluateApplicationsController evaluateApplicationsController;
+    private List<Integer> answersList;
 
     /**
-     * The evaluable.
+     * The answersList JList.
      */
-    private Evaluable evaluable;
-
-    /**
-     * The evaluation.
-     */
-    private Evaluation evaluation;
-
-    /**
-     * The answers list.
-     */
-    List<JComboBox> answersList;
+    private List<JComboBox> answersListJComboBox;
 
     /**
      * The window title.
@@ -72,15 +56,13 @@ public class DialogEvaluateApplication extends JDialog {
     /**
      * Creates a dialog to evaluate an evaluable.
      *
-     * @param evaluable the evaluable
+     * @param questionList questions list
      * @param parentFrame parent's frame
      */
-    public DialogEvaluateApplication(Evaluable evaluable, EvaluateApplicationsController evaluateApplicationsController, EvaluateApplicationUI parentFrame) {
+    public DialogEvaluateApplication(List<String> questionList, EvaluateApplicationUI parentFrame) {
         super(parentFrame, WINDOW_TITLE, true);
 
-        this.parentFrame = parentFrame;
-        this.evaluateApplicationsController = evaluateApplicationsController;
-        this.evaluable = evaluable;
+        this.questionsList = questionList;
 
         createComponents();
 
@@ -105,29 +87,27 @@ public class DialogEvaluateApplication extends JDialog {
     }
 
     /**
-     * Creates the questions and answers panel.
+     * Creates the questions and answersList panel.
      *
-     * @return questions and answers panel
+     * @return questions and answersList panel
      */
     private JPanel createQuestionsAndAnswersLabel() {
 
-        List<String> questionsList = this.evaluateApplicationsController.newEvaluation();
-
         JPanel questionsAndAnswersPanel = new JPanel(new GridLayout(questionsList.size(), 1));
 
-        List<JLabel> questionsJList = new ArrayList<>();
-        answersList = new ArrayList<>();
+        List<JLabel> questionsListJLabel = new ArrayList<>();
+        this.answersListJComboBox = new ArrayList<>();
         Integer possibleAnswers[] = {0, 1, 2, 3, 4, 5};
 
-        for (String question : questionsList) {
-            questionsJList.add(new JLabel(String.format("Q: %s", question)));
-            answersList.add(new JComboBox<Integer>(possibleAnswers));
+        for (String question : this.questionsList) {
+            questionsListJLabel.add(new JLabel(String.format("Q: %s", question)));
+            this.answersListJComboBox.add(new JComboBox<>(possibleAnswers));
         }
 
-        for (int i = 0; i < questionsJList.size(); i++) {
+        for (int i = 0; i < questionsListJLabel.size(); i++) {
             JPanel questionAnswersPanel = new JPanel();
-            questionAnswersPanel.add(questionsJList.get(i));
-            questionAnswersPanel.add(this.answersList.get(i));
+            questionAnswersPanel.add(questionsListJLabel.get(i));
+            questionAnswersPanel.add(this.answersListJComboBox.get(i));
             questionsAndAnswersPanel.add(questionAnswersPanel);
 
         }
@@ -160,20 +140,11 @@ public class DialogEvaluateApplication extends JDialog {
         submitEvaluationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                List<Integer> answers = new ArrayList<>();
-                for (JComboBox answersComboBox : DialogEvaluateApplication.this.answersList) {
-                    answers.add((Integer) answersComboBox.getSelectedItem());
+                DialogEvaluateApplication.this.answersList = new ArrayList<>();
+                for (JComboBox answersComboBox : DialogEvaluateApplication.this.answersListJComboBox) {
+                    DialogEvaluateApplication.this.answersList.add((Integer) answersComboBox.getSelectedItem());
                 }
-
-                //Register the evaluation
-                if (DialogEvaluateApplication.this.evaluateApplicationsController.setEvaluation(answers)) {
-                    // TODO ask for confirmation.
-                    DialogEvaluateApplication.this.evaluateApplicationsController.registerEvaluation();
-                    if (DialogEvaluateApplication.this.evaluateApplicationsController.removeStaffAttributions()) {
-                        parentFrame.updateStaffAtributionsList();
-                    }
-                    dispose();
-                }
+                dispose();
             }
         });
 
@@ -191,6 +162,7 @@ public class DialogEvaluateApplication extends JDialog {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                DialogEvaluateApplication.this.answersList = null;
                 dispose();
             }
         });
@@ -198,8 +170,13 @@ public class DialogEvaluateApplication extends JDialog {
         return cancelButton;
     }
 
-    public static void main(String[] args) {
-        new DialogEvaluateApplication(new ExhibitionApplication(), new EvaluateApplicationsController(new ExhibitionCenter()), new EvaluateApplicationUI(new ExhibitionCenter(), new StaffMember()));
+    /**
+     * Gets the answers list.
+     *
+     * @return answers list
+     */
+    public List<Integer> getAnswersList() {
+        return this.answersList;
     }
 
 }

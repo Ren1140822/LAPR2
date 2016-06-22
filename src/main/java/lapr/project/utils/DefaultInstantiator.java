@@ -142,7 +142,7 @@ public class DefaultInstantiator {
 
         // Demonstrations for computer science
         Demonstration demonstrationAngularJs = new Demonstration("Angular JS", "Get started with angular js.",
-                new Date(2015, 7, 23), new Date(2015, 8, 11), placeComputerScience, 
+                new Date(2015, 7, 23), new Date(2015, 8, 11), placeComputerScience,
                 staffListComputerScience, organizersListComputerScience,
                 new ApplicationsList(), new ArrayList<>(), new StaffAttributionsList(),
                 new ConflictsList());
@@ -250,8 +250,24 @@ public class DefaultInstantiator {
         staffAttributionMechanisms.add(staffAttributionMechanism1);
         MechanismsRegister mechanismsRegister = new MechanismsRegister(staffAttributionMechanisms);
 
+        
+        List<StaffMember> staffListRecord = new ArrayList<>();
+        staffListRecord.add(staffMemberIvo);
+        staffListRecord.add(staffMemberEric);
+        
+        List<Application> applicationsListRecord = new ArrayList<>();
+        applicationsListRecord.add(exhibitionApplicationNodeJs);
+        applicationsListRecord.add(demonstrationApplicationAngularJs);
+        
+        Float[][] evaluationsMatrixRecord = new Float[2][2];
+        evaluationsMatrixRecord[0][0] = 3.41f;
+        evaluationsMatrixRecord[0][1] = 4.23f;
+        evaluationsMatrixRecord[1][1] = 1.11f;
+        
+        Record record = new Record(staffListRecord, applicationsListRecord, evaluationsMatrixRecord);
+        
         ExhibitionCenter exhibitionCenter = new ExhibitionCenter(exhibitionsRegister, usersRegister,
-                resourcesRegister, standsRegister, mechanismsRegister, new ConflictTypesRegister(), new ExhibitionsManagerRegister());
+                resourcesRegister, standsRegister, mechanismsRegister, new ConflictTypesRegister(), new ExhibitionsManagerRegister(), record);
 
         return exhibitionCenter;
     }
