@@ -145,7 +145,7 @@ public class ExportExhibitionUI extends JFrame {
                         result = chooser.showSaveDialog(rootPane);
                         if(result==JFileChooser.APPROVE_OPTION){
                   
-                        controller.exportExportable(chooser.getCurrentDirectory().getAbsolutePath()+chooser.getSelectedFile().getName());
+                        controller.exportExportable(chooser.getCurrentDirectory().getAbsolutePath()+"\\"+chooser.getSelectedFile().getName());
                         }
                     }                  
                 } 

@@ -50,10 +50,10 @@ public class CalculatorTest {
     @Test
     public void testCalculateMatrixAverage() {
         System.out.println("calculateMatrixAverage");
-        Float[][] matrix = {    {2.50f, 2.20f, null, 3.30f},
-                                {3.50f, 2.20f, null, 5.30f},
-                                {2.50f, 3.20f, null, 3.30f}
-                                                            };
+        Float[][] matrix = {{2.50f, 2.20f, null, 3.30f},
+        {3.50f, 2.20f, null, 5.30f},
+        {2.50f, 3.20f, null, 3.30f}
+        };
         float expResult = 3.11f;
         float result = Calculator.calculateMatrixAverage(matrix);
         assertEquals(expResult, result, 0.01);
@@ -66,10 +66,10 @@ public class CalculatorTest {
     @Test
     public void testCalculateMatrixAverageWithNullVector() {
         System.out.println("calculateMatrixAverage - with null vector");
-        Float[][] matrix = {    {2.50f, 2.20f, null, 3.30f},
-                                null,
-                                {2.50f, 3.20f, null, 3.30f}
-                                                            };
+        Float[][] matrix = {{2.50f, 2.20f, null, 3.30f},
+        null,
+        {2.50f, 3.20f, null, 3.30f}
+        };
         float expResult = 2.83f;
         float result = Calculator.calculateMatrixAverage(matrix);
         assertEquals(expResult, result, 0.01);
@@ -82,10 +82,10 @@ public class CalculatorTest {
     @Test
     public void testCalculateMatrixAverageWithNullVectorAndZero() {
         System.out.println("calculateMatrixAverage - with null vector and zero");
-        Float[][] matrix = {    {2.50f, 2.20f, null, 3.30f, 0.00f},
-                                null,
-                                {0.00f, 2.50f, 3.20f, null, 3.30f}
-                                                                    };
+        Float[][] matrix = {{2.50f, 2.20f, null, 3.30f, 0.00f},
+        null,
+        {0.00f, 2.50f, 3.20f, null, 3.30f}
+        };
         float expResult = 2.13f;
         float result = Calculator.calculateMatrixAverage(matrix);
         assertEquals(expResult, result, 0.01);
@@ -116,7 +116,7 @@ public class CalculatorTest {
         float result = Calculator.calculateDeviation(value, average);
         assertEquals(expResult, result, 0.01);
     }
-    
+
     /**
      * Test of calculateListAverage method, of class Calculator.
      */
@@ -132,9 +132,10 @@ public class CalculatorTest {
         float result = Calculator.calculateListAverage(valuesList);
         assertEquals(expResult, result, 0.01);
     }
-    
+
     /**
-     * Test of calculateListAverage method with negative dividend, of class Calculator.
+     * Test of calculateListAverage method with negative dividend, of class
+     * Calculator.
      */
     @Test
     public void testCalculateListAverageNegativeDividend() {
