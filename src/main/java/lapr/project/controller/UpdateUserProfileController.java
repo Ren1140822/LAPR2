@@ -66,7 +66,7 @@ public class UpdateUserProfileController {
      * @param password
      * @return true if valid or false otherwise
      */
-    public boolean setUserData( String name, String username, String email, String password) {
+    public String setUserData( String name, String username, String email, String password) {
         User userClone = new User(this.user);
         List<User> userListClone = new ArrayList<>(this.usersRegister.getUsersList());
         
@@ -77,19 +77,22 @@ public class UpdateUserProfileController {
         
         if(userClone.validate()) {
             for(User user : userListClone) {
-                if(user.getUsername().equals(username)){
+                if(user.getUsername().equals(this.user.getUsername())){
                     userListClone.remove(user);
                     break;
                 }
             }
             
-            if(userListClone.add(user)) {
+            if(!userListClone.contains(userClone) && userListClone.add(userClone)) {
                 this.usersRegister.setUsersList(userListClone);
-                return true;
+                return "Success";
+            }
+            else {
+                return "Username/email duplicated";
             }
         }
         
-        return false;
+        return "Invalid username/email";
     }
     
     /**

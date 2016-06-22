@@ -5,7 +5,10 @@ package lapr.project.controller;
 
 import java.util.List;
 import lapr.project.model.ApplicationsList;
+import lapr.project.model.Demonstration;
+import lapr.project.model.DemonstrationsList;
 import lapr.project.model.Editable;
+import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
 import lapr.project.model.ExhibitorResponsible;
@@ -111,5 +114,18 @@ public class EditApplicationController {
      */
     public boolean modifyEditable() {
         return this.applicationsList.modifyEditable(this.newEditable, this.oldEditable);
+    }
+    
+    /**
+     * Gets the available demonstrations in the exhibition.
+     * 
+     * @return available demonstrations in the exhibition
+     */
+    public List<Demonstration> getAvailableDemonstrationsInExhibition(){
+        if (this.submittable instanceof Exhibition) {
+            DemonstrationsList demonstrationsList = ((Exhibition) this.submittable).getDemonstrationsList();
+            return demonstrationsList.getDemonstrationsList();
+        }
+        return null;
     }
 }

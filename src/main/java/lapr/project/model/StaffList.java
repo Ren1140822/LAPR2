@@ -98,6 +98,22 @@ public class StaffList {
     }
 
     /**
+     * Verify if a given staff member is on the staff member's list.
+     *
+     * @param username staff member's username to be looked up
+     * @return true if it is contained, false otherwise
+     */
+    public boolean isStaffMember(String username) {
+        for (StaffMember staffMember : this.staffList) {
+            if (staffMember.getUser().getUsername().equals(username)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    /**
      * Adds a staff member.
      *
      * @staffMember
