@@ -3,8 +3,6 @@
  */
 package lapr.project.model.exhibition;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionState;

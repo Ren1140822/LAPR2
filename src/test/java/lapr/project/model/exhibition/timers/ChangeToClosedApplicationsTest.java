@@ -3,7 +3,6 @@
  */
 package lapr.project.model.exhibition.timers;
 
-import lapr.project.model.timers.ChangeToClosedApplications;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,9 +16,10 @@ import lapr.project.model.Place;
 import lapr.project.model.StaffAttributionsList;
 import lapr.project.model.StaffList;
 import lapr.project.model.exhibition.ExhibitionOpenApplicationsState;
+import lapr.project.model.timers.ChangeToClosedApplications;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Tests change to closed applications timer task

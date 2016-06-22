@@ -6,7 +6,8 @@ package lapr.project.controller;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.Stand;
 import lapr.project.utils.DefaultInstantiator;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 

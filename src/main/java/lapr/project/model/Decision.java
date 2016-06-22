@@ -104,6 +104,7 @@ public class Decision {
         return !this.justificativeText.isEmpty();
     }
 
+    @Override
     public boolean equals(Object otherObject) {
         if (this == otherObject) {
             return true;

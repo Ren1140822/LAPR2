@@ -12,9 +12,10 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.demonstration.DemonstrationCreatedState;
 import lapr.project.model.demonstration.DemonstrationDecidedState;
 import lapr.project.utils.DefaultInstantiator;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Tests a DefineEfectiveDemosController class.

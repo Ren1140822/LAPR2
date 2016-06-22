@@ -27,9 +27,9 @@ import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.Organizer;
 import lapr.project.model.Stand;
 import lapr.project.model.Submittable;
-import lapr.project.ui.components.DialogSelectable;
 import lapr.project.model.application.ApplicationAcceptedState;
 import lapr.project.model.exhibition.ExhibitionDecidedApplicationsState;
+import lapr.project.ui.components.DialogSelectable;
 import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 

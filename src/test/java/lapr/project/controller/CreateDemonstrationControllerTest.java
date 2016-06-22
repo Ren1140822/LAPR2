@@ -4,24 +4,17 @@
 package lapr.project.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import lapr.project.model.ApplicationsList;
-import lapr.project.model.ConflictsList;
 import lapr.project.model.Demonstration;
-import lapr.project.model.DemonstrationsList;
 import lapr.project.model.Exhibition;
 import lapr.project.model.Organizer;
-import lapr.project.model.OrganizersList;
-import lapr.project.model.Place;
 import lapr.project.model.Resource;
-import lapr.project.model.StaffAttributionsList;
-import lapr.project.model.StaffList;
-import lapr.project.model.User;
 import lapr.project.utils.DefaultInstantiator;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Tests a createDemonstrationController.

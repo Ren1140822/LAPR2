@@ -14,11 +14,11 @@ import lapr.project.model.exhibition.ExhibitionCreatedState;
 import lapr.project.model.exhibition.ExhibitionDecidedApplicationsState;
 import lapr.project.model.exhibition.ExhibitionStaffWithoutDemosState;
 import lapr.project.utils.DefaultInstantiator;
-import org.junit.Before;
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Tests a exhibitions register.

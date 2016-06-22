@@ -164,6 +164,7 @@ public class Exhibitor {
      * @param otherObject the other object to compare with
      * @return true if equal
      */
+    @Override
     public boolean equals(Object otherObject) {
         if (this == otherObject) {
             return true;

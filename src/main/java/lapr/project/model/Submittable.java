@@ -49,6 +49,7 @@ public interface Submittable extends Selectable {
      *
      * @return a short representation
      */
+    @Override
     String getDisplayInfo();
 
     String[] getInfo();

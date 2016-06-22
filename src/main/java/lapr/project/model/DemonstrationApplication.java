@@ -155,6 +155,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @param title application's title
      */
+    @Override
     public void setTitle(String title) {
         this.title = title;
     }
@@ -184,6 +185,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @param keywordsList keywords list
      */
+    @Override
     public void setKeywordsList(List<Keyword> keywordsList) {
         this.keywordsList = keywordsList;
     }
@@ -250,6 +252,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @param numberInvitations sets number of invitations
      */
+    @Override
     public void setNumberInvitations(int numberInvitations) {
         this.numberInvitations = numberInvitations;
     }
@@ -268,6 +271,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      *
      * @param productsList products list
      */
+    @Override
     public void setProductsList(List<Product> productsList) {
         this.productsList = new ArrayList(productsList);
     }
