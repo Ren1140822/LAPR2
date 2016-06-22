@@ -14,6 +14,7 @@ import lapr.project.model.exhibition.ExhibitionDecidedApplicationsState;
 import lapr.project.utils.DefaultInstantiator;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Tests the classe generate evaluations statistics.
@@ -25,22 +26,22 @@ import org.junit.Before;
  * @author Ricardo Correia 1151231
  */
 public class GenerateEvaluationsStatisticsControllerTest {
-    
+
     /**
      * The generate evaluations statistics controller to be tested
      */
     private GenerateEvaluationsStatisticsController generateEvaluationsStatisticsController;
-    
+
     /**
      * The exhibition center to be used in tests.
      */
     private ExhibitionCenter exhibitionCenter;
-    
+
     /**
      * The actor logged in.
      */
     private Actor actor;
-    
+
     @Before
     public void setUp() {
         this.exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
@@ -51,7 +52,8 @@ public class GenerateEvaluationsStatisticsControllerTest {
     }
 
     /**
-     * Test of getExhibitionsList method, of class GenerateEvaluationsStatisticsController.
+     * Test of getExhibitionsList method, of class
+     * GenerateEvaluationsStatisticsController.
      */
     @Test
     public void testGetExhibitionsList() {
@@ -62,7 +64,8 @@ public class GenerateEvaluationsStatisticsControllerTest {
     }
 
     /**
-     * Test of getAcceptanceRate method, of class GenerateEvaluationsStatisticsController.
+     * Test of getAcceptanceRate method, of class
+     * GenerateEvaluationsStatisticsController.
      */
     @Test
     public void testGetAcceptanceRate() {
@@ -74,7 +77,8 @@ public class GenerateEvaluationsStatisticsControllerTest {
     }
 
     /**
-     * Test of getApplicationsAnalysis method, of class GenerateEvaluationsStatisticsController.
+     * Test of getApplicationsAnalysis method, of class
+     * GenerateEvaluationsStatisticsController.
      */
     @Test
     public void testGetApplicationsAnalysis() {
