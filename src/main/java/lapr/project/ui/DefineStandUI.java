@@ -2,31 +2,30 @@
  * Package location for UI classes.
  */
 package lapr.project.ui;
-
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import lapr.project.controller.DefineStandController;
-import lapr.project.model.ExhibitionCenter;
-import lapr.project.model.Stand;
-import lapr.project.ui.components.ModelListSelectable;
-import lapr.project.utils.DefaultInstantiator;
+//
+//import java.awt.BorderLayout;
+//import java.awt.Dimension;
+//import java.awt.FlowLayout;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
+//import java.util.List;
+//import javax.swing.DefaultListCellRenderer;
+//import javax.swing.JButton;
+//import javax.swing.JFrame;
+//import javax.swing.JLabel;
+//import javax.swing.JList;
+//import javax.swing.JOptionPane;
+//import javax.swing.JPanel;
+//import javax.swing.JScrollPane;
+//import javax.swing.ListSelectionModel;
+//import javax.swing.SwingConstants;
+//import javax.swing.border.EmptyBorder;
+//import javax.swing.event.ListSelectionEvent;
+//import javax.swing.event.ListSelectionListener;
+//import lapr.project.controller.DefineStandController;
+//import lapr.project.model.ExhibitionCenter;
+//import lapr.project.model.Stand;
+//import lapr.project.ui.components.ModelListSelectable;
 
 /**
  * Graphic user interface to define stands.
@@ -130,7 +129,7 @@ import lapr.project.utils.DefaultInstantiator;
 //     * @return exhibition applications panel
 //     */
 //    private JPanel createStandPanel() {
-//        JPanel exbitionApplicationListPanel = new JPanel(new BorderLayout());
+//        JPanel exhibitionApplicationsListPanel = new JPanel(new BorderLayout());
 //        
 //        this.standsJList = new JList();
 //        this.standsJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -180,14 +179,31 @@ import lapr.project.utils.DefaultInstantiator;
 //                
 //                String stand = JOptionPane.showInputDialog(DefineStandUI.this,
 //                        "Insert the stand area:",
-//                        "Insert the ")
+//                        "Add Stand",
+//                        JOptionPane.QUESTION_MESSAGE);
+//                
+//                if (DefineStandUI.this.controller.newStand(stand) && stand != null) {
+//                    
+//                    DefineStandUI.this.controller.registerStand();
+//                    DefineStandUI.this.updateStandsList();
+//                }
+//                
+//                else if (stand != null) {
+//                    
+//                    JOptionPane.showMessageDialog(DefineResourceUI, e);
+//                }
 //            }
 //        });
 //        
 //    }
 //    
+//    private JButton createRemoveResourceButton(){
+//        
+//    }
 //    
-//    
+//    private JButton createBackButton() {
+//        
+//    }
 //    
 //    
 //    

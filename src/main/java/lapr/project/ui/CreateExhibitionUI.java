@@ -157,7 +157,7 @@ public class CreateExhibitionUI extends JFrame {
     final int FIELD_WIDTH = 20;
 
     /**
-     * Constructor of a Create Exhibtion UI Class.
+     * Constructor of a Create Exhibition UI Class.
      *
      * @param exhibitionCenter the exhibition center
      * @param exhibitionsManager the exhibitions manager logged in

@@ -40,7 +40,7 @@ import lapr.project.utils.DefaultInstantiator;
 public class DefineResourceUI extends JFrame {
 
     /**
-     * The define stand controller.
+     * The define resource controller.
      */
     private final DefineResourceController controller;
 
