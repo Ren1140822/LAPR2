@@ -77,12 +77,12 @@ public class EvaluateApplicationUI extends JFrame {
     /**
      * Submittables JList component.
      */
-    private JList submittablesJList;
+    private JList<Submittable> submittablesJList;
 
     /**
      * Staff attributions JList component.
      */
-    private JList staffAttributionsJList;
+    private JList<StaffAttribution> staffAttributionsJList;
 
     /**
      * See application button.
@@ -274,7 +274,15 @@ public class EvaluateApplicationUI extends JFrame {
         this.evaluateApplicationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new DialogEvaluateApplication(evaluable, controller, EvaluateApplicationUI.this);
+                List<String> questionList = EvaluateApplicationUI.this.controller.newEvaluation();
+                DialogEvaluateApplication dialogEvaluateApplication = new DialogEvaluateApplication(questionList, EvaluateApplicationUI.this);
+                List<Integer> answersList = dialogEvaluateApplication.getAnswersList();
+                if (answersList != null) {
+                    EvaluateApplicationUI.this.controller.setEvaluation(answersList);
+                    EvaluateApplicationUI.this.controller.registerEvaluation();
+                    EvaluateApplicationUI.this.controller.removeStaffAttributions();
+                    EvaluateApplicationUI.this.updateStaffAtributionsList();
+                }
             }
         });
 
@@ -299,9 +307,12 @@ public class EvaluateApplicationUI extends JFrame {
         return exitButton;
     }
 
-    public void updateStaffAtributionsList() {
-        this.staffAttributionsList = controller.getAttributionsByStaff(staffMember);
-        this.staffAttributionsJList.setModel(new ModelListSelectable(EvaluateApplicationUI.this.staffAttributionsList));
+    /**
+     * Updates the staff atributions list.
+     */
+    private void updateStaffAtributionsList() {
+        this.staffAttributionsList = controller.getAttributionsByStaff(this.staffMember);
+        this.staffAttributionsJList.setModel(new ModelListSelectable(this.staffAttributionsList));
     }
 
     /**
