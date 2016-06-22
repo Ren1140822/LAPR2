@@ -100,12 +100,12 @@ public class OrganizersList {
     /**
      * Remove a organizer from the organizers list.
      *
-     * @param organizer the organizer to remove
+     * @param index index of the organizer to remove.
      * @return true if organizer is removed from the list.
      */
-    public boolean removeOrganizer(Organizer organizer) {
+    public boolean removeOrganizer(int index) {
 
-        return this.organizersList.remove(organizer);
+        return this.organizersList.remove(organizersList.get(index));
     }
 
     /**
