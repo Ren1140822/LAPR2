@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class StaffMember implements Actor {
+public class StaffMember implements Actor, Selectable{
 
     /**
      * The user information associated to this Staff Member.
@@ -104,5 +104,10 @@ public class StaffMember implements Actor {
         StaffMember otherStaffMember = (StaffMember) otherObject;
 
         return this.user.equals(otherStaffMember.user);
+    }
+
+    @Override
+    public String getDisplayInfo() {
+         return this.user.getName();
     }
 }

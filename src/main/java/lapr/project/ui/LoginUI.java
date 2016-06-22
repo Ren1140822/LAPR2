@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import lapr.project.controller.LoginController;
 import lapr.project.model.ExhibitionCenter;
+import lapr.project.model.User;
 import lapr.project.utils.DefaultInstantiator;
 
 /**
@@ -46,6 +47,10 @@ public class LoginUI extends JFrame {
      * The textfield size.
      */
     static final int TEXTFIELD_SIZE = 9;
+    
+    private JTextField txtUsername;
+    
+    private JPasswordField txtPassword;
 
     final static Dimension WINDOW_SIZE = new Dimension(550, 450);
 
@@ -84,9 +89,9 @@ public class LoginUI extends JFrame {
     public JPanel createPanelUserName() {
         JPanel panel = new JPanel(new FlowLayout());
         Label label = new Label("Username: ");
-        JTextField text = new JTextField(TEXTFIELD_SIZE);
+         txtUsername = new JTextField(TEXTFIELD_SIZE);
         panel.add(label);
-        panel.add(text);
+        panel.add(txtUsername);
         panel.setBorder(BorderFactory.createBevelBorder(2, Color.lightGray, Color.BLACK));
         return panel;
     }
@@ -94,9 +99,9 @@ public class LoginUI extends JFrame {
     public JPanel createPanelPasswords() {
         JPanel panel = new JPanel(new FlowLayout());
         Label label = new Label("Password: ");
-        JPasswordField text = new JPasswordField(TEXTFIELD_SIZE);
+         txtPassword = new JPasswordField(TEXTFIELD_SIZE);
         panel.add(label);
-        panel.add(text);
+        panel.add(txtPassword);
         panel.setBorder(BorderFactory.createBevelBorder(2, Color.lightGray, Color.BLACK));
         return panel;
     }
@@ -117,7 +122,7 @@ public class LoginUI extends JFrame {
        
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: loginController
+                User user =loginController.verifyLogin(txtUsername.getText(), txtPassword.getText());
             }
         });
         return button;

@@ -3,6 +3,9 @@
  */
 package lapr.project.model.exhibition;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionState;
 
@@ -15,6 +18,8 @@ import lapr.project.model.ExhibitionState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
+@XmlRootElement
+
 public class ExhibitionApplicationsInDecisionState implements ExhibitionState {
 
     /**
@@ -22,6 +27,15 @@ public class ExhibitionApplicationsInDecisionState implements ExhibitionState {
      */
     private final Exhibition exhibition;
 
+    /**
+     * JAXB only constructor.
+     */
+    public ExhibitionApplicationsInDecisionState() {
+        exhibition = new Exhibition();
+    }
+
+    
+    
     /**
      * Default constructor of an exhibition's applications in decision state.
      *
