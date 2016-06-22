@@ -45,13 +45,14 @@ public class Calculator {
         int count = 0;
 
         for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
+            if (matrix[i] != null) {
+                for (int j = 0; j < matrix[i].length; j++) {
 
-                if (matrix[i][j] != null) {
-                    sum += matrix[i][j];
-                    count++;
+                    if (matrix[i][j] != null) {
+                        sum += matrix[i][j];
+                        count++;
+                    }
                 }
-
             }
         }
 
