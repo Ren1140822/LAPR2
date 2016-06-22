@@ -64,4 +64,10 @@ public interface Application extends Selectable {
      * @return true if rejected
      */
     public boolean isDesionDeclined();
+    
+    /**
+     * Gets the exhibitor.
+     * @return returns the exhibitor
+     */
+    public Exhibitor getExhibitor();
 }
