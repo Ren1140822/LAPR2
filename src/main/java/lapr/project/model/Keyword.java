@@ -30,15 +30,15 @@ public class Keyword implements Selectable {
      *
      * @param keywordsCSV keywords in comma separated value format (csv)
      * @return keywords list
-     * @throws com.sun.media.sound.InvalidFormatException keywords are invalid
+     * @throws java.lang.Exception keywords are invalid
      */
-    public static List<Keyword> toKeywordsList(String keywordsCSV) throws InvalidFormatException {
+    public static List<Keyword> toKeywordsList(String keywordsCSV) throws Exception {
         List<Keyword> keywordsList = new ArrayList<>();
 
         String[] keywords = keywordsCSV.split(",");
         for (String keyword : keywords) {
-            if (keyword.trim().length() < 2 || keyword == null) { //Improve with REGEX
-                throw new InvalidFormatException();
+            if (keyword.trim().length() < 2) { //Improve with REGEX
+                throw new Exception();
             } else {
                 keywordsList.add(new Keyword(keyword.trim()));
             }
