@@ -5,6 +5,7 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import lapr.project.utils.Calculator;
 
 /**
  * Represents the recods of all application's evaluations.
@@ -32,7 +33,17 @@ public class Record {
      * a Staff Member each column is a Application) eg. | A1 | A2 | A3 S1 | 2,3
      * | 3,4 | N/A S2 | 3,6 | 4,2 | 3,2
      */
-    private float[][] evaluationsMatrix;
+    private Float[][] evaluationsMatrix;
+
+    /**
+     * Average test value.
+     */
+    private static final float TEST_AVG = 1.0f;
+
+    /**
+     * Minimum number of applications evaluated to run hypothesis test
+     */
+    private static final int MIN_EVALUATED_APPS = 30;
 
     /**
      * Default constructor of a Record.
@@ -41,7 +52,7 @@ public class Record {
 
         this.staffList = new ArrayList<>();
         this.applicationsList = new ArrayList<>();
-        this.evaluationsMatrix = new float[0][0];
+        this.evaluationsMatrix = new Float[0][0];
     }
 
     /**
@@ -51,7 +62,7 @@ public class Record {
      * @param applicationsList applications list
      * @param evaluationsMatrix evaluations matrix
      */
-    public Record(List<StaffMember> staffList, List<Application> applicationsList, float[][] evaluationsMatrix) {
+    public Record(List<StaffMember> staffList, List<Application> applicationsList, Float[][] evaluationsMatrix) {
 
         this.staffList = new ArrayList<>(staffList);
         this.applicationsList = new ArrayList<>(applicationsList);
@@ -68,6 +79,136 @@ public class Record {
         this.staffList = new ArrayList<>(record.staffList);
         this.applicationsList = new ArrayList<>(record.applicationsList);
         this.evaluationsMatrix = record.evaluationsMatrix.clone();
+    }
+
+    /**
+     * Calculates the staff analytics analytics.
+     *
+     * @return the analytics output list.
+     */
+    public List<StaffMemberAnalytic> calculateStaffAnalytics() {
+
+        List<StaffMemberAnalytic> analytics = new ArrayList<>();
+
+        int numStaffMember = this.evaluationsMatrix.length;
+
+        // Calculations
+        // Xi
+        Float[] rowAvg = new Float[numStaffMember];
+        for (int i = 0; i < numStaffMember; i++) {
+            rowAvg[i] = Calculator.calculateVectorAverage(evaluationsMatrix[i]);
+        }
+        // (XT)
+        float globalAverage = Calculator.calculateVectorAverage(rowAvg);
+        // (dij)
+        Float[][] deviations = calculateDeviationsMatrix(evaluationsMatrix, globalAverage);
+        // (di)
+        Float[] rowDeviationsAvg = new Float[numStaffMember];
+        for (int i = 0; i < numStaffMember; i++) {
+            rowDeviationsAvg[i] = Calculator.calculateVectorAverage(deviations[i]);
+        }
+        // (D)
+        float globalDeviationAvg = Calculator.calculateVectorAverage(rowDeviationsAvg);
+        // (s2i)
+        Float[] squaredVariances = calculateRowSquaredVariance(deviations, globalDeviationAvg);
+        // (zi)
+        Float[] zValues = new Float[numStaffMember];
+        for (int i = 0; i < numStaffMember; i++) {
+            zValues[i] = calculateCriticalZ(squaredVariances[i], globalDeviationAvg, deviations[i].length);
+        }
+
+        for (int i = 0; i < numStaffMember; i++) {
+
+            int numEvaluatedApps = deviations[i].length;
+
+            if (numEvaluatedApps <= MIN_EVALUATED_APPS) {
+                analytics.add(null);
+            } else {
+                StaffMemberAnalytic analytic = new StaffMemberAnalytic();
+                analytic.setNumApplications(numEvaluatedApps);
+                analytic.setEvaluationsAverage(rowAvg[i]);
+                analytic.setDeviationsAverage(rowDeviationsAvg[i]);
+                analytic.setHypothesisTestValue(zValues[i]);
+
+                analytics.add(analytic);
+            }
+        }
+
+        return analytics;
+    }
+
+    /**
+     * Calculate the deviations of each element.
+     *
+     * @param matrix matrix with classification average values of each staff
+     * member
+     * @param globalAverage global average of the matrix
+     * @return matrix with each deviation
+     */
+    private Float[][] calculateDeviationsMatrix(Float[][] matrix, float globalAverage) {
+
+        int rows = matrix.length;
+        int columns = matrix[0].length;
+
+        Float[][] deviations = new Float[rows][columns];
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                if (matrix[i][j] != null) {
+
+                    deviations[i][j] = Calculator.calculateDeviation(matrix[i][j], globalAverage);
+                }
+            }
+        }
+        return deviations;
+    }
+
+    /**
+     * Calculate the variance of each staff member's evaluations (row).
+     *
+     * @param deviations matrix with values to calculate deviation
+     * @param globalDeviationAvg global devations average
+     *
+     * @return array with variances for each staff member
+     */
+    private Float[] calculateRowSquaredVariance(Float[][] deviations, float globalDeviationAvg) {
+
+        int rows = deviations.length;
+
+        Float[] variances = new Float[rows];
+
+        for (int i = 0; i < deviations.length; i++) {
+
+            float sum = 0.0f;
+            int count = 0;
+
+            for (int j = 0; j < deviations[i].length; j++) {
+                if (deviations[i][j] != null) {
+
+                    float result = deviations[i][j] - globalDeviationAvg;
+                    sum += (float) Math.pow(result, 2);
+                    count++;
+                }
+            }
+            variances[i] = sum / count;
+        }
+        return variances;
+    }
+
+    /**
+     * Calculate the critical z value of a staff member's evaluations.
+     *
+     * @param squaredVariance variances with of each staff member
+     * @param globalDeviationAvg global devations average
+     * @param numEvaluations number of evaluations of staff member.
+     *
+     * @return critical z value for each staff member
+     */
+    private float calculateCriticalZ(float squaredVariance, float globalDeviationAvg, int numEvaluations) {
+
+        float zValue = (globalDeviationAvg - TEST_AVG) / (float) Math.sqrt(squaredVariance / numEvaluations);
+
+        return zValue;
     }
 
     /**
@@ -142,17 +283,17 @@ public class Record {
         la.add(new ExhibitionApplication());
         la.add(new ExhibitionApplication());
 
-        float[][] matriz = {
-            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
+        Float[][] matriz = {
+            {1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f},
+            {1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f},
+            {1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f},
+            {1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f},
+            {1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f},
+            {1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f},
+            {1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f},
+            {1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f},
+            {1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f},
+            {1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f}};
 
         Record r = new Record(ls, la, matriz);
         System.out.println(r);
