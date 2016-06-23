@@ -45,6 +45,29 @@ public class StaffMemberAnalytic {
     private boolean warning;
 
     /**
+     * tabulated confidence intervals values & it's corresponding z values.
+     */
+    public static enum ConfidenceIntervals {
+
+        NINETY,
+        NINETY_FIVE,
+        NINETY_NINE;
+
+        float zValue() {
+            switch (this) {
+                case NINETY:
+                    return 1.28f;
+                case NINETY_FIVE:
+                    return 1.645f;
+                case NINETY_NINE:
+                    return 2.33f;
+                default:
+                    throw new AssertionError("Unknown value " + this);
+            }
+        }
+    }
+
+    /**
      * The default number of applications evaluated.
      */
     private static final int DEFAULT_NUM_APPLICATIONS = 0;
@@ -221,12 +244,23 @@ public class StaffMemberAnalytic {
     }
 
     /**
-     * Set the hypothesis test value is over the critical region.
+     * Set if the hypothesis test value is over the critical region.
      *
      * @param warning the warning to set
      */
     public void setWarning(boolean warning) {
         this.warning = warning;
+    }
+
+    /**
+     * Updates if the hypothesis test value is over the critical region.
+     *
+     * @param confidenceInterval the confidence interval to set the critical
+     * region
+     */
+    public void updateWarning(ConfidenceIntervals confidenceInterval) {
+        
+        this.warning = this.hypothesisTestValue > confidenceInterval.zValue();
     }
 
     /**
@@ -246,9 +280,9 @@ public class StaffMemberAnalytic {
         }
         StaffMemberAnalytic otherAnalytic = (StaffMemberAnalytic) otherObject;
 
-        float ACCEPTABLE_ERROR = 0.15f;
+        float ACCEPTABLE_ERROR = 0.01f;
 
-        return  this.staffMember.equals(otherAnalytic.staffMember)
+        return this.staffMember.equals(otherAnalytic.staffMember)
                 && this.warning == otherAnalytic.warning
                 && this.numApplications == otherAnalytic.numApplications
                 && (Math.abs(this.evaluationsAverage - otherAnalytic.evaluationsAverage) < ACCEPTABLE_ERROR)

@@ -115,7 +115,7 @@ public class Record {
         // (zi)
         Float[] zValues = new Float[numStaffMember];
         for (int i = 0; i < numStaffMember; i++) {
-            zValues[i] = calculateCriticalZ(squaredVariances[i], globalDeviationAvg, deviations[i].length);
+            zValues[i] = calculateCriticalZ(squaredVariances[i], globalDeviationAvg, countNotNullElements(deviations[i]));
         }
 
         for (int i = 0; i < numStaffMember; i++) {
@@ -192,7 +192,7 @@ public class Record {
                     count++;
                 }
             }
-            variances[i] = sum / count;
+            variances[i] = sum / (count - 1);
         }
         return variances;
     }
@@ -210,19 +210,19 @@ public class Record {
 
         double zValue = (globalDeviationAvg - TEST_AVG) / Math.sqrt(squaredVariance / numEvaluations);
 
-        return (float)zValue;
+        return (float) zValue;
     }
-    
+
     /**
      * Counts how many not elements existe in array.
-     * 
+     *
      * @param vector array to verify
      * @return count of not null elements
      */
     private int countNotNullElements(Float[] vector) {
-        
+
         int count = 0;
-        
+
         for (Float element : vector) {
             if (element != null) {
                 count++;
@@ -276,10 +276,10 @@ public class Record {
                 && this.staffList.equals(otherRecord.staffList)
                 && Arrays.equals(this.evaluationsMatrix, otherRecord.evaluationsMatrix);
     }
-    
+
     /**
      * Add a given evaluation to the evaluations matrix.
-     * 
+     *
      * @param average average of the evaluation to be added
      * @param staffMember staff member which evaluate the application
      * @param application evaluated application
@@ -287,47 +287,47 @@ public class Record {
     public void addEvaluation(float average, StaffMember staffMember, Application application) {
         int row; // Staff Member
         int column; // Application
-        
+
         // gets the staff row
         if (this.staffList.contains(staffMember)) {
             row = this.staffList.indexOf(staffMember);
-        }else{
+        } else {
             this.staffList.add(staffMember);
             row = this.staffList.indexOf(staffMember);
         }
-        
+
         // gets the application row
         if (this.applicationsList.contains(application)) {
             column = this.applicationsList.indexOf(application);
-        }else{
+        } else {
             this.applicationsList.add(application);
             column = this.applicationsList.indexOf(application);
         }
-        
+
         updateEvaluationsMatrix(average, row, column);
-        
+
     }
 
     /**
      * Updates the evaluation matrix.
-     * 
+     *
      * @param average average of the evaluation to be added
      * @param row staff member which evaluate the application
      * @param column evaluated application
      */
     private void updateEvaluationsMatrix(float average, int row, int column) {
-        if (this.evaluationsMatrix.length < row+1 || this.evaluationsMatrix[0].length < column+1) { // update the matrix sixe
-            Float[][] newEvaluationsMatrix = new Float[row+1][column+1];
+        if (this.evaluationsMatrix.length < row + 1 || this.evaluationsMatrix[0].length < column + 1) { // update the matrix sixe
+            Float[][] newEvaluationsMatrix = new Float[row + 1][column + 1];
             for (int i = 0; i < this.evaluationsMatrix.length; i++) {
                 for (int j = 0; j < this.evaluationsMatrix[0].length; j++) {
-                    
+
                     newEvaluationsMatrix[i][j] = this.evaluationsMatrix[i][j];
-                    
+
                 }
             }
             newEvaluationsMatrix[row][column] = average;
             this.evaluationsMatrix = newEvaluationsMatrix;
-        } else{
+        } else {
             this.evaluationsMatrix[row][column] = average;
         }
     }

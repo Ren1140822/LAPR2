@@ -70,6 +70,13 @@ public class CreateUserProfileController {
     }
     
     /**
+     * 
+     */
+    public UsersRegister getUsersRegister(){
+        return this.usersRegister;
+    }
+    
+    /**
      * Register a user
      * 
      * @return true if it successful registered, and false otherwise
