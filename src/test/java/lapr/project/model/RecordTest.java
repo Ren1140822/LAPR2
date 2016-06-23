@@ -67,11 +67,11 @@ public class RecordTest {
         Record testRecord = new Record(staff, applications, matrix);
 
         List<StaffMemberAnalytic> expResult = new ArrayList<>();
-        expResult.add(new StaffMemberAnalytic(staff.get(0), 35, 2.78f, 1.14f, 2.03f, false));
-        expResult.add(new StaffMemberAnalytic(staff.get(1), 34, 2.11f, 1.21f, 1.80f, false));
-        expResult.add(new StaffMemberAnalytic(staff.get(2), 31, 2.55f, 1.30f, 1.83f, false));
-        expResult.add(new StaffMemberAnalytic(staff.get(3), 32, 2.49f, 1.32f, 1.48f, false));
-        expResult.add(new StaffMemberAnalytic(staff.get(4), 33, 2.33f, 1.10f, 1.76f, false));
+        expResult.add(new StaffMemberAnalytic(staff.get(0), 35, 2.7771f, 1.1440f, 1.9973f, false));
+        expResult.add(new StaffMemberAnalytic(staff.get(1), 34, 2.1118f, 1.2095f, 1.7737f, false));
+        expResult.add(new StaffMemberAnalytic(staff.get(2), 31, 2.5516f, 1.3048f, 1.7976f, false));
+        expResult.add(new StaffMemberAnalytic(staff.get(3), 32, 2.4875f, 1.3188f, 1.4556f, false));
+        expResult.add(new StaffMemberAnalytic(staff.get(4), 33, 2.3303f, 1.0986f, 1.7351f, false));
 
         List<StaffMemberAnalytic> result = testRecord.calculateStaffAnalytics();
         assertEquals(expResult, result);

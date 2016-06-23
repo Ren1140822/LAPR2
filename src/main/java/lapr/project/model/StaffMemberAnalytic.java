@@ -246,7 +246,7 @@ public class StaffMemberAnalytic {
         }
         StaffMemberAnalytic otherAnalytic = (StaffMemberAnalytic) otherObject;
 
-        float ACCEPTABLE_ERROR = 0.15f;
+        float ACCEPTABLE_ERROR = 0.01f;
 
         return  this.staffMember.equals(otherAnalytic.staffMember)
                 && this.warning == otherAnalytic.warning
