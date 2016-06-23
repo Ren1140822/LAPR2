@@ -3,17 +3,30 @@
  */
 package lapr.project.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import lapr.project.controller.CreateUserProfileController;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.User;
 import lapr.project.model.UsersRegister;
+import lapr.project.ui.components.ModelListSelectable;
 
 /**
  * Graphic user interface to create user profile.
@@ -54,7 +67,7 @@ public class CreateUserProfileUI extends JFrame {
     /**
      * Name textfield component.
      */
-    private JTextField texttFieldName;
+    private JTextField textFieldName;
     
     /**
      * Username textfield component.
@@ -67,14 +80,24 @@ public class CreateUserProfileUI extends JFrame {
     private JTextField textFieldEmail;
     
     /**
-     * Password textfield component.
+     * Password passwordfield component.
      */
-    private JTextField textFieldPassword;
+    private JPasswordField passwordFieldPassword;
+    
+    /**
+     * ConfirmPassword passwordfield component.
+     */
+    private JPasswordField passwordFieldConfirmPassword;
     
     /**
      * Users JList component.
      */
-    private JList userJList;
+    private JList usersJList;
+    
+    /**
+     * Remove a user button.
+     */
+    private JButton removeUserButton;
     
     /**
      * Title for the window.
@@ -127,19 +150,150 @@ public class CreateUserProfileUI extends JFrame {
         this.exhibitionCenter = exhibitionCenter;
         this.controller = new CreateUserProfileController(exhibitionCenter);
         
-        // Create a new exhibition
+        // Create a new user
         this.controller.newUser();
         
         setLayout(new GridLayout(1, 2));
-     //   createComponents();
+        createComponents();
         
         pack();
-     //   setsize(WINDOW_DIMENSION);
+        setSize(WINDOW_DIMENSION);
         setMinimumSize(new Dimension(getWidth(), getHeight()));
         setLocationRelativeTo(null);
         setVisible(true);
     }
     
+    /**
+     * Create the UI components.
+     */
+    private void createComponents() {
+        
+        add(createSetUserDataPanel());
+        add(createUserRelatedUsersPanel());
+    }
     
+    /**
+     * Create Panel with fields to set the user's data.
+     * 
+     * @return Panel with fields to set the exhibition's data
+     */
+    public JPanel createSetUserDataPanel() {
+        
+        JLabel nameLabel = new JLabel("Name:", JLabel.RIGHT);
+        JLabel usernameLabel = new JLabel("Username:", JLabel.RIGHT);
+        JLabel emailLabel = new JLabel("Email:", JLabel.RIGHT);
+        JLabel passwordLabel = new JLabel("Password:", JLabel.RIGHT);
+        JLabel confirmPasswordLabel = new JLabel("ConfirmPassword:", JLabel.RIGHT);
+        
+        textFieldName = new JTextField(FIELD_WIDTH);
+        textFieldUsername = new JTextField(FIELD_WIDTH);
+        textFieldEmail = new JTextField(FIELD_WIDTH);
+        passwordFieldPassword = new JPasswordField(FIELD_WIDTH);
+        passwordFieldConfirmPassword = new JPasswordField(FIELD_WIDTH);
+        
+        // Set the main panel
+        JPanel panel = new JPanel();
+        GroupLayout layout = new GroupLayout(panel);
+        panel.setLayout(layout);
+        layout.setAutoCreateContainerGaps(true);
+        
+        // Align horizontally
+        layout.setHorizontalGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(nameLabel)
+                        .addComponent(usernameLabel)
+                        .addComponent(emailLabel)
+                        .addComponent(passwordLabel)
+                        .addComponent(confirmPasswordLabel)
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(textFieldName)
+                        .addComponent(textFieldUsername)
+                        .addComponent(textFieldEmail)
+                        .addComponent(passwordFieldPassword)
+                        .addComponent(passwordFieldConfirmPassword)
+                )
+        );
+        
+        // Align vertically
+        layout.setVerticalGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(nameLabel)
+                        .addComponent(textFieldName))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(usernameLabel)
+                        .addComponent(textFieldUsername)
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(emailLabel)
+                        .addComponent(textFieldEmail))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(passwordLabel)
+                        .addComponent(passwordFieldPassword)
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(confirmPasswordLabel)
+                        .addComponent(passwordFieldConfirmPassword)
+                )
+        );
+    
+        return panel;
+        
+    }
+    
+    /**
+     * Create scroll panel for related users list.
+     * 
+     * @return scroll panel for related users list
+     */
+    public JPanel createUserRelatedUsersPanel() {
+        
+        JPanel panel = new JPanel(new BorderLayout());
+        
+        JPanel listPanel = new JPanel(new GridLayout());
+        listPanel.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
+                "Select Related Users:", TitledBorder.LEFT, TitledBorder.TOP));
+        
+        ModelListSelectable usersModel = new ModelListSelectable(controller.getUsersRegister().getUsersList());
+        usersJList = new JList(usersModel);
+        
+        usersJList.addListSelectionListener(new ListSelectionListener() {
+         
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                removeUserButton.setEnabled(!usersJList.isSelectionEmpty());
+            }
+        });
+        
+        JScrollPane scrollPane = new JScrollPane(usersJList);
+        scrollPane.setBorder(PADDING_BORDER);
+        listPanel.setMaximumSize(scrollPane.getMinimumSize());
+        listPanel.add(scrollPane);
+        
+        panel.add(listPanel, BorderLayout.NORTH);
+        panel.add(createAddAndRemoveButtons(), BorderLayout.CENTER);
+        
+        return panel;
+        
+    }
+        
+    /**
+     * Create panel with add and remove related users buttons.
+     * 
+     * @return panel with add and remove related users buttons
+     */
+    private JPanel createAddAndRemoveButtons() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+    //    panel.add(createAddRelatedUserButton());
+    //    panel.add(createRemoveRelatedUserButton());
+        
+        return panel;    
+    }
+    
+    /**
+     * Create remove related user button.
+     * 
+     * @return remove related user button
+     */
     
 }
