@@ -3,6 +3,7 @@
  */
 package lapr.project.ui;
 
+import com.sun.codemodel.internal.JOp;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,6 +14,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -20,6 +22,7 @@ import javax.swing.border.EmptyBorder;
 import lapr.project.controller.LoginController;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.User;
+import lapr.project.ui.components.DialogLogin;
 import lapr.project.utils.DefaultInstantiator;
 
 /**
@@ -65,6 +68,16 @@ public class LoginUI extends JFrame {
      * The padding border.
      */
     final static EmptyBorder PADDING_BORDER = new EmptyBorder(10, 10, 10, 10);
+    
+    /**
+     * The exhibition center.
+     */
+    private final ExhibitionCenter exhibitionCenter;
+    
+    /**
+     * Variable that holds this Jframe.
+     */
+    private JFrame thisJframe;
 
     /**
      * Builds an instance of this class receiving an exhibition center as
@@ -74,8 +87,9 @@ public class LoginUI extends JFrame {
      */
     public LoginUI(ExhibitionCenter exhibitionCenter) {
         super(WINDOW_TITLE);
-        loginController = new LoginController(exhibitionCenter);
-
+        this.exhibitionCenter=exhibitionCenter;
+        loginController = new LoginController(this.exhibitionCenter);
+        thisJframe = this;
         createComponents();
 
         this.setSize(WINDOW_SIZE);
@@ -153,6 +167,12 @@ public class LoginUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 User user = loginController.verifyLogin(txtUsername.getText(), txtPassword.getText());
+                try{
+                DialogLogin dialog = new DialogLogin(thisJframe, user, exhibitionCenter);
+                }
+                catch(NullPointerException exception){
+                    JOptionPane.showMessageDialog(rootPane, "Wrong credentials!","Error!",JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         return button;
