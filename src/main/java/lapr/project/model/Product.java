@@ -72,6 +72,7 @@ public class Product implements Selectable {
      * @param otherObject the other object to compare to
      * @return true of equal
      */
+    @Override
     public boolean equals(Object otherObject){
            if (this == otherObject) {
             return true;

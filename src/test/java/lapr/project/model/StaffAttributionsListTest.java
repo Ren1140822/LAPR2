@@ -6,9 +6,9 @@ package lapr.project.model;
 import java.util.ArrayList;
 import java.util.List;
 import lapr.project.model.application.ApplicationInEvaluationState;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Tests the staff attribution list class.

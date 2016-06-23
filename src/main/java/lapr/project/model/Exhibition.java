@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
@@ -144,7 +145,7 @@ public class Exhibition implements Submittable, Exportable {
         @XmlElement(name = "exhibition_state", type = ExhibitionStaffWithoutDemosState.class),
         @XmlElement(name = "exhibition_state", type = ExhibitionOpenApplicationsState.class),
         @XmlElement(name = "exhibition_state", type = ExhibitionDetectedConflictsState.class),
-         @XmlElement(name = "exhibition_state", type = ExhibitionCompleteState.class)
+        @XmlElement(name = "exhibition_state", type = ExhibitionCompleteState.class)
     })
     private ExhibitionState currentState;
 
@@ -801,12 +802,23 @@ public class Exhibition implements Submittable, Exportable {
     }
 
     /**
+     * Gets a list of all applications analysis.
+     *
+     * @return list of all applications analysis
+     */
+    public List<ApplicationAnalysis> getApplicationsAnalysis() {
+        List<ApplicationAnalysis> applicationAnalysisesList = new ArrayList<>();
+        List<Application> applications = this.applicationsList.getApplicationsList();
+        for (Application application : applications) {
+            applicationAnalysisesList.add(new ApplicationAnalysis(application));
+        }
+        return applicationAnalysisesList;
+    }
+
+    /**
      * Export this exhibition to xml file
-<<<<<<< HEAD
      *
      * @param path the path where the file will be saved
-=======
->>>>>>> origin/master
      */
     @Override
     public void jaxbObjectExportableToXML(String path) {
@@ -825,6 +837,35 @@ public class Exhibition implements Submittable, Exportable {
         } catch (JAXBException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String getDisplayInfo() {
+        return String.format("Exhibition: %s (%s)", this.title, this.startDate);
+    }
+
+    /**
+     * Set the current exhibition state of the exhibition to
+     * applicationsInEvaluation state
+     */
+    @Override
+    public void setSubmittableInApplicationsInEvaluationState() {
+        this.currentState.setApplicationsInEvaluation();
+    }
+
+    @Override
+    public String[] getInfo() {
+        String[] info = new String[3];
+        info[0] = this.getTitle();
+        info[1] = this.getStartDate().toString();
+        info[2] = this.getEndDate().toString();
+        return info;
+    }
+
+    @Override
+    public boolean removeAttribution(StaffAttribution staffAttribution) {
+        return this.staffAttributionsList.removeStaffAttribution(staffAttribution);
+
     }
 
     /**
@@ -882,35 +923,6 @@ public class Exhibition implements Submittable, Exportable {
                 // TODO: Update to class demonstrations list
                 && this.demonstrationsList.equals(otherExhibition.demonstrationsList)
                 && this.staffAttributionsList.equals(otherExhibition.staffAttributionsList);
-    }
-
-    @Override
-    public String getDisplayInfo() {
-        return String.format("Exhibition: %s (%s)", this.title, this.startDate);
-    }
-
-    /**
-     * Set the current exhibition state of the exhibition to
-     * applicationsInEvaluation state
-     */
-    @Override
-    public void setSubmittableInApplicationsInEvaluationState() {
-        this.currentState.setApplicationsInEvaluation();
-    }
-
-    @Override
-    public String[] getInfo() {
-        String[] info = new String[3];
-        info[0] = this.getTitle();
-        info[1] = this.getStartDate().toString();
-        info[2] = this.getEndDate().toString();
-        return info;
-    }
-
-    @Override
-    public boolean removeAttribution(StaffAttribution staffAttribution) {
-        return this.staffAttributionsList.removeStaffAttribution(staffAttribution);
-
     }
 
 }

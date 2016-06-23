@@ -187,6 +187,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param title title of the application
      */
+    @Override
     public void setTitle(String title) {
         this.title = title;
     }
@@ -282,6 +283,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param keywordsList the list of keywords to set
      */
+    @Override
     public void setKeywordsList(List<Keyword> keywordsList) {
         this.keywordsList = new ArrayList<>(keywordsList);
     }
@@ -313,6 +315,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param numberInvitations number of invitations
      */
+    @Override
     public void setNumberInvitations(int numberInvitations) {
         this.numberInvitations = numberInvitations;
     }
@@ -340,6 +343,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      *
      * @param productsList procucts list
      */
+    @Override
     public void setProductsList(List<Product> productsList) {
         this.productsList = new ArrayList(productsList);
     }

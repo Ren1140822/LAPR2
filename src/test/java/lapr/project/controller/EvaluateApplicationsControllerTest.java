@@ -12,9 +12,9 @@ import lapr.project.model.StaffList;
 import lapr.project.model.StaffMember;
 import lapr.project.model.Submittable;
 import lapr.project.model.User;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Tests a evaluate application controller class.
