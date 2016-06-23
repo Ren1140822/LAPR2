@@ -120,12 +120,13 @@ public class Record {
 
         for (int i = 0; i < numStaffMember; i++) {
 
-            int numEvaluatedApps = deviations[i].length;
+            int numEvaluatedApps = countNotNullElements(deviations[i]);
 
             if (numEvaluatedApps <= MIN_EVALUATED_APPS) {
                 analytics.add(null);
             } else {
                 StaffMemberAnalytic analytic = new StaffMemberAnalytic();
+                analytic.setStaffMember(staffList.get(i));
                 analytic.setNumApplications(numEvaluatedApps);
                 analytic.setEvaluationsAverage(rowAvg[i]);
                 analytic.setDeviationsAverage(rowDeviationsAvg[i]);
@@ -207,9 +208,27 @@ public class Record {
      */
     private float calculateCriticalZ(float squaredVariance, float globalDeviationAvg, int numEvaluations) {
 
-        float zValue = (globalDeviationAvg - TEST_AVG) / (float) Math.sqrt(squaredVariance / numEvaluations);
+        double zValue = (globalDeviationAvg - TEST_AVG) / Math.sqrt(squaredVariance / numEvaluations);
 
-        return zValue;
+        return (float)zValue;
+    }
+    
+    /**
+     * Counts how many not elements existe in array.
+     * 
+     * @param vector array to verify
+     * @return count of not null elements
+     */
+    private int countNotNullElements(Float[] vector) {
+        
+        int count = 0;
+        
+        for (Float element : vector) {
+            if (element != null) {
+                count++;
+            }
+        }
+        return count;
     }
 
     /**

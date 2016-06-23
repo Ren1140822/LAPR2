@@ -222,11 +222,37 @@ public class StaffMemberAnalytic {
 
     /**
      * Set the hypothesis test value is over the critical region.
-     * 
+     *
      * @param warning the warning to set
      */
     public void setWarning(boolean warning) {
         this.warning = warning;
     }
 
+    /**
+     * Compares two staff member analytics objects.
+     *
+     * @param otherObject Object to compare
+     * @return true if the objects are equals.
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || getClass() != otherObject.getClass()) {
+            return false;
+        }
+        StaffMemberAnalytic otherAnalytic = (StaffMemberAnalytic) otherObject;
+
+        float ACCEPTABLE_ERROR = 0.15f;
+
+        return  this.staffMember.equals(otherAnalytic.staffMember)
+                && this.warning == otherAnalytic.warning
+                && this.numApplications == otherAnalytic.numApplications
+                && (Math.abs(this.evaluationsAverage - otherAnalytic.evaluationsAverage) < ACCEPTABLE_ERROR)
+                && (Math.abs(this.deviationsAverage - otherAnalytic.deviationsAverage) < ACCEPTABLE_ERROR)
+                && (Math.abs(this.hypothesisTestValue - otherAnalytic.hypothesisTestValue) < ACCEPTABLE_ERROR);
+    }
 }
