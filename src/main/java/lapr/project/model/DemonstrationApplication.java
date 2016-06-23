@@ -376,11 +376,21 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     }
 
     /**
-     * Sets exhibition application state to removable.
+     * Sets exhibition application state to removed.
      */
     @Override
-    public boolean setInRemovable() {
+    public boolean setInRemoved() {
         return this.currentState.setRemoved();
+    }
+    
+    /**
+     * Returns true if removable is in state removed, false otherwise.
+     *
+     * @return true if removable is in state removed, false otherwise
+     */
+    @Override
+    public boolean isRemoved(){
+        return this.currentState.isRemoved();
     }
 
     /**

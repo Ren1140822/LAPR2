@@ -493,15 +493,17 @@ public class ExhibitionsRegister implements Importable {
                 for (Application application : applicationsList) {
                     removable = (Removable) application;
                     if (removable.getExhibitorResponsible().equals(exhibitorResponsible)) {
+                        if(!removable.isRemoved()){
                         removablesList.add(removable);
+                        }
                     }
                 }
             }
             if (exhibition.getState().isApplicationsDecided()) {
-                removablesList.addAll(exhibition.getDemonstrationsList().getRetiraveis(exhibitorResponsible));
+                removablesList.addAll(exhibition.getDemonstrationsList().getRemovables(exhibitorResponsible));
             }
         }
-        return removablesList;
+            return removablesList;
     }
 
     /**
