@@ -259,7 +259,7 @@ public class DemonstrationsList {
      * @param exhibitorResponsible exhibitor responsible to filter removables
      * @return
      */
-    public List<Removable> getRetiraveis(ExhibitorResponsible exhibitorResponsible) {
+    public List<Removable> getRemovables(ExhibitorResponsible exhibitorResponsible) {
         List<Removable> removablesList = new ArrayList();
         List<Application> applicationsList = new ArrayList();
         Removable removable;
@@ -269,7 +269,10 @@ public class DemonstrationsList {
                 for (Application application : applicationsList) {
                     removable = (Removable) application;
                     if (removable.getExhibitorResponsible().equals(exhibitorResponsible)) {
-                        removablesList.add(removable);
+                        if (!removable.isRemoved()) {
+                            removablesList.add(removable);
+                        }
+
                     }
                 }
             }
@@ -317,29 +320,29 @@ public class DemonstrationsList {
      */
     public boolean updateDemonstration(Demonstration demonstration) {
 
-        return (demonstration.validate() && !validateDemonstration(demonstration)) ? 
-                replaceDemonstration(demonstration) : false;
+        return (demonstration.validate() && !validateDemonstration(demonstration))
+                ? replaceDemonstration(demonstration) : false;
     }
-    
+
     /**
      * Update all demonstrations that are not decided to discontinued state.
-     * 
+     *
      * @return true if the update is successful
      */
-    public boolean  updateDemonstrationsList() {
-        
+    public boolean updateDemonstrationsList() {
+
         boolean isAllUpdate = true;
-        
+
         for (Demonstration demonstration : demonstrationList) {
-            
+
             boolean isDecided = demonstration.isDecided();
-            
+
             if (!isDecided) {
                 isAllUpdate = demonstration.setDiscontinued();
             }
-            
+
         }
-        
+
         return isAllUpdate;
     }
 

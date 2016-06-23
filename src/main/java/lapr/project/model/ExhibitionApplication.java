@@ -303,9 +303,9 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @param stand the stand to set
      */
     public boolean setStand(Stand stand) {
-        if(stand.validate()){
-        this.stand = stand;
-        return true;
+        if (stand.validate()) {
+            this.stand = stand;
+            return true;
         }
         return false;
     }
@@ -549,9 +549,6 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
         this.currentState.setInEvaluation();
     }
 
-    
-    
-    
     /**
      * Gets the exhibitor.
      *
@@ -568,11 +565,21 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     }
 
     /**
-     * Sets exhibition application state to removable.
+     * Sets exhibition application state to removed.
      */
     @Override
-    public boolean setInRemovable() {
+    public boolean setInRemoved() {
         return this.currentState.setRemoved();
+    }
+
+    /**
+     * Returns true if removable is in state removed, false otherwise.
+     *
+     * @return true if removable is in state removed, false otherwise
+     */
+    @Override
+    public boolean isRemoved() {
+        return this.currentState.isRemoved();
     }
 
     /**
@@ -643,23 +650,22 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
     public boolean isDecided() {
         return this.currentState.isAccepted() || this.currentState.isDeclined();
     }
-    
+
     @Override
-    public String getKeywordsCSV(){
+    public String getKeywordsCSV() {
         StringBuilder s = new StringBuilder();
-        
+
         boolean isFirst = true;
-        
+
         for (Keyword keyword : this.keywordsList) {
             if (isFirst) {
                 s.append(keyword.getDescription());
                 isFirst = false;
-            }
-            else{
+            } else {
                 s.append("," + keyword.getDescription());
             }
         }
-        
+
         return s.toString();
     }
 

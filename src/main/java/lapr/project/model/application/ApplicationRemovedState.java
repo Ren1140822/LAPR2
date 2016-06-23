@@ -20,7 +20,7 @@ public class ApplicationRemovedState implements ApplicationState {
     /**
      * the application of the removable.
      */
-    private Application application;
+    private final Application application;
 
     /**
      * Constructs a application in attribution state.

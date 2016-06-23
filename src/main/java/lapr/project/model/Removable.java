@@ -12,7 +12,7 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public interface Removable{
+public interface Removable extends Selectable {
 
     /**
      * Gets the current state of the application.
@@ -22,10 +22,19 @@ public interface Removable{
     ApplicationState getCurrentState();
 
     /**
-     * set assignable in evaluation state
-     * @return true or false if it set in removable state returns true, false otherwise
+     * set in removable state.
+     *
+     * @return true or false if it set in removable state returns true, false
+     * otherwise
      */
-    boolean setInRemovable();
+    boolean setInRemoved();
+
+    /**
+     * Returns true if removable is in state removed, false otherwise.
+     *
+     * @return true if removable is in state removed, false otherwise
+     */
+    boolean isRemoved();
 
     /**
      * Gets the assignable title.
@@ -33,9 +42,10 @@ public interface Removable{
      * @return assignable's title
      */
     String getTitle();
-    
+
     /**
      * Gets exhibitor responsible
+     *
      * @return the exhibitor responsible
      */
     ExhibitorResponsible getExhibitorResponsible();

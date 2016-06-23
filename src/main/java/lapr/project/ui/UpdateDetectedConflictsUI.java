@@ -26,7 +26,6 @@ import javax.swing.event.ListSelectionListener;
 import lapr.project.controller.UpdateDetectedConflictsController;
 import lapr.project.model.Application;
 import lapr.project.model.Conflict;
-import lapr.project.model.ConflictDetectionMechanism;
 import lapr.project.model.ConflictType;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.StaffMember;
@@ -67,7 +66,7 @@ public class UpdateDetectedConflictsUI extends JFrame {
     /**
      * The submittables list.
      */
-    private List<Submittable> submittablesList;
+    private final List<Submittable> submittablesList;
 
     /**
      * The conflicts list.
@@ -77,17 +76,12 @@ public class UpdateDetectedConflictsUI extends JFrame {
     /**
      * The applications list.
      */
-    private List<Application> applicationsList;
+    private final List<Application> applicationsList;
 
     /**
      * The conflict types list.
      */
-    private List<ConflictType> typeConflictsList;
-
-    /**
-     * The submittables JList.
-     */
-    private JList submittablesJList;
+    private final List<ConflictType> typeConflictsList;
 
     /**
      * The conflicts JList.
@@ -100,26 +94,19 @@ public class UpdateDetectedConflictsUI extends JFrame {
     private JList applicationsJList;
 
     /**
-     * The conflict types JList.
-     */
-    private JList typeConflictsJList;
-    
-    /**
-     * The conflict.
-     */
-    private Conflict conflict;
-
-    /**
-     * Remove conflict types button.
-     */
-    private JButton seeConflictsListButton;
-
-    /**
      * The remove conflicts button.
      */
     private JButton removeConflictsButton;
 
+    /**
+     * The dialog to add new conflict.
+     */
     private DialogAddNewConflict dialogAddNewConflict;
+
+    /**
+     * The selected submittable.
+     */
+    private final Submittable selectedSubmittable;
 
     /**
      * Title for the window.
@@ -135,8 +122,6 @@ public class UpdateDetectedConflictsUI extends JFrame {
      * Padding border.
      */
     final static EmptyBorder PADDING_BORDER = new EmptyBorder(10, 10, 10, 10);
-    
-     Submittable selectedSubmittable;
 
     /**
      * Creates an instance of define conflicts types user interface.
@@ -155,8 +140,8 @@ public class UpdateDetectedConflictsUI extends JFrame {
 
         final String chooseSubmittableText = "Which submittable do you wish to update the detected conflits?";
         DialogSelectable dialogSelectable = new DialogSelectable(this, this.submittablesList, chooseSubmittableText);
-         this.selectedSubmittable = (Submittable) dialogSelectable.getSelectedItem();
-         this.controller.setSubmittable(selectedSubmittable);
+        this.selectedSubmittable = (Submittable) dialogSelectable.getSelectedItem();
+        this.controller.setSubmittable(selectedSubmittable);
         this.conflictsList = selectedSubmittable.getConflictListByStaffMember(staffMember);
 
         this.applicationsList = selectedSubmittable.getApplicationsList().getApplicationsList();
@@ -204,6 +189,7 @@ public class UpdateDetectedConflictsUI extends JFrame {
      * @return the conflicts types panel
      */
     private JPanel createConflictsListPanel() {
+
         JPanel conflictsListPanel = new JPanel(new BorderLayout());
 
         this.conflictsJList = new JList();
@@ -266,8 +252,8 @@ public class UpdateDetectedConflictsUI extends JFrame {
     }
 
     private void updateDetectedConflictsList() {
-        this.conflictsList=controller.getConflictsListByStaffMember();
-        
+        this.conflictsList = controller.getConflictsListByStaffMember();
+
         this.conflictsJList.setModel(new ModelListSelectable(this.conflictsList));
     }
 
@@ -320,9 +306,9 @@ public class UpdateDetectedConflictsUI extends JFrame {
                                 .getExhibitionsRegister().getExhibitionsList().get(0)));
 
         Application a = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0);
-        ConflictType cta = new ConflictType(new RelatedUserConflictMechanism(),"Histórico na empresa");
-        ConflictType ctb = new ConflictType(new RelatedUserConflictMechanism(),"Cunha");
-        ConflictType ctc = new ConflictType(new RelatedUserConflictMechanism(),"Amizade");
+        ConflictType cta = new ConflictType(new RelatedUserConflictMechanism(), "Histórico na empresa");
+        ConflictType ctb = new ConflictType(new RelatedUserConflictMechanism(), "Cunha");
+        ConflictType ctc = new ConflictType(new RelatedUserConflictMechanism(), "Amizade");
         List<ConflictType> conflictsTypeList = new ArrayList();
         conflictsTypeList.add(cta);
         conflictsTypeList.add(ctb);
