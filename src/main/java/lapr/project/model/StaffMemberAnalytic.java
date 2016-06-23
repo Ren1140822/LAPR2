@@ -53,7 +53,7 @@ public class StaffMemberAnalytic {
         NINETY_FIVE,
         NINETY_NINE;
 
-        float zValue() {
+        public float zValue() {
             switch (this) {
                 case NINETY:
                     return 1.28f;

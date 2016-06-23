@@ -69,7 +69,7 @@ public class Record {
         this.applicationsList = new ArrayList<>(applicationsList);
         this.evaluationsMatrix = evaluationsMatrix.clone();
     }
-
+    
     /**
      * Copy Contructor of a Record.
      *
@@ -77,9 +77,18 @@ public class Record {
      */
     public Record(Record record) {
 
-        this.staffList = new ArrayList<>(record.staffList);
+        this.staffList = new ArrayList<>(record.getStaffList());
         this.applicationsList = new ArrayList<>(record.applicationsList);
         this.evaluationsMatrix = record.evaluationsMatrix.clone();
+    }
+
+    /**
+     * Obtain Staff List.
+     * 
+     * @return the staffList.
+     */
+    public List<StaffMember> getStaffList() {
+        return staffList;
     }
 
     /**
@@ -126,7 +135,7 @@ public class Record {
                 analytics.add(null);
             } else {
                 StaffMemberAnalytic analytic = new StaffMemberAnalytic();
-                analytic.setStaffMember(staffList.get(i));
+                analytic.setStaffMember(getStaffList().get(i));
                 analytic.setNumApplications(numEvaluatedApps);
                 analytic.setEvaluationsAverage(rowAvg[i]);
                 analytic.setDeviationsAverage(rowDeviationsAvg[i]);
@@ -245,7 +254,7 @@ public class Record {
         }
         s.append("\n");
         for (int i = 0; i < evaluationsMatrix.length; i++) {
-            s.append(String.format("%-10s\t|", staffList.get(i).getUser().getUsername()));
+            s.append(String.format("%-10s\t|", getStaffList().get(i).getUser().getUsername()));
             for (int j = 0; j < evaluationsMatrix[i].length; j++) {
                 s.append(String.format("%-10.2f\t|", evaluationsMatrix[i][j]));
             }
@@ -273,7 +282,7 @@ public class Record {
         Record otherRecord = (Record) otherObject;
 
         return this.applicationsList.equals(otherRecord.applicationsList)
-                && this.staffList.equals(otherRecord.staffList)
+                && this.getStaffList().equals(otherRecord.getStaffList())
                 && Arrays.equals(this.evaluationsMatrix, otherRecord.evaluationsMatrix);
     }
 
@@ -289,11 +298,11 @@ public class Record {
         int column; // Application
 
         // gets the staff row
-        if (this.staffList.contains(staffMember)) {
-            row = this.staffList.indexOf(staffMember);
+        if (this.getStaffList().contains(staffMember)) {
+            row = this.getStaffList().indexOf(staffMember);
         } else {
-            this.staffList.add(staffMember);
-            row = this.staffList.indexOf(staffMember);
+            this.getStaffList().add(staffMember);
+            row = this.getStaffList().indexOf(staffMember);
         }
 
         // gets the application row
