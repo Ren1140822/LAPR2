@@ -9,7 +9,9 @@ import lapr.project.model.Demonstration;
 import lapr.project.model.DemonstrationsList;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
+import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.ExhibitionsRegister;
+import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.Organizer;
 import lapr.project.model.OrganizersList;
 import lapr.project.model.StaffList;
@@ -111,7 +113,7 @@ public class LoginController {
      * @param user the user
      * @return true if user is an Exhibitor responsible, false otherwise
      */
-    public boolean verifyUserByExhibitorResponsible(User user) {
+    public boolean  verifyUserByExhibitorResponsible(User user) {
         for (Exhibition exhibition : exhibitionsRegister.getExhibitionsList()) {
             ApplicationsList applicationsList = exhibition.getApplicationsList();
             for (Application application : applicationsList.getApplicationsList()) {
@@ -127,6 +129,20 @@ public class LoginController {
                         return true;
                     }
                 }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Verifies user by exhibitions Manager.
+     * @param user the user
+     * @return the exhibitions manager if user is one
+     */
+    public boolean verifyUserByExhibitionsManager(User user) {
+        for (ExhibitionsManager exhibitionsManager : exhibitionCenter.getExhibitionsManagerRegister().getExhibitionsManagerList()) {
+            if (user.equals(exhibitionsManager.getUser())) {
+                return true;
             }
         }
         return false;

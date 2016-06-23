@@ -1,6 +1,7 @@
 package lapr.project.utils;
 
 import lapr.project.model.Exhibition;
+import lapr.project.model.ExhibitionCenter;
 
 /**
  * All domains classes should include this interface.
@@ -13,5 +14,5 @@ public interface Importable<T extends Exhibition> {
 	 *
 	 * @return Structured String containing content.
 	 */
-	T importByFileName(String fileName);
+	T importByFileName(String fileName,ExhibitionCenter exhibitionCenter);
 }

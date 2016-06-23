@@ -18,7 +18,12 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import lapr.project.controller.LoginController;
+import lapr.project.model.Actor;
 import lapr.project.model.ExhibitionCenter;
+import lapr.project.model.ExhibitionsManager;
+import lapr.project.model.ExhibitorResponsible;
+import lapr.project.model.Organizer;
+import lapr.project.model.StaffMember;
 import lapr.project.model.User;
 import lapr.project.utils.DefaultInstantiator;
 
@@ -67,11 +72,20 @@ public class DialogLogin extends JDialog {
      * The login controller.
      */
     private final LoginController loginController;
+    /**
+     * This instance's Actor.
+     */
+    private Actor thisActor;
 
     /**
      * Padding border.
      */
     final static EmptyBorder PADDING_BORDER = new EmptyBorder(10, 10, 10, 10);
+
+    /**
+     * The login combo box.
+     */
+    private JComboBox comboBoxLogin;
 
     /**
      * Creates an instance of DialogLogin
@@ -82,14 +96,11 @@ public class DialogLogin extends JDialog {
      */
     public DialogLogin(JFrame parentFrame, User user, ExhibitionCenter exhibitionsCenter) {
         super(parentFrame, WINDOW_TITLE, true);
-
         this.parentFrame = parentFrame;
         this.user = user;
         this.exhibitionsCenter = exhibitionsCenter;
         this.loginController = new LoginController(this.exhibitionsCenter);
-
         createComponents();
-
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         pack();
         setResizable(false);
@@ -125,7 +136,8 @@ public class DialogLogin extends JDialog {
      */
     private JPanel createComboPanel() {
         JPanel comboPanel = new JPanel(new BorderLayout(0, 10));
-        comboPanel.add(createComboBox());
+        comboBoxLogin = createComboBox();
+        comboPanel.add(comboBoxLogin);
         return comboPanel;
     }
 
@@ -154,7 +166,22 @@ public class DialogLogin extends JDialog {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: OPEN DASHBOARD
+                switch (comboBoxLogin.getSelectedItem().toString()) {
+                    //TODO: INSTANTIATE DASHBOARD
+                    case "Staff Member":
+                        //new StaffMember(user);
+                        break;
+                    case "Organizer":
+                        // new Organizer(user);
+                        break;
+                    case "Exhibitor Responsible":
+                        //new ExhibitorResponsible(user);
+                        break;
+                    case "Exhibitions Manager":
+                        //new ExhibitionsManager(user);
+                        break;
+                }
+                parentFrame.dispose();
                 dispose();
             }
         });
@@ -196,6 +223,9 @@ public class DialogLogin extends JDialog {
             userPossibilities.add("Exhibitor Responsible");
         }
 
+        if (loginController.verifyUserByExhibitionsManager(user)) {
+            userPossibilities.add("Exhibitions Manager");
+        }
         JComboBox<String> usersPossibilitiesListJcomboBox = new JComboBox<>();
         for (String string : userPossibilities) {
             usersPossibilitiesListJcomboBox.addItem(string);

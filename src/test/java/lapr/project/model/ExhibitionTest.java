@@ -74,30 +74,39 @@ public class ExhibitionTest {
     //@Test
     public void testGetAcceptanceRate() {
         System.out.println("getAcceptanceRate");
-        
+
         List<Application> applications = new ArrayList<>();
-        
+
         ExhibitionApplication application1 = new ExhibitionApplication();
         application1.setDecision(new Decision("Out of context.", false));
         applications.add(application1);
-        
+
         ExhibitionApplication application2 = new ExhibitionApplication();
         application2.setDecision(new Decision("Interested.", true));
         applications.add(application2);
-        
+
         ExhibitionApplication application3 = new ExhibitionApplication();
         application3.setDecision(new Decision("Out of context.", false));
         applications.add(application3);
-        
+
         ExhibitionApplication application4 = new ExhibitionApplication();
         application4.setDecision(new Decision("Interested.", true));
         applications.add(application4);
-        
+
         this.exhibition.setApplicationsList(new ApplicationsList(applications));
-        
+
         float expResult = 50f;
         float result = this.exhibition.getAcceptanceRate();
-        
+
         assertEquals(expResult, result, 0.0002);
+    }
+
+    @Test
+    public void testGetApplicationsAnalysis() {
+        System.out.println("getApplicationsAnalysis");
+        List<ApplicationAnalysis> expResult = new ArrayList<>();
+        expResult.add(new ApplicationAnalysis(this.exhibition.getApplicationsList().getApplicationsList().get(0)));
+        List<ApplicationAnalysis> result = this.exhibition.getApplicationsAnalysis();
+        assertEquals(expResult, result);
     }
 }

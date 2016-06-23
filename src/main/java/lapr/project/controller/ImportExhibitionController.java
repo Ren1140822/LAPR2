@@ -72,7 +72,7 @@ public class ImportExhibitionController {
      */
     public boolean readExhibitionFromFile(String filePath) {
         getExhibitionsRegister();
-        this.exhibition = this.exhibitionsRegister.importByFileName(filePath);
+        this.exhibition = this.exhibitionsRegister.importByFileName(filePath,this.exhibitionCenter);
         return exhibition != null;
     }
 

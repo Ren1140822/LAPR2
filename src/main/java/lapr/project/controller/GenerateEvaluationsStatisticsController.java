@@ -6,6 +6,7 @@ package lapr.project.controller;
 import java.util.List;
 import javafx.util.Pair;
 import lapr.project.model.Actor;
+import lapr.project.model.ApplicationAnalysis;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsManager;
@@ -32,6 +33,11 @@ public class GenerateEvaluationsStatisticsController {
      * The actor logged in.
      */
     private final Actor actor;
+    
+    /**
+     * The selected exhibition.
+     */
+    private Exhibition exhibition;
 
     /**
      * Constructs an instance of generate evaluations statistics controller.
@@ -44,13 +50,7 @@ public class GenerateEvaluationsStatisticsController {
         this.actor = actor;
     }
 
-    /**
-     * Gets te acceptance rate of each exhibition.
-     *
-     * @return list with acceptance rates in the form of a pair with the
-     * exhibition and acceptance rate
-     */
-    public List<Pair<Exhibition, Float>> getAcceptanceRate() {
+    public List<Exhibition> getExhibitionsList() {
         ExhibitionsRegister exhibitionsRegister = this.exhibitionCenter.getExhibitionsRegister();
         List<Exhibition> exhibitions = null;
 
@@ -59,8 +59,24 @@ public class GenerateEvaluationsStatisticsController {
         } else if (this.actor instanceof Organizer) {
             exhibitions = exhibitionsRegister.getDecidedExhibitionsByOrganizer((Organizer) this.actor);
         }
-
-        return exhibitionsRegister.getPairExhibitionAcceptanceRate(exhibitions);
-
+        
+        return exhibitions;
+    }
+    
+    /**
+     * Select an exhibition.
+     * 
+     * @param exhibition selected exhibiton
+     */
+    public void selectExhibition(Exhibition exhibition) {
+        this.exhibition = exhibition;
+    }
+    
+    public float getAcceptanceRate() {
+        return this.exhibition.getAcceptanceRate();
+    }
+    
+    public List<ApplicationAnalysis> getApplicationsAnalysis() {
+        return this.exhibition.getApplicationsAnalysis();
     }
 }
