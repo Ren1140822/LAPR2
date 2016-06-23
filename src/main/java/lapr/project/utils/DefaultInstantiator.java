@@ -124,8 +124,8 @@ public class DefaultInstantiator {
         Place placeComputerScience = new Place("H301");
 
         Exhibition exhibitionComputerScience = new Exhibition("Computer Science", "Conferences about computer science.",
-                new Date(2015, 7, 23), new Date(2015, 8, 11), new Date(2015, 6, 15),
-                new Date(2015, 7, 5), new Date(2015, 7, 8), new Date(2015, 7, 15),
+                new Date(116,5, 25), new Date(116, 7, 11), new Date(116, 5, 15),
+                new Date(116, 5, 16), new Date(116,5, 17), new Date(116, 5, 18),
                 placeComputerScience, staffListComputerScience, organizersListComputerScience,
                 new ApplicationsList(), new DemonstrationsList(), new StaffAttributionsList(),
                 new ConflictsList());
@@ -175,7 +175,7 @@ public class DefaultInstantiator {
 
         // Demonstrations for computer science
         Demonstration demonstrationAngularJs = new Demonstration("Angular JS", "Get started with angular js.",
-                new Date(2015, 7, 23), new Date(2015, 8, 11), placeComputerScience,
+                new Date(116,6, 23), new Date(116, 7, 11), placeComputerScience,
                 staffListComputerScience, organizersListComputerScience,
                 new ApplicationsList(), new ArrayList<>(), new StaffAttributionsList(),
                 new ConflictsList());
@@ -301,7 +301,7 @@ public class DefaultInstantiator {
         
         ExhibitionCenter exhibitionCenter = new ExhibitionCenter(exhibitionsRegister, usersRegister,
                 resourcesRegister, standsRegister, mechanismsRegister, new ConflictTypesRegister(), new ExhibitionsManagerRegister(), record);
-
+     
         return exhibitionCenter;
     }
 }

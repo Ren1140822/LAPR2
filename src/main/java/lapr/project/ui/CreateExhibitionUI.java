@@ -273,7 +273,7 @@ public class CreateExhibitionUI extends JFrame {
                 )
         );
 
-        // Align horizontally
+        // Align vertically
         layout.setVerticalGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(titleLbl)
