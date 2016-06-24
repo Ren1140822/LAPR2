@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -19,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Exhibitor {
+public class Exhibitor implements Serializable {
 
     /**
      * The exhibitor´s name.
@@ -36,7 +37,7 @@ public class Exhibitor {
      * The exhibitor´s mobile number.
      */
     private String mobileNumber;
-    
+
     /**
      * The exhibitor's responsible
      */
@@ -74,7 +75,7 @@ public class Exhibitor {
      * @param address exhibitor's address
      * @param mobileNumber exhibitor's mobile number
      */
-    public Exhibitor(String name, String address, String mobileNumber,ExhibitorResponsible exhibitorResponsible) {
+    public Exhibitor(String name, String address, String mobileNumber, ExhibitorResponsible exhibitorResponsible) {
         this.name = name;
         this.address = address;
         this.mobileNumber = mobileNumber;
@@ -155,8 +156,6 @@ public class Exhibitor {
     public void setExhibitorResponsible(ExhibitorResponsible exhibitorResponsible) {
         this.exhibitorResponsible = exhibitorResponsible;
     }
-    
-    
 
     /**
      * Compares two objects

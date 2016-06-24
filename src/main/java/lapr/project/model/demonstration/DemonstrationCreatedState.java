@@ -3,6 +3,7 @@
  */
 package lapr.project.model.demonstration;
 
+import java.io.Serializable;
 import lapr.project.model.Demonstration;
 import lapr.project.model.DemonstrationState;
 
@@ -15,7 +16,7 @@ import lapr.project.model.DemonstrationState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class DemonstrationCreatedState implements DemonstrationState {
+public class DemonstrationCreatedState implements DemonstrationState, Serializable {
 
     /**
      * The demonstration to change state.
@@ -55,8 +56,8 @@ public class DemonstrationCreatedState implements DemonstrationState {
     @Override
     public boolean setDiscontinued() {
 
-            demonstration.setCurrentState(new DemonstrationDiscontinuedState(demonstration));
-            return true;
+        demonstration.setCurrentState(new DemonstrationDiscontinuedState(demonstration));
+        return true;
     }
 
     @Override
@@ -150,7 +151,7 @@ public class DemonstrationCreatedState implements DemonstrationState {
      */
     @Override
     public boolean validate() {
-        
+
         // Dates are already validated in the demonstration list.
         return true;
     }

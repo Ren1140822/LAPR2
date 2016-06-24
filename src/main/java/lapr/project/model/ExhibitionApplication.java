@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -25,7 +26,7 @@ import lapr.project.model.application.ApplicationInitialState;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ExhibitionApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable, Removable, Editable {
+public class ExhibitionApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable, Removable, Editable, Serializable {
 
     /**
      * The title of the application.
@@ -374,7 +375,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @param companyCellphone the company cellphone
      * @param exhibitorResponsible the exhibitorResponsible
      */
-    public void newExhibitor(String companyName, String companyAddress, String companyCellphone,ExhibitorResponsible exhibitorResponsible) {
+    public void newExhibitor(String companyName, String companyAddress, String companyCellphone, ExhibitorResponsible exhibitorResponsible) {
         this.exhibitor = new Exhibitor();
         this.exhibitor.setName(companyName);
         this.exhibitor.setAddress(companyAddress);

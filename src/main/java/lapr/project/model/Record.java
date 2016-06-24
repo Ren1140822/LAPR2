@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +18,7 @@ import lapr.project.utils.Calculator;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class Record {
+public class Record implements Serializable {
 
     /**
      * A list of staff that has already evaluated at least one application.
@@ -69,7 +70,7 @@ public class Record {
         this.applicationsList = new ArrayList<>(applicationsList);
         this.evaluationsMatrix = evaluationsMatrix.clone();
     }
-    
+
     /**
      * Copy Contructor of a Record.
      *
@@ -84,7 +85,7 @@ public class Record {
 
     /**
      * Obtain Staff List.
-     * 
+     *
      * @return the staffList.
      */
     public List<StaffMember> getStaffList() {

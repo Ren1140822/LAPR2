@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -25,7 +26,7 @@ import lapr.project.model.application.ApplicationInitialState;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class DemonstrationApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable, Removable, Editable {
+public class DemonstrationApplication implements Application, Conflictable, Assingnable, Decisable, Evaluable, Removable, Editable, Serializable {
 
     /**
      * The title of the application.
@@ -382,14 +383,14 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
     public boolean setInRemoved() {
         return this.currentState.setRemoved();
     }
-    
+
     /**
      * Returns true if removable is in state removed, false otherwise.
      *
      * @return true if removable is in state removed, false otherwise
      */
     @Override
-    public boolean isRemoved(){
+    public boolean isRemoved() {
         return this.currentState.isRemoved();
     }
 

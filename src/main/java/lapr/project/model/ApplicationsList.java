@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -24,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Ricardo Correia 1151231
  */
 @XmlRootElement
-public class ApplicationsList {
+public class ApplicationsList implements Serializable {
 
     /**
      * List of applications.
@@ -337,15 +338,15 @@ public class ApplicationsList {
             Pair<Keyword, Integer> pair = new Pair<>(keywordRanking.get(i), frequency.get(i));
             ranking.add(pair);
         }
-        
+
         // TODO : Verify if the requirements is alphabetic order
         Comparator alfabeticOrder = (Comparator) (Object o1, Object o2) -> {
-            Keyword keyword1 = (Keyword)((Pair) o1).getKey();
-            Keyword keyword2 = (Keyword)((Pair) o2).getKey();
-            
+            Keyword keyword1 = (Keyword) ((Pair) o1).getKey();
+            Keyword keyword2 = (Keyword) ((Pair) o2).getKey();
+
             return keyword1.compareTo(keyword2);
         };
-        
+
         Collections.sort(ranking, alfabeticOrder);
 
         return ranking;

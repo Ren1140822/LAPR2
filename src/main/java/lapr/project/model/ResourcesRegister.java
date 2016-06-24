@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ResourcesRegister {
+public class ResourcesRegister implements Serializable {
 
     /**
      * resources List of ResourcesRegister
@@ -117,7 +118,7 @@ public class ResourcesRegister {
 
     /**
      * Removes a given resourse.
-     * 
+     *
      * @param resource resource to be removed.
      * @return true if it is successfull removed, false otherwise.
      */

@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -18,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class StaffMember implements Actor, Selectable{
+public class StaffMember implements Actor, Selectable, Serializable {
 
     /**
      * The user information associated to this Staff Member.
@@ -108,6 +109,6 @@ public class StaffMember implements Actor, Selectable{
 
     @Override
     public String getDisplayInfo() {
-         return this.user.getName();
+        return this.user.getName();
     }
 }
