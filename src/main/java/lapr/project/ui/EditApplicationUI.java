@@ -37,6 +37,7 @@ import lapr.project.model.Keyword;
 import lapr.project.model.Product;
 import lapr.project.model.Submittable;
 import lapr.project.model.application.ApplicationInSubmissionState;
+import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.DialogSelectable;
 import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
@@ -178,6 +179,8 @@ public class EditApplicationUI extends JFrame {
                 this.demonstrationsList = ((ExhibitionApplication) this.editable).getDemonstrationsList();
                 this.avaliableDemonstrationsInExhibition = this.controller.getAvailableDemonstrationsInExhibition();
             }
+
+            setJMenuBar(new CustomMenuBar(this.exhibitionCenter, this));
 
             createComponents();
 
@@ -611,18 +614,18 @@ public class EditApplicationUI extends JFrame {
                     // Save the editable
                     if (EditApplicationUI.this.controller.validate(EditApplicationUI.this.editable)) { //Rever validate da application
                         EditApplicationUI.this.controller.modifyEditable();
-                        
+
                         JOptionPane.showMessageDialog(EditApplicationUI.this,
-                        String.format("The application was successfull edited!"),
-                            "Success",
-                            JOptionPane.INFORMATION_MESSAGE);
-                        
+                                String.format("The application was successfull edited!"),
+                                "Success",
+                                JOptionPane.INFORMATION_MESSAGE);
+
                         dispose();
                     } else {
                         JOptionPane.showMessageDialog(EditApplicationUI.this,
-                            String.format("The values didn't change"),
-                            "Invalid Data",
-                            JOptionPane.ERROR_MESSAGE);
+                                String.format("The values didn't change"),
+                                "Invalid Data",
+                                JOptionPane.ERROR_MESSAGE);
                     }
 
                 } catch (Exception e) {

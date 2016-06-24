@@ -69,4 +69,23 @@ public class ExhibitionsManager implements Actor, Serializable {
     public String toString() {
         return String.format("ExhibitionManager{%n%s%n}", user);
     }
+
+    /**
+     * Compares if this object is equal to otherObject.
+     *
+     * @param otherObject other object to compare with
+     * @return true if it repreents the same object, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+        ExhibitionsManager otherExhibitionsManager = (ExhibitionsManager) otherObject;
+
+        return this.user.equals(otherExhibitionsManager.user);
+    }
 }
