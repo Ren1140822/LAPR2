@@ -5,6 +5,10 @@ package lapr.project.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -15,6 +19,7 @@ import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.Organizer;
 import lapr.project.model.StaffMember;
 import lapr.project.ui.components.CustomMenuBar;
+import lapr.project.ui.components.UseCaseButtonsGenerator;
 import lapr.project.utils.DefaultInstantiator;
 
 /**
@@ -31,12 +36,12 @@ public class DashboardUI extends JFrame {
     /**
      * The exhibition center.
      */
-    private ExhibitionCenter exhibitionCenter;
+    private final ExhibitionCenter exhibitionCenter;
 
     /**
      * The actor logged in.
      */
-    private Actor actor;
+    private final Actor actor;
 
     /**
      * The JTabbedPane.
@@ -84,7 +89,7 @@ public class DashboardUI extends JFrame {
         JPanel componentsPanel = new JPanel(new BorderLayout(0, 10));
 
         componentsPanel.add(createTabPane(), BorderLayout.CENTER);
-        componentsPanel.add(createButtonsPanel(), BorderLayout.SOUTH);
+        componentsPanel.add(createButtonsPanelAdmin(), BorderLayout.SOUTH);
 
         add(componentsPanel);
     }
@@ -93,7 +98,8 @@ public class DashboardUI extends JFrame {
         this.tabPane = new JTabbedPane();
 
         if (this.actor instanceof ExhibitionsManager) {
-            // TODO add the available panes
+            // TODO review this
+            //tabPane.add("Keywords Ranking", new GenerateKeywordsRankingPanel(this.exhibitionCenter));
         } else if (this.actor instanceof Organizer) {
             // TODO add the available panes
         }
@@ -101,25 +107,62 @@ public class DashboardUI extends JFrame {
         return this.tabPane;
     }
 
-    private JPanel createButtonsPanel() {
-        JPanel buttonsPanel = new JPanel();
-        
-        // TODO
-        
+    private JPanel createButtonsPanelAdmin() {
+        JPanel buttonsPanel = new JPanel(new GridLayout(2, 1, 0, 10));
+
+        JPanel buttonsPanelTop = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        JPanel buttonsPanelBottom = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+
+        if (this.actor instanceof ExhibitionsManager) {
+            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase1Button(this.exhibitionCenter, (ExhibitionsManager)this.actor));
+            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase7Button(this.exhibitionCenter, (ExhibitionsManager)this.actor));
+            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase9Button(this.exhibitionCenter, (ExhibitionsManager)this.actor));
+            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase12Button(this.exhibitionCenter, (ExhibitionsManager)this.actor));
+            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase22Button(this.exhibitionCenter, (ExhibitionsManager)this.actor));
+            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase10Button(this.exhibitionCenter, this.actor.getUser()));
+        } else if (this.actor instanceof Organizer) {
+            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase2Button(this.exhibitionCenter, (Organizer)this.actor));
+            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase3Button(this.exhibitionCenter, (Organizer)this.actor));
+            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase8Button(this.exhibitionCenter, (Organizer)this.actor));
+            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase15Button(this.exhibitionCenter, (Organizer)this.actor));
+            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase17Button(this.exhibitionCenter, (Organizer)this.actor));
+            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase20Button(this.exhibitionCenter, (Organizer)this.actor));
+            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase21Button(this.exhibitionCenter, (Organizer)this.actor));
+            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase23Button(this.exhibitionCenter, (Organizer)this.actor));
+            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase24Button(this.exhibitionCenter, (Organizer)this.actor));
+            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase10Button(this.exhibitionCenter, this.actor.getUser()));
+        }
+
+        buttonsPanel.add(buttonsPanelTop);
+        buttonsPanel.add(buttonsPanelBottom);
+
         return buttonsPanel;
     }
 
     private void createComponents() {
-        JPanel componentsPanel = new JPanel();
+        setLayout(new GridBagLayout());
+        JPanel componentsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+
+        if (this.actor instanceof StaffMember) {
+            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase4Button(this.exhibitionCenter, (StaffMember)this.actor));
+            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase14Button(this.exhibitionCenter, (StaffMember)this.actor));
+        }else if (this.actor instanceof ExhibitorResponsible) {
+            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase5Button(this.exhibitionCenter, (ExhibitorResponsible)this.actor));
+            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase11Button(this.exhibitionCenter, (ExhibitorResponsible)this.actor));
+            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase16Button(this.exhibitionCenter, (ExhibitorResponsible)this.actor));
+            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase18Button(this.exhibitionCenter, (ExhibitorResponsible)this.actor));
+            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase19Button(this.exhibitionCenter, (ExhibitorResponsible)this.actor));
+        }
         
-        // TODO
-        
-        add(componentsPanel);
+        add(componentsPanel, new GridBagConstraints());
     }
 
     public static void main(String[] args) {
         ExhibitionCenter exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
-        Actor actor = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getOrganizersList().getOrganizersList().get(0);
+        //Actor actor = exhibitionCenter.getExhibitionsManagerRegister().getExhibitionsManagerList().get(0); // ExhibitionsManager
+        Actor actor = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getOrganizersList().getOrganizersList().get(0); // Organizer
+        //Actor actor = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0).getExhibitor().getExhibitorResponsible(); // ExhibitorResponsible
+        //Actor actor = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getStaffList().getStaffList().get(0); // StaffMember
         new DashboardUI(exhibitionCenter, actor);
     }
 }
