@@ -63,7 +63,7 @@ public class DefaultInstantiator {
         User userRenato = new User("Renato Oliveira", "renatooliveira", "1140822@isep.ipp.pt", "Wer+234", new ArrayList<>());
         User userRicardo = new User("Ricardo Correia", "ricardocorreia", "1151231", "123-Asd", new ArrayList<>());
 
-        ExhibitionsManager exhibitionsManager = new ExhibitionsManager(userDaniel);
+        ExhibitionsManager exhibitionsManagerDaniel = new ExhibitionsManager(userDaniel);
 
         Organizer organizerIvo = new Organizer(userIvo);
         Organizer organizerEric = new Organizer(userEric);
@@ -304,8 +304,12 @@ public class DefaultInstantiator {
         };
         Record record = new Record(staffListRecord, applicationsListRecord, matrixRecord);
         
+        List<ExhibitionsManager> exhibitionsManagers = new ArrayList<>();
+        exhibitionsManagers.add(exhibitionsManagerDaniel);
+        ExhibitionsManagerRegister exhibitionsManagerRegister = new ExhibitionsManagerRegister(exhibitionsManagers);
+        
         ExhibitionCenter exhibitionCenter = new ExhibitionCenter(exhibitionsRegister, usersRegister,
-                resourcesRegister, standsRegister, mechanismsRegister, new ConflictTypesRegister(), new ExhibitionsManagerRegister(), record);
+                resourcesRegister, standsRegister, mechanismsRegister, new ConflictTypesRegister(), exhibitionsManagerRegister, record);
      
         return exhibitionCenter;
     }

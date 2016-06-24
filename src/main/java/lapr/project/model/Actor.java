@@ -13,5 +13,12 @@ package lapr.project.model;
  * @author Ricardo Correia 1151231
  */
 public interface Actor {
-    
+
+    /**
+     * Gets the actor's user.
+     *
+     * @return actor's user
+     */
+    public User getUser();
+
 }
