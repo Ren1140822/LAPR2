@@ -26,6 +26,7 @@ import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.application.ApplicationAssignedStandState;
+import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.DialogSeeApplication;
 import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
@@ -105,6 +106,8 @@ public class ConfirmStandUI extends JFrame {
         this.controller = new ConfirmStandController(this.exhibitionCenter, this.exhibitorResponsible);
 
         this.exhibitionApplicationsList = controller.getExhibitionApplicationsByExhibitorResponsible();
+
+        setJMenuBar(new CustomMenuBar(this.exhibitionCenter, this));
 
         createComponents();
 
@@ -277,7 +280,7 @@ public class ConfirmStandUI extends JFrame {
         ExhibitorResponsible er = ((ExhibitionApplication) ec.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)).getExhibitor().getExhibitorResponsible();
         ((ExhibitionApplication) ec.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList()
                 .get(0)).setState(new ApplicationAssignedStandState(ec.getExhibitionsRegister().getExhibitionsList().get(0)
-                                .getApplicationsList().getApplicationsList().get(0)));
+                .getApplicationsList().getApplicationsList().get(0)));
         new ConfirmStandUI(ec, er);
     }
 }
