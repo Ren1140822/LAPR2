@@ -77,8 +77,8 @@ public class CreateExhibitionControllerTest {
         System.out.println("registerExhibition");
 
         List<Organizer> organizerslist = new ArrayList<>();
-        organizerslist.add(new Organizer(new User("Daniel", "daniell", "email@dd2", "password", new ArrayList<>())));
-        organizerslist.add(new Organizer(new User("Daniel2", "daniell2", "email@dd2", "password", new ArrayList<>())));
+        organizerslist.add(new Organizer(new User("Daniel", "daniell", "email@dd2", "password", new ArrayList<>(),"")));
+        organizerslist.add(new Organizer(new User("Daniel2", "daniell2", "email@dd2", "password", new ArrayList<>(),"")));
 
         Exhibition exhibition;
         exhibition = new Exhibition("title", "description", new Date(2016, 2, 1),

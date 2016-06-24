@@ -57,11 +57,12 @@ public class DefaultInstantiator {
     public static ExhibitionCenter createExhibitionCenter() {
 
         // GENERAL
-        User userIvo = new User("Ivo Ferro", "ivoferro", "1151159@isep.ipp.pt", "123+Qwe", new ArrayList<>());
-        User userDaniel = new User("Daniel Gonçalves", "danielgoncalves", "1151452@isep.ipp.pt", "Qwe+123", new ArrayList<>());
-        User userEric = new User("Eric Amaral", "ericamaral", "1141570@isep.ipp.pt", "234+Wer", new ArrayList<>());
-        User userRenato = new User("Renato Oliveira", "renatooliveira", "1140822@isep.ipp.pt", "Wer+234", new ArrayList<>());
-        User userRicardo = new User("Ricardo Correia", "ricardocorreia", "1151231", "123-Asd", new ArrayList<>());
+        User userIvo = new User("Ivo Ferro", "ivoferro", "1151159@isep.ipp.pt", "123+Qwe", new ArrayList<>(),"");
+        User userDaniel = new User("Daniel Gonçalves", "danielgoncalves", "1151452@isep.ipp.pt", "Qwe+123", new ArrayList<>(),"");
+        User userEric = new User("Eric Amaral", "ericamaral", "1141570@isep.ipp.pt", "234+Wer", new ArrayList<>(),"");
+        User userRenato = new User("Renato Oliveira", "renatooliveira", "1140822@isep.ipp.pt", "Wer+234", new ArrayList<>(),"");
+        User userRicardo = new User("Ricardo Correia", "ricardocorreia", "1151231", "123-Asd", new ArrayList<>(),"");
+        userRicardo.setEmail("1151231");
 
         ExhibitionsManager exhibitionsManagerDaniel = new ExhibitionsManager(userDaniel);
 
@@ -75,9 +76,9 @@ public class DefaultInstantiator {
         StaffMember staffMemberRenato = new StaffMember(userRenato);
         StaffMember staffMemberRicardo = new StaffMember(userRicardo);
 
-        User userBelmiro = new User("Belmiro Azevedo", "belmiroazevedo", "belmirazevedo@sonae.com", "321+Ewq", new ArrayList<>());
-        User userFabioSilva = new User("Fábio Silva", "fabiosilva", "fabiosilva@blip.pt", "Ewq+321", new ArrayList<>());
-        User userGoncaloQuadros = new User("Gonçalo Quadros", "gonacaloquadros", "goncaloquadros@critical.software.com", "432+Rew", new ArrayList<>());
+        User userBelmiro = new User("Belmiro Azevedo", "belmiroazevedo", "belmirazevedo@sonae.com", "321+Ewq", new ArrayList<>(),"");
+        User userFabioSilva = new User("Fábio Silva", "fabiosilva", "fabiosilva@blip.pt", "Ewq+321", new ArrayList<>(),"");
+        User userGoncaloQuadros = new User("Gonçalo Quadros", "gonacaloquadros", "goncaloquadros@critical.software.com", "432+Rew", new ArrayList<>(),"");
 
         ExhibitorResponsible exhibitorResponsibleSonae = new ExhibitorResponsible(userBelmiro);
         ExhibitorResponsible exhibitorResponsibleBlip = new ExhibitorResponsible(userFabioSilva);
@@ -285,11 +286,11 @@ public class DefaultInstantiator {
 
         
         List<StaffMember> staffListRecord = new ArrayList<>();
-        staffListRecord.add(new StaffMember(new User("Ivo Ferro", "ivoferro", "1151159@isep.ipp.pt", "123+Qwe", new ArrayList<>())));
-        staffListRecord.add(new StaffMember(new User("Daniel Gonçalves", "danielgoncalves", "1151452@isep.ipp.pt", "Qwe+123", new ArrayList<>())));
-        staffListRecord.add(new StaffMember(new User("Eric Amaral", "ericamaral", "1141570@isep.ipp.pt", "234+Wer", new ArrayList<>())));
-        staffListRecord.add(new StaffMember(new User("Renato Oliveira", "renatooliveira", "1140822@isep.ipp.pt", "Wer+234", new ArrayList<>())));
-        staffListRecord.add(new StaffMember(new User("Ricardo Correia", "ricardocorreia", "1151231", "123-Asd", new ArrayList<>())));
+        staffListRecord.add(new StaffMember(new User("Ivo Ferro", "ivoferro", "1151159@isep.ipp.pt", "123+Qwe", new ArrayList<>(),"")));
+        staffListRecord.add(new StaffMember(new User("Daniel Gonçalves", "danielgoncalves", "1151452@isep.ipp.pt", "Qwe+123", new ArrayList<>(),"")));
+        staffListRecord.add(new StaffMember(new User("Eric Amaral", "ericamaral", "1141570@isep.ipp.pt", "234+Wer", new ArrayList<>(),"")));
+        staffListRecord.add(new StaffMember(new User("Renato Oliveira", "renatooliveira", "1140822@isep.ipp.pt", "Wer+234", new ArrayList<>(),"")));
+        staffListRecord.add(new StaffMember(new User("Ricardo Correia", "ricardocorreia", "1151231", "123-Asd", new ArrayList<>(),"")));
 
         List<Application> applicationsListRecord = new ArrayList<>();
         for (int i = 0; i < 35; i++) {
