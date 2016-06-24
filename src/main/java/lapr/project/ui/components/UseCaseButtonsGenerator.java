@@ -435,16 +435,17 @@ public class UseCaseButtonsGenerator {
      * Creates a button to the use case 23.
      *
      * @param exhibitionCenter exhibition center
-     * @param exhibitionsManager exhibitions manager logged in
+     * @param organizer organizer logged in
      * @return use case 23 button
      */
-    public static JButton generateUseCase23Button(ExhibitionCenter exhibitionCenter, ExhibitionsManager exhibitionsManager) {
+    public static JButton generateUseCase23Button(ExhibitionCenter exhibitionCenter, Organizer organizer) {
         JButton useCase23Button = new JButton("Import Exhibition");
 
         useCase23Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                new ImportExhibitionUI(exhibitionsManager, exhibitionCenter);
+                // TODO change the actor for UC23 to organizer
+                //new ImportExhibitionUI(organizer, exhibitionCenter);
             }
         });
 
@@ -455,17 +456,17 @@ public class UseCaseButtonsGenerator {
      * Creates a button to the use case 24.
      *
      * @param exhibitionCenter exhibition center
-     * @param exhibitionsManager exhibitions manager logged in
+     * @param organizer organizer logged in
      * @return use case 24 button
      */
-    public static JButton generateUseCase24Button(ExhibitionCenter exhibitionCenter, ExhibitionsManager exhibitionsManager) {
+    public static JButton generateUseCase24Button(ExhibitionCenter exhibitionCenter, Organizer organizer) {
         JButton useCase24Button = new JButton("Export Exhibition");
 
         useCase24Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 // TODO verify, isn't the exhibitor manager the actor?
-                //new ExportExhibitionUI(exhibitionCenter, organizer);
+                new ExportExhibitionUI(exhibitionCenter, organizer);
             }
         });
 
