@@ -3,10 +3,9 @@
  */
 package lapr.project.ui;
 
-import java.util.List;
 import lapr.project.model.ExhibitionCenter;
-import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.ExhibitionsManagerRegister;
+import lapr.project.utils.ExhibitionCenterFile;
 
 /**
  * Represents a applications list
@@ -32,16 +31,17 @@ class Main {
      */
     public static void main(String[] args) {
 
-    }
+        ExhibitionCenter exhibitionCenter = ExhibitionCenterFile.read(ExhibitionCenterFile.NAME);
 
-    public void openFrame(ExhibitionsManagerRegister exhibitionManagerRegister) {
-        List<ExhibitionsManager> exhibitionsManagerList = exhibitionManagerRegister.getExhibitionsManagerList();
-        if (exhibitionsManagerList.isEmpty()) {
+        if (exhibitionCenter == null) {
+            exhibitionCenter = new ExhibitionCenter();
+        }
+
+        ExhibitionsManagerRegister exhibitionsManagerRegister = exhibitionCenter.getExhibitionsManagerRegister();
+        if (exhibitionsManagerRegister.hasAnyExhibitionManager()) {
+            new LoginUI(exhibitionCenter);
+        } else {
             //TODO: new user JFrame
-        } 
-        else 
-        {
-            //TODO: open login frame
         }
     }
 
