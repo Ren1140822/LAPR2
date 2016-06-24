@@ -21,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 import lapr.project.controller.ExportExhibitionController;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.Organizer;
+import lapr.project.model.exhibition.ExhibitionStaffWithoutDemosState;
 import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 import lapr.project.utils.Exportable;
@@ -113,11 +114,12 @@ public class ExportExhibitionUI extends JFrame {
 
     /**
      * Creates the title label.
-     *
+     * Later if needed could be an exportable written here..
+     * 
      * @return title label
      */
     private JLabel createTitleLabel() {
-        return new JLabel("Select an exportable to export:", SwingConstants.CENTER);
+        return new JLabel("Select an exhibition to export:", SwingConstants.CENTER);
     }
 
     /**
@@ -185,6 +187,7 @@ public class ExportExhibitionUI extends JFrame {
     public static void main(String[] args) {
         ExhibitionCenter exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
         Organizer organizer;
+         exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).setState(new ExhibitionStaffWithoutDemosState( exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0)));
         organizer = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getOrganizersList().getOrganizersList().get(1);
         ExportExhibitionUI exportExhibitionUI = new ExportExhibitionUI(exhibitionCenter, organizer);
       

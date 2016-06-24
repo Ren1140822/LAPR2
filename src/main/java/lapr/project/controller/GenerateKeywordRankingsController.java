@@ -7,7 +7,6 @@ import java.util.List;
 import javafx.util.Pair;
 import lapr.project.model.ApplicationsList;
 import lapr.project.model.ExhibitionCenter;
-import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.ExhibitionsRegister;
 import lapr.project.model.Keyword;
 import lapr.project.model.Submittable;
@@ -29,11 +28,6 @@ public class GenerateKeywordRankingsController {
     private final ExhibitionCenter exhibitionCenter;
 
     /**
-     * The exhibitions manager logged in this session.
-     */
-    private final ExhibitionsManager exhibitionsManager;
-
-    /**
      * The submittable's applications list.
      */
     private ApplicationsList applicationsList;
@@ -42,11 +36,9 @@ public class GenerateKeywordRankingsController {
      * Constructs a GenerateKeywordRankingsController Class.
      *
      * @param exhibitionCenter Exhibition Center
-     * @param exhibitionsManager Logged in exhibitions manager
      */
-    public GenerateKeywordRankingsController(ExhibitionCenter exhibitionCenter, ExhibitionsManager exhibitionsManager) {
+    public GenerateKeywordRankingsController(ExhibitionCenter exhibitionCenter) {
         this.exhibitionCenter = exhibitionCenter;
-        this.exhibitionsManager = exhibitionsManager;
     }
 
     /**

@@ -3,6 +3,7 @@
  */
 package lapr.project.model.application;
 
+import java.io.Serializable;
 import lapr.project.model.Application;
 import lapr.project.model.ApplicationState;
 
@@ -15,12 +16,12 @@ import lapr.project.model.ApplicationState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ApplicationRemovedState implements ApplicationState {
+public class ApplicationRemovedState implements ApplicationState, Serializable {
 
     /**
      * the application of the removable.
      */
-    private Application application;
+    private final Application application;
 
     /**
      * Constructs a application in attribution state.

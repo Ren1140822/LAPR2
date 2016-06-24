@@ -387,7 +387,9 @@ public class CreateExhibitionUI extends JFrame {
 
                     DialogSelectable dialogoNewOrganizer = new DialogSelectable(CreateExhibitionUI.this, usersList, "Select User from list:");
                     User selectedUser = (User) dialogoNewOrganizer.getSelectedItem();
-
+                    if (selectedUser == null) {
+                        throw new NullPointerException();
+                    }
                     if (controller.newOrganizer(selectedUser)) {
                         updateOrganizersList();
                         String successMessage = "Organizer added successfully!";
@@ -501,7 +503,7 @@ public class CreateExhibitionUI extends JFrame {
                 try {
 
                     if (controller.getOrganizersList().size() < 2) {
-                        throw new IllegalArgumentException("You need to select al teast 2 organizers");
+                        throw new IllegalArgumentException("You need to select at least 2 organizers");
                     }
 
                     String title = txtFieldTitle.getText();
@@ -526,18 +528,18 @@ public class CreateExhibitionUI extends JFrame {
                             + "Open Applications Date: %s%n"
                             + "Closed Applications Date: %s%n"
                             + "Conflicts Limit Date: %s%n"
-                            + "Evaluations Limit Date: %s%n%n%n",
+                            + "Evaluations Limit Date: %s%n",
                             controller.getExhibition().getTitle(), controller.getExhibition().getDescription(),
                             controller.getExhibition().getStartDate(), controller.getExhibition().getEndDate(),
                             controller.getExhibition().getSubStartDate(), controller.getExhibition().getSubEndDate(),
                             controller.getExhibition().getConflictLimitDate(), controller.getExhibition().getEvaluationLimitDate());
 
-                    String question = "/n/nPlease confirm the new exibition?";
+                    String question = String.format("%n%nPlease confirm the new exibition?");
 
                     StringBuilder message = new StringBuilder();
-                    message.append("New Exhibition/n/n");
+                    message.append(String.format("New Exhibition%n%n"));
                     message.append(data);
-                    message.append("/nOrganizers:/n");
+                    message.append(String.format("%nOrganizers:%n"));
                     for (Organizer organizer : controller.getExhibition().getOrganizersList().getOrganizersList()) {
                         message.append(String.format("%s%n", organizer.getUser().getName()));
                     }
@@ -560,6 +562,8 @@ public class CreateExhibitionUI extends JFrame {
                 }
             }
         });
+        this.rootPane.setDefaultButton(confirmBtn);
+        
         return confirmBtn;
     }
 

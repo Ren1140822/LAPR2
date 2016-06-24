@@ -1,5 +1,5 @@
 /**
- * Package location for Apllication Controllers tests.
+ * Package location for Application Controllers tests.
  */
 package lapr.project.controller;
 
@@ -7,11 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
-import lapr.project.model.ExhibitionsRegister;
 import lapr.project.model.Organizer;
 import lapr.project.model.StaffAttributionsList;
-import lapr.project.model.User;
+import lapr.project.model.Submittable;
+import lapr.project.model.exhibition.ExhibitionChangedConflictsState;
+import lapr.project.utils.DefaultInstantiator;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Tests a assigned application controller class.
@@ -27,22 +30,36 @@ public class AssignApplicationControllerTest {
     AssignApplicationController controller;
     Organizer organizer;
     ExhibitionCenter exhibitionCenter;
+    Exhibition eInNotCorrectState;
+    Exhibition eInCorrectState;
 
     StaffAttributionsList staffAttributionList;
 
     @Before
     public void setUp() {
-        exhibitionCenter = new ExhibitionCenter();
 
-        Exhibition e1 = new Exhibition();
-        List<Exhibition> le = new ArrayList<>();
-        le.add(e1);
-        ExhibitionsRegister er = new ExhibitionsRegister(le);
-        exhibitionCenter.setExhibitionsRegister(er);
-
-        // TODO : Instanciador por defeito
-        organizer = new Organizer(new User("Eric", "username2", "email2", "password", new ArrayList<>()));
-        this.controller = new AssignApplicationController(exhibitionCenter, organizer);
+        exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
+        eInNotCorrectState = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0);
+        eInCorrectState = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0);
+        eInCorrectState.setState(new ExhibitionChangedConflictsState(exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0)));
+        organizer = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getOrganizersList().getOrganizersList().get(0);
+        controller = new AssignApplicationController(exhibitionCenter, organizer);
     }
 
+    /**
+     * Test of getSubmittablesInChangedConflictsByOrganizer method, of class
+     * AssignApplicationControllerTest.
+     */
+    @Test
+    public void getSubmittablesInChangedConflictsByOrganizer() {
+        System.out.println("getSubmittablesInChangedConflictsByOrganizer");
+
+        AssignApplicationController instance = controller;
+
+        List<Submittable> expectedResult = new ArrayList();
+        expectedResult.add(eInCorrectState);
+
+        List<Submittable> result = instance.getSubmittablesInChangedConflictsByOrganizer(this.organizer);
+        assertEquals(expectedResult, result);
+    }
 }

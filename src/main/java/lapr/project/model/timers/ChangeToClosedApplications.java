@@ -3,6 +3,7 @@
  */
 package lapr.project.model.timers;
 
+import java.io.Serializable;
 import java.util.TimerTask;
 import lapr.project.model.Submittable;
 
@@ -14,10 +15,10 @@ import lapr.project.model.Submittable;
  * @author Ivo Ferro 1151159
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
- * 
+ *
  * @param <T> generic type to receive a submittable
  */
-public class ChangeToClosedApplications<T extends Submittable> extends TimerTask {
+public class ChangeToClosedApplications<T extends Submittable> extends TimerTask implements Serializable {
 
     /**
      * Exhibiton wich preformes the task.
@@ -26,8 +27,8 @@ public class ChangeToClosedApplications<T extends Submittable> extends TimerTask
 
     /**
      * Constructor of the timer task.
-     * 
-     * @param submittable  Submittable wich preformes the task.
+     *
+     * @param submittable Submittable wich preformes the task.
      */
     public ChangeToClosedApplications(T submittable) {
 
@@ -39,7 +40,7 @@ public class ChangeToClosedApplications<T extends Submittable> extends TimerTask
      */
     @Override
     public void run() {
-        
+
         this.submittable.setClosedApplications();
     }
 

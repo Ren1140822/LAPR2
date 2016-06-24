@@ -33,7 +33,7 @@ public class CustomMenuBar extends JMenuBar {
     /**
      * The parent JFrame.
      */
-    private JFrame parentFrame;
+    private final JFrame parentFrame;
 
     /**
      * Valor de opções.

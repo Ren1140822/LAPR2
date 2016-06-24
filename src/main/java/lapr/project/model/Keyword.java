@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -21,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Keyword implements Selectable {
+public class Keyword implements Selectable, Comparable<Keyword>, Serializable {
 
     /**
      * Converts a String of keywords in comma separated value (csv) format, to a
@@ -134,16 +135,18 @@ public class Keyword implements Selectable {
      */
     @Override
     public String toString() {
-        StringBuilder s = new StringBuilder();
-        s.append("KeyWord{");
-        s.append(this.description);
-        s.append("}");
-        return s.toString();
+
+        return this.getDescription();
     }
 
     @Override
     public String getDisplayInfo() {
         return this.getDescription();
+    }
+
+    @Override
+    public int compareTo(Keyword otherKeyword) {
+        return this.getDescription().compareTo(otherKeyword.getDescription());
     }
 
 }

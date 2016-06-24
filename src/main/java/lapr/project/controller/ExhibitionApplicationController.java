@@ -12,6 +12,7 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
+import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.Keyword;
 import lapr.project.model.Product;
 
@@ -50,14 +51,19 @@ public class ExhibitionApplicationController {
      * A temporary exhibition application reference.
      */
     private ExhibitionApplication exhibitionApplication;
+    /**
+     * The exhibitor responsible.
+     */
+    private ExhibitorResponsible exhibitorResponsible;
 
     /**
      * Constructor receiving a ExhibitionCenter as parameter.
      *
      * @param exhibitionCenter the exhibition center received by parameter.
      */
-    public ExhibitionApplicationController(ExhibitionCenter exhibitionCenter) {
+    public ExhibitionApplicationController(ExhibitorResponsible exhibitorResponsible ,ExhibitionCenter exhibitionCenter) {
         this.exhibitonCenter = exhibitionCenter;
+        this.exhibitorResponsible = exhibitorResponsible;
     }
 
     /**
@@ -91,9 +97,9 @@ public class ExhibitionApplicationController {
     /**
      * Sets the data of the new application.
      */
-    public void setData(String title, String companyName, String companyAddress, String companyCellphone, float exhibitorArea, int numberInvitations) {
+    public void setData(String title, String companyName, String companyAddress, String companyCellphone, float exhibitorArea, int numberInvitations,ExhibitorResponsible exhibitorResponsible) {
         this.exhibitionApplication.setTitle(title);
-        this.exhibitionApplication.newExhibitor(companyName, companyAddress, companyCellphone);
+        this.exhibitionApplication.newExhibitor(companyName, companyAddress, companyCellphone,exhibitorResponsible);
         this.exhibitionApplication.setExhibitorArea(exhibitorArea);
         this.exhibitionApplication.setNumberInvitations(numberInvitations);
     }

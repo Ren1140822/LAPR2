@@ -3,6 +3,7 @@
  */
 package lapr.project.model.demonstration;
 
+import java.io.Serializable;
 import lapr.project.model.Demonstration;
 import lapr.project.model.DemonstrationState;
 
@@ -15,7 +16,7 @@ import lapr.project.model.DemonstrationState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class DemonstrationApplicationsDecidedState implements DemonstrationState {
+public class DemonstrationApplicationsDecidedState implements DemonstrationState, Serializable {
 
     /**
      * The demonstration to change state.
@@ -134,7 +135,7 @@ public class DemonstrationApplicationsDecidedState implements DemonstrationState
 
     @Override
     public boolean setApplicationsDecided() {
-        
+
         // Last state
         return false;
     }

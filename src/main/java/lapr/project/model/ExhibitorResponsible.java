@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Ricardo Correia 1151231
  */
 @XmlRootElement
-public class ExhibitorResponsible implements Actor {
+public class ExhibitorResponsible implements Actor, Serializable {
 
     /**
      * the instance of user in this class

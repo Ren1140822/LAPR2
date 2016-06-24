@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,7 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-
-public class MechanismsRegister {
+public class MechanismsRegister implements Serializable {
 
     /**
      * List of attribution mechanism.
@@ -64,7 +64,6 @@ public class MechanismsRegister {
      *
      * @param attributionMechanismList list of attribution mechanisms
      */
-
     public void setAttributionMechanismList(List<StaffAttributionMechanism> attributionMechanismList) {
         this.attributionMechanismList = new ArrayList<>(attributionMechanismList);
     }

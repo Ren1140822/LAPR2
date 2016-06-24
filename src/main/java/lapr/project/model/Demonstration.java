@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,7 +33,7 @@ import lapr.project.model.timers.DetectConflictsTask;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Demonstration implements Submittable, Selectable {
+public class Demonstration implements Submittable, Selectable, Serializable {
 
     /**
      * Unique demoonstration ID.
@@ -423,6 +424,17 @@ public class Demonstration implements Submittable, Selectable {
     public boolean addResource(Resource resource) {
 
         return this.resourcesList.contains(resource) ? false : this.resourcesList.add(resource);
+    }
+
+    /**
+     * Removes a resource from the list if it contain that resource.
+     *
+     * @param index index of the resource to remove
+     * @return true if the resource is removed
+     */
+    public boolean removeResource(int index) {
+
+        return this.resourcesList.remove(resourcesList.get(index));
     }
 
     /**

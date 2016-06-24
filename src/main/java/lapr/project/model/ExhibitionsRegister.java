@@ -4,13 +4,19 @@
 package lapr.project.model;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javafx.util.Pair;
 import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import lapr.project.model.exhibition.ExhibitionCompleteState;
+import lapr.project.model.exhibition.ExhibitionInicialState;
+import lapr.project.model.exhibition.ExhibitionOpenApplicationsState;
+
 import lapr.project.utils.Exportable;
 import lapr.project.utils.Importable;
 
@@ -23,7 +29,7 @@ import lapr.project.utils.Importable;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ExhibitionsRegister implements Importable {
+public class ExhibitionsRegister implements Importable, Serializable {
 
     /**
      * exhibitions List of ExhibitionsRegister
@@ -118,14 +124,14 @@ public class ExhibitionsRegister implements Importable {
      * @param exhibition Exhibition to add
      * @param exhibitionCenter the exhibition center necessary to deploy the
      * detect conlicts controller
-     * 
+     *
      * @return true if exhibition is successfully added.
      */
     public boolean registerExhibition(Exhibition exhibition, ExhibitionCenter exhibitionCenter) {
 
         exhibition.createTimers(exhibitionCenter);
 
-        return (exhibition.setCreatedState() && validateExhibition(exhibition)) ? addExhibition(exhibition) : false;
+        return (exhibition.setCreated() && validateExhibition(exhibition)) ? addExhibition(exhibition) : false;
     }
 
     /**
@@ -493,12 +499,14 @@ public class ExhibitionsRegister implements Importable {
                 for (Application application : applicationsList) {
                     removable = (Removable) application;
                     if (removable.getExhibitorResponsible().equals(exhibitorResponsible)) {
-                        removablesList.add(removable);
+                        if (!removable.isRemoved()) {
+                            removablesList.add(removable);
+                        }
                     }
                 }
             }
             if (exhibition.getState().isApplicationsDecided()) {
-                removablesList.addAll(exhibition.getDemonstrationsList().getRetiraveis(exhibitorResponsible));
+                removablesList.addAll(exhibition.getDemonstrationsList().getRemovables(exhibitorResponsible));
             }
         }
         return removablesList;
@@ -530,7 +538,7 @@ public class ExhibitionsRegister implements Importable {
      * @return a exhibition created from the file
      */
     @Override
-    public Exhibition importByFileName(String fileName) {
+    public Exhibition importByFileName(String fileName, ExhibitionCenter exhibitionCenter) {
         Exhibition exhibition;
         try {
             File xmlFile = new File(fileName);
@@ -539,12 +547,54 @@ public class ExhibitionsRegister implements Importable {
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
             exhibition = (Exhibition) jaxbUnmarshaller.unmarshal(xmlFile);
+            prepareImportedExhibition(exhibition, exhibitionCenter);
             return exhibition;
 
         } catch (JAXBException ex) {
             JOptionPane.showMessageDialog(null, "Error ocurred while importing.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return null;
+    }
+
+    /**
+     * Prepares the imported exhibition states and timers.
+     *
+     * @param exhibition the exhibition
+     */
+    private void prepareImportedExhibition(Exhibition exhibition, ExhibitionCenter exhibitionCenter) {
+
+        boolean validatedState;
+        Date date = new Date();
+
+        exhibition.createTimers(exhibitionCenter);
+        if (exhibition.getEvaluationLimitDate().before(date)) {
+            exhibition.getState().setApplicationsInDecision();
+            exhibition.getState().setApplicationsDecided();
+        } else if (exhibition.getConflictLimitDate().before(date)) {
+            exhibition.getState().setChangedConflicts();
+        } else if (exhibition.getSubEndDate().before(date)) {
+            exhibition.getState().setClosedApplications();
+        } else if (exhibition.getSubStartDate().before(date)) {
+            exhibition.setState(new ExhibitionOpenApplicationsState(exhibition));
+        } else {
+
+            exhibition.setState(new ExhibitionInicialState(exhibition));
+            exhibition.getState().setCreated();
+            if (exhibition.getState().setDemonstrationsDefined()) {
+
+            } else if (exhibition.getState().setStaffDefined()) {
+
+            } else if (!exhibition.getStaffList().getStaffList().isEmpty() && !exhibition.getDemonstrationsList().getDemonstrationsList().isEmpty()) {
+                exhibition.setState(new ExhibitionCompleteState(exhibition));
+            }
+
+            exhibition.getState().setDetectedConflicts();
+
+            exhibition.getState().setApplicationsInEvaluation();
+
+            exhibition.getState().setApplicationsDecided();
+        }
+
     }
 
     /**

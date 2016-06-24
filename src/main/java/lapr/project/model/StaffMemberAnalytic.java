@@ -3,6 +3,8 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
+
 /**
  * Represents a staff member evaluations analytic compared to all staff.
  *
@@ -12,7 +14,7 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class StaffMemberAnalytic {
+public class StaffMemberAnalytic implements Serializable {
 
     /**
      * The related staff member.
@@ -43,6 +45,57 @@ public class StaffMemberAnalytic {
      * Warning if hypothesis test value is over the critical region.
      */
     private boolean warning;
+
+    /**
+     * tabulated confidence intervals values & it's corresponding z values.
+     */
+    public static enum ConfidenceIntervals {
+
+        NINETY("90%"),
+        NINETY_FIVE("95%"),
+        NINETY_NINE("99%");
+
+        /**
+         * String value of enum type.
+         */
+        private final String text;
+
+        /**
+         * Default Enum Constructor.
+         *
+         * @param text String value of enum type.
+         */
+        ConfidenceIntervals(String text) {
+            this.text = text;
+        }
+
+        public String getText() {
+            return this.text;
+        }
+
+        /**
+         * Returns the tabulated corresponding z value.
+         *
+         * @return the tabulated corresponding z value.
+         */
+        public float zValue() {
+            switch (this) {
+                case NINETY:
+                    return 1.28f;
+                case NINETY_FIVE:
+                    return 1.645f;
+                case NINETY_NINE:
+                    return 2.33f;
+                default:
+                    throw new AssertionError("Unknown value " + this);
+            }
+        }
+
+        @Override
+        public String toString() {
+            return this.text;
+        }
+    }
 
     /**
      * The default number of applications evaluated.
@@ -221,12 +274,23 @@ public class StaffMemberAnalytic {
     }
 
     /**
-     * Set the hypothesis test value is over the critical region.
+     * Set if the hypothesis test value is over the critical region.
      *
      * @param warning the warning to set
      */
     public void setWarning(boolean warning) {
         this.warning = warning;
+    }
+
+    /**
+     * Updates if the hypothesis test value is over the critical region.
+     *
+     * @param confidenceInterval the confidence interval to set the critical
+     * region
+     */
+    public void updateWarning(ConfidenceIntervals confidenceInterval) {
+
+        this.warning = this.hypothesisTestValue > confidenceInterval.zValue();
     }
 
     /**
@@ -248,7 +312,7 @@ public class StaffMemberAnalytic {
 
         float ACCEPTABLE_ERROR = 0.01f;
 
-        return  this.staffMember.equals(otherAnalytic.staffMember)
+        return this.staffMember.equals(otherAnalytic.staffMember)
                 && this.warning == otherAnalytic.warning
                 && this.numApplications == otherAnalytic.numApplications
                 && (Math.abs(this.evaluationsAverage - otherAnalytic.evaluationsAverage) < ACCEPTABLE_ERROR)
