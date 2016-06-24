@@ -38,7 +38,7 @@ public class TestFrame extends JFrame {
         add(new GenerateKeywordsRankingPanel(exhibitionCenter), BorderLayout.CENTER);
 
         pack();
-        setMinimumSize(new Dimension(getWidth(), 270));
+//        setMinimumSize(new Dimension(getWidth(), 270));
         setLocationRelativeTo(null);
         setVisible(true);
     }

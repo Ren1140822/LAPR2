@@ -39,15 +39,15 @@ public class DemonstrationInicialState implements DemonstrationState {
 
     @Override
     public boolean isCreated() {
-        if (validate()) {
-            demonstration.setCurrentState(new DemonstrationCreatedState(demonstration));
-            return true;
-        }
-        return false;
+        return true;
     }
 
     @Override
     public boolean setCreated() {
+        if (validate()) {
+            demonstration.setCurrentState(new DemonstrationCreatedState(demonstration));
+            return true;
+        }
         return false;
     }
 

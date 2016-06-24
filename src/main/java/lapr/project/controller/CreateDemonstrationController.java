@@ -10,6 +10,7 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
 import lapr.project.model.Organizer;
+import lapr.project.model.Place;
 import lapr.project.model.Resource;
 import lapr.project.model.ResourcesRegister;
 
@@ -126,11 +127,15 @@ public class CreateDemonstrationController {
     /**
      * Set Demonstration Data.
      *
-     * @param description newDemonstration description
+     * @param title Demonstration's title
+     * @param description Demonstration's description
+     * @param place Demonstration's location
      */
-    public void setData(String description) {
+    public void setData(String title, String description, Place place) {
 
         this.newDemonstration.setDescription(description);
+        this.newDemonstration.setTitle(title);
+        this.newDemonstration.setPlace(place);
     }
 
     /**
@@ -157,13 +162,27 @@ public class CreateDemonstrationController {
     }
 
     /**
+     * Removes a resouce from the list if it contain that resouce.
+     *
+     * @param index index of the resource to remove
+     * @return true if the resource is removed
+     */
+    public boolean removeResource(int index) {
+
+        return this.newDemonstration.removeResource(index);
+    }
+
+    /**
      * Validate and change state of new Demonstration.
      *
      * @return true if new Demonstration is valid and in created state.
      */
     public boolean validateAndChangeStateDemonstration() {
 
-        return this.newDemonstration.setCreated();
+        if (this.newDemonstration.validate()) {
+            return this.newDemonstration.setCreated();
+        }
+        return false;
     }
 
     /**
@@ -176,6 +195,11 @@ public class CreateDemonstrationController {
         return this.selectedExhibition.getDemonstrationsList().addAndValidateDemonstration(this.newDemonstration);
     }
 
+    /**
+     * Sets the new state of the selected exhibition.
+     * 
+     * @return true if state changes
+     */
     public boolean setDemonstrationDefined() {
 
         return this.selectedExhibition.setDefinedDemos();
