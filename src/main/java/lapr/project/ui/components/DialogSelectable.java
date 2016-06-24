@@ -201,6 +201,8 @@ public class DialogSelectable extends JDialog {
                 dispose();
             }
         });
+        
+        this.rootPane.setDefaultButton(selectButton);
 
         return this.selectButton;
     }

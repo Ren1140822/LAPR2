@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
@@ -15,7 +16,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class Stand implements Selectable {
+public class Stand implements Selectable, Serializable {
 
     /**
      * Stand's unique number identification.
@@ -134,10 +135,10 @@ public class Stand implements Selectable {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     /**
      * Validates stand.
-     * 
+     *
      * @return true if valid, false otherwise
      */
     public boolean validate() {

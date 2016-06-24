@@ -3,6 +3,7 @@
  */
 package lapr.project.model.demonstration;
 
+import java.io.Serializable;
 import lapr.project.model.Demonstration;
 import lapr.project.model.DemonstrationState;
 
@@ -15,7 +16,7 @@ import lapr.project.model.DemonstrationState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class DemonstrationInicialState implements DemonstrationState {
+public class DemonstrationInicialState implements DemonstrationState, Serializable {
 
     /**
      * The demonstration to change state.
@@ -39,15 +40,15 @@ public class DemonstrationInicialState implements DemonstrationState {
 
     @Override
     public boolean isCreated() {
-        if (validate()) {
-            demonstration.setCurrentState(new DemonstrationCreatedState(demonstration));
-            return true;
-        }
-        return false;
+        return true;
     }
 
     @Override
     public boolean setCreated() {
+        if (validate()) {
+            demonstration.setCurrentState(new DemonstrationCreatedState(demonstration));
+            return true;
+        }
         return false;
     }
 

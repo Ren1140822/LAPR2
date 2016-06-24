@@ -3,6 +3,7 @@
  */
 package lapr.project.model.exhibition;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlRootElement;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionState;
@@ -17,7 +18,7 @@ import lapr.project.model.ExhibitionState;
  * @author Ricardo Correia 1151231
  */
 @XmlRootElement
-public class ExhibitionDecidedApplicationsState implements ExhibitionState {
+public class ExhibitionDecidedApplicationsState implements ExhibitionState, Serializable {
 
     /**
      * The exhibition to change state.

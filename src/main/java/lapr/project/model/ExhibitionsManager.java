@@ -3,6 +3,8 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
+
 /**
  * Represents a exhibitions manager.
  *
@@ -12,7 +14,7 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ExhibitionsManager implements Actor {
+public class ExhibitionsManager implements Actor, Serializable {
 
     /**
      * The user for the exhibition manager.

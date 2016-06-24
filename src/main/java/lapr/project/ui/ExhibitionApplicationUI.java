@@ -35,6 +35,7 @@ import lapr.project.model.DemonstrationsList;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
+import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.Keyword;
 import lapr.project.model.Product;
 import lapr.project.model.exhibition.ExhibitionOpenApplicationsState;
@@ -127,6 +128,11 @@ public class ExhibitionApplicationUI extends JFrame {
      * Text field for title.
      */
     private JTextField txtTitle;
+    
+    /**
+     * The exhibitor responsible.
+     */
+    private ExhibitorResponsible thisExhibitorResponsible;
 
     /**
      * Label size.
@@ -159,11 +165,12 @@ public class ExhibitionApplicationUI extends JFrame {
      *
      * @param exhibitionCenter the exhibition center
      */
-    public ExhibitionApplicationUI(ExhibitionCenter exhibitionCenter) {
+    public ExhibitionApplicationUI(ExhibitorResponsible exhibitorResponsible,ExhibitionCenter exhibitionCenter) {
         super("Exhibition Application");
 
         this.exhibitionCenter = exhibitionCenter;
-        this.exhibitionApplicationController = new ExhibitionApplicationController(exhibitionCenter);
+        this.thisExhibitorResponsible =exhibitorResponsible;
+        this.exhibitionApplicationController = new ExhibitionApplicationController(exhibitorResponsible,exhibitionCenter);
         this.exhibitionList = exhibitionApplicationController.getExhibitionList();
 
         DialogSelectable dialogSelectable = new DialogSelectable(this, this.exhibitionList);
@@ -453,7 +460,7 @@ public class ExhibitionApplicationUI extends JFrame {
                     String title = txtTitle.getText();
                     float exhibitorArea = Float.parseFloat(txtExhibitorArea.getText());
                     int numberInvites = Integer.parseInt(txtNumberInvites.getText());
-                    exhibitionApplicationController.setData(title, companyName, address, cellphone, exhibitorArea, numberInvites);
+                    exhibitionApplicationController.setData(title, companyName, address, cellphone, exhibitorArea, numberInvites,thisExhibitorResponsible);
 
                     List<Demonstration> selectedDemonstrationsList = getSelectedDemonstrationsList();
                     exhibitionApplicationController.setDemonstrationsList(selectedDemonstrationsList);
@@ -704,7 +711,7 @@ public class ExhibitionApplicationUI extends JFrame {
         list.add(a);
         ExhibitionsRegister exReg = new ExhibitionsRegister(list);
         ex.setExhibitionsRegister(exReg);
-
-        ExhibitionApplicationUI test = new ExhibitionApplicationUI(ex);
+        ExhibitorResponsible exhi = new ExhibitorResponsible();
+        ExhibitionApplicationUI test = new ExhibitionApplicationUI(exhi, ex);
     }
 }

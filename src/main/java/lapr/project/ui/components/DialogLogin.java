@@ -25,6 +25,7 @@ import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.Organizer;
 import lapr.project.model.StaffMember;
 import lapr.project.model.User;
+import lapr.project.ui.DashboardUI;
 import lapr.project.utils.DefaultInstantiator;
 
 /**
@@ -169,16 +170,17 @@ public class DialogLogin extends JDialog {
                 switch (comboBoxLogin.getSelectedItem().toString()) {
                     //TODO: INSTANTIATE DASHBOARD
                     case "Staff Member":
-                        //new StaffMember(user);
+                        new DashboardUI(exhibitionsCenter, new StaffMember(user));
                         break;
                     case "Organizer":
-                        // new Organizer(user);
+                         new DashboardUI(exhibitionsCenter, new Organizer(user));
+                        
                         break;
                     case "Exhibitor Responsible":
-                        //new ExhibitorResponsible(user);
+                       new DashboardUI(exhibitionsCenter, new ExhibitorResponsible(user));
                         break;
                     case "Exhibitions Manager":
-                        //new ExhibitionsManager(user);
+                       new DashboardUI(exhibitionsCenter, new ExhibitionsManager(user));
                         break;
                 }
                 parentFrame.dispose();

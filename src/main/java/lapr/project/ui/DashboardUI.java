@@ -19,6 +19,7 @@ import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.Organizer;
 import lapr.project.model.StaffMember;
 import lapr.project.ui.components.CustomMenuBar;
+import lapr.project.ui.components.GenerateEvaluationsStatisticsPanel;
 import lapr.project.ui.components.UseCaseButtonsGenerator;
 import lapr.project.utils.DefaultInstantiator;
 
@@ -85,6 +86,9 @@ public class DashboardUI extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Creates the components for admins.
+     */
     private void createComponentsAdmin() {
         JPanel componentsPanel = new JPanel(new BorderLayout(0, 10));
 
@@ -94,9 +98,15 @@ public class DashboardUI extends JFrame {
         add(componentsPanel);
     }
 
+    /**
+     * Creates the tab pane.
+     *
+     * @return tab pane
+     */
     private JTabbedPane createTabPane() {
         this.tabPane = new JTabbedPane();
 
+        tabPane.add("Applications Analysis", new GenerateEvaluationsStatisticsPanel(this.exhibitionCenter, this.actor));
         if (this.actor instanceof ExhibitionsManager) {
             // TODO review this
             //tabPane.add("Keywords Ranking", new GenerateKeywordsRankingPanel(this.exhibitionCenter));
@@ -107,6 +117,11 @@ public class DashboardUI extends JFrame {
         return this.tabPane;
     }
 
+    /**
+     * Creates the buttons panel admin.
+     *
+     * @return buttons panel admin
+     */
     private JPanel createButtonsPanelAdmin() {
         JPanel buttonsPanel = new JPanel(new GridLayout(2, 1, 0, 10));
 
@@ -114,22 +129,22 @@ public class DashboardUI extends JFrame {
         JPanel buttonsPanelBottom = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
         if (this.actor instanceof ExhibitionsManager) {
-            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase1Button(this.exhibitionCenter, (ExhibitionsManager)this.actor));
-            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase7Button(this.exhibitionCenter, (ExhibitionsManager)this.actor));
-            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase9Button(this.exhibitionCenter, (ExhibitionsManager)this.actor));
-            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase12Button(this.exhibitionCenter, (ExhibitionsManager)this.actor));
-            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase22Button(this.exhibitionCenter, (ExhibitionsManager)this.actor));
+            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase1Button(this.exhibitionCenter, (ExhibitionsManager) this.actor));
+            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase7Button(this.exhibitionCenter, (ExhibitionsManager) this.actor));
+            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase9Button(this.exhibitionCenter, (ExhibitionsManager) this.actor));
+            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase12Button(this.exhibitionCenter, (ExhibitionsManager) this.actor));
+            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase22Button(this.exhibitionCenter, (ExhibitionsManager) this.actor));
             buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase10Button(this.exhibitionCenter, this.actor.getUser()));
         } else if (this.actor instanceof Organizer) {
-            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase2Button(this.exhibitionCenter, (Organizer)this.actor));
-            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase3Button(this.exhibitionCenter, (Organizer)this.actor));
-            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase8Button(this.exhibitionCenter, (Organizer)this.actor));
-            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase15Button(this.exhibitionCenter, (Organizer)this.actor));
-            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase17Button(this.exhibitionCenter, (Organizer)this.actor));
-            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase20Button(this.exhibitionCenter, (Organizer)this.actor));
-            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase21Button(this.exhibitionCenter, (Organizer)this.actor));
-            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase23Button(this.exhibitionCenter, (Organizer)this.actor));
-            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase24Button(this.exhibitionCenter, (Organizer)this.actor));
+            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase2Button(this.exhibitionCenter, (Organizer) this.actor));
+            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase3Button(this.exhibitionCenter, (Organizer) this.actor));
+            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase8Button(this.exhibitionCenter, (Organizer) this.actor));
+            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase15Button(this.exhibitionCenter, (Organizer) this.actor));
+            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase17Button(this.exhibitionCenter, (Organizer) this.actor));
+            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase20Button(this.exhibitionCenter, (Organizer) this.actor));
+            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase21Button(this.exhibitionCenter, (Organizer) this.actor));
+            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase23Button(this.exhibitionCenter, (Organizer) this.actor));
+            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase24Button(this.exhibitionCenter, (Organizer) this.actor));
             buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase10Button(this.exhibitionCenter, this.actor.getUser()));
         }
 
@@ -139,24 +154,32 @@ public class DashboardUI extends JFrame {
         return buttonsPanel;
     }
 
+    /**
+     * Creates the components for non-admin.
+     */
     private void createComponents() {
         setLayout(new GridBagLayout());
         JPanel componentsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
         if (this.actor instanceof StaffMember) {
-            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase4Button(this.exhibitionCenter, (StaffMember)this.actor));
-            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase14Button(this.exhibitionCenter, (StaffMember)this.actor));
-        }else if (this.actor instanceof ExhibitorResponsible) {
-            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase5Button(this.exhibitionCenter, (ExhibitorResponsible)this.actor));
-            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase11Button(this.exhibitionCenter, (ExhibitorResponsible)this.actor));
-            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase16Button(this.exhibitionCenter, (ExhibitorResponsible)this.actor));
-            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase18Button(this.exhibitionCenter, (ExhibitorResponsible)this.actor));
-            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase19Button(this.exhibitionCenter, (ExhibitorResponsible)this.actor));
+            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase4Button(this.exhibitionCenter, (StaffMember) this.actor));
+            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase14Button(this.exhibitionCenter, (StaffMember) this.actor));
+        } else if (this.actor instanceof ExhibitorResponsible) {
+            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase5Button(this.exhibitionCenter, (ExhibitorResponsible) this.actor));
+            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase11Button(this.exhibitionCenter, (ExhibitorResponsible) this.actor));
+            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase16Button(this.exhibitionCenter, (ExhibitorResponsible) this.actor));
+            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase18Button(this.exhibitionCenter, (ExhibitorResponsible) this.actor));
+            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase19Button(this.exhibitionCenter, (ExhibitorResponsible) this.actor));
         }
-        
+
         add(componentsPanel, new GridBagConstraints());
     }
 
+    /**
+     * Method to test the UI.
+     *
+     * @param args arguments from comand line
+     */
     public static void main(String[] args) {
         ExhibitionCenter exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
         //Actor actor = exhibitionCenter.getExhibitionsManagerRegister().getExhibitionsManagerList().get(0); // ExhibitionsManager

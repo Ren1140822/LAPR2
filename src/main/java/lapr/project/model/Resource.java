@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -19,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Resource implements Selectable {
+public class Resource implements Selectable, Serializable {
 
     /**
      * The Resource's designation.
@@ -65,10 +66,10 @@ public class Resource implements Selectable {
     public void setDesignation(String designation) {
         this.designation = designation;
     }
-    
+
     /**
      * Validates resource.
-     * 
+     *
      * @return true if valid, false otherwise
      */
     public boolean validate() {
@@ -84,7 +85,7 @@ public class Resource implements Selectable {
     public String toString() {
         return String.format("Resource{%ndesignation=%s%n", this.designation);
     }
-    
+
     /**
      * Compares if this object is equal to otherObject.
      *

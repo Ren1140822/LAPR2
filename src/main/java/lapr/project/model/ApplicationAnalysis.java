@@ -118,6 +118,34 @@ public class ApplicationAnalysis {
     }
 
     /**
+     * Gets the numbers of columns needed to represent this analysis.
+     *
+     * @return number of columns for this analysis
+     */
+    public int getDataColumnsSize() {
+        return 2 + this.answersAverage.size();
+    }
+
+    /**
+     * Gets the columns names for this analysis.
+     *
+     * @return columns names for this analysis
+     */
+    public String[] getDataColumnsName() {
+        String[] dataColumnsName = new String[getDataColumnsSize()];
+
+        dataColumnsName[0] = "Application";
+
+        for (int i = 0; i < this.answersAverage.size(); i++) {
+            dataColumnsName[i + 1] = String.format("Answer %d average", i + 1);
+        }
+
+        dataColumnsName[dataColumnsName.length - 1] = "Average of all question's average";
+
+        return dataColumnsName;
+    }
+
+    /**
      * Return the textual representation of the application analysis.
      *
      * @return the textual representation of the application analysis
@@ -130,13 +158,13 @@ public class ApplicationAnalysis {
             s.append(String.format("%-10s %d", "Answer", i));
         }
         s.append(String.format("%n"));
-        
+
         s.append(String.format("%15s", this.getApplicationDisplayInfo()));
         for (int i = 0; i < this.answersAverage.size(); i++) {
             s.append(String.format("%-10f", answersAverage.get(i)));
         }
         s.append(String.format("%n"));
-        
+
         return s.toString();
     }
 

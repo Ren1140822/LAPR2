@@ -3,6 +3,7 @@
  */
 package lapr.project.model.demonstration;
 
+import java.io.Serializable;
 import java.util.List;
 import lapr.project.model.Application;
 import lapr.project.model.Demonstration;
@@ -17,7 +18,7 @@ import lapr.project.model.DemonstrationState;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class DemonstrationApplicationsInDecisionState implements DemonstrationState {
+public class DemonstrationApplicationsInDecisionState implements DemonstrationState, Serializable {
 
     /**
      * The demonstration to change state.
@@ -151,7 +152,7 @@ public class DemonstrationApplicationsInDecisionState implements DemonstrationSt
      */
     @Override
     public boolean validate() {
-        
+
         List<Application> applicationsList = demonstration.getApplicationsList().getApplicationsList();
         for (Application application : applicationsList) {
             if (!application.isDecided()) {

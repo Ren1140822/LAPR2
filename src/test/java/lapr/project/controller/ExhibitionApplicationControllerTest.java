@@ -11,6 +11,7 @@ import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
 import lapr.project.model.Exhibitor;
+import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.Keyword;
 import lapr.project.model.Product;
 import lapr.project.model.exhibition.ExhibitionClosedApplicationsState;
@@ -54,7 +55,8 @@ public class ExhibitionApplicationControllerTest {
     public void setUp() {
 
         this.exhibitionCenter = new ExhibitionCenter();
-        this.controller = new ExhibitionApplicationController(exhibitionCenter);
+        ExhibitorResponsible exhibitor = new ExhibitorResponsible();
+        this.controller = new ExhibitionApplicationController(exhibitor,exhibitionCenter);
         Exhibition exhibition1 = new Exhibition();
         exhibition1.setState(new ExhibitionOpenApplicationsState(exhibition1));
         Exhibition exhibition2 = new Exhibition();
@@ -114,12 +116,12 @@ public class ExhibitionApplicationControllerTest {
         ExhibitionApplicationController instance = controller;
         Exhibition exhibition = new Exhibition();
         instance.newApplication(exhibition);
-        instance.setData("",companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
+        instance.setData("",companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations,new ExhibitorResponsible());
         ExhibitionApplication defaultExhibitionApplication = new ExhibitionApplication();
          defaultExhibitionApplication.setTitle("");
         defaultExhibitionApplication.setExhibitorArea(exhibitorArea);
         defaultExhibitionApplication.setNumberInvitations(numberInvitations);
-        defaultExhibitionApplication.setExhibitor(new Exhibitor(companyName, companyAddress, companyCellphone));
+        defaultExhibitionApplication.setExhibitor(new Exhibitor(companyName, companyAddress, companyCellphone,new ExhibitorResponsible()));
         assertEquals(instance.getExhibitionApplication(), defaultExhibitionApplication);
     }
 
@@ -188,7 +190,7 @@ public class ExhibitionApplicationControllerTest {
         String companyCellphone = "Test";
         float exhibitorArea = 0.0F;
         int numberInvitations = 0;
-        instance.setData("title",companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
+        instance.setData("title",companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations, new ExhibitorResponsible());
         instance.newApplication(exhibition);
         instance.newKeyword("test");
         instance.newKeyword("test2");
@@ -218,7 +220,7 @@ public class ExhibitionApplicationControllerTest {
         String companyCellphone = "Test";
         float exhibitorArea = 0.0F;
         int numberInvitations = 0;
-        instance.setData("",companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations);
+        instance.setData("",companyName, companyAddress, companyCellphone, exhibitorArea, numberInvitations,new ExhibitorResponsible());
         instance.newApplication(exhibition);
         instance.newKeyword("test");
        //ONLY ONE KEYWORD
