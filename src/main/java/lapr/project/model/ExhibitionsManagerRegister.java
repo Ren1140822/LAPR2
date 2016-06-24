@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ExhibitionsManagerRegister {
+public class ExhibitionsManagerRegister implements Serializable {
 
     /**
      * The list of exhibitions managers.
@@ -51,12 +52,11 @@ public class ExhibitionsManagerRegister {
 
     /**
      * Gets the exhibitions Manager list.
+     *
      * @return the list of exhibitions manager
      */
     public List<ExhibitionsManager> getExhibitionsManagerList() {
         return exhibitionsManagerList;
     }
-    
-    
 
 }

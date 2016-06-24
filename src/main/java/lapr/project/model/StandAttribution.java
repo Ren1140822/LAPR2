@@ -3,6 +3,8 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
+
 /**
  * Represents a Stand Attribution.
  *
@@ -12,7 +14,7 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class StandAttribution {
+public class StandAttribution implements Serializable {
 
     /**
      * The standAttribution's stand.

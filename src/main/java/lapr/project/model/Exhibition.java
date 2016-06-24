@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +36,7 @@ import lapr.project.utils.Exportable;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Exhibition implements Submittable, Exportable {
+public class Exhibition implements Submittable, Exportable, Serializable {
 
     /**
      * Exhibition's title.
@@ -156,7 +157,6 @@ public class Exhibition implements Submittable, Exportable {
     /**
      * Exhibition's default start date.
      */
-
     private static final Date DEFAULT_START_DATE = new Date(2016, 1, 1);
 
     /**

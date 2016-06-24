@@ -3,6 +3,7 @@
  */
 package lapr.project.model.application;
 
+import java.io.Serializable;
 import lapr.project.model.Application;
 import lapr.project.model.ApplicationState;
 import lapr.project.model.ExhibitionApplication;
@@ -16,7 +17,7 @@ import lapr.project.model.ExhibitionApplication;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ApplicationAssignedStandState implements ApplicationState {
+public class ApplicationAssignedStandState implements ApplicationState, Serializable {
 
     /**
      * The application to be manipulated.
