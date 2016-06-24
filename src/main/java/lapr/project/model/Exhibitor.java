@@ -74,11 +74,11 @@ public class Exhibitor {
      * @param address exhibitor's address
      * @param mobileNumber exhibitor's mobile number
      */
-    public Exhibitor(String name, String address, String mobileNumber) {
+    public Exhibitor(String name, String address, String mobileNumber,ExhibitorResponsible exhibitorResponsible) {
         this.name = name;
         this.address = address;
         this.mobileNumber = mobileNumber;
-        this.exhibitorResponsible = new ExhibitorResponsible(); // TODO
+        this.exhibitorResponsible = exhibitorResponsible;
     }
 
     /**

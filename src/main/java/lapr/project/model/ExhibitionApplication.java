@@ -372,12 +372,14 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @param companyName the company name
      * @param companyAddress the company address
      * @param companyCellphone the company cellphone
+     * @param exhibitorResponsible the exhibitorResponsible
      */
-    public void newExhibitor(String companyName, String companyAddress, String companyCellphone) {
+    public void newExhibitor(String companyName, String companyAddress, String companyCellphone,ExhibitorResponsible exhibitorResponsible) {
         this.exhibitor = new Exhibitor();
         this.exhibitor.setName(companyName);
         this.exhibitor.setAddress(companyAddress);
         this.exhibitor.setMobileNumber(companyName);
+        this.exhibitor.setExhibitorResponsible(exhibitorResponsible);
     }
 
     /**

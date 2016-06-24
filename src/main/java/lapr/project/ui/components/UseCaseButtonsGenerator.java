@@ -118,7 +118,7 @@ public class UseCaseButtonsGenerator {
         useCase5Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                new ExhibitionApplicationUI(exhibitionCenter);
+                new ExhibitionApplicationUI( exhibitorResponsible,exhibitionCenter);
             }
         });
 

@@ -83,9 +83,9 @@ public class DefaultInstantiator {
         ExhibitorResponsible exhibitorResponsibleBlip = new ExhibitorResponsible(userFabioSilva);
         ExhibitorResponsible exhibitorResponsibleCritical = new ExhibitorResponsible(userGoncaloQuadros);
 
-        Exhibitor exhibitorSonae = new Exhibitor("Sonae", "trades@sonae.com", "912345678");
-        Exhibitor exhibitorBlip = new Exhibitor("Blip", "marketing@blip.pt", "918765432");
-        Exhibitor exhibitorCritical = new Exhibitor("Critical Software", "main@critical.software.com", "931245678");
+        Exhibitor exhibitorSonae = new Exhibitor("Sonae", "trades@sonae.com", "912345678", new ExhibitorResponsible());
+        Exhibitor exhibitorBlip = new Exhibitor("Blip", "marketing@blip.pt", "918765432",new ExhibitorResponsible());
+        Exhibitor exhibitorCritical = new Exhibitor("Critical Software", "main@critical.software.com", "931245678",new ExhibitorResponsible());
 
         exhibitorBlip.setExhibitorResponsible(exhibitorResponsibleBlip);
         exhibitorSonae.setExhibitorResponsible(exhibitorResponsibleSonae);
