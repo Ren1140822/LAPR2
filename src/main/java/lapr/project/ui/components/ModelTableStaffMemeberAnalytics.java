@@ -23,8 +23,9 @@ public class ModelTableStaffMemeberAnalytics extends AbstractTableModel {
      */
     private static final String[] COLUMNS_NAMES = {
         "Staff Member",
-        "Number of Applications",
+        "Applications Evaluated",
         "Grades Average",
+        "Deviations Average",
         "Hypothesis Test Value",
         "Warning"};
     /**
@@ -82,7 +83,7 @@ public class ModelTableStaffMemeberAnalytics extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 
-        if (staffMemberAnalytics.get(rowIndex) != null) {
+        if (staffMemberAnalytics.get(rowIndex) == null) {
             return "N/A";
         }
 
@@ -90,12 +91,14 @@ public class ModelTableStaffMemeberAnalytics extends AbstractTableModel {
             case 0:
                 return staffMemberAnalytics.get(rowIndex).getStaffMember().getDisplayInfo();
             case 1:
-                return String.format("%.2f", staffMemberAnalytics.get(rowIndex).getEvaluationsAverage());
+                return staffMemberAnalytics.get(rowIndex).getNumApplications();
             case 2:
-                return String.format("%.2f", staffMemberAnalytics.get(rowIndex).getDeviationsAverage());
+                return String.format("%.2f", staffMemberAnalytics.get(rowIndex).getEvaluationsAverage());
             case 3:
-                return String.format("%.2f", staffMemberAnalytics.get(rowIndex).getHypothesisTestValue());
+                return String.format("%.2f", staffMemberAnalytics.get(rowIndex).getDeviationsAverage());
             case 4:
+                return String.format("%.2f", staffMemberAnalytics.get(rowIndex).getHypothesisTestValue());
+            case 5:
                 return staffMemberAnalytics.get(rowIndex).isWarning() ? "Affirmative" : "Negative";
         }
         return "";

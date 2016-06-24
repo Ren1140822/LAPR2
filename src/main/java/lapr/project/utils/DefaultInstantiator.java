@@ -63,7 +63,7 @@ public class DefaultInstantiator {
         User userRenato = new User("Renato Oliveira", "renatooliveira", "1140822@isep.ipp.pt", "Wer+234", new ArrayList<>());
         User userRicardo = new User("Ricardo Correia", "ricardocorreia", "1151231", "123-Asd", new ArrayList<>());
 
-        ExhibitionsManager exhibitionsManager = new ExhibitionsManager(userDaniel);
+        ExhibitionsManager exhibitionsManagerDaniel = new ExhibitionsManager(userDaniel);
 
         Organizer organizerIvo = new Organizer(userIvo);
         Organizer organizerEric = new Organizer(userEric);
@@ -285,22 +285,31 @@ public class DefaultInstantiator {
 
         
         List<StaffMember> staffListRecord = new ArrayList<>();
-        staffListRecord.add(staffMemberIvo);
-        staffListRecord.add(staffMemberEric);
-        
+        staffListRecord.add(new StaffMember(new User("Ivo Ferro", "ivoferro", "1151159@isep.ipp.pt", "123+Qwe", new ArrayList<>())));
+        staffListRecord.add(new StaffMember(new User("Daniel Gonçalves", "danielgoncalves", "1151452@isep.ipp.pt", "Qwe+123", new ArrayList<>())));
+        staffListRecord.add(new StaffMember(new User("Eric Amaral", "ericamaral", "1141570@isep.ipp.pt", "234+Wer", new ArrayList<>())));
+        staffListRecord.add(new StaffMember(new User("Renato Oliveira", "renatooliveira", "1140822@isep.ipp.pt", "Wer+234", new ArrayList<>())));
+        staffListRecord.add(new StaffMember(new User("Ricardo Correia", "ricardocorreia", "1151231", "123-Asd", new ArrayList<>())));
+
         List<Application> applicationsListRecord = new ArrayList<>();
-        applicationsListRecord.add(exhibitionApplicationNodeJs);
-        applicationsListRecord.add(demonstrationApplicationAngularJs);
+        for (int i = 0; i < 35; i++) {
+            applicationsListRecord.add(new ExhibitionApplication());
+        }
+        Float[][] matrixRecord = {
+            {1.8f, 2.9f, 3.8f, 3.8f, 2.4f, 0.9f, 4.4f, 4.6f, 0.7f, 3.3f, 0.9f, 3.8f, 4.3f, 0.6f, 3.1f, 1.2f, 4.3f, 1.4f, 1.4f, 3.5f, 3.0f, 3.0f, 2.7f, 2.7f, 2.1f, 4.3f, 4.8f, 3.9f, 2.1f, 0.8f, 2.2f, 3.5f, 1.5f, 4.3f, 3.2f},
+            {3.7f, 1.0f, 0.5f, 0.8f, 4.1f, 2.3f, 0.8f, 4.8f, 1.0f, 2.1f, 0.9f, 4.7f, 2.2f, null, 1.4f, 2.0f, 2.2f, 2.7f, 2.0f, 1.0f, 3.0f, 4.4f, 1.3f, 0.5f, 5.0f, 0.4f, 1.7f, 0.6f, 2.1f, 3.6f, 2.2f, 1.0f, 1.7f, 0.8f, 3.3f},
+            {1.1f, 3.9f, 3.6f, 0.3f, 0.4f, null, 0.8f, 1.9f, 4.3f, 1.8f, null, 1.6f, 1.8f, 3.4f, 2.2f, 0.3f, 1.4f, 4.0f, 3.2f, 3.7f, 1.1f, 3.9f, 3.9f, null, 4.4f, 1.1f, 3.0f, null, 3.0f, 3.1f, 2.3f, 0.0f, 4.8f, 5.0f, 3.8f},
+            {3.6f, 2.9f, 0.8f, 0.8f, 2.7f, null, 2.3f, 3.0f, 4.1f, 4.2f, 4.6f, 0.5f, 0.7f, 2.5f, 2.6f, 4.1f, 2.9f, 4.8f, 4.2f, null, 4.9f, 4.8f, 0.2f, 2.3f, 1.0f, 0.9f, 0.0f, 0.5f, 5.0f, null, 1.0f, 1.8f, 1.8f, 2.3f, 1.8f},
+            {4.5f, 3.6f, 4.8f, 4.6f, 1.1f, 1.6f, 1.5f, 1.1f, 2.6f, 2.1f, 0.6f, 3.0f, 3.9f, 3.0f, 4.6f, 2.2f, 1.9f, 2.7f, 0.4f, 1.8f, 2.7f, 3.8f, 1.4f, null, 1.2f, 0.5f, 3.5f, null, 3.0f, 2.2f, 0.1f, 1.1f, 1.8f, 2.6f, 1.4f}
+        };
+        Record record = new Record(staffListRecord, applicationsListRecord, matrixRecord);
         
-        Float[][] evaluationsMatrixRecord = new Float[2][2];
-        evaluationsMatrixRecord[0][0] = 3.41f;
-        evaluationsMatrixRecord[0][1] = 4.23f;
-        evaluationsMatrixRecord[1][1] = 1.11f;
-        
-        Record record = new Record(staffListRecord, applicationsListRecord, evaluationsMatrixRecord);
+        List<ExhibitionsManager> exhibitionsManagers = new ArrayList<>();
+        exhibitionsManagers.add(exhibitionsManagerDaniel);
+        ExhibitionsManagerRegister exhibitionsManagerRegister = new ExhibitionsManagerRegister(exhibitionsManagers);
         
         ExhibitionCenter exhibitionCenter = new ExhibitionCenter(exhibitionsRegister, usersRegister,
-                resourcesRegister, standsRegister, mechanismsRegister, new ConflictTypesRegister(), new ExhibitionsManagerRegister(), record);
+                resourcesRegister, standsRegister, mechanismsRegister, new ConflictTypesRegister(), exhibitionsManagerRegister, record);
      
         return exhibitionCenter;
     }

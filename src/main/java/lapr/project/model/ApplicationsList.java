@@ -343,7 +343,7 @@ public class ApplicationsList {
             Keyword keyword1 = (Keyword)((Pair) o1).getKey();
             Keyword keyword2 = (Keyword)((Pair) o2).getKey();
             
-            return keyword1.getDescription().compareTo(keyword2.getDescription());
+            return keyword1.compareTo(keyword2);
         };
         
         Collections.sort(ranking, alfabeticOrder);

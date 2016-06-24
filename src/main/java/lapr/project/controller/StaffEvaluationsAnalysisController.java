@@ -39,19 +39,18 @@ public class StaffEvaluationsAnalysisController {
     public StaffEvaluationsAnalysisController(ExhibitionCenter exhibitionCenter) {
 
         this.exhibitionCenter = exhibitionCenter;
-        this.analytics = new ArrayList<>();
+        
+        Record record = this.exhibitionCenter.getRecord();
+        this.analytics = record.calculateStaffAnalytics();
+        
     }
-
+    
     /**
-     * Calculates the staff evaluations analytics.
+     * Obtain the calculated staff evaluations analytics.
      *
      * @return a list with the staff evaluations analytics
      */
     public List<StaffMemberAnalytic> getStaffAnalyticsList() {
-
-        Record record = this.exhibitionCenter.getRecord();
-
-        this.analytics = record.calculateStaffAnalytics();
 
         return this.analytics;
     }
