@@ -51,6 +51,10 @@ public class CreateUserProfileController {
         this.user = this.usersRegister.newUser();
     }
     
+    public User getUser() {
+        return this.user;
+    }
+    
     /**
      * Sets user information data
      * 
@@ -70,7 +74,9 @@ public class CreateUserProfileController {
     }
     
     /**
+     * Gets the user's register.
      * 
+     * @return the user's register
      */
     public UsersRegister getUsersRegister(){
         return this.usersRegister;
@@ -82,7 +88,11 @@ public class CreateUserProfileController {
      * @return true if it successful registered, and false otherwise
      */
     public boolean registerUser() {
-        return this.usersRegister.registerUser(this.user);
+        boolean result = this.usersRegister.registerUser(this.user);
+        
+        exhibitionCenter.setUsersRegister(usersRegister);
+        
+        return result;
     }
     
 }

@@ -7,6 +7,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -14,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
@@ -26,6 +30,7 @@ import lapr.project.controller.CreateUserProfileController;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.User;
 import lapr.project.model.UsersRegister;
+import lapr.project.ui.components.DialogSelectable;
 import lapr.project.ui.components.ModelListSelectable;
 
 /**
@@ -92,12 +97,13 @@ public class CreateUserProfileUI extends JFrame {
     /**
      * Users JList component.
      */
-    private JList usersJList;
+    private JList relatedUsersJList;
+    
     
     /**
-     * Remove a user button.
+     * Remove a related user button.
      */
-    private JButton removeUserButton;
+    private JButton removeRelatedUserButton;
     
     /**
      * Title for the window.
@@ -107,7 +113,7 @@ public class CreateUserProfileUI extends JFrame {
     /**
      * Window dimension.
      */
-    private static final Dimension WINDOW_DIMENSION = new Dimension(800, 300);
+    private static final Dimension WINDOW_DIMENSION = new Dimension(800, 350);
     
     /**
      * Padding border.
@@ -169,7 +175,7 @@ public class CreateUserProfileUI extends JFrame {
     private void createComponents() {
         
         add(createSetUserDataPanel());
-        add(createUserRelatedUsersPanel());
+        add(createUsersListAndButtonsPanel());
     }
     
     /**
@@ -254,18 +260,18 @@ public class CreateUserProfileUI extends JFrame {
         listPanel.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
                 "Select Related Users:", TitledBorder.LEFT, TitledBorder.TOP));
         
-        ModelListSelectable usersModel = new ModelListSelectable(controller.getUsersRegister().getUsersList());
-        usersJList = new JList(usersModel);
+        ModelListSelectable usersModel = new ModelListSelectable(controller.getUser().getRelatedUsers());
+        relatedUsersJList = new JList(usersModel);
         
-        usersJList.addListSelectionListener(new ListSelectionListener() {
+        relatedUsersJList.addListSelectionListener(new ListSelectionListener() {
          
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                removeUserButton.setEnabled(!usersJList.isSelectionEmpty());
+                removeRelatedUserButton.setEnabled(!relatedUsersJList.isSelectionEmpty());
             }
         });
         
-        JScrollPane scrollPane = new JScrollPane(usersJList);
+        JScrollPane scrollPane = new JScrollPane(relatedUsersJList);
         scrollPane.setBorder(PADDING_BORDER);
         listPanel.setMaximumSize(scrollPane.getMinimumSize());
         listPanel.add(scrollPane);
@@ -284,10 +290,68 @@ public class CreateUserProfileUI extends JFrame {
      */
     private JPanel createAddAndRemoveButtons() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEADING));
-    //    panel.add(createAddRelatedUserButton());
-    //    panel.add(createRemoveRelatedUserButton());
+        panel.add(createAddRelatedUserButton());
+        panel.add(createRemoveRelatedUserButton());
         
         return panel;    
+    }
+    
+    /**
+     * Create add related user button.
+     * 
+     * @return add related user button
+     */
+    private JButton createAddRelatedUserButton()  {
+        
+        JButton addButton = new JButton("Add");
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    List<User> usersList = controller.getUsersRegister().getUsersList();
+                    List<User> relatedUsers = controller.getUser().getRelatedUsers();
+                    for (User user: relatedUsers) {
+                        usersList.remove(user);
+                    }
+                    
+                    if (usersList.isEmpty()){
+                        throw new IllegalArgumentException();
+                    }
+                    
+                    DialogSelectable dialogNewRelatedUser = new DialogSelectable(CreateUserProfileUI.this, usersList, "Select user from list:");
+                    User selectedUser = (User) dialogNewRelatedUser.getSelectedItem();
+                    
+                    if (selectedUser != null && !relatedUsers.contains(selectedUser)) {
+                        relatedUsers.add(selectedUser);
+                        controller.getUser().setRelatedUsers(relatedUsers);
+                        updateRelatedUsersList();
+                        String successMessage = "Related User added successfully.";
+                        String successTitle = "Related user added.";
+                        
+                        JOptionPane.showMessageDialog(rootPane, successMessage, successTitle, JOptionPane.INFORMATION_MESSAGE);
+                    }
+                         
+                } catch (NullPointerException ex) {
+                    
+                } catch (IllegalArgumentException ex) {
+                    
+                    String warningMessage = "There is no more users to add";
+                    String warningTitle = "No more users available in the system";
+                    
+                    JOptionPane.showMessageDialog(rootPane, warningMessage, warningTitle, JOptionPane.WARNING_MESSAGE);
+                    
+                } catch (Exception ex) {
+                    
+                    String warningMessage = "An error has occurred. Please try again.";
+                    String warningTitle = "Error 404";
+                    
+                    JOptionPane.showMessageDialog(rootPane, warningMessage, warningTitle, JOptionPane.WARNING_MESSAGE);
+               }
+
+            }
+            
+        });
+        return addButton;
     }
     
     /**
@@ -295,5 +359,166 @@ public class CreateUserProfileUI extends JFrame {
      * 
      * @return remove related user button
      */
+    private JButton createRemoveRelatedUserButton() {
+        
+        removeRelatedUserButton = new JButton("Remove");
+        removeRelatedUserButton.setEnabled(false);
+        removeRelatedUserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                try {
+                    
+                    int index = relatedUsersJList.getSelectedIndex();
+                    List<User> relatedUsers = controller.getUser().getRelatedUsers();
+                    User toRemove = relatedUsers.get(index);
+                    
+                    if (relatedUsers.remove(toRemove)) {
+                        controller.getUser().setRelatedUsers(relatedUsers);
+                        updateRelatedUsersList();
+                        String successMessage = "Related User removed successfully.";
+                        String successTitle = "Related user removed.";
+                        
+                        JOptionPane.showMessageDialog(rootPane, successMessage, successTitle, JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        throw new IllegalArgumentException();
+                    }
+                } catch (Exception ex) {
+                    
+                    String warningMessage = "An error has occurred. Please try again.";
+                    String warningTitle = "Error 404";
+                    
+                    JOptionPane.showMessageDialog(rootPane, warningMessage, warningTitle, JOptionPane.WARNING_MESSAGE);
+                }
+                
+                removeRelatedUserButton.setEnabled(!relatedUsersJList.isSelectionEmpty());
+            }
+        });
+        return removeRelatedUserButton;
+    }
+    
+    /**
+     * Create panel with user list and confirmation buttons.
+     * 
+     * @return panel with users list and confirmation buttons
+     */
+    private JPanel createUsersListAndButtonsPanel() {
+        
+        JPanel panel = new JPanel (new BorderLayout());
+        panel.setBorder(PADDING_BORDER);
+        
+        panel.add(createUserRelatedUsersPanel(), BorderLayout.NORTH);
+        panel.add(createConfirmButtons(), BorderLayout.SOUTH);
+        
+        return panel;
+    }
+    
+    /**
+     * Create panel with confirm and cancel buttons.
+     * 
+     * @return panel with confirm and cancel buttons
+     */
+    private JPanel createConfirmButtons() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
+        panel.add(createConfirmButton());
+        panel.add(createCancelButton());
+        
+        return panel;
+    }
+    
+    /**
+     * Create confirm new user button.
+     * 
+     * @return confirm new user button
+     */
+    private JButton createConfirmButton() {
+        
+        JButton confirmButton = new JButton("Confirm");
+        confirmButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String name = textFieldName.getText();
+                    String username = textFieldUsername.getText();
+                    String email = textFieldEmail.getText();
+                    String password = passwordFieldPassword.getText();
+                    String passwordConfirm = passwordFieldConfirmPassword.getText();
+                    
+                    if (!password.equals(passwordConfirm)) {
+                        throw new IllegalArgumentException("Passwords do not match");
+                    }
+                    
+                    if (controller.setUserData(name, username, email, password)) {
+                        if (controller.registerUser()) {
+                            String successMessage = "User created with success";
+                            String successTitle = "Success";
+                        
+                            JOptionPane.showMessageDialog(rootPane, successMessage, successTitle, JOptionPane.INFORMATION_MESSAGE);
+                            
+                            textFieldName.setText("");
+                            textFieldUsername.setText("");
+                            textFieldEmail.setText("");
+                            passwordFieldPassword.setText("");
+                            passwordFieldConfirmPassword.setText("");
+                            
+                            controller.newUser();
+                            updateRelatedUsersList();
+                        } else {
+                            throw new Exception("repeated user");
+                        }
+                    } else {
+                        throw new Exception("Invalid user parameters");
+                    }
+                } catch(Exception ex) {
+                    String errorMessage = ex.getMessage();
+                    String errorTitle = "Error 404";
+                        
+                    JOptionPane.showMessageDialog(rootPane, errorMessage, errorTitle, JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
+        return confirmButton;
+        
+    }
+    
+    /**
+     * Create confirm new user button.
+     * 
+     * @return confirm new user button
+     */
+    private JButton createCancelButton() {
+        
+        JButton confirmButton = new JButton("Cancel");
+        confirmButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               
+            }
+        });
+        return confirmButton;
+        
+    }
+    
+    /**
+     * Refresh the users list.
+     */
+    private void updateRelatedUsersList() {
+        this.relatedUsersJList.setModel(new ModelListSelectable(controller.getUser().getRelatedUsers()));
+    }
+    
+    /**
+     * Main
+     * @param args 
+     */
+    public static void main(String[] args) {
+        ExhibitionCenter ec = new ExhibitionCenter();
+        List<User> lu = new ArrayList<>();
+        lu.add(new User("Daniel", "daniell", "email@dd23", "password", new ArrayList<>()));
+        lu.add(new User("Fabio", "fabioA", "email@dd24", "password", new ArrayList<>()));
+        lu.add(new User("Andre", "andree", "email@dd25", "password", new ArrayList<>()));
+        lu.add(new User("Jonas", "pistolas", "email@dd26", "password", new ArrayList<>()));
+        ec.setUsersRegister(new UsersRegister(lu));
+        new CreateUserProfileUI(ec);
+    }
     
 }
