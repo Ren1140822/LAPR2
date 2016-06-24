@@ -6,6 +6,7 @@ package lapr.project.ui.components;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.GroupLayout;
@@ -74,7 +75,7 @@ public class StaffEvaluationsAnalysisPanel extends JPanel {
         setLayout(new BorderLayout());
 
         add(createTopPanel(), BorderLayout.NORTH);
-        add(createTable(), BorderLayout.NORTH);
+        add(createTable(), BorderLayout.CENTER);
     }
 
     /**
@@ -102,9 +103,10 @@ public class StaffEvaluationsAnalysisPanel extends JPanel {
         float selectedValue = ((ConfidenceIntervals) signLvlcomboBox.getSelectedItem()).zValue();
         zValueLbl = new JLabel(String.format("%s%.2f", PREFIX_Z_Value, selectedValue), JLabel.LEADING);
 
-        JPanel topPanel = new JPanel();
-        GroupLayout layout = new GroupLayout(topPanel);
-        topPanel.setLayout(layout);
+        JPanel topPanel = new JPanel(new GridLayout(1, 2));
+        JPanel comboPanel = new JPanel();
+        GroupLayout layout = new GroupLayout(comboPanel);
+        comboPanel.setLayout(layout);
         layout.setAutoCreateContainerGaps(true);
         // Align horizontally
         layout.setHorizontalGroup(layout.createSequentialGroup()
@@ -128,6 +130,9 @@ public class StaffEvaluationsAnalysisPanel extends JPanel {
                 )
         );
 
+        topPanel.add(comboPanel);
+        topPanel.add(new JPanel());
+
         return topPanel;
     }
 
@@ -143,12 +148,18 @@ public class StaffEvaluationsAnalysisPanel extends JPanel {
             @Override
             public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
 
+                int warningColumn = analyticsTable.getColumnCount() - 1;
                 Component component = super.prepareRenderer(renderer, row, column);
                 try {
-                    boolean value = (Boolean) getModel().getValueAt(row, analyticsTable.getColumnCount() - 1);
-                    if (value) {
-                        component.setBackground(Color.red);
+                    String value = (String) getModel().getValueAt(row, warningColumn);
+                    if (value.equals("Affirmative") && warningColumn == column) {
+                        component.setForeground(Color.red);
+//                        component.setBackground(Color.red);
+                    } else {
+                        component.setForeground(this.getForeground());
+//                        component.setBackground(this.getBackground());
                     }
+
                 } catch (Exception ex) {
                     // Do nothing
                 }
@@ -156,6 +167,7 @@ public class StaffEvaluationsAnalysisPanel extends JPanel {
             }
 
         };
+        updateTable();
 
         JScrollPane scrollPane = new JScrollPane(analyticsTable);
         scrollPane.setBorder(PADDING_BORDER);

@@ -49,10 +49,33 @@ public class StaffMemberAnalytic {
      */
     public static enum ConfidenceIntervals {
 
-        NINETY,
-        NINETY_FIVE,
-        NINETY_NINE;
+        NINETY("90%"),
+        NINETY_FIVE("95%"),
+        NINETY_NINE("99%");
 
+        /**
+         * String value of enum type.
+         */
+        private final String text;
+
+        /**
+         * Default Enum Constructor.
+         * 
+         * @param text String value of enum type.
+         */
+        ConfidenceIntervals(String text) {
+            this.text = text;
+        }
+
+        public String getText() {
+            return this.text;
+        }
+
+        /**
+         * Returns the tabulated corresponding z value.
+         * 
+         * @return the tabulated corresponding z value.
+         */
         public float zValue() {
             switch (this) {
                 case NINETY:
@@ -64,6 +87,11 @@ public class StaffMemberAnalytic {
                 default:
                     throw new AssertionError("Unknown value " + this);
             }
+        }
+
+        @Override
+        public String toString() {
+            return this.text;
         }
     }
 
@@ -259,7 +287,7 @@ public class StaffMemberAnalytic {
      * region
      */
     public void updateWarning(ConfidenceIntervals confidenceInterval) {
-        
+
         this.warning = this.hypothesisTestValue > confidenceInterval.zValue();
     }
 
