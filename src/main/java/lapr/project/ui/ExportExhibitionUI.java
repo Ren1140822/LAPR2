@@ -114,11 +114,12 @@ public class ExportExhibitionUI extends JFrame {
 
     /**
      * Creates the title label.
-     *
+     * Later if needed could be an exportable written here..
+     * 
      * @return title label
      */
     private JLabel createTitleLabel() {
-        return new JLabel("Select an exportable to export:", SwingConstants.CENTER);
+        return new JLabel("Select an exhibition to export:", SwingConstants.CENTER);
     }
 
     /**

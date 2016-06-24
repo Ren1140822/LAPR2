@@ -169,7 +169,6 @@ public class DefineTypeConflictsUI extends JFrame {
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
         buttonsPanel.add(createAddTypeConflictButton());
-        buttonsPanel.add(createRemoveTypeConflictButton());
         buttonsPanel.add(createBackButton());
 
         return buttonsPanel;
@@ -209,17 +208,6 @@ public class DefineTypeConflictsUI extends JFrame {
         });
 
         return addTypeConflictButton;
-    }
-
-    /**
-     * Creates the remove conflicts types button.
-     *
-     * @return remove conflicts types button
-     */
-    private JButton createRemoveTypeConflictButton() {
-        this.removeTypeConflictButton = new JButton("Remove type conflict");
-        this.removeTypeConflictButton.setEnabled(false);
-        return this.removeTypeConflictButton;
     }
 
     /**

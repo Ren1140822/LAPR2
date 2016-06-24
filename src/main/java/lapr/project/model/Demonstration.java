@@ -426,6 +426,17 @@ public class Demonstration implements Submittable, Selectable {
     }
 
     /**
+     * Removes a resource from the list if it contain that resource.
+     *
+     * @param index index of the resource to remove
+     * @return true if the resource is removed
+     */
+    public boolean removeResource(int index) {
+
+        return this.resourcesList.remove(resourcesList.get(index));
+    }
+
+    /**
      * Returns the current demonstration state.
      *
      * @return the actual state of the demonstration
