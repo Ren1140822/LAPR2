@@ -6,7 +6,9 @@ package lapr.project.controller;
 import java.util.ArrayList;
 import java.util.List;
 import lapr.project.model.Application;
+import lapr.project.model.Demonstration;
 import lapr.project.model.Exhibition;
+import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.Removable;
@@ -56,14 +58,19 @@ public class RemoveApplicationControllerTest {
         exhibition.setState(new ExhibitionOpenApplicationsState(exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0)));
         application.setState(new ApplicationInSubmissionState(application));
         
+        List<Demonstration> demonstrationsList = new ArrayList();
+        demonstrationsList = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getDemonstrationsList().getDemonstrationsList();
+        
         removables = this.controller.getRemovables(exhibitorResponsible);
         Removable toRemove = removables.get(0);
+        ((ExhibitionApplication) toRemove).setDemonstrationsList(demonstrationsList);
+     
         this.controller.remove(toRemove);
         List<Application> applications = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList();
         boolean result = false;
         for (Application app : applications) {
             if (app.equals((Application) toRemove)) {
-                result = ((Removable)app).isRemoved();
+                result = ((Removable) app).isRemoved();
             }
         }
         
