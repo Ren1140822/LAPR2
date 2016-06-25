@@ -49,6 +49,7 @@ public class DefineStandController {
      * @return stand list
      */
     public List<Stand> getStands() {
+        this.standsRegister=this.exhibitionCenter.getStandsRegister();
         return this.standsRegister.getStandsList();
     }
           

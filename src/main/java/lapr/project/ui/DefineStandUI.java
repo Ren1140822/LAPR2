@@ -174,7 +174,7 @@ public class DefineStandUI extends JFrame {
     private JPanel createButtonsPanel() {
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         
-//        buttonsPanel.add(createAddStandButton());
+   buttonsPanel.add(createAddStandButton());
         buttonsPanel.add(createRemoveResourceButton());
         buttonsPanel.add(createBackButton());
         
@@ -186,45 +186,47 @@ public class DefineStandUI extends JFrame {
      * 
      * @return add stands button
      */
-//    private JButton createAddStandButton() {
-//        JButton addStandButton = new JButton("Add Stand");
-//        
-//        addStandButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                
-//                JTextField descriptionText = new JTextField();
-//                JTextField areaText = new JPasswordField();
-//                        Object[] message = {
-//                        "Designation:", descriptionText,
-//                        "Area:", areaText
-//                        };
-//
-//                int option = JOptionPane.showConfirmDialog(this, message, "New Stand", JOptionPane.OK_CANCEL_OPTION);
-//                if (option == JOptionPane.OK_OPTION) {
-//                    try {
-//                    String description = descriptionText.getText();
-//                    float area = Float.parseFloat(areaText.getText());
-//            
-//                    boolean addedStand = (controller.newStand()) ? controller.registerStand() : false;
-//                        if (addedStand) {
-//                            JOptionPane.showMessageDialog(this, "Stand added with success!", "Added new Stand", JOptionPane.INFORMATION_MESSAGE);
-//                        }
-//            
-//                    } catch(NumberFormatException ex) {
-//                        JOptionPane.showMessageDialog(this, "Invalid area! Please try again.");
-//                
-//                    } catch (NullPointerException ex) {
-//                        JOptionPane.showMessageDialog(this, "Missing data! Please try again.");
-//                    }
-//                }
-//            }
-//
-//        });
-//        
-//        return addStandButton;
+    private JButton createAddStandButton() {
+        JButton addStandButton = new JButton("Add Stand");
         
-//    }
+        addStandButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                JTextField descriptionText = new JTextField();
+                JTextField areaText = new JTextField();
+                        Object[] message = {
+                        "Designation:", descriptionText,
+                        "Area:", areaText
+                        };
+
+                int option = JOptionPane.showConfirmDialog(rootPane, message, "New Stand", JOptionPane.OK_CANCEL_OPTION);
+                if (option == JOptionPane.OK_OPTION) {
+                    try {
+                    String description = descriptionText.getText();
+                    float area = Float.parseFloat(areaText.getText());
+            
+                    boolean addedStand = (controller.newStand(area, description)) ? controller.registerStand() : false;
+                        if (addedStand) {
+                            JOptionPane.showMessageDialog(rootPane, "Stand added with success!", "Added new Stand", JOptionPane.INFORMATION_MESSAGE);
+                             standsList=controller.getStands();
+                             standsJList.setModel(new ModelListSelectable(standsList));
+                        }
+            
+                    } catch(NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(rootPane, "Invalid area! Please try again.");
+                
+                    } catch (NullPointerException ex) {
+                        JOptionPane.showMessageDialog(rootPane, "Missing data! Please try again.");
+                    }
+                }
+            }
+
+        });
+        
+        return addStandButton;
+        
+    }
     
     /**
      * Creates the remove stand button.
