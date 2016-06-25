@@ -21,6 +21,7 @@ import lapr.project.controller.GenerateEvaluationsStatisticsController;
 import lapr.project.model.Actor;
 import lapr.project.model.ApplicationAnalysis;
 import lapr.project.model.Exhibition;
+import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 
 /**
@@ -58,6 +59,21 @@ public class GenerateEvaluationsStatisticsPanel extends JPanel {
      * List with the application analysis.
      */
     private List<ApplicationAnalysis> applicationAnalysisesList;
+    
+    /**
+     * The acceptance rate.
+     */
+    private float acceptanceRate;
+    
+    /**
+     * Table mode list.
+     */
+    private ModelTableApplicationsAnalysis modelTableApplicationsAnalysis;
+    
+    /**
+     * Evaluations statistics table.
+     */
+    private JTable evaluationsStatisticsJTable;
 
     /**
      * Empty border.
@@ -77,6 +93,9 @@ public class GenerateEvaluationsStatisticsPanel extends JPanel {
         this.exhibitionsList = this.controller.getExhibitionsList();
 
         if (this.exhibitionsList.size() > 0) {
+            controller.selectExhibition(exhibitionsList.get(0));
+            acceptanceRate = controller.getAcceptanceRate();
+            applicationAnalysisesList = controller.getApplicationsAnalysis();
             createComponents();
         } else {
             createNoExhibitionsComponents();
@@ -102,6 +121,8 @@ public class GenerateEvaluationsStatisticsPanel extends JPanel {
     private JPanel createTopPanel() {
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
+        acceptanceRateJLabel = new JLabel(String.format("Acceptance rate: %.2f", acceptanceRate), SwingConstants.CENTER);
+        
         String[] exhibitionsChoices = new String[this.exhibitionsList.size()];
         for (int i = 0; i < exhibitionsChoices.length; i++) {
             exhibitionsChoices[i] = this.exhibitionsList.get(i).getDisplayInfo();
@@ -112,15 +133,15 @@ public class GenerateEvaluationsStatisticsPanel extends JPanel {
             public void actionPerformed(ActionEvent ae) {
                 int selectedIndex = exhibitionsJComboBox.getSelectedIndex();
                 controller.selectExhibition(exhibitionsList.get(selectedIndex));
-                float acceptanceRate = controller.getAcceptanceRate();
+                acceptanceRate = controller.getAcceptanceRate();
                 acceptanceRateJLabel = new JLabel(String.format("Acceptance rate: %.2f", acceptanceRate), SwingConstants.CENTER);
-                applicationAnalysisesList = controller.getApplicationsAnalysis();
-                // TODO Update table
+                updateTable();
 
             }
         });
 
         topPanel.add(this.exhibitionsJComboBox);
+        topPanel.add(this.acceptanceRateJLabel);
 
         return topPanel;
     }
@@ -133,11 +154,14 @@ public class GenerateEvaluationsStatisticsPanel extends JPanel {
     private JPanel createTablePanel() {
         JPanel painelScroll = new JPanel();
 
-        ModelTableApplicationsAnalysis modelTableApplicationsAnalysis = new ModelTableApplicationsAnalysis(this.applicationAnalysisesList);
-        JTable evaluationsStatisticsJPanel = new JTable(modelTableApplicationsAnalysis);
+        this.modelTableApplicationsAnalysis = new ModelTableApplicationsAnalysis(this.applicationAnalysisesList);
+        this.evaluationsStatisticsJTable = new JTable(this.modelTableApplicationsAnalysis);
+        
 
-        JScrollPane scrollPane = new JScrollPane(evaluationsStatisticsJPanel);
+        JScrollPane scrollPane = new JScrollPane(this.evaluationsStatisticsJTable);
         scrollPane.setBorder(PADDING_BORDER);
+        
+        painelScroll.add(scrollPane);
 
         return painelScroll;
     }
@@ -149,9 +173,15 @@ public class GenerateEvaluationsStatisticsPanel extends JPanel {
         setLayout(new GridBagLayout());
         JPanel componentsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        componentsPanel.add(new JLabel("No exhibitions available.", SwingConstants.CENTER));
+        componentsPanel.add(new JLabel("No decided exhibitions available.", SwingConstants.CENTER));
 
         add(componentsPanel, new GridBagConstraints());
+    }
+    
+    private void updateTable() {
+        this.applicationAnalysisesList = this.controller.getApplicationsAnalysis();
+        this.modelTableApplicationsAnalysis = new ModelTableApplicationsAnalysis(this.applicationAnalysisesList);
+        this.evaluationsStatisticsJTable = new JTable(this.modelTableApplicationsAnalysis);
     }
 
 }

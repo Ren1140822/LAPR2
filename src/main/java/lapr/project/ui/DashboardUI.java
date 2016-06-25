@@ -20,6 +20,7 @@ import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.Organizer;
 import lapr.project.model.StaffMember;
+import lapr.project.model.exhibition.ExhibitionDecidedApplicationsState;
 import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.GenerateEvaluationsStatisticsPanel;
 import lapr.project.ui.components.GenerateKeywordsRankingPanel;
@@ -195,8 +196,9 @@ public class DashboardUI extends JFrame {
      */
     public static void main(String[] args) {
         ExhibitionCenter exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
-        //Actor actor = exhibitionCenter.getExhibitionsManagerRegister().getExhibitionsManagerList().get(0); // ExhibitionsManager
-        Actor actor = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getOrganizersList().getOrganizersList().get(0); // Organizer
+        exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).setState(new ExhibitionDecidedApplicationsState(exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0)));
+        Actor actor = exhibitionCenter.getExhibitionsManagerRegister().getExhibitionsManagerList().get(0); // ExhibitionsManager
+        //Actor actor = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getOrganizersList().getOrganizersList().get(0); // Organizer
         //Actor actor = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0).getExhibitor().getExhibitorResponsible(); // ExhibitorResponsible
         //Actor actor = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getStaffList().getStaffList().get(0); // StaffMember
         new DashboardUI(exhibitionCenter, actor);
