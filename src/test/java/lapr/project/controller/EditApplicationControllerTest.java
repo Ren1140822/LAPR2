@@ -39,7 +39,7 @@ public class EditApplicationControllerTest {
     @Before
     public void setUp() {
         this.exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
-        this.exhibitorResponsible = new ExhibitorResponsible(new User("Fábio Silva", "fabiosilva", "fabiosilva@blip.pt", "Ewq+321", new ArrayList<>()));
+        this.exhibitorResponsible = new ExhibitorResponsible(new User("Fábio Silva", "fabiosilva", "fabiosilva@blip.pt", "Ewq+321", new ArrayList<>(),""));
         this.editApplicationController = new EditApplicationController(this.exhibitionCenter, this.exhibitorResponsible);
     }
 

@@ -6,10 +6,12 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import lapr.project.utils.Encrypter;
 
 /**
  * Represents a user.
@@ -43,9 +45,15 @@ public class User implements Selectable, Serializable {
     /**
      * The user's password.
      */
-    // TODO: Implement password encryptation when stored.
     private String password;
-
+    /**
+     * The users shift for encryption.
+     */
+   private int userShift;
+   /**
+    * The user's cypher.
+    */
+   private String userCypher;
     /**
      * The user's confirmed register status.
      *
@@ -77,6 +85,10 @@ public class User implements Selectable, Serializable {
      * The user's password by default.
      */
     private static final String DEFAULT_PASSWORD = "password";
+    /**
+     * The default Cypher.
+     */
+    private static final String DEFAULT_CYPHER ="";
 
     /**
      * Default constructor of a user class.
@@ -87,6 +99,8 @@ public class User implements Selectable, Serializable {
         this.email = DEFAULT_EMAIL;
         this.password = DEFAULT_PASSWORD;
         this.relatedUsers = new ArrayList<>();
+        this.userShift =  new Random().nextInt(20);
+        this.userCypher=DEFAULT_CYPHER;
     }
 
     /**
@@ -97,13 +111,16 @@ public class User implements Selectable, Serializable {
      * @param email user's email
      * @param password user's password
      * @param relatedUsers list of relatives
+     * @param userCypher the user's cypher
      */
-    public User(String name, String username, String email, String password, List<User> relatedUsers) {
+    public User(String name, String username, String email, String password, List<User> relatedUsers,String userCypher) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
         this.relatedUsers = new ArrayList<>(relatedUsers);
+         this.userShift =  new Random().nextInt(20);
+         this.userCypher =userCypher;
     }
 
     /**
@@ -118,6 +135,8 @@ public class User implements Selectable, Serializable {
         this.password = user.password;
         this.confirmedStatus = user.confirmedStatus;
         this.relatedUsers = new ArrayList<>(user.getRelatedUsers());
+         this.userShift =  user.userShift;
+         this.userCypher = user.userCypher;
     }
 
     /**
@@ -126,7 +145,7 @@ public class User implements Selectable, Serializable {
      * @return the user's name
      */
     public String getName() {
-        return name;
+        return Encrypter.decryptStringKeyword(name, userShift, userCypher);
     }
 
     /**
@@ -135,7 +154,7 @@ public class User implements Selectable, Serializable {
      * @param name the user's name to set
      */
     public void setName(String name) {
-        this.name = name;
+        this.name = Encrypter.encryptStringKeyword(name, userShift, userCypher);
     }
 
     /**
@@ -162,7 +181,7 @@ public class User implements Selectable, Serializable {
      * @return the user's email
      */
     public String getEmail() {
-        return email;
+        return Encrypter.decryptStringKeyword(email, userShift, userCypher);
     }
 
     /**
@@ -171,7 +190,15 @@ public class User implements Selectable, Serializable {
      * @param email the user's email to set
      */
     public void setEmail(String email) {
-        this.email = email;
+        this.email = Encrypter.encryptStringKeyword(email, userShift, userCypher);
+    }
+
+    /**
+     * Sets the user cypher.
+     * @param userCypher the user cypher
+     */
+    public void setUserCypher(String userCypher) {
+        this.userCypher = userCypher;
     }
 
     /**
@@ -189,7 +216,7 @@ public class User implements Selectable, Serializable {
      * @param password the user's password to set
      */
     public void setPassword(String password) {
-        this.password = password;
+        this.password = Encrypter.encryptStringCaesar(password, userShift);
     }
 
     /**
