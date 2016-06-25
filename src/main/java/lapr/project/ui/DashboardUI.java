@@ -144,6 +144,7 @@ public class DashboardUI extends JFrame {
             buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase1Button(this.exhibitionCenter, (ExhibitionsManager) this.actor));
             buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase7Button(this.exhibitionCenter, (ExhibitionsManager) this.actor));
             buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase9Button(this.exhibitionCenter, (ExhibitionsManager) this.actor));
+            buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase23Button(this.exhibitionCenter, (ExhibitionsManager) this.actor));
             buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase12Button(this.exhibitionCenter, (ExhibitionsManager) this.actor));
             buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase22Button(this.exhibitionCenter, (ExhibitionsManager) this.actor));
             buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase10Button(this.exhibitionCenter, this.actor.getUser()));
@@ -155,7 +156,6 @@ public class DashboardUI extends JFrame {
             buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase17Button(this.exhibitionCenter, (Organizer) this.actor));
             buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase20Button(this.exhibitionCenter, (Organizer) this.actor));
             buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase21Button(this.exhibitionCenter, (Organizer) this.actor));
-            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase23Button(this.exhibitionCenter, (Organizer) this.actor));
             buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase24Button(this.exhibitionCenter, (Organizer) this.actor));
             buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase10Button(this.exhibitionCenter, this.actor.getUser()));
         }
@@ -196,10 +196,10 @@ public class DashboardUI extends JFrame {
         ExhibitionCenter exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
         exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)
                 .setState(new ApplicationInEvaluationState(exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)));
-        //Actor actor = exhibitionCenter.getExhibitionsManagerRegister().getExhibitionsManagerList().get(0); // ExhibitionsManager
+        Actor actor = exhibitionCenter.getExhibitionsManagerRegister().getExhibitionsManagerList().get(0); // ExhibitionsManager
         //Actor actor = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getOrganizersList().getOrganizersList().get(0); // Organizer
         //Actor actor = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0).getExhibitor().getExhibitorResponsible(); // ExhibitorResponsible
-        Actor actor = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getStaffList().getStaffList().get(0); // StaffMember
+        //Actor actor = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getStaffList().getStaffList().get(0); // StaffMember
         new DashboardUI(exhibitionCenter, actor);
     }
 }

@@ -400,7 +400,6 @@ public class UseCaseButtonsGenerator {
         useCase21Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                // TODO implement UC21
                 new ShowRemovedApplicationsUI(exhibitionCenter, organizer);
             }
         });
@@ -421,7 +420,6 @@ public class UseCaseButtonsGenerator {
         useCase22Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                // TODO implement UC22
                 new DefineStandUI(exhibitionCenter);
             }
         });
@@ -433,17 +431,17 @@ public class UseCaseButtonsGenerator {
      * Creates a button to the use case 23.
      *
      * @param exhibitionCenter exhibition center
-     * @param organizer organizer logged in
+     * @param exhibitionsManager exhibition manager logged in
      * @return use case 23 button
      */
-    public static JButton generateUseCase23Button(ExhibitionCenter exhibitionCenter, Organizer organizer) {
+    public static JButton generateUseCase23Button(ExhibitionCenter exhibitionCenter, ExhibitionsManager exhibitionsManager) {
         JButton useCase23Button = new JButton("Import Exhibition");
 
         useCase23Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 // TODO change the actor for UC23 to organizer
-                //new ImportExhibitionUI(organizer, exhibitionCenter);
+                new ImportExhibitionUI(exhibitionsManager, exhibitionCenter);
             }
         });
 
