@@ -69,6 +69,10 @@ public class AssignApplicationUI extends JFrame {
      */
     private final ExhibitionCenter exhibitionsCenter;
     /**
+     * The organizer logged in.
+     */
+    private final Organizer organizer;
+    /**
      * Controller to assign applications.
      */
     private final AssignApplicationController controller;
@@ -127,15 +131,14 @@ public class AssignApplicationUI extends JFrame {
         super(EXHIBITION_CENTER_TITLE);
 
         this.exhibitionsCenter = exhibitionsCenter;
+        this.organizer = organizer;
         this.controller = new AssignApplicationController(exhibitionsCenter, organizer);
 
         List<Submittable> listaExposicoes = this.controller.getSubmittablesInChangedConflictsByOrganizer(organizer);
         DialogSelectable dialogSelectable = new DialogSelectable(this, listaExposicoes);
-        
+
         this.submittableSelected = (Submittable) dialogSelectable.getSelectedItem();
-        if (this.submittableSelected == null) {
-            dispose();
-        } else {
+        if (this.submittableSelected != null) {
 
             this.controller.setSubmittable(this.submittableSelected);
             this.staffAttributionMechanismList = this.controller.getStaffAttributionMechanism();
@@ -158,6 +161,9 @@ public class AssignApplicationUI extends JFrame {
             setMinimumSize(new Dimension(getWidth(), getHeight()));
             setLocationRelativeTo(null);
             setVisible(true);
+        } else {
+            dispose();
+            new DashboardUI(this.exhibitionsCenter, this.organizer);
         }
 
     }
@@ -347,7 +353,7 @@ public class AssignApplicationUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                // TODO : Implement after use case is finished.
+                new DashboardUI(AssignApplicationUI.this.exhibitionsCenter, AssignApplicationUI.this.organizer);
             }
         });
         return btn;

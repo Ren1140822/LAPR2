@@ -266,6 +266,7 @@ public class ConfirmStandUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                new DashboardUI(ConfirmStandUI.this.exhibitionCenter, ConfirmStandUI.this.exhibitorResponsible);
             }
         });
 
