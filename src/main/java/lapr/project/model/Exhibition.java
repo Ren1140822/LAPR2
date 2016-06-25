@@ -142,7 +142,7 @@ public class Exhibition implements Submittable, Exportable, Serializable {
     /**
      * The exhibition's timer.
      */
-    private final Timer timer;
+    private transient final Timer timer;
 
     /**
      * Exhibition's default title.
@@ -857,14 +857,14 @@ public class Exhibition implements Submittable, Exportable, Serializable {
         return this.staffAttributionsList.removeStaffAttribution(staffAttribution);
 
     }
-    
+
     @Override
     public boolean isDemonstration() {
         return false;
     }
-    
+
     @Override
-    public boolean isExhibition(){
+    public boolean isExhibition() {
         return true;
     }
 
@@ -924,7 +924,5 @@ public class Exhibition implements Submittable, Exportable, Serializable {
                 && this.demonstrationsList.equals(otherExhibition.demonstrationsList)
                 && this.staffAttributionsList.equals(otherExhibition.staffAttributionsList);
     }
-
-    
 
 }
