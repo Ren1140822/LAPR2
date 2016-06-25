@@ -85,7 +85,9 @@ public class User implements Selectable, Serializable {
      * The user's password by default.
      */
     private static final String DEFAULT_PASSWORD = "password";
-    
+    /**
+     * The default Cypher.
+     */
     private static final String DEFAULT_CYPHER ="";
 
     /**
@@ -189,6 +191,14 @@ public class User implements Selectable, Serializable {
      */
     public void setEmail(String email) {
         this.email = Encrypter.encryptStringKeyword(email, userShift, userCypher);
+    }
+
+    /**
+     * Sets the user cypher.
+     * @param userCypher the user cypher
+     */
+    public void setUserCypher(String userCypher) {
+        this.userCypher = userCypher;
     }
 
     /**
