@@ -456,7 +456,7 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
      * @return true if all O.K.
      */
     public boolean validateApplication() {
-        return (this.exhibitor.validate() && !this.demonstrationsList.isEmpty() && !this.productsList.isEmpty() && this.keywordsList.size() > 1 && this.keywordsList.size() <= 5 && this.numberInvitations > 0 && this.exhibitorArea > 0);
+        return (this.exhibitor.validate() && this.keywordsList.size() > 1 && this.numberInvitations > 0 && this.exhibitorArea > 0);
     }
 
     /**

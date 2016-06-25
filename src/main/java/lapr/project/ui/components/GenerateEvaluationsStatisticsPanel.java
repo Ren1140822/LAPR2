@@ -151,8 +151,7 @@ public class GenerateEvaluationsStatisticsPanel extends JPanel {
      *
      * @return table panel
      */
-    private JPanel createTablePanel() {
-        JPanel painelScroll = new JPanel();
+    private JScrollPane createTablePanel() {
 
         this.modelTableApplicationsAnalysis = new ModelTableApplicationsAnalysis(this.applicationAnalysisesList);
         this.evaluationsStatisticsJTable = new JTable(this.modelTableApplicationsAnalysis);
@@ -161,9 +160,7 @@ public class GenerateEvaluationsStatisticsPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(this.evaluationsStatisticsJTable);
         scrollPane.setBorder(PADDING_BORDER);
         
-        painelScroll.add(scrollPane);
-
-        return painelScroll;
+        return scrollPane;
     }
 
     /**

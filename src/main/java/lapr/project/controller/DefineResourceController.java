@@ -27,7 +27,7 @@ public class DefineResourceController {
     /**
      * the resources register.
      */
-    private ResourcesRegister resourcesRegister;
+    private final ResourcesRegister resourcesRegister;
 
     /**
      * The resource to be defined.
@@ -73,10 +73,10 @@ public class DefineResourceController {
     public boolean registerResource() {
         return this.resourcesRegister.registerResource(this.resource);
     }
-    
+
     /**
      * Removes a given resource.
-     * 
+     *
      * @param resource resource to be removed
      * @return true if it is removed with success, false otherwise
      */

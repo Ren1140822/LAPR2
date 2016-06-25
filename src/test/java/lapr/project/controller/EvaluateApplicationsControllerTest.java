@@ -5,14 +5,16 @@ package lapr.project.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import lapr.project.model.Exhibition;
+import lapr.project.model.Evaluable;
+import lapr.project.model.Evaluation;
 import lapr.project.model.ExhibitionCenter;
-import lapr.project.model.ExhibitionsRegister;
-import lapr.project.model.StaffList;
+import lapr.project.model.StaffAttribution;
 import lapr.project.model.StaffMember;
 import lapr.project.model.Submittable;
-import lapr.project.model.User;
+import lapr.project.model.application.ApplicationInEvaluationState;
+import lapr.project.utils.DefaultInstantiator;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,32 +39,23 @@ public class EvaluateApplicationsControllerTest {
      */
     private EvaluateApplicationsController evaluateApplicationsController;
 
+    /**
+     * The staff member used for tests.
+     */
+    private StaffMember staffMember;
+
     @Before
     public void setUp() {
-        this.exhibitionCenter = new ExhibitionCenter();
+        this.exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
 
-        StaffMember staffMember1 = new StaffMember(new User("Ivo Ferro", "ivoferro", "ivoferro@isep.pt", "123+qwe", new ArrayList<>(),""));
-        StaffMember staffMember2 = new StaffMember(new User("Daniel Gonçalves", "daniel", "daniel@isep.pt", "qwe+123", new ArrayList<>(),""));
+        this.exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList()
+                .getApplicationsList().get(0).setState(new ApplicationInEvaluationState(this.exhibitionCenter
+                .getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)));
 
-        List<StaffMember> staffMembers = new ArrayList<>();
-        staffMembers.add(staffMember1);
-        staffMembers.add(staffMember2);
-        StaffList staffList = new StaffList(staffMembers);
+        this.staffMember = this.exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0)
+                .getStaffList().getStaffList().get(0);
 
-        Exhibition exhibition1 = new Exhibition();
-        exhibition1.setStaffList(staffList);
-
-        Exhibition exhibition2 = new Exhibition();
-
-        List<Exhibition> exhibitions = new ArrayList<>();
-        exhibitions.add(exhibition1);
-        exhibitions.add(exhibition2);
-
-        ExhibitionsRegister exhibitionsRegister = new ExhibitionsRegister(exhibitions);
-
-        this.exhibitionCenter.setExhibitionsRegister(exhibitionsRegister);
-
-        this.evaluateApplicationsController = new EvaluateApplicationsController(exhibitionCenter);
+        this.evaluateApplicationsController = new EvaluateApplicationsController(this.exhibitionCenter);
     }
 
     /**
@@ -73,23 +66,146 @@ public class EvaluateApplicationsControllerTest {
     public void testGetSubmittablesByStaff() {
         System.out.println("getSubmittablesByStaff");
 
-        StaffMember staffMember1 = new StaffMember(new User("Ivo Ferro", "ivoferro", "ivoferro@isep.pt", "123+qwe", new ArrayList<>(),""));
-        StaffMember staffMember2 = new StaffMember(new User("Daniel Gonçalves", "daniel", "daniel@isep.pt", "qwe+123", new ArrayList<>(),""));
-
-        List<StaffMember> staffMembers = new ArrayList<>();
-        staffMembers.add(staffMember1);
-        staffMembers.add(staffMember2);
-        StaffList staffList = new StaffList(staffMembers);
-
-        Exhibition exhibition = new Exhibition();
-        exhibition.setStaffList(staffList);
-
         List<Submittable> expResult = new ArrayList<>();
-        expResult.add(exhibition);
+        expResult.add(this.exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0));
+        expResult.add(this.exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getDemonstrationsList().getDemonstrationsList().get(0));
 
-        List<Submittable> result = evaluateApplicationsController.getSubmittablesByStaff(staffMember1);
+        List<Submittable> result = evaluateApplicationsController.getSubmittablesByStaff(this.staffMember);
 
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getAttributionsByStaff method, of class
+     * EvaluateApplicationsController.
+     */
+    @Test
+    public void testGetAttributionsByStaff() {
+        System.out.println("getAttributionsByStaff");
+
+        this.evaluateApplicationsController.setSubmittable(this.exhibitionCenter.
+                getExhibitionsRegister().getExhibitionsList().get(0));
+
+        List<StaffAttribution> expResult = new ArrayList<>();
+        expResult.add(this.exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0)
+                .getStaffAttributionsList().getStaffAttributionsList().get(0));
+
+        List<StaffAttribution> result = this.evaluateApplicationsController.getAttributionsByStaff(staffMember);
+
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getEvaluableByAttribution method, of class
+     * EvaluateApplicationsController.
+     */
+    @Test
+    public void testGetEvaluableByAttribution() {
+        System.out.println("getEvaluableByAttribution");
+
+        StaffAttribution staffAttribution = this.exhibitionCenter.getExhibitionsRegister()
+                .getExhibitionsList().get(0).getStaffAttributionsList().getStaffAttributionsList().get(0);
+
+        this.evaluateApplicationsController.setSubmittable(this.exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0));
+
+        Evaluable expResult = (Evaluable) this.exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0);
+        Evaluable result = this.evaluateApplicationsController.getEvaluableByAttribution(staffAttribution);
+
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of newEvaluation method, of class EvaluateApplicationsController.
+     */
+    @Test
+    public void testNewEvaluation() {
+        System.out.println("newEvaluation");
+        
+        this.evaluateApplicationsController.setSubmittable(this.exhibitionCenter.
+                getExhibitionsRegister().getExhibitionsList().get(0));
+        StaffAttribution staffAttribution = this.exhibitionCenter.getExhibitionsRegister()
+                .getExhibitionsList().get(0).getStaffAttributionsList().getStaffAttributionsList().get(0);
+        this.evaluateApplicationsController.getEvaluableByAttribution(staffAttribution);
+        
+        List<String> expResult = new Evaluation().getQuestionsList();
+        List<String> result = this.evaluateApplicationsController.newEvaluation();
+        
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of setEvaluation method, of class EvaluateApplicationsController.
+     */
+    @Test
+    public void testSetEvaluation() {
+        System.out.println("setEvaluation");
+        
+        this.evaluateApplicationsController.setSubmittable(this.exhibitionCenter.
+                getExhibitionsRegister().getExhibitionsList().get(0));
+        StaffAttribution staffAttribution = this.exhibitionCenter.getExhibitionsRegister()
+                .getExhibitionsList().get(0).getStaffAttributionsList().getStaffAttributionsList().get(0);
+        this.evaluateApplicationsController.getEvaluableByAttribution(staffAttribution);
+        this.evaluateApplicationsController.newEvaluation();
+        
+        List<Integer> answersList = new ArrayList<>();
+        answersList.add(1);
+        answersList.add(2);
+        answersList.add(1);
+        answersList.add(4);
+        answersList.add(3);
+        
+        assertTrue(this.evaluateApplicationsController.setEvaluation(answersList));
+    }
+
+    /**
+     * Test of registerEvaluation method, of class
+     * EvaluateApplicationsController.
+     */
+    @Test
+    public void testRegisterEvaluation() {
+        System.out.println("registerEvaluation");
+        
+        this.evaluateApplicationsController.setSubmittable(this.exhibitionCenter.
+                getExhibitionsRegister().getExhibitionsList().get(0));
+        StaffAttribution staffAttribution = this.exhibitionCenter.getExhibitionsRegister()
+                .getExhibitionsList().get(0).getStaffAttributionsList().getStaffAttributionsList().get(0);
+        this.evaluateApplicationsController.getEvaluableByAttribution(staffAttribution);
+        this.evaluateApplicationsController.newEvaluation();
+        List<Integer> answersList = new ArrayList<>();
+        answersList.add(1);
+        answersList.add(2);
+        answersList.add(1);
+        answersList.add(4);
+        answersList.add(3);
+        this.evaluateApplicationsController.setEvaluation(answersList);
+        
+        assertTrue(this.evaluateApplicationsController.registerEvaluation());
+    }
+
+    /**
+     * Test of removeStaffAttributions method, of class
+     * EvaluateApplicationsController.
+     */
+    @Test
+    public void testRemoveStaffAttributions() {
+        System.out.println("removeStaffAttributions");
+        
+        this.evaluateApplicationsController.setSubmittable(this.exhibitionCenter.
+                getExhibitionsRegister().getExhibitionsList().get(0));
+        StaffAttribution staffAttribution = this.exhibitionCenter.getExhibitionsRegister()
+                .getExhibitionsList().get(0).getStaffAttributionsList().getStaffAttributionsList().get(0);
+        this.evaluateApplicationsController.getEvaluableByAttribution(staffAttribution);
+        this.evaluateApplicationsController.newEvaluation();
+        List<Integer> answersList = new ArrayList<>();
+        answersList.add(1);
+        answersList.add(2);
+        answersList.add(1);
+        answersList.add(4);
+        answersList.add(3);
+        this.evaluateApplicationsController.setEvaluation(answersList);
+        this.evaluateApplicationsController.addToRecord();
+        
+        assertTrue(this.evaluateApplicationsController.removeStaffAttributions());
     }
 
 }

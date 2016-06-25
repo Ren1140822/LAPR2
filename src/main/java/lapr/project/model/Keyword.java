@@ -37,8 +37,9 @@ public class Keyword implements Selectable, Comparable<Keyword>, Serializable {
         List<Keyword> keywordsList = new ArrayList<>();
 
         String[] keywords = keywordsCSV.split(",");
+        String pattern = "^[a-zA-Z][a-zA-Z0-9]+$";
         for (String keyword : keywords) {
-            if (keyword.trim().length() < 2) { //Improve with REGEX
+            if (!keyword.trim().matches(pattern)) { //Improve with REGEX
                 throw new Exception();
             } else {
                 keywordsList.add(new Keyword(keyword.trim()));
