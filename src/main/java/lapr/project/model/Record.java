@@ -336,7 +336,7 @@ public class Record implements Serializable {
      */
     private void updateEvaluationsMatrix(float average, int row, int column) {
         if (this.evaluationsMatrix.length < row + 1 || this.evaluationsMatrix[0].length < column + 1) { // update the matrix sixe
-            Float[][] newEvaluationsMatrix = new Float[row + 1][column + 1];
+            Float[][] newEvaluationsMatrix = new Float[row + 2][column + 2];
             for (int i = 0; i < this.evaluationsMatrix.length; i++) {
                 for (int j = 0; j < this.evaluationsMatrix[0].length; j++) {
 
