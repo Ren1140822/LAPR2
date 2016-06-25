@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -83,6 +84,13 @@ public class Product implements Selectable, Serializable {
         }
         Product otherProduct = (Product) otherObject;
         return this.designation.equals(otherProduct.designation);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 61 * hash + Objects.hashCode(this.designation);
+        return hash;
     }
 
     public boolean validate() {

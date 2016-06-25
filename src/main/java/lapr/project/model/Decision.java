@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Interface for decisable applications.
@@ -114,8 +115,17 @@ public class Decision implements Serializable {
         if (otherObject == null || this.getClass() != otherObject.getClass()) {
             return false;
         }
-        Decision decision = (Decision) otherObject;
-        return (this.decision == decision.decision && this.justificativeText == decision.justificativeText);
+        Decision otherDecision = (Decision) otherObject;
+        return (this.decision == otherDecision.decision && this.justificativeText.equalsIgnoreCase(otherDecision.justificativeText));
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.justificativeText);
+        hash = 29 * hash + (this.decision ? 1 : 0);
+        return hash;
+    }
+
 
 }

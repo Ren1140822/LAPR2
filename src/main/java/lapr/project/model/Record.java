@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import lapr.project.utils.Calculator;
 
 /**
@@ -285,6 +286,14 @@ public class Record implements Serializable {
         return this.applicationsList.equals(otherRecord.applicationsList)
                 && this.getStaffList().equals(otherRecord.getStaffList())
                 && Arrays.equals(this.evaluationsMatrix, otherRecord.evaluationsMatrix);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.applicationsList);
+        hash = 71 * hash + Arrays.deepHashCode(this.evaluationsMatrix);
+        return hash;
     }
 
     /**

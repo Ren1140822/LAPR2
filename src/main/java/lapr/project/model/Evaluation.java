@@ -6,12 +6,12 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Represents an evaluation.
@@ -120,7 +120,7 @@ public class Evaluation implements Selectable, Serializable {
     /**
      * Sets the staff member.
      *
-     * @param staffMember  staff member
+     * @param staffMember staff member
      */
     public void setStaffMember(StaffMember staffMember) {
         this.staffMember = staffMember;
@@ -205,6 +205,15 @@ public class Evaluation implements Selectable, Serializable {
 
         return this.questionsList.equals(otherEvaluation.questionsList) && this.answersList.equals(otherEvaluation.answersList)
                 && this.staffMember.equals(otherEvaluation.staffMember);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 89 * hash + Objects.hashCode(this.questionsList);
+        hash = 89 * hash + Objects.hashCode(this.answersList);
+        hash = 89 * hash + Objects.hashCode(this.staffMember);
+        return hash;
     }
 
     @Override

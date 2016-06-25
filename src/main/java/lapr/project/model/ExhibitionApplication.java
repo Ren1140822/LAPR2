@@ -6,6 +6,7 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -695,6 +696,20 @@ public class ExhibitionApplication implements Application, Conflictable, Assingn
                 && this.evaluationsList.equals(otherExhibitionApplication.evaluationsList)
                 && this.keywordsList.equals(otherExhibitionApplication.keywordsList));
 
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.title);
+        hash = 47 * hash + Objects.hashCode(this.exhibitor);
+        hash = 47 * hash + Float.floatToIntBits(this.exhibitorArea);
+        hash = 47 * hash + this.numberInvitations;
+        hash = 47 * hash + Objects.hashCode(this.productsList);
+        hash = 47 * hash + Objects.hashCode(this.demonstrationsList);
+        hash = 47 * hash + Objects.hashCode(this.evaluationsList);
+        hash = 47 * hash + Objects.hashCode(this.keywordsList);
+        return hash;
     }
 
     /**

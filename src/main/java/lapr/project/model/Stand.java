@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
@@ -172,6 +173,15 @@ public class Stand implements Selectable, Serializable {
         Stand otherStand = (Stand) otherObject;
 
         return this.area == otherStand.area && this.description.equals(otherStand.description) && this.numberID == otherStand.numberID;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + this.numberID;
+        hash = 47 * hash + Float.floatToIntBits(this.area);
+        hash = 47 * hash + Objects.hashCode(this.description);
+        return hash;
     }
 
     @Override

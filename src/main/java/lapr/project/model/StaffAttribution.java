@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -142,6 +143,14 @@ public class StaffAttribution implements Selectable, Serializable {
         StaffAttribution otherStaffAttribution = (StaffAttribution) otherObject;
 
         return this.application.equals(otherStaffAttribution.application) && this.staffMember.equals(otherStaffAttribution.staffMember);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.application);
+        hash = 53 * hash + Objects.hashCode(this.staffMember);
+        return hash;
     }
 
     @Override

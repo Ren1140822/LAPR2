@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -103,6 +104,13 @@ public class Resource implements Selectable, Serializable {
         Resource otherResource = (Resource) otherObject;
 
         return this.designation.equals(otherResource.designation);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.designation);
+        return hash;
     }
 
     @Override

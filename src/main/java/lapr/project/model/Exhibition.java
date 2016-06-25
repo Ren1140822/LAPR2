@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -459,7 +460,7 @@ public class Exhibition implements Submittable, Exportable, Serializable {
      * @param staffList the Exhibition's staff list to set
      */
     public void setStaffList(StaffList staffList) {
-        this.staffList = staffList;
+        this.staffList = new StaffList(staffList);
     }
 
     /**
@@ -477,7 +478,7 @@ public class Exhibition implements Submittable, Exportable, Serializable {
      * @param organizersList the Exhibition's organizers list to set
      */
     public void setOrganizersList(OrganizersList organizersList) {
-        this.organizersList = organizersList;
+        this.organizersList = new OrganizersList(organizersList);
     }
 
     /**
@@ -496,7 +497,7 @@ public class Exhibition implements Submittable, Exportable, Serializable {
      * @param applicationsList the Exhibition's applications list to set
      */
     public void setApplicationsList(ApplicationsList applicationsList) {
-        this.applicationsList = applicationsList;
+        this.applicationsList = new ApplicationsList(applicationsList);
     }
 
     /**
@@ -505,7 +506,7 @@ public class Exhibition implements Submittable, Exportable, Serializable {
      * @return the Exhibition's demonstrations list
      */
     public DemonstrationsList getDemonstrationsList() {
-        return new DemonstrationsList(this.demonstrationsList);
+        return this.demonstrationsList;
     }
 
     /**
@@ -514,7 +515,7 @@ public class Exhibition implements Submittable, Exportable, Serializable {
      * @param demonstrationsList the Exhibition's demonstrations list to set
      */
     public void setDemonstrationsList(DemonstrationsList demonstrationsList) {
-        this.demonstrationsList = demonstrationsList;
+        this.demonstrationsList = new DemonstrationsList(demonstrationsList);
     }
 
     /**
@@ -920,9 +921,26 @@ public class Exhibition implements Submittable, Exportable, Serializable {
                 && this.organizersList.equals(otherExhibition.organizersList)
                 && this.staffList.equals(otherExhibition.staffList)
                 && this.applicationsList.equals(otherExhibition.applicationsList)
-                // TODO: Update to class demonstrations list
                 && this.demonstrationsList.equals(otherExhibition.demonstrationsList)
                 && this.staffAttributionsList.equals(otherExhibition.staffAttributionsList);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + Objects.hashCode(this.title);
+        hash = 17 * hash + Objects.hashCode(this.description);
+        hash = 17 * hash + Objects.hashCode(this.startDate);
+        hash = 17 * hash + Objects.hashCode(this.endDate);
+        hash = 17 * hash + Objects.hashCode(this.subStartDate);
+        hash = 17 * hash + Objects.hashCode(this.subEndDate);
+        hash = 17 * hash + Objects.hashCode(this.place);
+        hash = 17 * hash + Objects.hashCode(this.staffList);
+        hash = 17 * hash + Objects.hashCode(this.organizersList);
+        hash = 17 * hash + Objects.hashCode(this.applicationsList);
+        hash = 17 * hash + Objects.hashCode(this.demonstrationsList);
+        hash = 17 * hash + Objects.hashCode(this.staffAttributionsList);
+        return hash;
     }
 
 }
