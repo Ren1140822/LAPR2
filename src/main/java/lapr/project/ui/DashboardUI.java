@@ -148,7 +148,7 @@ public class DashboardUI extends JFrame {
             buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase23Button(this.exhibitionCenter, (ExhibitionsManager) this.actor, this));
             buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase12Button(this.exhibitionCenter, (ExhibitionsManager) this.actor, this));
             buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase22Button(this.exhibitionCenter, (ExhibitionsManager) this.actor, this));
-            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase10Button(this.exhibitionCenter, this.actor.getUser(), this));
+            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase10Button(this.exhibitionCenter, this.actor, this));
         } else if (this.actor instanceof Organizer) {
             buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase2Button(this.exhibitionCenter, (Organizer) this.actor, this));
             buttonsPanelTop.add(UseCaseButtonsGenerator.generateUseCase3Button(this.exhibitionCenter, (Organizer) this.actor, this));
@@ -158,7 +158,7 @@ public class DashboardUI extends JFrame {
             buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase20Button(this.exhibitionCenter, (Organizer) this.actor, this));
             buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase21Button(this.exhibitionCenter, (Organizer) this.actor, this));
             buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase24Button(this.exhibitionCenter, (Organizer) this.actor, this));
-            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase10Button(this.exhibitionCenter, this.actor.getUser(), this));
+            buttonsPanelBottom.add(UseCaseButtonsGenerator.generateUseCase10Button(this.exhibitionCenter, this.actor, this));
         }
 
         buttonsPanel.add(buttonsPanelTop);
@@ -177,14 +177,14 @@ public class DashboardUI extends JFrame {
         if (this.actor instanceof StaffMember) {
             componentsPanel.add(UseCaseButtonsGenerator.generateUseCase4Button(this.exhibitionCenter, (StaffMember) this.actor, this));
             componentsPanel.add(UseCaseButtonsGenerator.generateUseCase14Button(this.exhibitionCenter, (StaffMember) this.actor, this));
-            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase10Button(this.exhibitionCenter, this.actor.getUser(), this));
+            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase10Button(this.exhibitionCenter, this.actor, this));
         } else if (this.actor instanceof ExhibitorResponsible) {
             componentsPanel.add(UseCaseButtonsGenerator.generateUseCase5Button(this.exhibitionCenter, (ExhibitorResponsible) this.actor, this));
             componentsPanel.add(UseCaseButtonsGenerator.generateUseCase11Button(this.exhibitionCenter, (ExhibitorResponsible) this.actor, this));
             componentsPanel.add(UseCaseButtonsGenerator.generateUseCase16Button(this.exhibitionCenter, (ExhibitorResponsible) this.actor, this));
             componentsPanel.add(UseCaseButtonsGenerator.generateUseCase18Button(this.exhibitionCenter, (ExhibitorResponsible) this.actor, this));
             componentsPanel.add(UseCaseButtonsGenerator.generateUseCase19Button(this.exhibitionCenter, (ExhibitorResponsible) this.actor, this));
-            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase10Button(this.exhibitionCenter, this.actor.getUser(), this));
+            componentsPanel.add(UseCaseButtonsGenerator.generateUseCase10Button(this.exhibitionCenter, this.actor, this));
         }
 
         add(componentsPanel, new GridBagConstraints());

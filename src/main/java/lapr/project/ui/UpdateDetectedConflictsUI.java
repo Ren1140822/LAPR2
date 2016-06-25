@@ -238,7 +238,7 @@ public class UpdateDetectedConflictsUI extends JFrame {
 
         buttonsPanel.add(createAddNewConflictButton());
         buttonsPanel.add(createRemoveConflictButton());
-
+        buttonsPanel.add(createBackButton());
         return buttonsPanel;
     }
 
@@ -265,7 +265,27 @@ public class UpdateDetectedConflictsUI extends JFrame {
 
         return addNewConflictButton;
     }
+    
+    /**
+     * Creates the back button.
+     * @return the back button
+     */
+     public JButton createBackButton(){
+        JButton button = new JButton("Back");
+             button.setPreferredSize(new Dimension(150, 40));
+        button.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new DashboardUI(exhibitionCenter, staffMember);
+            }
+        });
+        return button;
+    }
+    /**
+     * Updates the detected conflicts.
+     */
     private void updateDetectedConflictsList() {
         this.conflictsList = controller.getConflictsListByStaffMember();
 

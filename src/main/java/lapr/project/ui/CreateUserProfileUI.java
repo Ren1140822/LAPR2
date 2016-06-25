@@ -29,6 +29,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import lapr.project.controller.CreateUserProfileController;
+import lapr.project.model.Actor;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.User;
 import lapr.project.model.UsersRegister;
@@ -156,14 +157,20 @@ public class CreateUserProfileUI extends JFrame {
      * A boolean to differ between changing a user and creating one.
      */
     boolean changeUser = false;
+    /**
+     * The actor user.
+     */
+    Actor actorUser;
 
     /**
      * Constructs of a Create User Profile UI Class.
      *
      * @param exhibitionCenter the exhibition center
      */
-    public CreateUserProfileUI(ExhibitionCenter exhibitionCenter, User user) {
+    public CreateUserProfileUI(ExhibitionCenter exhibitionCenter, Actor user) {
+
         super(WINDOW_TITLE);
+        this.actorUser = user;
 
         this.exhibitionCenter = exhibitionCenter;
         this.controller = new CreateUserProfileController(exhibitionCenter);
@@ -172,7 +179,8 @@ public class CreateUserProfileUI extends JFrame {
         if (user == null) {
             this.controller.newUser();
         } else {
-            this.controller.setUser(user);
+            this.user = user.getUser();
+            this.controller.setUser(this.user);
             changeUser = true;
             setTitle("Change user data");
         }
@@ -484,11 +492,10 @@ public class CreateUserProfileUI extends JFrame {
                     }
 
                     if (controller.setUserData(name, username, email, password, userCypher)) {
-                        if (controller.registerUser()&&!changeUser) {
-                          
-                            String successMessage ="User created with success";
+                        if (controller.registerUser() && !changeUser) {
+
+                            String successMessage = "User created with success";
                             String successTitle = "Success";
-                         
 
                             JOptionPane.showMessageDialog(rootPane, successMessage, successTitle, JOptionPane.INFORMATION_MESSAGE);
 
@@ -504,7 +511,7 @@ public class CreateUserProfileUI extends JFrame {
 
                         } else {
                             if (changeUser) {
-                                String successMessage ="User information updated with sucess";
+                                String successMessage = "User information updated with sucess";
                                 String successTitle = "Success";
 
                                 JOptionPane.showMessageDialog(rootPane, successMessage, successTitle, JOptionPane.INFORMATION_MESSAGE);
@@ -516,7 +523,6 @@ public class CreateUserProfileUI extends JFrame {
                                 passwordFieldConfirmPassword.setText("");
                                 textFieldUserCypher.setText("");
 
-                               
                                 updateRelatedUsersList();
                             } else {
                                 throw new Exception("repeated user");
@@ -549,6 +555,10 @@ public class CreateUserProfileUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                new LoginUI(exhibitionCenter);
+                if (changeUser) {
+                    new DashboardUI(exhibitionCenter, actorUser);
+                }
             }
         });
         return confirmButton;

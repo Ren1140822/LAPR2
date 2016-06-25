@@ -3,42 +3,11 @@
  */
 package lapr.project.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.BorderFactory;
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import lapr.project.controller.CreateUserProfileController;
 import lapr.project.controller.UpdateUserProfileController;
+import lapr.project.model.Actor;
 import lapr.project.model.ExhibitionCenter;
-import lapr.project.model.Selectable;
 import lapr.project.model.User;
-import lapr.project.model.UsersRegister;
-import static lapr.project.ui.CreateUserProfileUI.PADDING_BORDER;
-import static lapr.project.ui.LoginUI.WINDOW_SIZE;
-import lapr.project.ui.components.CustomMenuBar;
-import lapr.project.ui.components.DialogSelectable;
-import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 
 /**
@@ -66,23 +35,32 @@ public class UpdateUserProfileUI extends JFrame {
      * The user.
      */
     private User user;
+    /**
+     * The actor.
+     */
+    private Actor actor;
 
-
-
-    public UpdateUserProfileUI(ExhibitionCenter exhibitionCenter, User user) {
+    /**
+     * builds instance of this class
+     *
+     * @param exhibitionCenter
+     * @param user
+     */
+    public UpdateUserProfileUI(ExhibitionCenter exhibitionCenter, Actor user) {
+        this.actor=user;
         this.exhibitionCenter = exhibitionCenter;
         this.userProfileController = new UpdateUserProfileController(this.exhibitionCenter);
-        this.user = user;
+        this.user = actor.getUser();
         setTitle("Update user profile");
 
-        new CreateUserProfileUI(this.exhibitionCenter, this.user);
+        new CreateUserProfileUI(this.exhibitionCenter, actor);
 
     }
 
     public static void main(String[] args) {
         ExhibitionCenter ex = DefaultInstantiator.createExhibitionCenter();
         User u = new User();
-        new UpdateUserProfileUI(ex, u);
+        //new UpdateUserProfileUI(ex, actor);
     }
 
     /**

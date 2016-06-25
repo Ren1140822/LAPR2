@@ -7,12 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import lapr.project.model.Actor;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.Organizer;
 import lapr.project.model.StaffMember;
-import lapr.project.model.User;
 import lapr.project.ui.*;
 
 /**
@@ -226,7 +226,7 @@ public class UseCaseButtonsGenerator {
      * @param parentFrame the parent jframe to dispose or null
      * @return use case 10 button
      */
-    public static JButton generateUseCase10Button(ExhibitionCenter exhibitionCenter, User user, JFrame parentFrame) {
+    public static JButton generateUseCase10Button(ExhibitionCenter exhibitionCenter, Actor user, JFrame parentFrame) {
         JButton useCase10Button = new JButton("Modify User Profile");
 
         useCase10Button.addActionListener(new ActionListener() {
