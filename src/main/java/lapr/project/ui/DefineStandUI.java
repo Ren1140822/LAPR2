@@ -2,30 +2,33 @@
  * Package location for UI classes.
  */
 package lapr.project.ui;
-//
-//import java.awt.BorderLayout;
-//import java.awt.Dimension;
-//import java.awt.FlowLayout;
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
-//import java.util.List;
-//import javax.swing.DefaultListCellRenderer;
-//import javax.swing.JButton;
-//import javax.swing.JFrame;
-//import javax.swing.JLabel;
-//import javax.swing.JList;
-//import javax.swing.JOptionPane;
-//import javax.swing.JPanel;
-//import javax.swing.JScrollPane;
-//import javax.swing.ListSelectionModel;
-//import javax.swing.SwingConstants;
-//import javax.swing.border.EmptyBorder;
-//import javax.swing.event.ListSelectionEvent;
-//import javax.swing.event.ListSelectionListener;
-//import lapr.project.controller.DefineStandController;
-//import lapr.project.model.ExhibitionCenter;
-//import lapr.project.model.Stand;
-//import lapr.project.ui.components.ModelListSelectable;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.List;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import lapr.project.controller.DefineStandController;
+import lapr.project.model.ExhibitionCenter;
+import lapr.project.model.Stand;
+import lapr.project.ui.components.CustomMenuBar;
+import lapr.project.ui.components.ModelListSelectable;
 
 /**
  * Graphic user interface to define stands.
@@ -37,7 +40,7 @@ package lapr.project.ui;
  * @author Ricardo Correia 1151231
  */
 
-//private class DefineStandUI extends JFrame {
+//public class DefineStandUI extends JFrame {
 //    
 //    /**
 //     * The define stand controller.
@@ -91,6 +94,17 @@ package lapr.project.ui;
 //        this.controller = new DefineStandController(this.exhibitionCenter);
 //        
 //        this.standslist = this.controller.getStands();
+//        
+//        CustomMenuBar customMenuBar = new CustomMenuBar(this.exhibitionCenter, this);
+//        setJMenuBar(customMenuBar);
+//        addWindowListener(new WindowAdapter() {
+//            @Override
+//            public void windowClosing(WindowEvent e) {
+//        customMenuBar.exit();
+//    }
+//});
+//
+//setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 //        
 //        createComponents();
 //        
@@ -198,7 +212,8 @@ package lapr.project.ui;
 //    }
 //    
 //    private JButton createRemoveResourceButton(){
-//        
+// 
+//       
 //    }
 //    
 //    private JButton createBackButton() {
@@ -207,4 +222,4 @@ package lapr.project.ui;
 //    
 //    
 //    
-//}
+// }
