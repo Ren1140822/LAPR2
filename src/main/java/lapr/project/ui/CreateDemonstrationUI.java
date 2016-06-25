@@ -35,7 +35,6 @@ import lapr.project.model.OrganizersList;
 import lapr.project.model.Place;
 import lapr.project.model.Resource;
 import lapr.project.model.User;
-import lapr.project.model.UsersRegister;
 import lapr.project.model.exhibition.ExhibitionCreatedState;
 import lapr.project.ui.components.DialogSelectable;
 import lapr.project.ui.components.ModelListSelectable;
@@ -502,7 +501,7 @@ public class CreateDemonstrationUI extends JFrame {
     public static void main(String[] args) {
         ExhibitionCenter ec = DefaultInstantiator.createExhibitionCenter();
 
-        Organizer o = new Organizer(new User("Daniel", "daniell", "email@dd23", "password", new ArrayList<>()));
+        Organizer o = new Organizer(new User("Daniel", "daniell", "email@dd23", "password", new ArrayList<>(), ""));
         List<Organizer> lo = new ArrayList<>();
         lo.add(o);
 

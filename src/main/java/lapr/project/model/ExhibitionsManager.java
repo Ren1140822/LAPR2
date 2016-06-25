@@ -3,6 +3,8 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
+
 /**
  * Represents a exhibitions manager.
  *
@@ -12,7 +14,7 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ExhibitionsManager implements Actor {
+public class ExhibitionsManager implements Actor, Serializable {
 
     /**
      * The user for the exhibition manager.
@@ -66,5 +68,24 @@ public class ExhibitionsManager implements Actor {
     @Override
     public String toString() {
         return String.format("ExhibitionManager{%n%s%n}", user);
+    }
+
+    /**
+     * Compares if this object is equal to otherObject.
+     *
+     * @param otherObject other object to compare with
+     * @return true if it repreents the same object, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+        ExhibitionsManager otherExhibitionsManager = (ExhibitionsManager) otherObject;
+
+        return this.user.equals(otherExhibitionsManager.user);
     }
 }

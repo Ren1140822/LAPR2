@@ -3,6 +3,8 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
+
 /**
  * Represents a staff member evaluations analytic compared to all staff.
  *
@@ -12,7 +14,7 @@ package lapr.project.model;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class StaffMemberAnalytic {
+public class StaffMemberAnalytic implements Serializable {
 
     /**
      * The related staff member.
@@ -60,7 +62,7 @@ public class StaffMemberAnalytic {
 
         /**
          * Default Enum Constructor.
-         * 
+         *
          * @param text String value of enum type.
          */
         ConfidenceIntervals(String text) {
@@ -73,7 +75,7 @@ public class StaffMemberAnalytic {
 
         /**
          * Returns the tabulated corresponding z value.
-         * 
+         *
          * @return the tabulated corresponding z value.
          */
         public float zValue() {

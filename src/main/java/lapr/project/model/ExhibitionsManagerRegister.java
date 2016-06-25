@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ExhibitionsManagerRegister {
+public class ExhibitionsManagerRegister implements Serializable {
 
     /**
      * The list of exhibitions managers.
@@ -51,12 +52,58 @@ public class ExhibitionsManagerRegister {
 
     /**
      * Gets the exhibitions Manager list.
+     *
      * @return the list of exhibitions manager
      */
     public List<ExhibitionsManager> getExhibitionsManagerList() {
         return exhibitionsManagerList;
     }
-    
-    
+
+    /**
+     * Verify if there is any exhibitions manager.
+     *
+     * @return true if there is at least one exhibitions manager, false
+     * otherwise
+     */
+    public boolean hasAnyExhibitionManager() {
+        return !this.exhibitionsManagerList.isEmpty();
+    }
+
+    /**
+     * Return the textual representation of this exhibitions manager register.
+     *
+     * @return the textual representation of this exhibitions manager register
+     */
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append("ExhibitionsManagerRegister{");
+        for (ExhibitionsManager manager : this.exhibitionsManagerList) {
+            s.append(String.format("%s%n", manager));
+        }
+        s.append("}");
+        return s.toString();
+    }
+
+    /**
+     * Compares if the given object is equal to this exhibitions manager
+     * register.
+     *
+     * @param otherObject Object to compare
+     * @return true if the objects are equals, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || getClass() != otherObject.getClass()) {
+            return false;
+        }
+        ExhibitionsManagerRegister otherExhibitionsManagerRegister = (ExhibitionsManagerRegister) otherObject;
+
+        return this.exhibitionsManagerList.equals(otherExhibitionsManagerRegister.exhibitionsManagerList);
+    }
 
 }

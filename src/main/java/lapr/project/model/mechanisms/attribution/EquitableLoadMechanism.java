@@ -3,6 +3,7 @@
  */
 package lapr.project.model.mechanisms.attribution;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import lapr.project.model.Application;
@@ -23,7 +24,7 @@ import lapr.project.model.Submittable;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class EquitableLoadMechanism implements StaffAttributionMechanism {
+public class EquitableLoadMechanism implements StaffAttributionMechanism, Serializable {
 
     /**
      * Mechanism description

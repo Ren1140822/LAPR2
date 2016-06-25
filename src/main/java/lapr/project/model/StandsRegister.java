@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,7 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-
-public class StandsRegister {
+public class StandsRegister implements Serializable {
 
     /**
      * List of stands.
@@ -65,15 +65,13 @@ public class StandsRegister {
      *
      * @param standsList the stands list to set
      */
-    
-  
     public void setStandsList(List<Stand> standsList) {
         this.standsList = new ArrayList<>(standsList);
     }
-    
+
     /**
      * Creates a new instance of stand.
-     * 
+     *
      * @param area
      * @param description
      * @return new stand
@@ -81,27 +79,27 @@ public class StandsRegister {
     public Stand newStand(float area, String description) {
         return new Stand(area, description);
     }
-    
+
     /**
      * Registers a stand
-     * 
+     *
      * @param stand stand to be registered
      * @return true if is successfully registered, false otherwise
      */
     public boolean registerStand(Stand stand) {
         return !this.standsList.contains(stand) ? addStand(stand) : false;
     }
-    
+
     /**
      * Adds a stand to the stands list.
-     * 
+     *
      * @param stand stand to be added
      * @return true if it is successfully added, false otherwise
      */
     private boolean addStand(Stand stand) {
         return this.standsList.add(stand);
     }
-    
+
     /**
      * Return the textual representation of a standsRegister.
      *

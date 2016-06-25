@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Ricardo Correia 1151231
  */
 @XmlRootElement
-public class DemonstrationsList {
+public class DemonstrationsList implements Serializable {
 
     /**
      * List of demonstrations.

@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,6 +28,7 @@ import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.application.ApplicationAssignedStandState;
+import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.DialogSeeApplication;
 import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
@@ -106,8 +109,18 @@ public class ConfirmStandUI extends JFrame {
 
         this.exhibitionApplicationsList = controller.getExhibitionApplicationsByExhibitorResponsible();
 
+        CustomMenuBar customMenuBar = new CustomMenuBar(this.exhibitionCenter, this);
+        setJMenuBar(customMenuBar);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                customMenuBar.exit();
+            }
+        });
+
         createComponents();
 
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         pack();
         setMinimumSize(new Dimension(getWidth(), getHeight()));
         setSize(WINDOW_DIMEMNSION);
@@ -277,7 +290,7 @@ public class ConfirmStandUI extends JFrame {
         ExhibitorResponsible er = ((ExhibitionApplication) ec.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)).getExhibitor().getExhibitorResponsible();
         ((ExhibitionApplication) ec.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList()
                 .get(0)).setState(new ApplicationAssignedStandState(ec.getExhibitionsRegister().getExhibitionsList().get(0)
-                                .getApplicationsList().getApplicationsList().get(0)));
+                .getApplicationsList().getApplicationsList().get(0)));
         new ConfirmStandUI(ec, er);
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public interface Application extends Selectable {
+public interface Application extends Selectable, Removable {
 
     /**
      * Gets the evaluations list.
@@ -70,4 +70,5 @@ public interface Application extends Selectable {
      * @return returns the exhibitor
      */
     public Exhibitor getExhibitor();
+    
 }

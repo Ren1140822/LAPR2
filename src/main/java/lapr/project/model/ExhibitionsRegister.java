@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,7 +29,7 @@ import lapr.project.utils.Importable;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class ExhibitionsRegister implements Importable {
+public class ExhibitionsRegister implements Importable, Serializable {
 
     /**
      * exhibitions List of ExhibitionsRegister
@@ -498,8 +499,8 @@ public class ExhibitionsRegister implements Importable {
                 for (Application application : applicationsList) {
                     removable = (Removable) application;
                     if (removable.getExhibitorResponsible().equals(exhibitorResponsible)) {
-                        if(!removable.isRemoved()){
-                        removablesList.add(removable);
+                        if (!removable.isRemoved()) {
+                            removablesList.add(removable);
                         }
                     }
                 }
@@ -508,7 +509,7 @@ public class ExhibitionsRegister implements Importable {
                 removablesList.addAll(exhibition.getDemonstrationsList().getRemovables(exhibitorResponsible));
             }
         }
-            return removablesList;
+        return removablesList;
     }
 
     /**
@@ -569,43 +570,29 @@ public class ExhibitionsRegister implements Importable {
         if (exhibition.getEvaluationLimitDate().before(date)) {
             exhibition.getState().setApplicationsInDecision();
             exhibition.getState().setApplicationsDecided();
+        } else if (exhibition.getConflictLimitDate().before(date)) {
+            exhibition.getState().setChangedConflicts();
+        } else if (exhibition.getSubEndDate().before(date)) {
+            exhibition.getState().setClosedApplications();
+        } else if (exhibition.getSubStartDate().before(date)) {
+            exhibition.setState(new ExhibitionOpenApplicationsState(exhibition));
         } else {
 
-            if (exhibition.getConflictLimitDate().before(date)) {
-                exhibition.getState().setChangedConflicts();
-            } else {
+            exhibition.setState(new ExhibitionInicialState(exhibition));
+            exhibition.getState().setCreated();
+            if (exhibition.getState().setDemonstrationsDefined()) {
 
-                if (exhibition.getSubEndDate().before(date)) {
-                    exhibition.getState().setClosedApplications();
-                } else {
+            } else if (exhibition.getState().setStaffDefined()) {
 
-                    if (exhibition.getSubStartDate().before(date)) {
-                        exhibition.setState(new ExhibitionOpenApplicationsState(exhibition));
-                    } else {
-
-                        exhibition.setState(new ExhibitionInicialState(exhibition));
-                        exhibition.getState().setCreated();
-                        if (exhibition.getState().setDemonstrationsDefined()) {
-
-                        } else {
-                            if (exhibition.getState().setStaffDefined()) {
-
-                            } else {
-                                if (!exhibition.getStaffList().getStaffList().isEmpty() && !exhibition.getDemonstrationsList().getDemonstrationsList().isEmpty()) {
-                                    exhibition.setState(new ExhibitionCompleteState(exhibition));
-                                }
-                            }
-
-                        }
-
-                        exhibition.getState().setDetectedConflicts();
-
-                        exhibition.getState().setApplicationsInEvaluation();
-
-                        exhibition.getState().setApplicationsDecided();
-                    }
-                }
+            } else if (!exhibition.getStaffList().getStaffList().isEmpty() && !exhibition.getDemonstrationsList().getDemonstrationsList().isEmpty()) {
+                exhibition.setState(new ExhibitionCompleteState(exhibition));
             }
+
+            exhibition.getState().setDetectedConflicts();
+
+            exhibition.getState().setApplicationsInEvaluation();
+
+            exhibition.getState().setApplicationsDecided();
         }
 
     }
@@ -646,6 +633,78 @@ public class ExhibitionsRegister implements Importable {
             }
         }
         return exhibitionsByOrganizer;
+    }
+
+    /**
+     * Gets the submittables filtered by organizer.
+     *
+     * @param organizer the organizer used to filter
+     * @return returns the submittables filtered by organizer
+     */
+    public List<Submittable> getSubmittablesListByOrganizer(Organizer organizer) {
+        List<Submittable> submittablesList = new ArrayList();
+        List<Demonstration> demonstrationsList = new ArrayList();
+
+        for (Exhibition exhibition : exhibitionsList) {
+            if (exhibition.hasOrganizer(organizer)) {
+                submittablesList.add(exhibition);
+                demonstrationsList = exhibition.getDemonstrationsList().getDemonstrationsList();
+                for (Demonstration demonstration : demonstrationsList) {
+                    submittablesList.add(demonstration);
+                }
+            }
+        }
+        return submittablesList;
+    }
+
+    /**
+     * Gets the exhibitionApplications removed, filtered by organizer.
+     *
+     * @param submittablesListByOrganizer the submittables list used to get the
+     * list of exhibition applications removed, filtered by organizer
+     * @return the list of exhibition applications removed, filtered by
+     * organizer
+     */
+    public List<Application> getExhibitionApplicationsRemovedByOrganizer(List<Submittable> submittablesListByOrganizer) {
+        List<Application> applicationsList = new ArrayList();
+        List<Application> exhibitionApplicationsRemovedList = new ArrayList();
+
+        for (Submittable submittable : submittablesListByOrganizer) {
+            if (submittable.isExhibition()) {
+                applicationsList = submittable.getApplicationsList().getApplicationsList();
+                for (Application application : applicationsList) {
+                    if (application.isRemoved()) {
+                        exhibitionApplicationsRemovedList.add(application);
+                    }
+                }
+            }
+        }
+        return exhibitionApplicationsRemovedList;
+    }
+
+    /**
+     * Gets the demonstrationApplications removed, filtered by organizer.
+     *
+     * @param submittablesListByOrganizer the submittables list used to get the
+     * list of demonstration applications removed, filtered by organizer
+     * @return the list of demonstration applications removed, filtered by
+     * organizer
+     */
+    public List<Application> getDemonstraionApplicationsRemovedByOrganizer(List<Submittable> submittablesListByOrganizer) {
+        List<Application> applicationsList = new ArrayList();
+        List<Application> demonstrationApplicationsRemovedList = new ArrayList();
+
+        for (Submittable submittable : submittablesListByOrganizer) {
+            if (submittable.isDemonstration()) {
+                applicationsList = submittable.getApplicationsList().getApplicationsList();
+                for (Application application : applicationsList) {
+                    if (application.isRemoved()) {
+                        demonstrationApplicationsRemovedList.add(application);
+                    }
+                }
+            }
+        }
+        return demonstrationApplicationsRemovedList;
     }
 
     /**

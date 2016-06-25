@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -18,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ExhibitionDecision {
+public class ExhibitionDecision implements Serializable {
 
     /**
      * Exhibition application.
@@ -80,7 +81,6 @@ public class ExhibitionDecision {
      *
      * @param exhibitionApplication exhibition application
      */
- 
     public void setExhibitionApplication(ExhibitionApplication exhibitionApplication) {
         this.exhibitionApplication = new ExhibitionApplication(exhibitionApplication);
     }
@@ -99,7 +99,6 @@ public class ExhibitionDecision {
      *
      * @param decision exhibition decision
      */
-
     public void setDecision(boolean decision) {
         this.decision = decision;
     }

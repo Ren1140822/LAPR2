@@ -408,7 +408,7 @@ public class CreateExhibitionUI extends JFrame {
 
                 } catch (Exception ex) {
 
-                    String warningMessage = "Something wen't wrong please try again.";
+                    String warningMessage = "Something went wrong please try again.";
                     String warningTitle = "ERROR 404";
 
                     JOptionPane.showMessageDialog(rootPane, warningMessage, warningTitle, JOptionPane.WARNING_MESSAGE);
@@ -595,7 +595,7 @@ public class CreateExhibitionUI extends JFrame {
     }
 
     /**
-     * Starting method for testing purposes, later wil be removed.
+     * Starting method for testing purposes, later will be removed.
      *
      * @param args command line arguments.
      */
@@ -603,10 +603,10 @@ public class CreateExhibitionUI extends JFrame {
         ExhibitionCenter ec = new ExhibitionCenter();
 
         List<User> lu = new ArrayList<>();
-        lu.add(new User("Daniel", "daniell", "email@dd23", "password", new ArrayList<>()));
-        lu.add(new User("Fabio", "fabioA", "email@dd24", "password", new ArrayList<>()));
-        lu.add(new User("Andre", "andree", "email@dd25", "password", new ArrayList<>()));
-        lu.add(new User("Jonas", "pistolas", "email@dd26", "password", new ArrayList<>()));
+        lu.add(new User("Daniel", "daniell", "email@dd23", "password", new ArrayList<>(),""));
+        lu.add(new User("Fabio", "fabioA", "email@dd24", "password", new ArrayList<>(),""));
+        lu.add(new User("Andre", "andree", "email@dd25", "password", new ArrayList<>(),""));
+        lu.add(new User("Jonas", "pistolas", "email@dd26", "password", new ArrayList<>(),""));
         ec.setUsersRegister(new UsersRegister(lu));
 
         ExhibitionsManager em = new ExhibitionsManager();

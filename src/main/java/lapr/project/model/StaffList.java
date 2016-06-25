@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -22,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class StaffList {
+public class StaffList implements Serializable {
 
     /**
      * List of staff users.
@@ -108,7 +109,7 @@ public class StaffList {
                 return true;
             }
         }
-        
+
         return false;
     }
 

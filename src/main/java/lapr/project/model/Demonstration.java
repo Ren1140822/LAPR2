@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,7 +33,7 @@ import lapr.project.model.timers.DetectConflictsTask;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Demonstration implements Submittable, Selectable {
+public class Demonstration implements Submittable, Selectable, Serializable {
 
     /**
      * Unique demoonstration ID.
@@ -747,5 +748,15 @@ public class Demonstration implements Submittable, Selectable {
     public boolean setApplicationsInDecision() {
 
         return this.currentState.setApplicationsInDecision();
+    }
+
+    @Override
+    public boolean isDemonstration() {
+        return true;
+    }
+
+    @Override
+    public boolean isExhibition() {
+        return false;
     }
 }

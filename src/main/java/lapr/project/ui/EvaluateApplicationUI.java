@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -28,6 +30,7 @@ import lapr.project.model.StaffAttribution;
 import lapr.project.model.StaffMember;
 import lapr.project.model.Submittable;
 import lapr.project.model.application.ApplicationInEvaluationState;
+import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.DialogEvaluateApplication;
 import lapr.project.ui.components.DialogSeeApplication;
 import lapr.project.ui.components.ModelListSelectable;
@@ -125,8 +128,18 @@ public class EvaluateApplicationUI extends JFrame {
         this.controller = new EvaluateApplicationsController(this.exhibitionCenter);
         this.submittablesList = this.controller.getSubmittablesByStaff(staffMember);
 
+        CustomMenuBar customMenuBar = new CustomMenuBar(this.exhibitionCenter, this);
+        setJMenuBar(customMenuBar);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                customMenuBar.exit();
+            }
+        });
+
         createComponents();
 
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         pack();
         setMinimumSize(new Dimension(getWidth(), getHeight()));
         setSize(WINDOW_DIMEMNSION);

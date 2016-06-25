@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -20,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ConflictType implements Selectable{
+public class ConflictType implements Selectable, Serializable {
 
     /**
      * The conflict detection mechanism.
@@ -59,13 +60,13 @@ public class ConflictType implements Selectable{
         this.conflictDetectionMechanism = conflictDetectionMechanism;
         this.description = description;
     }
-    
+
     /**
      * Constructs a conflict type receiving a description.
      *
      * @param description description
      */
-    public ConflictType(String description){
+    public ConflictType(String description) {
         this.description = description;
     }
 

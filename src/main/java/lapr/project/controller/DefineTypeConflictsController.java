@@ -73,13 +73,9 @@ public class DefineTypeConflictsController {
      * Creates new conflict type and return the new conflict type
      *
      */
-    public void newConflictType() {
+    public boolean newConflictType() {
         this.conflictType = this.conflictTypesRegister.newConflictType();
-    }
-
-    public boolean newConflictType(ConflictDetectionMechanism conflictDetectionMechanism, String description) {
-        return (this.conflictTypesRegister.newConflictType() != null);
-
+        return this.conflictType != null;
     }
 
     /**
@@ -88,8 +84,9 @@ public class DefineTypeConflictsController {
      * @param description the description passed as parameter to set to the
      * conflict type
      */
-    public void setDataConflictType(String description) {
+    public boolean setDataConflictType(String description) {
         this.conflictType.setDescription(description);
+        return this.conflictType.validate();
     }
 
     /**
@@ -97,8 +94,8 @@ public class DefineTypeConflictsController {
      *
      * @return return true if the conflict type is validated, false otherwise
      */
-    public boolean validateData() {
-        return (this.conflictType.validate() && this.conflictTypesRegister.validateTypeConflict(this.conflictType));
+    private boolean validateData() {
+        return this.conflictTypesRegister.validateTypeConflict(this.conflictType);
     }
 
     /**
@@ -107,8 +104,10 @@ public class DefineTypeConflictsController {
      * @return
      */
     public boolean registerTypeConflict() {
-        return this.conflictTypesRegister.registerTypeConflict(this.conflictType);
-
+        if (validateData()){
+            return this.conflictTypesRegister.registerTypeConflict(this.conflictType);
+        }
+        return false;
     }
 
 }

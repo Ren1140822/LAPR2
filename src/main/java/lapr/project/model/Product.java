@@ -3,6 +3,7 @@
  */
 package lapr.project.model;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -19,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Product implements Selectable {
+public class Product implements Selectable, Serializable {
 
     /**
      * The product's designation.
@@ -62,32 +63,32 @@ public class Product implements Selectable {
      *
      * @param designation the product's designation to set
      */
-    
     public void setDesignation(String designation) {
         this.designation = designation;
     }
 
     /**
      * Equals method to check if two objects are the same.
+     *
      * @param otherObject the other object to compare to
      * @return true of equal
      */
     @Override
-    public boolean equals(Object otherObject){
-           if (this == otherObject) {
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
             return true;
         }
         if (otherObject == null || this.getClass() != otherObject.getClass()) {
             return false;
         }
-        Product otherProduct = (Product)otherObject;
+        Product otherProduct = (Product) otherObject;
         return this.designation.equals(otherProduct.designation);
     }
-    
-    public boolean validate(){
-        return this.designation!=null;
+
+    public boolean validate() {
+        return this.designation != null;
     }
-    
+
     @Override
     public String toString() {
         return String.format("Product{%ndesignation=%s%n", this.designation);
@@ -97,7 +98,5 @@ public class Product implements Selectable {
     public String getDisplayInfo() {
         return this.getDesignation();
     }
-
-
 
 }
