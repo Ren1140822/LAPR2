@@ -31,6 +31,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import lapr.project.controller.CreateExhibitionController;
 import lapr.project.model.ExhibitionCenter;
+import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.Organizer;
 import lapr.project.model.Place;
 import lapr.project.model.User;
@@ -49,6 +50,16 @@ import lapr.project.ui.components.ModelListSelectable;
  * @author Ricardo Correia 1151231
  */
 public class CreateExhibitionUI extends JFrame {
+
+    /**
+     * The exhibition center.
+     */
+    private final ExhibitionCenter exhibitionCenter;
+
+    /**
+     * The logged exhibitions manager.
+     */
+    private final ExhibitionsManager exhibitionsManager;
 
     /**
      * The controller to create exhibitions.
@@ -160,9 +171,11 @@ public class CreateExhibitionUI extends JFrame {
      *
      * @param exhibitionCenter the exhibition center
      */
-    public CreateExhibitionUI(ExhibitionCenter exhibitionCenter) {
+    public CreateExhibitionUI(ExhibitionCenter exhibitionCenter, ExhibitionsManager exhibitionsManager) {
         super(WINDOW_TITLE);
 
+        this.exhibitionCenter = exhibitionCenter;
+        this.exhibitionsManager = exhibitionsManager;
         this.controller = new CreateExhibitionController(exhibitionCenter);
 
         // Create a new exhibition
@@ -578,6 +591,7 @@ public class CreateExhibitionUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 dispose();
+                new DashboardUI(CreateExhibitionUI.this.exhibitionCenter, CreateExhibitionUI.this.exhibitionsManager);
             }
         });
         return cancelBtn;
@@ -597,6 +611,7 @@ public class CreateExhibitionUI extends JFrame {
      */
     public static void main(String[] args) {
         ExhibitionCenter ec = new ExhibitionCenter();
+        ExhibitionsManager em = new ExhibitionsManager();
 
         List<User> lu = new ArrayList<>();
         lu.add(new User("Daniel", "daniell", "email@dd23", "password", new ArrayList<>(), ""));
@@ -605,6 +620,6 @@ public class CreateExhibitionUI extends JFrame {
         lu.add(new User("Jonas", "pistolas", "email@dd26", "password", new ArrayList<>(), ""));
         ec.setUsersRegister(new UsersRegister(lu));
 
-        new CreateExhibitionUI(ec);
+        new CreateExhibitionUI(ec, em);
     }
 }
