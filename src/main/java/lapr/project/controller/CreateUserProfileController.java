@@ -50,7 +50,20 @@ public class CreateUserProfileController {
         this.usersRegister = this.exhibitionCenter.getUsersRegister();
         this.user = this.usersRegister.newUser();
     }
+
+    /**
+     * Sets the user.
+     * @param user the user
+     */
+    public void setUser(User user) {
+            this.usersRegister = this.exhibitionCenter.getUsersRegister();
+        this.user = user;
+    }
     
+    /**
+     * Gets the user
+     * @return  the user
+     */
     public User getUser() {
         return this.user;
     }
