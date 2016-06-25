@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
@@ -32,6 +34,7 @@ import lapr.project.model.Organizer;
 import lapr.project.model.Selectable;
 import lapr.project.model.StaffAttribution;
 import lapr.project.model.StaffMember;
+import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 
@@ -55,6 +58,11 @@ public class ImportExhibitionUI extends JFrame {
      */
     private Exhibition selectedExhibition;
 
+    
+    /**
+     * The window title.
+     */
+     final static String WINDOW_TITLE= "Import exhibition";
     /**
      * Label size.
      */
@@ -131,7 +139,10 @@ public class ImportExhibitionUI extends JFrame {
      * JList of conflicts.
      */
     JList conflictsJList;
-
+    /**
+     * The exhibitions center.
+     */
+    ExhibitionCenter exhibitionCenter;
 
     /**
      * Creates instance of this class.
@@ -140,7 +151,10 @@ public class ImportExhibitionUI extends JFrame {
      * @param exhibitionCenter the exhibitions center
      */
     public ImportExhibitionUI(ExhibitionsManager manager, ExhibitionCenter exhibitionCenter) {
-        this.importExhibitionController = new ImportExhibitionController(manager, exhibitionCenter);
+        super(WINDOW_TITLE);
+        this.exhibitionCenter =exhibitionCenter;
+        this.importExhibitionController = new ImportExhibitionController(manager,this. exhibitionCenter);
+        
         this.setSize(WINDOW_SIZE);
         this.staffList = new ArrayList();
         this.organizersList = new ArrayList();
@@ -148,7 +162,11 @@ public class ImportExhibitionUI extends JFrame {
         this.applicationsList = new ArrayList();
         this.staffAttributionsList = new ArrayList();
         this.conflictsList = new ArrayList();
-        createComponents();
+       
+        
+         createComponents();
+        pack();
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setVisible(true);
     }
 
@@ -157,6 +175,7 @@ public class ImportExhibitionUI extends JFrame {
      */
     public void createComponents() {
         JMenuBar menu = createJMenuBar();
+        
         JPanel panel = createListsPanel();
         add(menu, BorderLayout.NORTH);
         add(panel, BorderLayout.CENTER);
@@ -168,10 +187,18 @@ public class ImportExhibitionUI extends JFrame {
      * @return The jmenu bar
      */
     public JMenuBar createJMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
+       CustomMenuBar customMenuBar = new CustomMenuBar(exhibitionCenter, this);
+       
+        setJMenuBar(customMenuBar);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                customMenuBar.exit();
+            }
+        });
         JMenu menu = createJMenu();
-        menuBar.add(menu);
-        return menuBar;
+        customMenuBar.add(menu);
+        return customMenuBar;
     }
 
     /**
@@ -210,7 +237,7 @@ public class ImportExhibitionUI extends JFrame {
 
                             if (importExhibitionController.registerExhibition(selectedExhibition)) {
                                 JOptionPane.showConfirmDialog(rootPane, "Exhibition registered sucessfully!", "Sucess", JOptionPane.PLAIN_MESSAGE);
-                                
+
                             }
                         }
                     }
@@ -222,6 +249,7 @@ public class ImportExhibitionUI extends JFrame {
 
     /**
      * Creates the jlists of selectables
+     *
      * @param selectableList list that implements Selectable
      * @param description the description of each list
      * @return the jList of selectables
@@ -239,6 +267,7 @@ public class ImportExhibitionUI extends JFrame {
 
     /**
      * Creates panel for the jlists.
+     *
      * @return the panel
      */
     public JPanel createListsPanel() {
@@ -260,6 +289,7 @@ public class ImportExhibitionUI extends JFrame {
 
     /**
      * Updates the lists.
+     *
      * @param exhibition the exhibition whose data is going to be read
      */
     public void updateLists(Exhibition exhibition) {

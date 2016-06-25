@@ -9,6 +9,8 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -20,6 +22,8 @@ import lapr.project.model.Organizer;
 import lapr.project.model.StaffMember;
 import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.GenerateEvaluationsStatisticsPanel;
+import lapr.project.ui.components.GenerateKeywordsRankingPanel;
+import lapr.project.ui.components.StaffEvaluationsAnalysisPanel;
 import lapr.project.ui.components.UseCaseButtonsGenerator;
 import lapr.project.utils.DefaultInstantiator;
 
@@ -71,7 +75,15 @@ public class DashboardUI extends JFrame {
         this.exhibitionCenter = exhibitionCenter;
         this.actor = actor;
 
-        setJMenuBar(new CustomMenuBar(this.exhibitionCenter, this));
+        CustomMenuBar customMenuBar = new CustomMenuBar(this.exhibitionCenter, this);
+        setJMenuBar(customMenuBar);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                customMenuBar.exit();
+            }
+        });
+
 
         if (this.actor instanceof ExhibitionsManager || this.actor instanceof Organizer) {
             createComponentsAdmin();
@@ -79,6 +91,7 @@ public class DashboardUI extends JFrame {
             createComponents();
         }
 
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         pack();
         setMinimumSize(new Dimension(getWidth(), getHeight()));
         setSize(WINDOW_DIMEMNSION);
@@ -111,7 +124,7 @@ public class DashboardUI extends JFrame {
             // TODO review this
             //tabPane.add("Keywords Ranking", new GenerateKeywordsRankingPanel(this.exhibitionCenter));
         } else if (this.actor instanceof Organizer) {
-            // TODO add the available panes
+            //tabPane.add("Staff Evaluations analysis", new StaffEvaluationsAnalysisPanel(this.exhibitionCenter));
         }
 
         return this.tabPane;

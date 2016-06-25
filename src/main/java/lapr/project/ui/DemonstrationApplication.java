@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -38,6 +40,7 @@ import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.Keyword;
 import lapr.project.model.Product;
 import lapr.project.model.exhibition.ExhibitionDecidedApplicationsState;
+import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.DialogSelectable;
 import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.ui.components.ModelTableDemonstrationsList;
@@ -161,8 +164,8 @@ public class DemonstrationApplication extends JFrame {
      * The model for the demonstrations list.
      */
     private ModelTableDemonstrationsList modelDemonstration;
-    
-   private static  final String WINDOW_TITLE ="Demonstration application";
+
+    private static final String WINDOW_TITLE = "Demonstration application";
 
     /**
      * Constructs instance of this class.
@@ -171,24 +174,33 @@ public class DemonstrationApplication extends JFrame {
      */
     public DemonstrationApplication(ExhibitorResponsible exhibitorResponsible, ExhibitionCenter exhibitionCenter) {
         super(WINDOW_TITLE);
-        
+
         this.exhibitionCenter = exhibitionCenter;
         this.demonstrationApplicationController = new CreateDemonstrationApplicationController(exhibitorResponsible, exhibitionCenter);
         this.exhibitionList = demonstrationApplicationController.getExhibitionListWithApplicationsInSubmission();
-        
+
         DialogSelectable dialogSelectable = new DialogSelectable(this, this.exhibitionList);
         this.selectedExhibition = (Exhibition) dialogSelectable.getSelectedItem();
         if (this.selectedExhibition == null) {
             dispose();
         } else {
-            
+
             this.demonstrationsList = demonstrationApplicationController.getDemonstrationsList(selectedExhibition);
             dialogSelectable = new DialogSelectable(this, demonstrationsList);
-            this.selectedDemonstration = (Demonstration)dialogSelectable.getSelectedItem();
+            this.selectedDemonstration = (Demonstration) dialogSelectable.getSelectedItem();
             demonstrationApplicationController.newDemonstrationApplication(selectedDemonstration);
             this.setLayout(new GridLayout(1, 3));
             createComponents();
-            
+            CustomMenuBar customMenuBar = new CustomMenuBar(this.exhibitionCenter, this);
+            setJMenuBar(customMenuBar);
+            addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    customMenuBar.exit();
+                }
+            });
+
+            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             pack();
             setSize(WINDOW_SIZE);
             setMinimumSize(new Dimension(getWidth(), getHeight()));
@@ -201,7 +213,7 @@ public class DemonstrationApplication extends JFrame {
      * Creates window components.
      */
     private void createComponents() {
-        
+
         add(createDataPanel());
         add(createPanelProduct());
         add(createPanelKeywordt());
@@ -214,9 +226,9 @@ public class DemonstrationApplication extends JFrame {
      * @return the panel to write data
      */
     private JPanel createDataPanel() {
-        
+
         JPanel dataPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING, 10, 10));
-        
+
         JLabel lblTitle = new JLabel("Title:", JLabel.RIGHT);
         lblTitle.setSize(LBL_SIZE);
         this.txtTitle = new JTextField(FIELD_TXT_WIDTH);
@@ -225,7 +237,7 @@ public class DemonstrationApplication extends JFrame {
                 MARGIN_I_FIELD, MARGIN_D_FIELD));
         panelTitle.add(lblTitle);
         panelTitle.add(txtTitle);
-        
+
         JLabel lblCompanyName = new JLabel("Company name:", JLabel.RIGHT);
         lblCompanyName.setSize(LBL_SIZE);
         this.txtCompanyName = new JTextField(FIELD_TXT_WIDTH);
@@ -236,7 +248,7 @@ public class DemonstrationApplication extends JFrame {
                 MARGIN_I_FIELD, MARGIN_D_FIELD));
         panelCompanyName.add(lblCompanyName);
         panelCompanyName.add(txtCompanyName);
-        
+
         JLabel lblCellphone = new JLabel("Cellphone: ", JLabel.RIGHT);
         lblCellphone.setSize(LBL_SIZE);
         this.txtCellphone = new JTextField(FIELD_TXT_WIDTH);
@@ -247,7 +259,7 @@ public class DemonstrationApplication extends JFrame {
                 MARGIN_I_FIELD, MARGIN_D_FIELD));
         panelCellphone.add(lblCellphone);
         panelCellphone.add(txtCellphone);
-        
+
         JLabel lblExhibitorArea = new JLabel("Exhibitor's area: ", JLabel.RIGHT);
         lblExhibitorArea.setSize(LBL_SIZE);
         this.txtExhibitorArea = new JTextField(FIELD_TXT_WIDTH);
@@ -258,7 +270,7 @@ public class DemonstrationApplication extends JFrame {
                 MARGIN_I_FIELD, MARGIN_D_FIELD));
         panelExhibitorArea.add(lblExhibitorArea);
         panelExhibitorArea.add(txtExhibitorArea);
-        
+
         JLabel lblNumberInvites = new JLabel("Number of invitations: ", JLabel.RIGHT);
         lblNumberInvites.setSize(LBL_SIZE);;
         this.txtNumberInvites = new JTextField(FIELD_TXT_WIDTH);
@@ -273,7 +285,7 @@ public class DemonstrationApplication extends JFrame {
         dataPanel.add(panelCellphone);
         dataPanel.add(panelExhibitorArea);
         dataPanel.add(panelNumberInvites);
-        
+
         return dataPanel;
     }
 
@@ -283,17 +295,17 @@ public class DemonstrationApplication extends JFrame {
      * @return panel that handles products.«
      */
     private JPanel createPanelProduct() {
-        
+
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(PADDING_BORDER);
-        
+
         JPanel panelButton = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panelButton.add(createButtonAddProduct());
         panelButton.add(createButtonRemoveProduct());
-        
+
         panel.add(createScrollPaneProducts(), BorderLayout.NORTH);
         panel.add(panelButton, BorderLayout.CENTER);
-        
+
         return panel;
     }
 
@@ -303,16 +315,16 @@ public class DemonstrationApplication extends JFrame {
      * @return panel for keywords
      */
     private JPanel createPanelKeywordt() {
-        
+
         JPanel panel2 = new JPanel(new BorderLayout());
         panel2.setBorder(PADDING_BORDER);
-        
+
         JPanel panelButton = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panelButton.add(createButtonAddKeyword());
-        
+
         panel2.add(createScrollPaneKeyWords(), BorderLayout.NORTH);
         panel2.add(panelButton, BorderLayout.CENTER);
-          panel2.add(createConfirmButtonsPanel(), BorderLayout.SOUTH);
+        panel2.add(createConfirmButtonsPanel(), BorderLayout.SOUTH);
         return panel2;
     }
 
@@ -322,13 +334,12 @@ public class DemonstrationApplication extends JFrame {
      * @return demonstrations panel
      */
     private JPanel createPanelDemonstrations() {
-        
+
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(PADDING_BORDER);
-        
+
         panel.add(createScrollPaneDemonstrations(), BorderLayout.NORTH);
-      
-        
+
         return panel;
     }
 
@@ -338,7 +349,7 @@ public class DemonstrationApplication extends JFrame {
      * @return demonstrations list scroll pane
      */
     private JPanel createScrollPaneDemonstrations() {
-        
+
         JPanel panelScroll = new JPanel(new GridLayout());
         panelScroll.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
                 "Select the desired demonstrations:", TitledBorder.LEFT, TitledBorder.TOP));
@@ -346,18 +357,18 @@ public class DemonstrationApplication extends JFrame {
         demonstrationsListJTable = new JTable(modelDemonstration);
         demonstrationsListJTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         demonstrationsListJTable.addMouseListener(new MouseAdapter() {
-            @Override 
-            public void mouseClicked(MouseEvent e){
+            @Override
+            public void mouseClicked(MouseEvent e) {
                 //demonstrationApplicationController.newDemonstrationApplication(((Demonstration)modelDemonstration.getValueAt(demonstrationsListJTable.getSelectedRow(), demonstrationsListJTable.getSelectedColumn())));
             }
         });
-        
+
         JScrollPane scrollPane = new JScrollPane(demonstrationsListJTable);
         scrollPane.setBorder(PADDING_BORDER);
-        
+
         panelScroll.setMinimumSize(scrollPane.getMinimumSize());
         panelScroll.add(scrollPane);
-        
+
         return panelScroll;
     }
 
@@ -367,18 +378,18 @@ public class DemonstrationApplication extends JFrame {
      * @return products list scroll pane
      */
     private JPanel createScrollPaneProducts() {
-        
+
         JPanel panelScroll = new JPanel(new GridLayout());
         panelScroll.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
                 "Products List: ", TitledBorder.LEFT, TitledBorder.TOP));
-        
+
         this.productsList = this.demonstrationApplicationController.getProductsList();
         this.jListProduct = new JList(new ModelListSelectable(this.productsList));
         JScrollPane scrollPane = new JScrollPane(jListProduct);
         scrollPane.setBorder(PADDING_BORDER);
-        
+
         panelScroll.add(scrollPane);
-        
+
         return panelScroll;
     }
 
@@ -388,19 +399,19 @@ public class DemonstrationApplication extends JFrame {
      * @return a scroll panel
      */
     private JPanel createScrollPaneKeyWords() {
-        
+
         JPanel panelScroll = new JPanel(new GridLayout());
         panelScroll.setBorder(BorderFactory.createTitledBorder(PADDING_BORDER,
                 "Keywords List ", TitledBorder.LEFT, TitledBorder.TOP));
-        
+
         this.keywordList = demonstrationApplicationController.getKeywordsList();
         this.jListKeyword = new JList(new ModelListSelectable(keywordList));
-        
+
         JScrollPane scrollPane = new JScrollPane(jListKeyword);
         scrollPane.setBorder(PADDING_BORDER);
-        
+
         panelScroll.add(scrollPane);
-        
+
         return panelScroll;
     }
 
@@ -413,7 +424,7 @@ public class DemonstrationApplication extends JFrame {
         JPanel p = new JPanel(new FlowLayout());
         p.add(createConfirmButton());
         p.add(createCancelButton());
-        
+
         return p;
     }
 
@@ -439,16 +450,16 @@ public class DemonstrationApplication extends JFrame {
                     if (jListProduct.getSelectedIndices().length < 1) {
                         throw new IllegalArgumentException("Please select at least one product.");
                     }
-                    if (jListKeyword.getSelectedIndices().length<2||jListKeyword.getSelectedIndices().length>5) {
+                    if (jListKeyword.getSelectedIndices().length < 2 || jListKeyword.getSelectedIndices().length > 5) {
                         throw new IllegalArgumentException("Please select a minimum of two keywords and a maximum of five.");
                     }
-                    
+
                     Pattern p = Pattern.compile("[a-zA-Z]+");
                     Matcher m = p.matcher(txtCellphone.getText());
                     if (txtCellphone.getText().length() != 9 || m.find()) {
                         throw new IllegalArgumentException("Invalid phone number length or letter inserted.");
                     }
-                    
+
                     String companyName = txtCompanyName.getText();
                     String address = txtAddress.getText();
                     String cellphone = txtCellphone.getText();
@@ -456,36 +467,36 @@ public class DemonstrationApplication extends JFrame {
                     float exhibitorArea = Float.parseFloat(txtExhibitorArea.getText());
                     int numberInvites = Integer.parseInt(txtNumberInvites.getText());
                     demonstrationApplicationController.setData(title, numberInvites);
-                     List<Product> tmpListProduct = jListProduct.getSelectedValuesList();
+                    List<Product> tmpListProduct = jListProduct.getSelectedValuesList();
                     demonstrationApplicationController.setProductsList(tmpListProduct);
-                    List<Keyword> tmpKeywordList=  jListKeyword.getSelectedValuesList();
+                    List<Keyword> tmpKeywordList = jListKeyword.getSelectedValuesList();
                     demonstrationApplicationController.setKeywordsList(tmpKeywordList);
 
 //                    List<Demonstration> selectedDemonstrationsList = getSelectedDemonstrationsList();
 //                    exhibitionApplicationController.setDemonstrationsList(selectedDemonstrationsList);
                     String message = "Do you wish to confirm the application?";
-                    int confirm = JOptionPane.showConfirmDialog(rootPane, message,"Confirm application",JOptionPane.YES_NO_OPTION);
-                    
+                    int confirm = JOptionPane.showConfirmDialog(rootPane, message, "Confirm application", JOptionPane.YES_NO_OPTION);
+
                     if (confirm == JOptionPane.YES_OPTION) {
-                        
+
                         if (demonstrationApplicationController.registerDemonstrationApplication()) {
                             message = String.format("Application submitted sucessfully!");
                             confirm = JOptionPane.showConfirmDialog(rootPane, message, "Sucess!", JOptionPane.PLAIN_MESSAGE);
-                           new LoginUI(exhibitionCenter);
+                            new LoginUI(exhibitionCenter);
                             dispose();
                         }
                         //new LoginUI(centroExposicoes);
                     }
-                    
+
                 } catch (NumberFormatException ex) {
-                    
+
                     JOptionPane.showMessageDialog(
                             rootPane,
                             ex.getMessage(),
                             "Invalid number.",
                             JOptionPane.WARNING_MESSAGE);
                 } catch (IllegalArgumentException ex) {
-                    
+
                     JOptionPane.showMessageDialog(
                             rootPane,
                             ex.getMessage(),
@@ -503,10 +514,10 @@ public class DemonstrationApplication extends JFrame {
      * @return the cancel button
      */
     private JButton createCancelButton() {
-        
+
         JButton btn = new JButton("Cancel");
         btn.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
@@ -524,11 +535,11 @@ public class DemonstrationApplication extends JFrame {
      */
     private List<Demonstration> getSelectedDemonstrationsList() {
         List<Demonstration> selectedDemonstrationsList = new ArrayList<>();
-        
+
         for (int row : demonstrationsListJTable.getSelectedRows()) {
             selectedDemonstrationsList.add(demonstrationsList.get(row));
         }
-        
+
         return selectedDemonstrationsList;
     }
 
@@ -538,15 +549,15 @@ public class DemonstrationApplication extends JFrame {
      * @return the address panel
      */
     private JPanel createAddressPanel() {
-        
+
         this.txtAddress = new JTextArea(4, FIELD_TXT_WIDTH);
         JLabel lblAddress = new JLabel("Address: ", JLabel.RIGHT);
         JPanel panelAddress = new JPanel(new FlowLayout(FlowLayout.LEFT));
-         panelAddress.setBorder(new EmptyBorder(MARGIN_S_FIELD, MARGIN_E_FIELD,
+        panelAddress.setBorder(new EmptyBorder(MARGIN_S_FIELD, MARGIN_E_FIELD,
                 MARGIN_I_FIELD, MARGIN_D_FIELD));
         panelAddress.add(lblAddress);
         panelAddress.add(this.txtAddress);
-        
+
         return panelAddress;
     }
 
@@ -556,7 +567,7 @@ public class DemonstrationApplication extends JFrame {
      * @return the add product button
      */
     private JButton createButtonAddProduct() {
-        
+
         JButton btn = new JButton("Add Product");
         btn.setEnabled(false);
         btn.addActionListener(new ActionListener() {
@@ -566,7 +577,7 @@ public class DemonstrationApplication extends JFrame {
                 // new NewProductDialog(DemonstrationApplication.this);
             }
         });
-        
+
         return btn;
     }
 
@@ -576,7 +587,7 @@ public class DemonstrationApplication extends JFrame {
      * @return the button
      */
     private JButton createButtonAddKeyword() {
-        
+
         JButton btn = new JButton("Add Keyword");
         btn.setEnabled(false);
         btn.addActionListener(new ActionListener() {
@@ -585,10 +596,10 @@ public class DemonstrationApplication extends JFrame {
                 if (newKeyword(JOptionPane.showInputDialog("Insert a Keyword"))) {
                     JOptionPane.showMessageDialog(rootPane, "Keyword inserted sucessfully!", "Sucess", JOptionPane.PLAIN_MESSAGE);
                 }
-                
+
             }
         });
-        
+
         return btn;
     }
 
@@ -598,14 +609,14 @@ public class DemonstrationApplication extends JFrame {
      * @return the remove product button
      */
     private JButton createButtonRemoveProduct() {
-        
+
         this.buttonRemoveProduct = new JButton("Remove product");
         this.buttonRemoveProduct.setEnabled(false);
-        
+
         this.buttonRemoveProduct.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
                 try {
                     int index = jListProduct.getSelectedIndex();
                     boolean removedProduct = removeProduct(index);
@@ -616,9 +627,9 @@ public class DemonstrationApplication extends JFrame {
                                 "Product removal",
                                 JOptionPane.INFORMATION_MESSAGE);
                     }
-                    
+
                 } catch (IllegalArgumentException ex) {
-                    
+
                     JOptionPane.showMessageDialog(DemonstrationApplication.this,
                             ex.getMessage(),
                             "Erro a remover produto",
@@ -626,7 +637,7 @@ public class DemonstrationApplication extends JFrame {
                 }
             }
         });
-        
+
         return this.buttonRemoveProduct;
     }
 
@@ -639,9 +650,9 @@ public class DemonstrationApplication extends JFrame {
     public boolean newProduct(String designation) {
         boolean addedProduct = false;
         updateProductsList();
-        
+
         return addedProduct;
-        
+
     }
 
     /**
@@ -653,9 +664,9 @@ public class DemonstrationApplication extends JFrame {
     public boolean newKeyword(String designation) {
         boolean addedKeyword = false;
         updateKeywordsList();
-        
+
         return addedKeyword;
-        
+
     }
 
     /**
@@ -666,7 +677,7 @@ public class DemonstrationApplication extends JFrame {
      */
     public boolean removeProduct(int index) {
         String designation = (String) this.jListProduct.getModel().getElementAt(index);
-        
+
         boolean productRemoved = false;
         updateProductsList();
         return productRemoved;
@@ -694,15 +705,15 @@ public class DemonstrationApplication extends JFrame {
      * @param exhibition the new exhibition to set
      */
     public void setExhibition(Exhibition exhibition) {
-        
+
         selectedExhibition = exhibition;
     }
-    
+
     public static void main(String[] args) {
-      ExhibitionCenter ex = DefaultInstantiator.createExhibitionCenter();
-         ex.getExhibitionsRegister().getExhibitionsList().get(0).setState(new ExhibitionDecidedApplicationsState(ex.getExhibitionsRegister().getExhibitionsList().get(0)));
-         ((ExhibitionApplication)ex.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)).getDemonstrationsList().add(new Demonstration());
-      ExhibitorResponsible exR = ((ExhibitionApplication)ex.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)).getExhibitorResponsible();
-        DemonstrationApplication test = new DemonstrationApplication(exR,ex);
+        ExhibitionCenter ex = DefaultInstantiator.createExhibitionCenter();
+        ex.getExhibitionsRegister().getExhibitionsList().get(0).setState(new ExhibitionDecidedApplicationsState(ex.getExhibitionsRegister().getExhibitionsList().get(0)));
+        ((ExhibitionApplication) ex.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)).getDemonstrationsList().add(new Demonstration());
+        ExhibitorResponsible exR = ((ExhibitionApplication) ex.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)).getExhibitorResponsible();
+        DemonstrationApplication test = new DemonstrationApplication(exR, ex);
     }
 }

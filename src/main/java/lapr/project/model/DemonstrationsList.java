@@ -234,6 +234,26 @@ public class DemonstrationsList implements Serializable {
     }
 
     /**
+     * Obtain the demonstrations filtering by Applications Decided state.
+     *
+     * @return the demonstrations filtering by Applications Decided state
+     */
+    public List<Demonstration> getDecidedApplicationsDemonstrations() {
+        List<Demonstration> demonstrationsList = new ArrayList<>();
+
+        for (Demonstration demonstration : this.demonstrationList) {
+
+            boolean isApplicationsDecided = demonstration.isApplicationsDecided();
+
+            if (isApplicationsDecided) {
+
+                demonstrationsList.add(demonstration);
+            }
+        }
+        return demonstrationsList;
+    }
+
+    /**
      * Obtain the demonstrations filtering by Decided state.
      *
      * @return the demonstrations filtering by Decided state
@@ -243,9 +263,9 @@ public class DemonstrationsList implements Serializable {
 
         for (Demonstration demonstration : this.demonstrationList) {
 
-            boolean isApplicationsDecided = demonstration.isApplicationsDecided();
+            boolean isDecided = demonstration.isDecided();
 
-            if (isApplicationsDecided) {
+            if (isDecided) {
 
                 demonstrationsList.add(demonstration);
             }
@@ -311,18 +331,6 @@ public class DemonstrationsList implements Serializable {
     public boolean addAndValidateDemonstration(Demonstration demonstration) {
 
         return (demonstration.validate() && validateDemonstration(demonstration)) ? addDemonstration(demonstration) : false;
-    }
-
-    /**
-     * Update a demonstration in the list.
-     *
-     * @param demonstration the demonstration to update
-     * @return true if demonstration is sucessfully updated.
-     */
-    public boolean updateDemonstration(Demonstration demonstration) {
-
-        return (demonstration.validate() && !validateDemonstration(demonstration))
-                ? replaceDemonstration(demonstration) : false;
     }
 
     /**
@@ -419,12 +427,21 @@ public class DemonstrationsList implements Serializable {
      */
     public boolean validateDates(Demonstration demonstration) {
 
-        return demonstration.getStartDate().before(demonstration.getEndDate())
-                && this.subStartDate.before(demonstration.getStartDate())
-                && this.subEndDate.after(this.subStartDate)
+        return this.evaluationLimitDate.before(demonstration.getStartDate())
+                && demonstration.getStartDate().before(demonstration.getEndDate());
+    }
+
+    /**
+     * Validate the Demonstration dates.
+     *
+     * @param exhibitionStartDate the exhibition's start date
+     * @return true if the Demonstrations common dates are valid
+     */
+    public boolean validateCommonDates(Date exhibitionStartDate) {
+        return this.subStartDate.before(this.subEndDate)
                 && this.conflictLimitDate.after(this.subEndDate)
                 && this.evaluationLimitDate.after(this.conflictLimitDate)
-                && this.evaluationLimitDate.before(demonstration.getStartDate());
+                && this.evaluationLimitDate.before(exhibitionStartDate);
     }
 
     /**

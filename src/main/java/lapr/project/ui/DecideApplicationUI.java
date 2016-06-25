@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -28,6 +30,7 @@ import lapr.project.model.Organizer;
 import lapr.project.model.application.ApplicationInDecisionState;
 import lapr.project.model.exhibition.ExhibitionDecidedApplicationsState;
 import static lapr.project.ui.AssignStandsUI.PADDING_BORDER;
+import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.DialogSelectable;
 import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
@@ -89,9 +92,10 @@ public class DecideApplicationUI extends JFrame {
      */
     private List<Evaluation> evaluationsList;
 
-    
     /**
-     * Creates an instance of this class receiving an organizer and exhibition center as parameters.
+     * Creates an instance of this class receiving an organizer and exhibition
+     * center as parameters.
+     *
      * @param organizer the organizer
      * @param exhibitionCenter the exhibition center
      */
@@ -103,6 +107,16 @@ public class DecideApplicationUI extends JFrame {
         this.decideApplicationController.setDecisable(((Decisable) dialogSelectable.getSelectedItem()));
         evaluationsList = decideApplicationController.getEvaluationsList();
         createComponents();
+        CustomMenuBar customMenuBar = new CustomMenuBar(exhibitionCenter, this);
+        setJMenuBar(customMenuBar);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                customMenuBar.exit();
+            }
+        });
+
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         pack();
         setSize(WINDOW_SIZE);
         setMinimumSize(new Dimension(getWidth(), getHeight()));
@@ -172,6 +186,7 @@ public class DecideApplicationUI extends JFrame {
 
     /**
      * Creates the JList of evaluations.
+     *
      * @return the jList of evaluations
      */
     public JList createJListEvaluations() {
@@ -182,11 +197,11 @@ public class DecideApplicationUI extends JFrame {
         list.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String questionsPlusAnswers="";
+                String questionsPlusAnswers = "";
                 List<String> questionsList = ((Evaluation) modelSelectableEvaluations.getObject(listEvaluation.getSelectedIndex())).getQuestionsList();
                 List<Integer> answersList = ((Evaluation) modelSelectableEvaluations.getObject(listEvaluation.getSelectedIndex())).getAnswersList();
-                for(int i=0;i<questionsList.size();i++){
-                    questionsPlusAnswers += "Q: "+questionsList.get(i) +" A: "+answersList.get(i)+"\n";
+                for (int i = 0; i < questionsList.size(); i++) {
+                    questionsPlusAnswers += "Q: " + questionsList.get(i) + " A: " + answersList.get(i) + "\n";
                 }
                 JOptionPane.showMessageDialog(rootPane, questionsPlusAnswers, "List of questions and answers", JOptionPane.PLAIN_MESSAGE);
             }
@@ -211,6 +226,7 @@ public class DecideApplicationUI extends JFrame {
 
     /**
      * Creates the panel that holds the buttons.
+     *
      * @return the buttons panel
      */
     public JPanel createButtonsPanel() {
@@ -222,7 +238,8 @@ public class DecideApplicationUI extends JFrame {
 
     /**
      * Creates the insert decision button.
-     * @return  the insert decision button
+     *
+     * @return the insert decision button
      */
     public JButton createInsertDecisionJButton() {
         JButton button = new JButton("Insert decision");
@@ -238,9 +255,9 @@ public class DecideApplicationUI extends JFrame {
                     decision = true;
                     justificativeText = JOptionPane.showInputDialog(rootPane, "Please insert a text to justify your decision.", "Insert justificative text", JOptionPane.QUESTION_MESSAGE);
                     decideApplicationController.setDecision(decision, justificativeText);
-                    result = JOptionPane.showConfirmDialog(rootPane, "Decision was set! Do you wish to register this decision into the system?","Register decision",JOptionPane.YES_NO_OPTION);
-                    if(result == JOptionPane.YES_OPTION){
-                        JOptionPane.showMessageDialog(rootPane, decideApplicationController.registerDecision()?"The decision was registered sucessfully on the system!":"Error while validating the decision","Register decision",JOptionPane.PLAIN_MESSAGE);
+                    result = JOptionPane.showConfirmDialog(rootPane, "Decision was set! Do you wish to register this decision into the system?", "Register decision", JOptionPane.YES_NO_OPTION);
+                    if (result == JOptionPane.YES_OPTION) {
+                        JOptionPane.showMessageDialog(rootPane, decideApplicationController.registerDecision() ? "The decision was registered sucessfully on the system!" : "Error while validating the decision", "Register decision", JOptionPane.PLAIN_MESSAGE);
                         applicationsList = decideApplicationController.getDecisablesByOrganizer();
                         modelSelectableApplications = new ModelListSelectable(applicationsList);
                         listApplications.setModel(modelSelectableApplications);
