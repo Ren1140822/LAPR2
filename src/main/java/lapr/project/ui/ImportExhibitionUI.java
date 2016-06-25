@@ -58,11 +58,10 @@ public class ImportExhibitionUI extends JFrame {
      */
     private Exhibition selectedExhibition;
 
-    
     /**
      * The window title.
      */
-     final static String WINDOW_TITLE= "Import exhibition";
+    final static String WINDOW_TITLE = "Import exhibition";
     /**
      * Label size.
      */
@@ -152,9 +151,9 @@ public class ImportExhibitionUI extends JFrame {
      */
     public ImportExhibitionUI(ExhibitionsManager manager, ExhibitionCenter exhibitionCenter) {
         super(WINDOW_TITLE);
-        this.exhibitionCenter =exhibitionCenter;
-        this.importExhibitionController = new ImportExhibitionController(manager,this. exhibitionCenter);
-        
+        this.exhibitionCenter = exhibitionCenter;
+        this.importExhibitionController = new ImportExhibitionController(manager, this.exhibitionCenter);
+
         this.setSize(WINDOW_SIZE);
         this.staffList = new ArrayList();
         this.organizersList = new ArrayList();
@@ -162,9 +161,9 @@ public class ImportExhibitionUI extends JFrame {
         this.applicationsList = new ArrayList();
         this.staffAttributionsList = new ArrayList();
         this.conflictsList = new ArrayList();
-       
-        
-         createComponents();
+
+        createComponents();
+        setLocationRelativeTo(null);
         pack();
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setVisible(true);
@@ -175,7 +174,7 @@ public class ImportExhibitionUI extends JFrame {
      */
     public void createComponents() {
         JMenuBar menu = createJMenuBar();
-        
+
         JPanel panel = createListsPanel();
         add(menu, BorderLayout.NORTH);
         add(panel, BorderLayout.CENTER);
@@ -187,8 +186,8 @@ public class ImportExhibitionUI extends JFrame {
      * @return The jmenu bar
      */
     public JMenuBar createJMenuBar() {
-       CustomMenuBar customMenuBar = new CustomMenuBar(exhibitionCenter, this);
-       
+        CustomMenuBar customMenuBar = new CustomMenuBar(exhibitionCenter, this);
+
         setJMenuBar(customMenuBar);
         addWindowListener(new WindowAdapter() {
             @Override
