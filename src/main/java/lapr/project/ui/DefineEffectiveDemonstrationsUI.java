@@ -540,7 +540,7 @@ public class DefineEffectiveDemonstrationsUI extends JFrame {
     public static void main(String[] args) {
         ExhibitionCenter ec = DefaultInstantiator.createExhibitionCenter();
 
-        Organizer o = new Organizer(new User("Daniel", "daniell", "email@dd23", "password", new ArrayList<>()));
+        Organizer o = new Organizer(new User("Daniel", "daniell", "email@dd23", "password", new ArrayList<>(), ""));
         List<Organizer> lo = new ArrayList<>();
         lo.add(o);
 
