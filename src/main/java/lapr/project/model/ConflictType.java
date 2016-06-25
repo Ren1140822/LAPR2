@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import lapr.project.model.mechanisms.detection.RelatedUserConflictMechanism;
 
 /**
  * Represents a conflict type.
@@ -27,7 +28,7 @@ public class ConflictType implements Selectable, Serializable {
     /**
      * The conflict detection mechanism.
      */
-    @XmlTransient // TODO : Verify
+    @XmlTransient
     private ConflictDetectionMechanism conflictDetectionMechanism;
 
     /**
@@ -39,15 +40,14 @@ public class ConflictType implements Selectable, Serializable {
     /**
      * The default value for the description.
      */
-    private static final String DEFAUlt_DESCRIPTION = "No description.";
+    private static final String DEFAULT_DESCRIPTION = "No description.";
 
     /**
      * Constructs a conflict type with its default values.
      */
     public ConflictType() {
-        // TODO when a concrete conflit detection mechanism is created, assign to conflictDetectionMechanism default value in this constructor.
-        //this.conflictDetectionMechanism = new ConflictDetectionMechanism();
-        this.description = DEFAUlt_DESCRIPTION;
+        this.conflictDetectionMechanism = new RelatedUserConflictMechanism();
+        this.description = DEFAULT_DESCRIPTION;
     }
 
     /**
@@ -69,6 +69,7 @@ public class ConflictType implements Selectable, Serializable {
      */
     public ConflictType(String description) {
         this.description = description;
+        this.conflictDetectionMechanism = new RelatedUserConflictMechanism();
     }
 
     /**
