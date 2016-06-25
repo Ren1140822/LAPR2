@@ -70,6 +70,9 @@ public class ExhibitionsManagerRegister implements Serializable {
         return !this.exhibitionsManagerList.isEmpty();
     }
 
+    public void addExhibitionManager(User user){
+        this.exhibitionsManagerList.add(new ExhibitionsManager(user));
+    }
     /**
      * Return the textual representation of this exhibitions manager register.
      *

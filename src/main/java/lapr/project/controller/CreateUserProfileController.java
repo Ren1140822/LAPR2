@@ -93,7 +93,10 @@ public class CreateUserProfileController {
         boolean result = this.usersRegister.registerUser(this.user);
         
         exhibitionCenter.setUsersRegister(usersRegister);
-        
+        if(! exhibitionCenter.getExhibitionsManagerRegister().hasAnyExhibitionManager()){
+            exhibitionCenter.getExhibitionsManagerRegister().addExhibitionManager(user);
+            user.setConfirmedStatus(true);
+        }
         return result;
     }
     

@@ -9,6 +9,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
@@ -30,6 +32,7 @@ import lapr.project.controller.CreateUserProfileController;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.User;
 import lapr.project.model.UsersRegister;
+import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.DialogSelectable;
 import lapr.project.ui.components.ModelListSelectable;
 
@@ -166,7 +169,15 @@ public class CreateUserProfileUI extends JFrame {
         
         setLayout(new GridLayout(1, 2));     
         createComponents();
-        
+         CustomMenuBar customMenuBar = new CustomMenuBar(exhibitionCenter, this);
+        setJMenuBar(customMenuBar);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                customMenuBar.exit();
+            }
+        });
+
         pack();
         setSize(WINDOW_DIMENSION);
         setMinimumSize(new Dimension(getWidth(), getHeight()));
@@ -478,6 +489,7 @@ public class CreateUserProfileUI extends JFrame {
                             
                             controller.newUser();
                             updateRelatedUsersList();
+                       
                         } else {
                             throw new Exception("repeated user");
                         }

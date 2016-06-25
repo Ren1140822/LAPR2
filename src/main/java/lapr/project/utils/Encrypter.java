@@ -131,6 +131,9 @@ public class Encrypter {
 
     public static void main(String[] args) {
         Encrypter enc = new Encrypter();
-        System.out.println(enc.decryptStringCaesar("HermipdKsrêepziw", 4));
+        for (int i = 0; i < 21; i++) {
+               System.out.println(enc.encryptStringKeyword("ivoferro", i,"ivoferro"));
+        }
+     
     }
 }
