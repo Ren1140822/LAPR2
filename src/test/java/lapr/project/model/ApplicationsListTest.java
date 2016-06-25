@@ -94,7 +94,7 @@ public class ApplicationsListTest {
     @Test
     public void testGetApplicationByExhibitorResponsible() {
         System.out.println("getApplicationByExhibitorResponsible");
-        ExhibitorResponsible exhibitorResponsible = new ExhibitorResponsible(new User("Fábio Silva", "fabiosilva", "fabiosilva@blip.pt", "Ewq+321", new ArrayList<>()));
+        ExhibitorResponsible exhibitorResponsible = new ExhibitorResponsible(new User("Fábio Silva", "fabiosilva", "fabiosilva@blip.pt", "Ewq+321", new ArrayList<>(),""));
         Application expResult = this.applicationsList.getApplicationsList().get(0);
         Application result = this.applicationsList.getApplicationByExhibitorResponsible(exhibitorResponsible);
         assertEquals(expResult, result);
@@ -107,7 +107,7 @@ public class ApplicationsListTest {
     @Test
     public void testGetEditableByExhibitorResponsible() {
         System.out.println("getEditableByExhibitorResponsible");
-        ExhibitorResponsible exhibitorResponsible = new ExhibitorResponsible(new User("Fábio Silva", "fabiosilva", "fabiosilva@blip.pt", "Ewq+321", new ArrayList<>()));
+        ExhibitorResponsible exhibitorResponsible = new ExhibitorResponsible(new User("Fábio Silva", "fabiosilva", "fabiosilva@blip.pt", "Ewq+321", new ArrayList<>(),""));
         Editable expResult = (Editable) this.applicationsList.getApplicationsList().get(0);
         Editable result = this.applicationsList.getEditableByExhibitorResponsible(exhibitorResponsible);
         assertEquals(expResult, result);

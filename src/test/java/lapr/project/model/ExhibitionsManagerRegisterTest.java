@@ -45,7 +45,7 @@ public class ExhibitionsManagerRegisterTest {
     public void testGetExhibitionsManagerList() {
         System.out.println("getExhibitionsManagerList");
         List<ExhibitionsManager> expResult = new ArrayList<>();
-        expResult.add(new ExhibitionsManager(new User("Daniel Gonçalves", "danielgoncalves", "1151452@isep.ipp.pt", "Qwe+123", new ArrayList<>())));
+        expResult.add(new ExhibitionsManager(new User("Daniel Gonçalves", "danielgoncalves", "1151452@isep.ipp.pt", "Qwe+123", new ArrayList<>(),"")));
         List<ExhibitionsManager> result = this.exhibitionsManagerRegister.getExhibitionsManagerList();
         assertEquals(expResult, result);
     }

@@ -49,4 +49,6 @@ public interface Removable extends Selectable {
      * @return the exhibitor responsible
      */
     ExhibitorResponsible getExhibitorResponsible();
+    
+    
 }

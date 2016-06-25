@@ -19,7 +19,7 @@ public class Encrypter {
     public Encrypter() {
 
     }
-    private static final String alphabet = ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,_!?");
+    private static final String alphabet = ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,_!?@");
 
     /**
      * Encrypts a string using ceasers cypher.
@@ -51,7 +51,7 @@ public class Encrypter {
         String decryptedWord = "";
         for (char letter : word.toCharArray()) {
             int index = alphabet.indexOf(letter);
-            if (index - shift < 0) {
+            if (index - shift <= 0) {
                 index = (index - shift) + alphabet.length() + 1;
             }
             decryptedWord += alphabet.charAt(index - shift);
@@ -98,7 +98,7 @@ public class Encrypter {
     public static String decryptStringKeyword(String word, int shift, String keyword) {
         String decryptedWord = "";
         String keywordAlphabet = keyword;
-        for (int i = 0; i < alphabet.length(); i++) {
+        for (int i = 0; i< alphabet.length(); i++) {
             keywordAlphabet += alphabet.charAt(i);
             if (keywordAlphabet.length() == alphabet.length()) {
                 break;
@@ -106,7 +106,7 @@ public class Encrypter {
         }
         for (char letter : word.toCharArray()) {
             int index = keywordAlphabet.indexOf(letter);
-            if (index - shift < 0) {
+            if (index - shift <= 0) {
                 index = (index - shift) + keywordAlphabet.length() + 1;
             }
             decryptedWord += keywordAlphabet.charAt(index - shift);
@@ -116,6 +116,6 @@ public class Encrypter {
 
     public static void main(String[] args) {
         Encrypter enc = new Encrypter();
-        System.out.println(enc.encryptStringKeyword("?", 5, "xyzf"));
+        System.out.println(enc.encryptStringKeyword("1140822@isep.ipp.pt", 15, ""));
     }
 }

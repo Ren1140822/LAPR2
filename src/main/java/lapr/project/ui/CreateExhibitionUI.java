@@ -603,10 +603,10 @@ public class CreateExhibitionUI extends JFrame {
         ExhibitionCenter ec = new ExhibitionCenter();
 
         List<User> lu = new ArrayList<>();
-        lu.add(new User("Daniel", "daniell", "email@dd23", "password", new ArrayList<>()));
-        lu.add(new User("Fabio", "fabioA", "email@dd24", "password", new ArrayList<>()));
-        lu.add(new User("Andre", "andree", "email@dd25", "password", new ArrayList<>()));
-        lu.add(new User("Jonas", "pistolas", "email@dd26", "password", new ArrayList<>()));
+        lu.add(new User("Daniel", "daniell", "email@dd23", "password", new ArrayList<>(),""));
+        lu.add(new User("Fabio", "fabioA", "email@dd24", "password", new ArrayList<>(),""));
+        lu.add(new User("Andre", "andree", "email@dd25", "password", new ArrayList<>(),""));
+        lu.add(new User("Jonas", "pistolas", "email@dd26", "password", new ArrayList<>(),""));
         ec.setUsersRegister(new UsersRegister(lu));
 
         ExhibitionsManager em = new ExhibitionsManager();

@@ -54,8 +54,8 @@ public class ExhibitionsRegisterTest {
         this.exhibitionsRegister = new ExhibitionsRegister();
 
         List<Organizer> organizerslist = new ArrayList<>();
-        organizerslist.add(new Organizer(new User("Daniel", "daniell", "email@dd2", "password", new ArrayList<>())));
-        organizerslist.add(new Organizer(new User("Daniel2", "daniell2", "email@dd2", "password", new ArrayList<>())));
+        organizerslist.add(new Organizer(new User("Daniel", "daniell", "email@dd2", "password", new ArrayList<>(),"")));
+        organizerslist.add(new Organizer(new User("Daniel2", "daniell2", "email@dd2", "password", new ArrayList<>(),"")));
 
         this.exhibition = new Exhibition("title", "description", new Date(2016, 2, 1),
                 new Date(2016, 3, 1), new Date(2016, 0, 10), new Date(2016, 0, 20),
@@ -168,7 +168,7 @@ public class ExhibitionsRegisterTest {
 
         System.out.println("getExhibitionsListWithoutDemosDefined");
 
-        Organizer organizer = new Organizer(new User("Daniel", "daniel", "email@dd", "password", new ArrayList<>()));
+        Organizer organizer = new Organizer(new User("Daniel", "daniel", "email@dd", "password", new ArrayList<>(),""));
 
         Exhibition filteredExhibition1 = new Exhibition();
         filteredExhibition1.getOrganizersList().addAndValidateOrganizer(organizer);
@@ -251,7 +251,7 @@ public class ExhibitionsRegisterTest {
 
         System.out.println("getExhibitionsAppsDecidedAndDemosCreated");
 
-        Organizer organizer = new Organizer(new User("Daniel", "daniel", "email@dd", "password", new ArrayList<>()));
+        Organizer organizer = new Organizer(new User("Daniel", "daniel", "email@dd", "password", new ArrayList<>(),""));
 
         Demonstration demonstration1 = new Demonstration();
         demonstration1.setCurrentState(new DemonstrationApplicationsDecidedState(demonstration1));
