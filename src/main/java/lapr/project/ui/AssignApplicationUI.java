@@ -9,6 +9,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
@@ -46,6 +48,7 @@ import lapr.project.model.User;
 import lapr.project.model.demonstration.DemonstrationChangedConflictsState;
 import lapr.project.model.exhibition.ExhibitionChangedConflictsState;
 import lapr.project.model.mechanisms.attribution.EquitableLoadMechanism;
+import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.DialogSelectable;
 import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.ui.components.ModelTableAttributions;
@@ -128,6 +131,7 @@ public class AssignApplicationUI extends JFrame {
 
         List<Submittable> listaExposicoes = this.controller.getSubmittablesInChangedConflictsByOrganizer(organizer);
         DialogSelectable dialogSelectable = new DialogSelectable(this, listaExposicoes);
+        
         this.submittableSelected = (Submittable) dialogSelectable.getSelectedItem();
         if (this.submittableSelected == null) {
             dispose();
@@ -136,6 +140,16 @@ public class AssignApplicationUI extends JFrame {
             this.controller.setSubmittable(this.submittableSelected);
             this.staffAttributionMechanismList = this.controller.getStaffAttributionMechanism();
             this.staffAttributionList = new ArrayList<>();
+
+            CustomMenuBar customMenuBar = new CustomMenuBar(this.exhibitionsCenter, this);
+            setJMenuBar(customMenuBar);
+            addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    customMenuBar.exit();
+                }
+            });
+            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
             createComponents();
 
@@ -351,10 +365,10 @@ public class AssignApplicationUI extends JFrame {
 
     public static void main(String[] args) {
 
-        Organizer organizer = new Organizer(new Organizer(new User("Renato", "Paulinho", "pr@email.com", "password", new ArrayList<>(),"")));
-        StaffMember staffMember1 = new StaffMember(new User("Daniel", "Dani", "Daniel@gmail.com", "password", new ArrayList<>(),""));
-        StaffMember staffMember2 = new StaffMember(new User("Eric", "Thor", "Eric@gmail.com", "password", new ArrayList<>(),""));
-        StaffMember staffMember3 = new StaffMember(new User("Ivo", "Ferro", "Ivo@gmail.com", "password", new ArrayList<>(),""));
+        Organizer organizer = new Organizer(new Organizer(new User("Renato", "Paulinho", "pr@email.com", "password", new ArrayList<>(), "")));
+        StaffMember staffMember1 = new StaffMember(new User("Daniel", "Dani", "Daniel@gmail.com", "password", new ArrayList<>(), ""));
+        StaffMember staffMember2 = new StaffMember(new User("Eric", "Thor", "Eric@gmail.com", "password", new ArrayList<>(), ""));
+        StaffMember staffMember3 = new StaffMember(new User("Ivo", "Ferro", "Ivo@gmail.com", "password", new ArrayList<>(), ""));
 
         List<StaffMember> staffMemberList = new ArrayList<>();
         staffMemberList.add(staffMember1);

@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListCellRenderer;
@@ -28,6 +30,7 @@ import lapr.project.model.ConflictType;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.User;
+import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 
@@ -101,6 +104,16 @@ public class DefineTypeConflictsUI extends JFrame {
         this.controller = new DefineTypeConflictsController(this.exhibitionCenter, this.exhibitionsManager);
 
         this.typeConflictsList = this.controller.getConflictTypesList();
+
+        CustomMenuBar customMenuBar = new CustomMenuBar(this.exhibitionCenter, this);
+        setJMenuBar(customMenuBar);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                customMenuBar.exit();
+            }
+        });
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         createComponents();
 
@@ -187,12 +200,12 @@ public class DefineTypeConflictsUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 controller.newConflictType();
-                
+
                 String typeConflict = JOptionPane.showInputDialog(DefineTypeConflictsUI.this,
                         "Insert the TypeConflict designation:",
                         "Add TypeConflict",
                         JOptionPane.QUESTION_MESSAGE);
-                
+
                 controller.setDataConflictType(typeConflict);
 
                 if (controller.registerTypeConflict()) {

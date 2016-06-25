@@ -7,6 +7,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -22,6 +24,7 @@ import lapr.project.controller.ExportExhibitionController;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.Organizer;
 import lapr.project.model.exhibition.ExhibitionStaffWithoutDemosState;
+import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 import lapr.project.utils.Exportable;
@@ -92,6 +95,16 @@ public class ExportExhibitionUI extends JFrame {
 
         this.exportablesList = controller.getListExportablesByOrganizer(organizer);
 
+        CustomMenuBar customMenuBar = new CustomMenuBar(this.exhibitionCenter, this);
+        setJMenuBar(customMenuBar);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                customMenuBar.exit();
+            }
+        });
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
         createComponents();
 
         pack();
@@ -113,9 +126,9 @@ public class ExportExhibitionUI extends JFrame {
     }
 
     /**
-     * Creates the title label.
-     * Later if needed could be an exportable written here..
-     * 
+     * Creates the title label. Later if needed could be an exportable written
+     * here..
+     *
      * @return title label
      */
     private JLabel createTitleLabel() {
@@ -141,36 +154,36 @@ public class ExportExhibitionUI extends JFrame {
                 if (exportablesJList.getSelectedIndex() >= 0) {
                     Exportable selectedExportable = exportablesList.get(exportablesJList.getSelectedIndex());
                     controller.setExportable(selectedExportable);
-                    int result =JOptionPane.showConfirmDialog(rootPane,"Do you wish to export this exportable?\n"+ selectedExportable.getData(),"Export",JOptionPane.YES_NO_OPTION);
-                    if(result==JOptionPane.YES_OPTION){
+                    int result = JOptionPane.showConfirmDialog(rootPane, "Do you wish to export this exportable?\n" + selectedExportable.getData(), "Export", JOptionPane.YES_NO_OPTION);
+                    if (result == JOptionPane.YES_OPTION) {
                         JFileChooser chooser = new JFileChooser();
                         result = chooser.showSaveDialog(rootPane);
-                        if(result==JFileChooser.APPROVE_OPTION){
-                  
-                        controller.exportExportable(chooser.getCurrentDirectory().getAbsolutePath()+"\\"+chooser.getSelectedFile().getName());
+                        if (result == JFileChooser.APPROVE_OPTION) {
+
+                            controller.exportExportable(chooser.getCurrentDirectory().getAbsolutePath() + "\\" + chooser.getSelectedFile().getName());
                         }
-                    }                  
-                } 
+                    }
+                }
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                
+
             }
         });
 
@@ -182,15 +195,15 @@ public class ExportExhibitionUI extends JFrame {
 
     /**
      * to test the UI
-     * @param args 
+     *
+     * @param args
      */
     public static void main(String[] args) {
         ExhibitionCenter exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
         Organizer organizer;
-         exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).setState(new ExhibitionStaffWithoutDemosState( exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0)));
+        exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).setState(new ExhibitionStaffWithoutDemosState(exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0)));
         organizer = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getOrganizersList().getOrganizersList().get(1);
         ExportExhibitionUI exportExhibitionUI = new ExportExhibitionUI(exhibitionCenter, organizer);
-      
+
     }
 }
-
