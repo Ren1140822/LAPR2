@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -24,9 +25,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import lapr.project.controller.ShowRemovedApplicationsController;
 import lapr.project.model.Application;
+import lapr.project.model.Evaluable;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.Organizer;
 import lapr.project.model.application.ApplicationRemovedState;
+import lapr.project.ui.components.DialogSeeApplication;
 import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 
@@ -59,7 +62,7 @@ public class ShowRemovedApplicationsUI extends JFrame {
     /**
      * The removed applications list.
      */
-    private List<Application> removedApplicationsList;
+    private final List<Application> removedApplicationsList;
 
     /**
      * The removedApplicationsJList JList.
@@ -79,7 +82,7 @@ public class ShowRemovedApplicationsUI extends JFrame {
     /**
      * Padding border.
      */
-    final static EmptyBorder PADDING_BORDER = new EmptyBorder(10, 10, 10, 10);
+    private final static EmptyBorder PADDING_BORDER = new EmptyBorder(10, 10, 10, 10);
 
     /**
      * Creates an instance of show removed applications user interface.
@@ -160,9 +163,33 @@ public class ShowRemovedApplicationsUI extends JFrame {
     private JPanel createButtonsPanel() {
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
+        buttonsPanel.add(createSeeApplicationButton());
         buttonsPanel.add(createBackButton());
 
         return buttonsPanel;
+    }
+
+    /**
+     * Creates the see application button.
+     *
+     * @return the see application button
+     */
+    public JButton createSeeApplicationButton() {
+        JButton button = new JButton("See application info");
+        button.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Application application = ShowRemovedApplicationsUI.this.removedApplicationsList
+                            .get(ShowRemovedApplicationsUI.this.removedApplicationsJList.getSelectedIndex());
+                    DialogSeeApplication dialogSeeApplication = new DialogSeeApplication((Evaluable) application, ShowRemovedApplicationsUI.this);
+                } catch (NullPointerException exception) {
+                    JOptionPane.showMessageDialog(rootPane, "Something wen´t wrong!", "Error!", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        return button;
     }
 
     /**
