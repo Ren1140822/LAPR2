@@ -13,6 +13,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -58,11 +59,10 @@ public class ImportExhibitionUI extends JFrame {
      */
     private Exhibition selectedExhibition;
 
-    
     /**
      * The window title.
      */
-     final static String WINDOW_TITLE= "Import exhibition";
+    final static String WINDOW_TITLE = "Import exhibition";
     /**
      * Label size.
      */
@@ -143,6 +143,10 @@ public class ImportExhibitionUI extends JFrame {
      * The exhibitions center.
      */
     ExhibitionCenter exhibitionCenter;
+    /**
+     * The exhibitions manager.
+     */
+    ExhibitionsManager exhibitionsManager;
 
     /**
      * Creates instance of this class.
@@ -152,9 +156,10 @@ public class ImportExhibitionUI extends JFrame {
      */
     public ImportExhibitionUI(ExhibitionsManager manager, ExhibitionCenter exhibitionCenter) {
         super(WINDOW_TITLE);
-        this.exhibitionCenter =exhibitionCenter;
-        this.importExhibitionController = new ImportExhibitionController(manager,this. exhibitionCenter);
-        
+        this.exhibitionCenter = exhibitionCenter;
+        this.exhibitionsManager=manager;
+        this.importExhibitionController = new ImportExhibitionController(manager, this.exhibitionCenter);
+
         this.setSize(WINDOW_SIZE);
         this.staffList = new ArrayList();
         this.organizersList = new ArrayList();
@@ -162,9 +167,9 @@ public class ImportExhibitionUI extends JFrame {
         this.applicationsList = new ArrayList();
         this.staffAttributionsList = new ArrayList();
         this.conflictsList = new ArrayList();
-       
-        
-         createComponents();
+
+        createComponents();
+        setLocationRelativeTo(null);
         pack();
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setVisible(true);
@@ -175,10 +180,11 @@ public class ImportExhibitionUI extends JFrame {
      */
     public void createComponents() {
         JMenuBar menu = createJMenuBar();
-        
+
         JPanel panel = createListsPanel();
         add(menu, BorderLayout.NORTH);
         add(panel, BorderLayout.CENTER);
+        add(createBackButton(),BorderLayout.SOUTH);
     }
 
     /**
@@ -187,8 +193,8 @@ public class ImportExhibitionUI extends JFrame {
      * @return The jmenu bar
      */
     public JMenuBar createJMenuBar() {
-       CustomMenuBar customMenuBar = new CustomMenuBar(exhibitionCenter, this);
-       
+        CustomMenuBar customMenuBar = new CustomMenuBar(exhibitionCenter, this);
+
         setJMenuBar(customMenuBar);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -308,7 +314,20 @@ public class ImportExhibitionUI extends JFrame {
         conflictsJList.setModel(new ModelListSelectable(conflictsList));
 
     }
+ 
+    public JButton createBackButton(){
+        JButton button = new JButton("Back");
+             button.setPreferredSize(new Dimension(100, 40));
+        button.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new DashboardUI(exhibitionCenter, exhibitionsManager);
+            }
+        });
+        return button;
+    }
     public static void main(String[] args) {
         ExhibitionCenter exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
         ExhibitionsManager manager = new ExhibitionsManager();

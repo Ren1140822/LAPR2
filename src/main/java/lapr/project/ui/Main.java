@@ -32,7 +32,7 @@ class Main {
     public static void main(String[] args) {
 
         ExhibitionCenter exhibitionCenter = ExhibitionCenterFile.read(ExhibitionCenterFile.NAME);
-
+       
         if (exhibitionCenter == null) {
             exhibitionCenter = new ExhibitionCenter();
         }
@@ -41,7 +41,7 @@ class Main {
         if (exhibitionsManagerRegister.hasAnyExhibitionManager()) {
             new LoginUI(exhibitionCenter);
         } else {
-            new CreateUserProfileUI(exhibitionCenter);
+            new CreateUserProfileUI(exhibitionCenter, null);
             
         }
     }

@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -40,14 +41,9 @@ import lapr.project.utils.DefaultInstantiator;
 public class DialogSeeApplication extends JDialog {
 
     /**
-     * The parent's frame.
-     */
-    private JFrame parentFrame;
-
-    /**
      * The evaluable.
      */
-    private Evaluable evaluable;
+    private final Evaluable evaluable;
 
     /**
      * The window title.
@@ -68,7 +64,6 @@ public class DialogSeeApplication extends JDialog {
     public DialogSeeApplication(Evaluable evaluable, JFrame parentFrame) {
         super(parentFrame, WINDOW_TITLE, true);
 
-        this.parentFrame = parentFrame;
         this.evaluable = evaluable;
 
         createComponents();
@@ -212,7 +207,7 @@ public class DialogSeeApplication extends JDialog {
             tablesPanel.add(createProductsLabel());
             tablesPanel.add(createDemonstrationsLabel());
         } else {
-            tablesPanel = new JPanel();
+            tablesPanel = new JPanel(new BorderLayout());
             tablesPanel.add(createProductsLabel());
         }
 
@@ -266,9 +261,12 @@ public class DialogSeeApplication extends JDialog {
         JPanel demonstrationsPanel = new JPanel(new BorderLayout(0, 5));
 
         JLabel titleLabel = new JLabel("Demonstrations:", SwingConstants.CENTER);
+        
         JList demonstrationsJList = new JList();
-
         demonstrationsJList.setModel(new ModelListSelectable(((ExhibitionApplication) this.evaluable).getDemonstrationsList()));
+        DefaultListCellRenderer renderer = (DefaultListCellRenderer) demonstrationsJList.getCellRenderer();
+        renderer.setHorizontalAlignment(JLabel.CENTER);
+        
         JScrollPane demonstrationsJScroll = new JScrollPane(demonstrationsJList);
 
         demonstrationsPanel.add(titleLabel, BorderLayout.NORTH);

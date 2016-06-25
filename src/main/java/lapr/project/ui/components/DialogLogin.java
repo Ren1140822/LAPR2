@@ -26,6 +26,7 @@ import lapr.project.model.Organizer;
 import lapr.project.model.StaffMember;
 import lapr.project.model.User;
 import lapr.project.ui.DashboardUI;
+import lapr.project.ui.UpdateUserProfileUI;
 import lapr.project.utils.DefaultInstantiator;
 
 /**
@@ -168,7 +169,7 @@ public class DialogLogin extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 switch (comboBoxLogin.getSelectedItem().toString()) {
-                    //TODO: INSTANTIATE DASHBOARD
+                
                     case "Staff Member":
                         new DashboardUI(exhibitionsCenter, new StaffMember(user));
                         break;
@@ -181,6 +182,9 @@ public class DialogLogin extends JDialog {
                         break;
                     case "Exhibitions Manager":
                        new DashboardUI(exhibitionsCenter, new ExhibitionsManager(user));
+                        break;
+                    default:
+                        new UpdateUserProfileUI(exhibitionsCenter, thisActor);
                         break;
                 }
                 parentFrame.dispose();

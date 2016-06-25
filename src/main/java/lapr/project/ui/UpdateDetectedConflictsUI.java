@@ -79,12 +79,12 @@ public class UpdateDetectedConflictsUI extends JFrame {
     /**
      * The applications list.
      */
-    private final List<Application> applicationsList;
+    private List<Application> applicationsList;
 
     /**
      * The conflict types list.
      */
-    private final List<ConflictType> typeConflictsList;
+    private List<ConflictType> typeConflictsList;
 
     /**
      * The conflicts JList.
@@ -144,35 +144,37 @@ public class UpdateDetectedConflictsUI extends JFrame {
         final String chooseSubmittableText = "Which submittable do you wish to update the detected conflits?";
         DialogSelectable dialogSelectable = new DialogSelectable(this, this.submittablesList, chooseSubmittableText);
         this.selectedSubmittable = (Submittable) dialogSelectable.getSelectedItem();
-        this.controller.setSubmittable(selectedSubmittable);
-        this.conflictsList = selectedSubmittable.getConflictListByStaffMember(staffMember);
 
-        this.applicationsList = selectedSubmittable.getApplicationsList().getApplicationsList();
-        this.typeConflictsList = exhibitionCenter.getConflictTypesRegister().getConflictTypesList();
+        if (selectedSubmittable != null) {
 
-        if (selectedSubmittable == null) {
-            // TODO voltar à janela anterior.
-            dispose();
+            this.controller.setSubmittable(selectedSubmittable);
+            this.conflictsList = selectedSubmittable.getConflictListByStaffMember(staffMember);
+
+            this.applicationsList = selectedSubmittable.getApplicationsList().getApplicationsList();
+            this.typeConflictsList = exhibitionCenter.getConflictTypesRegister().getConflictTypesList();
+
+            CustomMenuBar customMenuBar = new CustomMenuBar(this.exhibitionCenter, this);
+            setJMenuBar(customMenuBar);
+            addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    customMenuBar.exit();
+                }
+            });
+            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+            createComponents();
+
+            pack();
+            setMinimumSize(new Dimension(getWidth(), getHeight()));
+            setSize(WINDOW_DIMEMNSION);
+            setLocationRelativeTo(null);
+            setVisible(true);
         }
-
-        CustomMenuBar customMenuBar = new CustomMenuBar(this.exhibitionCenter, this);
-        setJMenuBar(customMenuBar);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                customMenuBar.exit();
-            }
-        });
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
-        createComponents();
-
-        pack();
-        setMinimumSize(new Dimension(getWidth(), getHeight()));
-        setSize(WINDOW_DIMEMNSION);
-        setLocationRelativeTo(null);
-        setVisible(true);
-
+        else{
+            dispose();
+            new DashboardUI(exhibitionCenter, staffMember);
+        }
     }
 
     /**
@@ -236,7 +238,7 @@ public class UpdateDetectedConflictsUI extends JFrame {
 
         buttonsPanel.add(createAddNewConflictButton());
         buttonsPanel.add(createRemoveConflictButton());
-
+        buttonsPanel.add(createBackButton());
         return buttonsPanel;
     }
 
@@ -263,7 +265,27 @@ public class UpdateDetectedConflictsUI extends JFrame {
 
         return addNewConflictButton;
     }
+    
+    /**
+     * Creates the back button.
+     * @return the back button
+     */
+     public JButton createBackButton(){
+        JButton button = new JButton("Back");
+             button.setPreferredSize(new Dimension(150, 40));
+        button.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new DashboardUI(exhibitionCenter, staffMember);
+            }
+        });
+        return button;
+    }
+    /**
+     * Updates the detected conflicts.
+     */
     private void updateDetectedConflictsList() {
         this.conflictsList = controller.getConflictsListByStaffMember();
 
@@ -316,7 +338,7 @@ public class UpdateDetectedConflictsUI extends JFrame {
                 .get(0).getStaffList().getStaffList().get(0);
         exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0)
                 .setState(new ExhibitionDetectedConflictsState(exhibitionCenter
-                                .getExhibitionsRegister().getExhibitionsList().get(0)));
+                        .getExhibitionsRegister().getExhibitionsList().get(0)));
 
         Application a = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0);
         ConflictType cta = new ConflictType(new RelatedUserConflictMechanism(), "Histórico na empresa");

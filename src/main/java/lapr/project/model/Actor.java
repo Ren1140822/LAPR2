@@ -20,5 +20,7 @@ public interface Actor {
      * @return actor's user
      */
     public User getUser();
+    
+    public void setUser(User user);
 
 }

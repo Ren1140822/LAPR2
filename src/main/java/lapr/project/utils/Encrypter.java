@@ -131,9 +131,7 @@ public class Encrypter {
 
     public static void main(String[] args) {
         Encrypter enc = new Encrypter();
-        for (int i = 0; i < 21; i++) {
-               System.out.println(enc.encryptStringKeyword("ivoferro", i,"ivoferro"));
-        }
-     
+      
+       
     }
 }

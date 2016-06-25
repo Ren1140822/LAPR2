@@ -62,6 +62,7 @@ public class ExhibitionsManager implements Actor, Serializable {
      *
      * @param user user of the exhibitionManager
      */
+ 
     public void setUser(User user) {
         this.user = user;
     }

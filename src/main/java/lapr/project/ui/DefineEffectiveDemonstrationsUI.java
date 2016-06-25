@@ -59,6 +59,16 @@ import lapr.project.utils.DefaultInstantiator;
 public class DefineEffectiveDemonstrationsUI extends JFrame {
 
     /**
+     * The exhibition center.
+     */
+    private final ExhibitionCenter exhibitionCenter;
+
+    /**
+     * The logged exhibitions manager.
+     */
+    private final Organizer organizer;
+
+    /**
      * The controller to define effective demonstrations.
      */
     private final DefineEffectiveDemosController controller;
@@ -152,6 +162,8 @@ public class DefineEffectiveDemonstrationsUI extends JFrame {
     public DefineEffectiveDemonstrationsUI(ExhibitionCenter exhibitionCenter, Organizer organizer) {
         super(WINDOW_TITLE);
 
+        this.exhibitionCenter = exhibitionCenter;
+        this.organizer = organizer;
         this.controller = new DefineEffectiveDemosController(exhibitionCenter);
 
         final String chooseExhibitionText = "Which exhibition do you wish to define demostrations?";
@@ -159,9 +171,7 @@ public class DefineEffectiveDemonstrationsUI extends JFrame {
                 controller.getExhibitionsList(organizer), chooseExhibitionText);
         Exhibition selectedExhibition = (Exhibition) dialogSelectable.getSelectedItem();
 
-        if (selectedExhibition == null) {
-            dispose();
-        } else {
+        if (selectedExhibition != null) {
 
             this.controller.setExhibitionAndDemonstrationsList(selectedExhibition);
 
@@ -183,6 +193,9 @@ public class DefineEffectiveDemonstrationsUI extends JFrame {
             setMinimumSize(new Dimension(getWidth(), getHeight()));
             setLocationRelativeTo(null);
             setVisible(true);
+        } else {
+            dispose();
+            new DashboardUI(exhibitionCenter, organizer);
         }
 
         this.flag = false;
@@ -520,6 +533,7 @@ public class DefineEffectiveDemonstrationsUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 dispose();
+                new DashboardUI(exhibitionCenter, organizer);
             }
         });
         return cancelBtn;

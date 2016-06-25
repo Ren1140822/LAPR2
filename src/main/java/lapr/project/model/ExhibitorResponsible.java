@@ -58,7 +58,7 @@ public class ExhibitorResponsible implements Actor, Serializable {
     /**
      * sets the current value of this user
      */
-    public void setUSer(User u) {
+    public void setUser(User u) {
         this.user = new User(u);
     }
 

@@ -216,7 +216,8 @@ public class ShowRemovedApplicationsUI extends JFrame {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose(); //TODO implements function to go back to the main frame
+                dispose();
+                new DashboardUI(exhibitionCenter, organizer);
             }
         });
 
