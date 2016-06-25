@@ -857,6 +857,16 @@ public class Exhibition implements Submittable, Exportable, Serializable {
         return this.staffAttributionsList.removeStaffAttribution(staffAttribution);
 
     }
+    
+    @Override
+    public boolean isDemonstration() {
+        return false;
+    }
+    
+    @Override
+    public boolean isExhibition(){
+        return true;
+    }
 
     /**
      * Return the textual representation of a exhibition.
@@ -914,5 +924,7 @@ public class Exhibition implements Submittable, Exportable, Serializable {
                 && this.demonstrationsList.equals(otherExhibition.demonstrationsList)
                 && this.staffAttributionsList.equals(otherExhibition.staffAttributionsList);
     }
+
+    
 
 }

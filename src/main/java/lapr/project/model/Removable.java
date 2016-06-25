@@ -3,8 +3,6 @@
  */
 package lapr.project.model;
 
-import java.util.List;
-
 /**
  * Interface for removable applications.
  *

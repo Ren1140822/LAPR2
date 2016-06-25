@@ -636,6 +636,78 @@ public class ExhibitionsRegister implements Importable, Serializable {
     }
 
     /**
+     * Gets the submittables filtered by organizer.
+     *
+     * @param organizer the organizer used to filter
+     * @return returns the submittables filtered by organizer
+     */
+    public List<Submittable> getSubmittablesListByOrganizer(Organizer organizer) {
+        List<Submittable> submittablesList = new ArrayList();
+        List<Demonstration> demonstrationsList = new ArrayList();
+
+        for (Exhibition exhibition : exhibitionsList) {
+            if (exhibition.hasOrganizer(organizer)) {
+                submittablesList.add(exhibition);
+                demonstrationsList = exhibition.getDemonstrationsList().getDemonstrationsList();
+                for (Demonstration demonstration : demonstrationsList) {
+                    submittablesList.add(demonstration);
+                }
+            }
+        }
+        return submittablesList;
+    }
+
+    /**
+     * Gets the exhibitionApplications removed, filtered by organizer.
+     *
+     * @param submittablesListByOrganizer the submittables list used to get the
+     * list of exhibition applications removed, filtered by organizer
+     * @return the list of exhibition applications removed, filtered by
+     * organizer
+     */
+    public List<Application> getExhibitionApplicationsRemovedByOrganizer(List<Submittable> submittablesListByOrganizer) {
+        List<Application> applicationsList = new ArrayList();
+        List<Application> exhibitionApplicationsRemovedList = new ArrayList();
+
+        for (Submittable submittable : submittablesListByOrganizer) {
+            if (submittable.isExhibition()) {
+                applicationsList = submittable.getApplicationsList().getApplicationsList();
+                for (Application application : applicationsList) {
+                    if (application.isRemoved()) {
+                        exhibitionApplicationsRemovedList.add(application);
+                    }
+                }
+            }
+        }
+        return exhibitionApplicationsRemovedList;
+    }
+
+    /**
+     * Gets the demonstrationApplications removed, filtered by organizer.
+     *
+     * @param submittablesListByOrganizer the submittables list used to get the
+     * list of demonstration applications removed, filtered by organizer
+     * @return the list of demonstration applications removed, filtered by
+     * organizer
+     */
+    public List<Application> getDemonstraionApplicationsRemovedByOrganizer(List<Submittable> submittablesListByOrganizer) {
+        List<Application> applicationsList = new ArrayList();
+        List<Application> demonstrationApplicationsRemovedList = new ArrayList();
+
+        for (Submittable submittable : submittablesListByOrganizer) {
+            if (submittable.isDemonstration()) {
+                applicationsList = submittable.getApplicationsList().getApplicationsList();
+                for (Application application : applicationsList) {
+                    if (application.isRemoved()) {
+                        demonstrationApplicationsRemovedList.add(application);
+                    }
+                }
+            }
+        }
+        return demonstrationApplicationsRemovedList;
+    }
+
+    /**
      * Returns the textual interpretation of the objects and attributes of this
      * class
      *

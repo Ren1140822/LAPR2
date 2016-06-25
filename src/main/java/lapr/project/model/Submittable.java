@@ -118,4 +118,18 @@ public interface Submittable extends Selectable {
      * @return true if it is removed with successfull, false otherwise
      */
     boolean removeAttribution(StaffAttribution staffAttribution);
+    
+    /**
+     * Returns true if the submittable is a demonstration, false otherwise.
+     * 
+     * @return true if the submittable is a demonstration, false otherwise
+     */
+    boolean isDemonstration();
+    
+    /**
+     * Returns true if the submittable is an exhibition, false otherwise.
+     * 
+     * @return true if the submittable is an exhibition, false otherwise
+     */
+    boolean isExhibition();
 }

@@ -749,4 +749,14 @@ public class Demonstration implements Submittable, Selectable, Serializable {
 
         return this.currentState.setApplicationsInDecision();
     }
+
+    @Override
+    public boolean isDemonstration() {
+        return true;
+    }
+
+    @Override
+    public boolean isExhibition() {
+        return false;
+    }
 }
