@@ -43,8 +43,7 @@ public class Evaluation implements Selectable, Serializable {
     /**
      * The evaluation´s attribution.
      */
-    @XmlTransient // TODO : Verify how to resolve infinity loop
-    private StaffAttribution staffAttribution;
+    private StaffMember staffMember;
 
     /**
      * The number of existing answers.
@@ -80,7 +79,7 @@ public class Evaluation implements Selectable, Serializable {
      * Constructs a evaluation with its default values.
      */
     public Evaluation() {
-        this.staffAttribution = new StaffAttribution();
+        this.staffMember = new StaffMember();
         this.questionsList = createQuestions();
         this.answersList = new ArrayList<>();
     }
@@ -90,10 +89,10 @@ public class Evaluation implements Selectable, Serializable {
      * attribution.
      *
      * @param answersList the answers for the questions
-     * @param staffAttribution staff attribution
+     * @param staffMember staff attribution
      */
-    public Evaluation(List<Integer> answersList, StaffAttribution staffAttribution) {
-        this.staffAttribution = new StaffAttribution(staffAttribution);
+    public Evaluation(List<Integer> answersList, StaffMember staffMember) {
+        this.staffMember = staffMember;
         this.questionsList = createQuestions();
         this.answersList = new ArrayList<>(answersList);
     }
@@ -104,27 +103,27 @@ public class Evaluation implements Selectable, Serializable {
      * @param evaluation another evaluation
      */
     public Evaluation(Evaluation evaluation) {
-        this.staffAttribution = new StaffAttribution(evaluation.staffAttribution);
+        this.staffMember = evaluation.staffMember;
         this.questionsList = new ArrayList<>(evaluation.questionsList);
         this.answersList = new ArrayList<>(evaluation.answersList);
     }
 
     /**
-     * Gets the staff attribution.
+     * Gets the staff member.
      *
-     * @return staff attribution
+     * @return staff member
      */
-    public StaffAttribution getStaffAttribution() {
-        return staffAttribution;
+    public StaffMember getStaffMember() {
+        return staffMember;
     }
 
     /**
-     * Sets the staff attribution.
+     * Sets the staff member.
      *
-     * @param staffAttribution staff attribution
+     * @param staffMember  staff member
      */
-    public void setStaffAttribution(StaffAttribution staffAttribution) {
-        this.staffAttribution = staffAttribution;
+    public void setStaffMember(StaffMember staffMember) {
+        this.staffMember = staffMember;
     }
 
     /**
@@ -160,7 +159,7 @@ public class Evaluation implements Selectable, Serializable {
      * @return true if it is valid, false otherwise
      */
     public boolean validate() {
-        return this.staffAttribution != null && this.answersList.size() == NUMBER_OF_ANSWERS && this.questionsList.size() == NUMBER_OF_ANSWERS;
+        return this.staffMember != null && this.answersList.size() == NUMBER_OF_ANSWERS && this.questionsList.size() == NUMBER_OF_ANSWERS;
     }
 
     /**
@@ -185,7 +184,7 @@ public class Evaluation implements Selectable, Serializable {
      */
     @Override
     public String toString() {
-        return String.format("Evaluation{questionsList=%s;answersList=%s;staffAttribution=%s}", this.questionsList, this.answersList, this.staffAttribution);
+        return String.format("Evaluation{questionsList=%s;answersList=%s;staffAttribution=%s}", this.questionsList, this.answersList, this.staffMember);
     }
 
     /**
@@ -205,7 +204,7 @@ public class Evaluation implements Selectable, Serializable {
         Evaluation otherEvaluation = (Evaluation) otherObject;
 
         return this.questionsList.equals(otherEvaluation.questionsList) && this.answersList.equals(otherEvaluation.answersList)
-                && this.staffAttribution.equals(otherEvaluation.staffAttribution);
+                && this.staffMember.equals(otherEvaluation.staffMember);
     }
 
     @Override

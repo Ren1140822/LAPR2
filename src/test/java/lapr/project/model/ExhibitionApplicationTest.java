@@ -70,7 +70,7 @@ public class ExhibitionApplicationTest {
         answers.add(4);
         answers.add(1);
         answers.add(3);
-        Evaluation evaluation = new Evaluation(answers, new StaffAttribution());
+        Evaluation evaluation = new Evaluation(answers, new StaffMember());
         assertTrue(exhibitionApplication.validateEvaluation(evaluation));
     }
 
