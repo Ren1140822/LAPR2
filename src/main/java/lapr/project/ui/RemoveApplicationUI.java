@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListCellRenderer;
@@ -31,6 +33,7 @@ import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.Removable;
 import lapr.project.model.application.ApplicationInSubmissionState;
 import lapr.project.model.exhibition.ExhibitionOpenApplicationsState;
+import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 
@@ -103,6 +106,16 @@ public class RemoveApplicationUI extends JFrame {
         this.exhibitorResponsible = exhibitorResponsible;
         this.controller = new RemoveApplicationController(this.exhibitionCenter, this.exhibitorResponsible);
         this.removablesList = this.controller.getRemovables(exhibitorResponsible);
+
+        CustomMenuBar customMenuBar = new CustomMenuBar(this.exhibitionCenter, this);
+        setJMenuBar(customMenuBar);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                customMenuBar.exit();
+            }
+        });
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         createComponents();
 
@@ -187,16 +200,15 @@ public class RemoveApplicationUI extends JFrame {
         this.removeRemovableButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                
+
                 Removable removable = RemoveApplicationUI.this.removablesList
                         .get(RemoveApplicationUI.this.removablesJList.getSelectedIndex());
-                if(RemoveApplicationUI.this.controller.remove(removable)){
-                RemoveApplicationUI.this.updateRemovablesList();
-                JOptionPane.showMessageDialog(RemoveApplicationUI.this,
-                        "The application was successful removed!",
-                        "Success", JOptionPane.INFORMATION_MESSAGE);
-                }
-                else{
+                if (RemoveApplicationUI.this.controller.remove(removable)) {
+                    RemoveApplicationUI.this.updateRemovablesList();
+                    JOptionPane.showMessageDialog(RemoveApplicationUI.this,
+                            "The application was successful removed!",
+                            "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
                     JOptionPane.showMessageDialog(RemoveApplicationUI.this,
                             "Error while removing the application!",
                             "Error", JOptionPane.ERROR_MESSAGE);
