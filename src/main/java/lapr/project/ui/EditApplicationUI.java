@@ -633,7 +633,7 @@ public class EditApplicationUI extends JFrame {
                         dispose();
                     } else {
                         JOptionPane.showMessageDialog(EditApplicationUI.this,
-                                String.format("The values didn't change"),
+                                String.format("The values are invalid."),
                                 "Invalid Data",
                                 JOptionPane.ERROR_MESSAGE);
                     }

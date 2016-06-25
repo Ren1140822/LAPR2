@@ -93,7 +93,7 @@ public class UseCaseButtonsGenerator {
      * @return use case 4 button
      */
     public static JButton generateUseCase4Button(ExhibitionCenter exhibitionCenter, StaffMember staffMember) {
-        JButton useCase4Button = new JButton("Create Exhibition");
+        JButton useCase4Button = new JButton("Evaluate Applications");
 
         useCase4Button.addActionListener(new ActionListener() {
             @Override
@@ -113,7 +113,7 @@ public class UseCaseButtonsGenerator {
      * @return use case 5 button
      */
     public static JButton generateUseCase5Button(ExhibitionCenter exhibitionCenter, ExhibitorResponsible exhibitorResponsible) {
-        JButton useCase5Button = new JButton("Create Exhibition");
+        JButton useCase5Button = new JButton("Create Exhibition Application");
 
         useCase5Button.addActionListener(new ActionListener() {
             @Override
@@ -401,7 +401,7 @@ public class UseCaseButtonsGenerator {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 // TODO implement UC21
-                //new ShowRemovedApplicationsUI(exhibitionCenter, organizer);
+                new ShowRemovedApplicationsUI(exhibitionCenter, organizer);
             }
         });
 
@@ -422,7 +422,7 @@ public class UseCaseButtonsGenerator {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 // TODO implement UC22
-                //new DefineStand(exhibitionCenter, exhibitionsManager);
+                new DefineStandUI(exhibitionCenter);
             }
         });
 
@@ -463,7 +463,6 @@ public class UseCaseButtonsGenerator {
         useCase24Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                // TODO verify, isn't the exhibitor manager the actor?
                 new ExportExhibitionUI(exhibitionCenter, organizer);
             }
         });
