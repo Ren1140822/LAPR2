@@ -116,6 +116,6 @@ public class Encrypter {
 
     public static void main(String[] args) {
         Encrypter enc = new Encrypter();
-        System.out.println(enc.encryptStringKeyword("1140822@isep.ipp.pt", 15, ""));
+        System.out.println(enc.decryptStringKeyword("fffffffffffffff", 15, "lolololol"));
     }
 }
