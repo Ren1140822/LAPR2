@@ -26,6 +26,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import lapr.project.controller.DefineResourceController;
 import lapr.project.model.ExhibitionCenter;
+import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.Resource;
 import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.ModelListSelectable;
@@ -51,6 +52,11 @@ public class DefineResourceUI extends JFrame {
      * The exhibition center.
      */
     private final ExhibitionCenter exhibitionCenter;
+
+    /**
+     * The exhibitions manager logged in.
+     */
+    private final ExhibitionsManager exhibitionsManager;
 
     /**
      * The resources list.
@@ -87,10 +93,11 @@ public class DefineResourceUI extends JFrame {
      *
      * @param exhibitionCenter the exhibition center
      */
-    public DefineResourceUI(ExhibitionCenter exhibitionCenter) {
+    public DefineResourceUI(ExhibitionCenter exhibitionCenter, ExhibitionsManager exhibitionsManager) {
         super(WINDOW_TITLE);
 
         this.exhibitionCenter = exhibitionCenter;
+        this.exhibitionsManager = exhibitionsManager;
         this.controller = new DefineResourceController(this.exhibitionCenter);
 
         this.resourcesList = this.controller.getResources();
@@ -260,6 +267,7 @@ public class DefineResourceUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                new DashboardUI(DefineResourceUI.this.exhibitionCenter, DefineResourceUI.this.exhibitionsManager);
             }
         });
 
@@ -281,7 +289,8 @@ public class DefineResourceUI extends JFrame {
      */
     public static void main(String[] args) {
         ExhibitionCenter ec = DefaultInstantiator.createExhibitionCenter();
-        new DefineResourceUI(ec);
+        ExhibitionsManager em = ec.getExhibitionsManagerRegister().getExhibitionsManagerList().get(0);
+        new DefineResourceUI(ec, em);
     }
 
 }

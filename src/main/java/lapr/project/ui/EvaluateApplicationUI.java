@@ -110,7 +110,7 @@ public class EvaluateApplicationUI extends JFrame {
     /**
      * Padding border.
      */
-    final static EmptyBorder PADDING_BORDER = new EmptyBorder(10, 10, 10, 10);
+    private final static EmptyBorder PADDING_BORDER = new EmptyBorder(10, 10, 10, 10);
 
     /**
      * Creates an instance of evalute application UI receiving a exhibition
@@ -315,6 +315,7 @@ public class EvaluateApplicationUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                new DashboardUI(exhibitionCenter, staffMember);
             }
         });
 

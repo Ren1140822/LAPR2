@@ -169,9 +169,7 @@ public class EditApplicationUI extends JFrame {
         DialogSelectable dialogSelectable = new DialogSelectable(this, this.submittablesList, chooseSubmittableText);
         Submittable selectedSubmittable = (Submittable) dialogSelectable.getSelectedItem();
 
-        if (selectedSubmittable == null) {
-            dispose();
-        } else {
+        if (selectedSubmittable != null) {
 
             this.controller.setSubmittable(selectedSubmittable);
             this.editable = this.controller.cloneEditable();
@@ -199,7 +197,10 @@ public class EditApplicationUI extends JFrame {
             setSize(WINDOW_DIMEMNSION);
             setLocationRelativeTo(null);
             setVisible(true);
-
+        }
+        else{
+            dispose();
+            new DashboardUI(exhibitionCenter, exhibitorResponsible);
         }
     }
 
@@ -631,6 +632,7 @@ public class EditApplicationUI extends JFrame {
                                 JOptionPane.INFORMATION_MESSAGE);
 
                         dispose();
+                        new DashboardUI(exhibitionCenter, exhibitorResponsible);
                     } else {
                         JOptionPane.showMessageDialog(EditApplicationUI.this,
                                 String.format("The values are invalid."),
@@ -662,6 +664,7 @@ public class EditApplicationUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 dispose();
+                new DashboardUI(exhibitionCenter, exhibitorResponsible);
             }
         });
 

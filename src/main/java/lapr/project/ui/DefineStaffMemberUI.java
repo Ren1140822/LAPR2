@@ -111,9 +111,7 @@ public class DefineStaffMemberUI extends JFrame {
         DialogSelectable dialogSelectable = new DialogSelectable(this, this.exhibitionList);
         this.selectedExhibition = (Exhibition) dialogSelectable.getSelectedItem();
 
-        if (this.selectedExhibition == null) {
-            dispose();
-        } else {
+        if (this.selectedExhibition != null) {
             defineStaffController.setExhibition(selectedExhibition);
             createComponents();
             pack();
@@ -121,6 +119,9 @@ public class DefineStaffMemberUI extends JFrame {
             setMinimumSize(new Dimension(getWidth(), getHeight()));
             setLocationRelativeTo(null);
             setVisible(true);
+        } else {
+            dispose();
+            new DashboardUI(exhibitionCenter, organizer);
         }
     }
 
@@ -143,7 +144,6 @@ public class DefineStaffMemberUI extends JFrame {
                 if (jListUsers.getSelectedValue() != null) {
                     int response = JOptionPane.showConfirmDialog(rootPane, "Do you wish to define this user as Staff member?", "Define Staff member", JOptionPane.YES_NO_OPTION);
                     if (response == JOptionPane.YES_OPTION) {
-
 
                         response = JOptionPane.showConfirmDialog(rootPane, "User added as Staff Member. Do you wish to confirm?", "Define Staff member", JOptionPane.YES_NO_OPTION);
                         if (response == JOptionPane.YES_OPTION) {

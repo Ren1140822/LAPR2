@@ -211,7 +211,7 @@ public class UseCaseButtonsGenerator {
                 if (parentFrame != null) {
                     parentFrame.dispose();
                 }
-                new DefineResourceUI(exhibitionCenter);
+                new DefineResourceUI(exhibitionCenter, exhibitionsManager);
             }
         });
 
@@ -499,7 +499,7 @@ public class UseCaseButtonsGenerator {
                 if (parentFrame != null) {
                     parentFrame.dispose();
                 }
-                new DefineStandUI(exhibitionCenter);
+                new DefineStandUI(exhibitionCenter, exhibitionsManager);
             }
         });
 

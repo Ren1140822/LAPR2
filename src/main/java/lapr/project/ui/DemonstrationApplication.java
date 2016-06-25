@@ -83,6 +83,11 @@ public class DemonstrationApplication extends JFrame {
     private final ExhibitionCenter exhibitionCenter;
 
     /**
+     * The exhibitor responsible logged in.
+     */
+    private final ExhibitorResponsible exhibitorResponsible;
+
+    /**
      * the product list.
      */
     private List<Product> productsList;
@@ -170,42 +175,51 @@ public class DemonstrationApplication extends JFrame {
     /**
      * Constructs instance of this class.
      *
+     * @param exhibitorResponsible the exhibitor responsible logged in
      * @param exhibitionCenter the exhibition center
      */
     public DemonstrationApplication(ExhibitorResponsible exhibitorResponsible, ExhibitionCenter exhibitionCenter) {
         super(WINDOW_TITLE);
 
         this.exhibitionCenter = exhibitionCenter;
+        this.exhibitorResponsible = exhibitorResponsible;
         this.demonstrationApplicationController = new CreateDemonstrationApplicationController(exhibitorResponsible, exhibitionCenter);
         this.exhibitionList = demonstrationApplicationController.getExhibitionListWithApplicationsInSubmission();
 
         DialogSelectable dialogSelectable = new DialogSelectable(this, this.exhibitionList);
         this.selectedExhibition = (Exhibition) dialogSelectable.getSelectedItem();
-        if (this.selectedExhibition == null) {
-            dispose();
-        } else {
+
+        if (this.selectedExhibition != null) {
 
             this.demonstrationsList = demonstrationApplicationController.getDemonstrationsList(selectedExhibition);
             dialogSelectable = new DialogSelectable(this, demonstrationsList);
             this.selectedDemonstration = (Demonstration) dialogSelectable.getSelectedItem();
-            demonstrationApplicationController.newDemonstrationApplication(selectedDemonstration);
-            this.setLayout(new GridLayout(1, 3));
-            createComponents();
-            CustomMenuBar customMenuBar = new CustomMenuBar(this.exhibitionCenter, this);
-            setJMenuBar(customMenuBar);
-            addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosing(WindowEvent e) {
-                    customMenuBar.exit();
-                }
-            });
+            if (this.selectedDemonstration != null) {
+                demonstrationApplicationController.newDemonstrationApplication(selectedDemonstration);
+                this.setLayout(new GridLayout(1, 3));
+                createComponents();
+                CustomMenuBar customMenuBar = new CustomMenuBar(this.exhibitionCenter, this);
+                setJMenuBar(customMenuBar);
+                addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        customMenuBar.exit();
+                    }
+                });
 
-            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-            pack();
-            setSize(WINDOW_SIZE);
-            setMinimumSize(new Dimension(getWidth(), getHeight()));
-            setLocationRelativeTo(null);
-            setVisible(true);
+                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                pack();
+                setSize(WINDOW_SIZE);
+                setMinimumSize(new Dimension(getWidth(), getHeight()));
+                setLocationRelativeTo(null);
+                setVisible(true);
+            } else {
+                dispose();
+                new DashboardUI(exhibitionCenter, exhibitorResponsible);
+            }
+        } else {
+            dispose();
+            new DashboardUI(exhibitionCenter, exhibitorResponsible);
         }
     }
 
@@ -521,7 +535,7 @@ public class DemonstrationApplication extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                //new LoginUI(centroExposicoes);
+                new DemonstrationApplication(exhibitorResponsible, exhibitionCenter);
 
             }
         });

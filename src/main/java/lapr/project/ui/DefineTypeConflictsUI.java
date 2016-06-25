@@ -235,6 +235,7 @@ public class DefineTypeConflictsUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                new DashboardUI(exhibitionCenter, exhibitionsManager);
             }
         });
 

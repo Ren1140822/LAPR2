@@ -166,6 +166,7 @@ public class ExhibitionApplicationUI extends JFrame {
     /**
      * Constructs instance of this class.
      *
+     * @param exhibitorResponsible the exhibitor responsible logged in
      * @param exhibitionCenter the exhibition center
      */
     public ExhibitionApplicationUI(ExhibitorResponsible exhibitorResponsible, ExhibitionCenter exhibitionCenter) {
@@ -178,9 +179,7 @@ public class ExhibitionApplicationUI extends JFrame {
 
         DialogSelectable dialogSelectable = new DialogSelectable(this, this.exhibitionList);
         this.selectedExhibition = (Exhibition) dialogSelectable.getSelectedItem();
-        if (this.selectedExhibition == null) {
-            dispose();
-        } else {
+        if (this.selectedExhibition != null) {
 
             exhibitionApplicationController.newApplication(selectedExhibition);
             this.demonstrationsList = exhibitionApplicationController.getDemonstrationsList(selectedExhibition).getDemonstrationsList();
@@ -202,6 +201,9 @@ public class ExhibitionApplicationUI extends JFrame {
             setMinimumSize(new Dimension(getWidth(), getHeight()));
             setLocationRelativeTo(null);
             setVisible(true);
+        } else {
+            dispose();
+            new DashboardUI(exhibitionCenter, exhibitorResponsible);
         }
     }
 
@@ -486,8 +488,8 @@ public class ExhibitionApplicationUI extends JFrame {
                             message = String.format("Application submitted!");
                             confirm = JOptionPane.showConfirmDialog(rootPane, message, "Sucess!", JOptionPane.PLAIN_MESSAGE);
                             dispose();
+                            new DashboardUI(exhibitionCenter, thisExhibitorResponsible);
                         }
-                        //new LoginUI(centroExposicoes);
                     }
 
                 } catch (NumberFormatException ex) {
@@ -523,7 +525,7 @@ public class ExhibitionApplicationUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                //new LoginUI(centroExposicoes);
+                new DashboardUI(exhibitionCenter, thisExhibitorResponsible);
 
             }
         });
