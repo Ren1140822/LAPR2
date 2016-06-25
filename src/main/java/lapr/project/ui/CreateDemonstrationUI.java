@@ -55,6 +55,16 @@ import lapr.project.utils.DefaultInstantiator;
 public class CreateDemonstrationUI extends JFrame {
 
     /**
+     * The exhibition center.
+     */
+    private final ExhibitionCenter exhibitionCenter;
+    
+    /**
+     * The organizer logged in.
+     */
+    private final Organizer organizer;
+    
+    /**
      * The controller to create demonstrations.
      */
     private final CreateDemonstrationController controller;
@@ -133,6 +143,8 @@ public class CreateDemonstrationUI extends JFrame {
     public CreateDemonstrationUI(ExhibitionCenter exhibitionCenter, Organizer organizer) {
         super(WINDOW_TITLE);
 
+        this.exhibitionCenter = exhibitionCenter;
+        this.organizer = organizer;
         this.controller = new CreateDemonstrationController(exhibitionCenter, organizer);
 
         final String chooseExhibitionText = "Which exhibition do you wish to insert a new demostration?";
@@ -140,9 +152,7 @@ public class CreateDemonstrationUI extends JFrame {
                 controller.getExhibitionsList(organizer), chooseExhibitionText);
         Exhibition selectedExhibition = (Exhibition) dialogSelectable.getSelectedItem();
 
-        if (selectedExhibition == null) {
-            dispose();
-        } else {
+        if (selectedExhibition != null) {
 
             this.controller.setSelectedExhibition(selectedExhibition);
 
@@ -167,6 +177,9 @@ public class CreateDemonstrationUI extends JFrame {
             setMinimumSize(new Dimension(getWidth(), getHeight()));
             setLocationRelativeTo(null);
             setVisible(true);
+        } else {
+            dispose();
+            new DashboardUI(exhibitionCenter, organizer);
         }
     }
 
@@ -490,9 +503,8 @@ public class CreateDemonstrationUI extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-
-//                dispose();
-                // TODO
+                dispose();
+                new DashboardUI(CreateDemonstrationUI.this.exhibitionCenter, CreateDemonstrationUI.this.organizer);
             }
         });
         return cancelBtn;

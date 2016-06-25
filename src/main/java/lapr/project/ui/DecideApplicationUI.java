@@ -104,24 +104,30 @@ public class DecideApplicationUI extends JFrame {
         this.decideApplicationController = new DecideApplicationController(organizer, exhibitionCenter);
         this.applicationsList = decideApplicationController.getDecisablesByOrganizer();
         DialogSelectable dialogSelectable = new DialogSelectable(this, applicationsList);
-        this.decideApplicationController.setDecisable(((Decisable) dialogSelectable.getSelectedItem()));
-        evaluationsList = decideApplicationController.getEvaluationsList();
-        createComponents();
-        CustomMenuBar customMenuBar = new CustomMenuBar(exhibitionCenter, this);
-        setJMenuBar(customMenuBar);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                customMenuBar.exit();
-            }
-        });
+        if (dialogSelectable.getSelectedItem() != null) {
+            this.decideApplicationController.setDecisable(((Decisable) dialogSelectable.getSelectedItem()));
+            evaluationsList = decideApplicationController.getEvaluationsList();
+            createComponents();
+            CustomMenuBar customMenuBar = new CustomMenuBar(exhibitionCenter, this);
+            setJMenuBar(customMenuBar);
+            addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    customMenuBar.exit();
+                }
+            });
 
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        pack();
-        setSize(WINDOW_SIZE);
-        setMinimumSize(new Dimension(getWidth(), getHeight()));
-        setLocationRelativeTo(null);
-        setVisible(true);
+            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            pack();
+            setSize(WINDOW_SIZE);
+            setMinimumSize(new Dimension(getWidth(), getHeight()));
+            setLocationRelativeTo(null);
+            setVisible(true);
+        }
+        else {
+            dispose();
+            new DashboardUI(exhibitionCenter, organizer);
+        }
     }
 
     /**

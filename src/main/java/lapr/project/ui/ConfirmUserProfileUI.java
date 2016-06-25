@@ -23,6 +23,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import lapr.project.controller.ConfirmUserProfileController;
 import lapr.project.model.ExhibitionCenter;
+import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.User;
 import lapr.project.ui.components.CustomMenuBar;
 //import lapr.project.ui.components.DialogSeeUserProfile;
@@ -53,6 +54,11 @@ public class ConfirmUserProfileUI extends JFrame {
      * The exhibition center.
      */
     private final ExhibitionCenter exhibitionCenter;
+
+    /**
+     * The exhibitions manager.
+     */
+    private final ExhibitionsManager exhibitionsManager;
 
     /**
      * The unconfirmed users list.
@@ -93,11 +99,13 @@ public class ConfirmUserProfileUI extends JFrame {
      * Creates an instance of confirm user profile user interface.
      *
      * @param exhibitionCenter the exhibition center
+     * @param exhibitionsManager the exhibitions manager
      */
-    public ConfirmUserProfileUI(ExhibitionCenter exhibitionCenter) {
+    public ConfirmUserProfileUI(ExhibitionCenter exhibitionCenter, ExhibitionsManager exhibitionsManager) {
         super(WINDOW_TITLE);
 
         this.exhibitionCenter = exhibitionCenter;
+        this.exhibitionsManager = exhibitionsManager;
         this.controller = new ConfirmUserProfileController(this.exhibitionCenter);
 
         this.unconfirmedUserProfilesList = controller.getUnconfirmedUserList();
@@ -145,7 +153,7 @@ public class ConfirmUserProfileUI extends JFrame {
     private JPanel createUserPanel() {
         modelUser = new ModelListSelectable(unconfirmedUserProfilesList);
         unconfirmedUserProfilesJList = new JList(modelUser);
-        unconfirmedUserProfilesJList.setPreferredSize(new Dimension(250,350));
+        unconfirmedUserProfilesJList.setPreferredSize(new Dimension(250, 350));
         unconfirmedUserProfilesJList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -218,6 +226,7 @@ public class ConfirmUserProfileUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                new DashboardUI(ConfirmUserProfileUI.this.exhibitionCenter, ConfirmUserProfileUI.this.exhibitionsManager);
             }
         });
 
@@ -241,8 +250,9 @@ public class ConfirmUserProfileUI extends JFrame {
      */
     public static void main(String[] args) {
         ExhibitionCenter ex = DefaultInstantiator.createExhibitionCenter();
+        ExhibitionsManager em = ex.getExhibitionsManagerRegister().getExhibitionsManagerList().get(0);
         ex.getUsersRegister().getUsersList().add(new User());
-        new ConfirmUserProfileUI(ex);
+        new ConfirmUserProfileUI(ex, em);
     }
 
 }
