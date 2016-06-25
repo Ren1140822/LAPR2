@@ -95,6 +95,11 @@ public class CreateUserProfileUI extends JFrame {
     private JPasswordField passwordFieldConfirmPassword;
     
     /**
+     * UserCypher textfield component.
+     */
+    private JTextField textFieldUserCypher;
+    
+    /**
      * Users JList component.
      */
     private JList relatedUsersJList;
@@ -152,14 +157,14 @@ public class CreateUserProfileUI extends JFrame {
      */
     public CreateUserProfileUI(ExhibitionCenter exhibitionCenter) {
         super(WINDOW_TITLE);
-        
+             
         this.exhibitionCenter = exhibitionCenter;
         this.controller = new CreateUserProfileController(exhibitionCenter);
         
         // Create a new user
         this.controller.newUser();
         
-        setLayout(new GridLayout(1, 2));
+        setLayout(new GridLayout(1, 2));     
         createComponents();
         
         pack();
@@ -190,12 +195,14 @@ public class CreateUserProfileUI extends JFrame {
         JLabel emailLabel = new JLabel("Email:", JLabel.RIGHT);
         JLabel passwordLabel = new JLabel("Password:", JLabel.RIGHT);
         JLabel confirmPasswordLabel = new JLabel("ConfirmPassword:", JLabel.RIGHT);
+        JLabel userCypherLabel = new JLabel("UserCypher:", JLabel.RIGHT);
         
         textFieldName = new JTextField(FIELD_WIDTH);
         textFieldUsername = new JTextField(FIELD_WIDTH);
         textFieldEmail = new JTextField(FIELD_WIDTH);
         passwordFieldPassword = new JPasswordField(FIELD_WIDTH);
         passwordFieldConfirmPassword = new JPasswordField(FIELD_WIDTH);
+        textFieldUserCypher = new JTextField(FIELD_WIDTH);
         
         // Set the main panel
         JPanel panel = new JPanel();
@@ -211,6 +218,7 @@ public class CreateUserProfileUI extends JFrame {
                         .addComponent(emailLabel)
                         .addComponent(passwordLabel)
                         .addComponent(confirmPasswordLabel)
+                        .addComponent(userCypherLabel)
                 )
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(textFieldName)
@@ -218,6 +226,7 @@ public class CreateUserProfileUI extends JFrame {
                         .addComponent(textFieldEmail)
                         .addComponent(passwordFieldPassword)
                         .addComponent(passwordFieldConfirmPassword)
+                        .addComponent(textFieldUserCypher)
                 )
         );
         
@@ -240,6 +249,10 @@ public class CreateUserProfileUI extends JFrame {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(confirmPasswordLabel)
                         .addComponent(passwordFieldConfirmPassword)
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(userCypherLabel)
+                        .addComponent(textFieldUserCypher)
                 )
         );
     
@@ -443,12 +456,13 @@ public class CreateUserProfileUI extends JFrame {
                     String email = textFieldEmail.getText();
                     String password = passwordFieldPassword.getText();
                     String passwordConfirm = passwordFieldConfirmPassword.getText();
+                    String userCypher = textFieldUserCypher.getText();
                     
                     if (!password.equals(passwordConfirm)) {
                         throw new IllegalArgumentException("Passwords do not match");
                     }
                     
-                    if (controller.setUserData(name, username, email, password)) {
+                    if (controller.setUserData(name, username, email, password, userCypher)) {
                         if (controller.registerUser()) {
                             String successMessage = "User created with success";
                             String successTitle = "Success";
@@ -460,6 +474,7 @@ public class CreateUserProfileUI extends JFrame {
                             textFieldEmail.setText("");
                             passwordFieldPassword.setText("");
                             passwordFieldConfirmPassword.setText("");
+                            textFieldUserCypher.setText("");
                             
                             controller.newUser();
                             updateRelatedUsersList();
@@ -508,15 +523,16 @@ public class CreateUserProfileUI extends JFrame {
     
     /**
      * Main
+     * 
      * @param args 
      */
     public static void main(String[] args) {
         ExhibitionCenter ec = new ExhibitionCenter();
         List<User> lu = new ArrayList<>();
-        lu.add(new User("Daniel", "daniell", "email@dd23", "password", new ArrayList<>(),""));
-        lu.add(new User("Fabio", "fabioA", "email@dd24", "password", new ArrayList<>(),""));
-        lu.add(new User("Andre", "andree", "email@dd25", "password", new ArrayList<>(),""));
-        lu.add(new User("Jonas", "pistolas", "email@dd26", "password", new ArrayList<>(),""));
+        lu.add(new User("Daniel", "daniell", "email@dd23", "password", new ArrayList<>(),"3f3r34"));
+        lu.add(new User("Fabio", "fabioA", "email@dd24", "password", new ArrayList<>(),"43f3fe"));
+        lu.add(new User("Andre", "andree", "email@dd25", "password", new ArrayList<>(),"fe3f3f"));
+        lu.add(new User("Jonas", "pistolas", "email@dd26", "password", new ArrayList<>(),"f3ef4f"));
         ec.setUsersRegister(new UsersRegister(lu));
         new CreateUserProfileUI(ec);
     }

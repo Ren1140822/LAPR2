@@ -44,16 +44,19 @@ public class User implements Selectable, Serializable {
 
     /**
      * The user's password.
-     */
+     */    
     private String password;
+    
     /**
      * The users shift for encryption.
-     */
-   private int userShift;
-   /**
+     */    
+    private int userShift;
+    
+    /**
     * The user's cypher.
     */
-   private String userCypher;
+    private String userCypher;
+    
     /**
      * The user's confirmed register status.
      *
@@ -85,6 +88,7 @@ public class User implements Selectable, Serializable {
      * The user's password by default.
      */
     private static final String DEFAULT_PASSWORD = "password";
+    
     /**
      * The default Cypher.
      */
@@ -100,7 +104,7 @@ public class User implements Selectable, Serializable {
         this.password = DEFAULT_PASSWORD;
         this.relatedUsers = new ArrayList<>();
         this.userShift =  new Random().nextInt(20);
-        this.userCypher=DEFAULT_CYPHER;
+        this.userCypher = DEFAULT_CYPHER;
     }
 
     /**
@@ -119,8 +123,8 @@ public class User implements Selectable, Serializable {
         this.email = email;
         this.password = password;
         this.relatedUsers = new ArrayList<>(relatedUsers);
-         this.userShift =  new Random().nextInt(20);
-         this.userCypher =userCypher;
+        this.userShift =  new Random().nextInt(20);
+        this.userCypher = userCypher;
     }
 
     /**
@@ -135,8 +139,8 @@ public class User implements Selectable, Serializable {
         this.password = user.password;
         this.confirmedStatus = user.confirmedStatus;
         this.relatedUsers = new ArrayList<>(user.getRelatedUsers());
-         this.userShift =  user.userShift;
-         this.userCypher = user.userCypher;
+        this.userShift =  user.userShift;
+        this.userCypher = user.userCypher;
     }
 
     /**
