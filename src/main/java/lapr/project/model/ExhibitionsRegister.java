@@ -314,7 +314,7 @@ public class ExhibitionsRegister implements Importable {
                 submittablesList.add(exhibition);
 
                 DemonstrationsList demonstrationsList = exhibition.getDemonstrationsList();
-                List<Demonstration> decidedDemosntrations = demonstrationsList.getDecidedDemonstrations();
+                List<Demonstration> decidedDemosntrations = demonstrationsList.getDecidedApplicationsDemonstrations();
 
                 submittablesList.addAll(decidedDemosntrations);
             }
