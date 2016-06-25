@@ -11,6 +11,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,6 +41,7 @@ import lapr.project.model.User;
 import lapr.project.model.demonstration.DemonstrationCreatedState;
 import lapr.project.model.exhibition.ExhibitionCreatedState;
 import lapr.project.model.exhibition.ExhibitionDecidedApplicationsState;
+import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.DialogEffectiveDemo;
 import lapr.project.ui.components.DialogSelectable;
 import lapr.project.ui.components.ModelListSelectable;
@@ -161,6 +164,16 @@ public class DefineEffectiveDemonstrationsUI extends JFrame {
         } else {
 
             this.controller.setExhibitionAndDemonstrationsList(selectedExhibition);
+
+            CustomMenuBar customMenuBar = new CustomMenuBar(exhibitionCenter, this);
+            setJMenuBar(customMenuBar);
+            addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    customMenuBar.exit();
+                }
+            });
+            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
             setLayout(new BorderLayout());
             createComponents();
@@ -475,8 +488,7 @@ public class DefineEffectiveDemonstrationsUI extends JFrame {
 
                     if (confirma == JOptionPane.YES_OPTION) {
                         controller.updateDemosntrationList();
-//                        dispose();
-                        // TODO:
+                        dispose();
                     }
                 } catch (IllegalArgumentException ex) {
 
@@ -507,8 +519,7 @@ public class DefineEffectiveDemonstrationsUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-//                dispose();
-                // TODO
+                dispose();
             }
         });
         return cancelBtn;

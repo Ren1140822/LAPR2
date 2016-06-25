@@ -84,7 +84,6 @@ public class DashboardUI extends JFrame {
             }
         });
 
-
         if (this.actor instanceof ExhibitionsManager || this.actor instanceof Organizer) {
             createComponentsAdmin();
         } else if (this.actor instanceof StaffMember || this.actor instanceof ExhibitorResponsible) {
@@ -121,10 +120,9 @@ public class DashboardUI extends JFrame {
 
         tabPane.add("Applications Analysis", new GenerateEvaluationsStatisticsPanel(this.exhibitionCenter, this.actor));
         if (this.actor instanceof ExhibitionsManager) {
-            // TODO review this
-            //tabPane.add("Keywords Ranking", new GenerateKeywordsRankingPanel(this.exhibitionCenter));
+            tabPane.add("Keywords Ranking", new GenerateKeywordsRankingPanel(this.exhibitionCenter));
         } else if (this.actor instanceof Organizer) {
-            //tabPane.add("Staff Evaluations analysis", new StaffEvaluationsAnalysisPanel(this.exhibitionCenter));
+            tabPane.add("Staff Evaluations analysis", new StaffEvaluationsAnalysisPanel(this.exhibitionCenter));
         }
 
         return this.tabPane;
@@ -195,8 +193,8 @@ public class DashboardUI extends JFrame {
      */
     public static void main(String[] args) {
         ExhibitionCenter exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
-        //Actor actor = exhibitionCenter.getExhibitionsManagerRegister().getExhibitionsManagerList().get(0); // ExhibitionsManager
-        Actor actor = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getOrganizersList().getOrganizersList().get(0); // Organizer
+        Actor actor = exhibitionCenter.getExhibitionsManagerRegister().getExhibitionsManagerList().get(0); // ExhibitionsManager
+//        Actor actor = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getOrganizersList().getOrganizersList().get(0); // Organizer
         //Actor actor = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0).getExhibitor().getExhibitorResponsible(); // ExhibitorResponsible
         //Actor actor = exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0).getStaffList().getStaffList().get(0); // StaffMember
         new DashboardUI(exhibitionCenter, actor);

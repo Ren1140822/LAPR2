@@ -6,6 +6,9 @@ package lapr.project.ui.components;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableCellRenderer;
 import lapr.project.controller.StaffEvaluationsAnalysisController;
@@ -72,7 +76,18 @@ public class StaffEvaluationsAnalysisPanel extends JPanel {
 
         controller = new StaffEvaluationsAnalysisController(exhibitionCenter);
 
-        setLayout(new BorderLayout());
+        if (exhibitionCenter.getRecord().getStaffList().size() > 0) {
+            createComponents();
+        } else {
+            createNoExhibitionsComponents();
+        }
+    }
+
+    /**
+     * Creates the components of the user interface.
+     */
+    private void createComponents() {
+        setLayout(new BorderLayout(0, 10));
 
         add(createTopPanel(), BorderLayout.NORTH);
         add(createTable(), BorderLayout.CENTER);
@@ -188,4 +203,17 @@ public class StaffEvaluationsAnalysisPanel extends JPanel {
         analyticsTable.setModel(new ModelTableStaffMemeberAnalytics(controller.getStaffAnalyticsList()));
         analyticsTable.repaint();
     }
+
+    /**
+     * Creates the no exhibitions components.
+     */
+    private void createNoExhibitionsComponents() {
+        setLayout(new GridBagLayout());
+        JPanel componentsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+
+        componentsPanel.add(new JLabel("No exhibitions available.", SwingConstants.CENTER));
+
+        add(componentsPanel, new GridBagConstraints());
+    }
+
 }
