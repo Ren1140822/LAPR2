@@ -773,4 +773,9 @@ public class Demonstration implements Submittable, Selectable, Serializable {
     public boolean isExhibition() {
         return false;
     }
+
+    @Override
+    public String getName() {
+        return getTitle();
+    }
 }
