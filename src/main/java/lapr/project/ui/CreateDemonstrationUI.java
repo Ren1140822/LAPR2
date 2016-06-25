@@ -10,9 +10,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.font.TextAttribute;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -31,14 +29,12 @@ import javax.swing.event.ListSelectionListener;
 import lapr.project.controller.CreateDemonstrationController;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
-import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.ExhibitionsRegister;
 import lapr.project.model.Organizer;
 import lapr.project.model.OrganizersList;
 import lapr.project.model.Place;
 import lapr.project.model.Resource;
 import lapr.project.model.User;
-import lapr.project.model.UsersRegister;
 import lapr.project.model.exhibition.ExhibitionCreatedState;
 import lapr.project.ui.components.DialogSelectable;
 import lapr.project.ui.components.ModelListSelectable;
@@ -167,7 +163,7 @@ public class CreateDemonstrationUI extends JFrame {
     private void createComponents() {
 
         add(createSetDataPanel(), BorderLayout.NORTH);
-        add(createOrganizersListAndButtonsPanel(), BorderLayout.CENTER);
+        add(createResourcesListAndButtonsPanel(), BorderLayout.CENTER);
     }
 
     /**
@@ -307,7 +303,7 @@ public class CreateDemonstrationUI extends JFrame {
                     if (selectedResource == null) {
                         throw new NullPointerException();
                     }
-                    
+
                     if (controller.addResource(selectedResource)) {
                         updateResourcesList();
                         String successMessage = "Resource added successfully!";
@@ -383,7 +379,7 @@ public class CreateDemonstrationUI extends JFrame {
      *
      * @return panel with organizers list & confirmation buttons
      */
-    private JPanel createOrganizersListAndButtonsPanel() {
+    private JPanel createResourcesListAndButtonsPanel() {
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(PADDING_BORDER);
@@ -432,7 +428,7 @@ public class CreateDemonstrationUI extends JFrame {
                     String data = String.format("Title: %s%n"
                             + "Description: %s%n"
                             + "Place: %s%n",
-                            controller.getDemonstration().getTitle(), 
+                            controller.getDemonstration().getTitle(),
                             controller.getDemonstration().getDescription(),
                             controller.getDemonstration().getPlace().getLocation());
 
@@ -464,9 +460,9 @@ public class CreateDemonstrationUI extends JFrame {
                 }
             }
         });
-        
+
         this.rootPane.setDefaultButton(confirmBtn);
-        
+
         return confirmBtn;
     }
 
@@ -505,29 +501,22 @@ public class CreateDemonstrationUI extends JFrame {
     public static void main(String[] args) {
         ExhibitionCenter ec = DefaultInstantiator.createExhibitionCenter();
 
-        List<User> lu = new ArrayList<>();
-        lu.add(new User("Daniel", "daniell", "email@dd23", "password", new ArrayList<>(),""));
-        lu.add(new User("Fabio", "fabioA", "email@dd24", "password", new ArrayList<>(),""));
-        lu.add(new User("Andre", "andree", "email@dd25", "password", new ArrayList<>(),""));
-        lu.add(new User("Jonas", "pistolas", "email@dd26", "password", new ArrayList<>(),""));
-        ec.setUsersRegister(new UsersRegister(lu));
-        
-        Organizer o = new Organizer(new User("Daniel", "daniell", "email@dd23", "password", new ArrayList<>(),""));
+        Organizer o = new Organizer(new User("Daniel", "daniell", "email@dd23", "password", new ArrayList<>(), ""));
         List<Organizer> lo = new ArrayList<>();
         lo.add(o);
-        
+
         Exhibition e1 = new Exhibition();
         e1.setState(new ExhibitionCreatedState(e1));
         e1.setOrganizersList(new OrganizersList(lo));
-        
+
         Exhibition e2 = new Exhibition();
         e2.setState(new ExhibitionCreatedState(e2));
         e2.setOrganizersList(new OrganizersList(lo));
-        
+
         List<Exhibition> le = new ArrayList<>();
         le.add(e1);
         le.add(e2);
-        
+
         ec.setExhibitionsRegister(new ExhibitionsRegister(le));
 
         new CreateDemonstrationUI(ec, o);

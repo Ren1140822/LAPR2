@@ -9,6 +9,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -39,6 +41,7 @@ import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.Keyword;
 import lapr.project.model.Product;
 import lapr.project.model.exhibition.ExhibitionOpenApplicationsState;
+import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.DialogSelectable;
 import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.ui.components.ModelTableDemonstrationsList;
@@ -128,7 +131,7 @@ public class ExhibitionApplicationUI extends JFrame {
      * Text field for title.
      */
     private JTextField txtTitle;
-    
+
     /**
      * The exhibitor responsible.
      */
@@ -165,12 +168,12 @@ public class ExhibitionApplicationUI extends JFrame {
      *
      * @param exhibitionCenter the exhibition center
      */
-    public ExhibitionApplicationUI(ExhibitorResponsible exhibitorResponsible,ExhibitionCenter exhibitionCenter) {
+    public ExhibitionApplicationUI(ExhibitorResponsible exhibitorResponsible, ExhibitionCenter exhibitionCenter) {
         super("Exhibition Application");
 
         this.exhibitionCenter = exhibitionCenter;
-        this.thisExhibitorResponsible =exhibitorResponsible;
-        this.exhibitionApplicationController = new ExhibitionApplicationController(exhibitorResponsible,exhibitionCenter);
+        this.thisExhibitorResponsible = exhibitorResponsible;
+        this.exhibitionApplicationController = new ExhibitionApplicationController(exhibitorResponsible, exhibitionCenter);
         this.exhibitionList = exhibitionApplicationController.getExhibitionList();
 
         DialogSelectable dialogSelectable = new DialogSelectable(this, this.exhibitionList);
@@ -184,7 +187,16 @@ public class ExhibitionApplicationUI extends JFrame {
 
             this.setLayout(new GridLayout(1, 3));
             createComponents();
+            CustomMenuBar customMenuBar = new CustomMenuBar(this.exhibitionCenter, this);
+            setJMenuBar(customMenuBar);
+            addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    customMenuBar.exit();
+                }
+            });
 
+            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             pack();
             setSize(WINDOW_SIZE);
             setMinimumSize(new Dimension(getWidth(), getHeight()));
@@ -460,7 +472,7 @@ public class ExhibitionApplicationUI extends JFrame {
                     String title = txtTitle.getText();
                     float exhibitorArea = Float.parseFloat(txtExhibitorArea.getText());
                     int numberInvites = Integer.parseInt(txtNumberInvites.getText());
-                    exhibitionApplicationController.setData(title, companyName, address, cellphone, exhibitorArea, numberInvites,thisExhibitorResponsible);
+                    exhibitionApplicationController.setData(title, companyName, address, cellphone, exhibitorArea, numberInvites, thisExhibitorResponsible);
 
                     List<Demonstration> selectedDemonstrationsList = getSelectedDemonstrationsList();
                     exhibitionApplicationController.setDemonstrationsList(selectedDemonstrationsList);

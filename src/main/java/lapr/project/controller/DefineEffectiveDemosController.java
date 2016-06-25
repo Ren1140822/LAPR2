@@ -11,6 +11,7 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
 import lapr.project.model.Organizer;
+import lapr.project.model.demonstration.DemonstrationCreatedState;
 
 /**
  * Represents the controller to define demonstrations controller.
@@ -21,12 +22,17 @@ import lapr.project.model.Organizer;
  * @author Renato Oliveira 1140822
  * @author Ricardo Correia 1151231
  */
-public class DefineEfectiveDemosController {
+public class DefineEffectiveDemosController {
 
     /**
      * The exhibition center.
      */
     private final ExhibitionCenter exhibitionCenter;
+
+    /**
+     * The selected exhibition.
+     */
+    private Exhibition selectedExhibition;
 
     /**
      * The exhibitions demonstrations list.
@@ -43,7 +49,7 @@ public class DefineEfectiveDemosController {
      *
      * @param exhibitionCenter Exhibition Center
      */
-    public DefineEfectiveDemosController(ExhibitionCenter exhibitionCenter) {
+    public DefineEffectiveDemosController(ExhibitionCenter exhibitionCenter) {
 
         this.exhibitionCenter = exhibitionCenter;
         this.demonstrationsList = new DemonstrationsList();
@@ -74,12 +80,22 @@ public class DefineEfectiveDemosController {
     }
 
     /**
+     * Obtain selected exhibition.
+     *
+     * @return the selected exhibition
+     */
+    public Exhibition getSelectedExhibition() {
+        return selectedExhibition;
+    }
+
+    /**
      * Set the demonstration list class.
      *
      * @param exhibition exhibtion that contains the selected demonstrations
      * list class
      */
-    public void setDemonstrationsList(Exhibition exhibition) {
+    public void setExhibitionAndDemonstrationsList(Exhibition exhibition) {
+        this.selectedExhibition = exhibition;
         this.demonstrationsList = exhibition.getDemonstrationsList();
     }
 
@@ -90,6 +106,15 @@ public class DefineEfectiveDemosController {
      */
     public List<Demonstration> getDemonstrationsList() {
         return this.demonstrationsList.getDemonstrationsList();
+    }
+
+    /**
+     * Obtain the list of already defined demonstrations.
+     *
+     * @return the list of already defined demonstrations
+     */
+    public List<Demonstration> getEffectiveDemosList() {
+        return this.demonstrationsList.getDecidedDemonstrations();
     }
 
     /**
@@ -147,6 +172,16 @@ public class DefineEfectiveDemosController {
     }
 
     /**
+     * Validate demonstrations common dates
+     *
+     * @return true if dates are valid
+     */
+    public boolean validateCommonDates() {
+
+        return this.demonstrationsList.validateCommonDates(selectedExhibition.getStartDate());
+    }
+
+    /**
      * Update a demonstration in the demonstrations list.
      *
      * @return true if demonstration is sucessfully updated.
@@ -158,27 +193,32 @@ public class DefineEfectiveDemosController {
         isUpdated = this.efectiveDemo.setDecided();
 
         if (isUpdated) {
-
             this.demonstrationsList.setTimers(this.efectiveDemo, exhibitionCenter);
-            this.demonstrationsList.updateDemonstration(this.efectiveDemo);
         }
         return isUpdated;
     }
 
     /**
+     * Revert to previous state.
+     *
+     * @param demonstration demonstration to revert.
+     */
+    public void revertDemonstration(Demonstration demonstration) {
+        demonstration.setCurrentState(new DemonstrationCreatedState(demonstration));
+    }
+
+    /**
      * Updates the selected exhibition's demonstrations list.
      *
-     * @param selectedExhibition the selected exhibition
      * @return true if all demonstrations are updated.
      */
-    public boolean updateDemosntrationList(Exhibition selectedExhibition) {
+    public boolean updateDemosntrationList() {
 
         boolean isUpdated = this.demonstrationsList.updateDemonstrationsList();
-        
+
         selectedExhibition.setDemonstrationsList(demonstrationsList);
-        
+
         return isUpdated;
     }
-    
-    
+
 }

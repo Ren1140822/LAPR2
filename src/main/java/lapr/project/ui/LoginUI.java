@@ -90,7 +90,7 @@ public class LoginUI extends JFrame {
         loginController = new LoginController(this.exhibitionCenter);
         thisJframe = this;
         createComponents();
-
+        
         this.setSize(WINDOW_SIZE);
         pack();
         setMinimumSize(new Dimension(getWidth(), getHeight()));
