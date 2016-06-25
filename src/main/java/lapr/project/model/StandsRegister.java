@@ -100,6 +100,16 @@ public class StandsRegister implements Serializable {
     private boolean addStand(Stand stand) {
         return this.standsList.add(stand);
     }
+    
+    /**
+     * Removes a given stand.
+     * 
+     * @param stand stand to be removed
+     * @return true if is successfully removed and false otherwise
+     */
+    public boolean removeStand(Stand stand) {
+        return this.standsList.contains(stand) ? this.standsList.remove(stand) : false;
+    }
 
     /**
      * Return the textual representation of a standsRegister.
