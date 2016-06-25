@@ -88,7 +88,7 @@ public class ApplicationAnalysis {
         for (Float value : this.answersAverage) {
             sum += value;
         }
-        return (float) sum / this.answersAverage.size();
+        return sum / this.answersAverage.size();
     }
 
     /**
@@ -115,7 +115,7 @@ public class ApplicationAnalysis {
      * @return display info.
      */
     public String getApplicationDisplayInfo() {
-        return ((Selectable) this.application).getDisplayInfo();
+        return this.application.getDisplayInfo();
     }
 
     /**
@@ -187,7 +187,7 @@ public class ApplicationAnalysis {
 
         return this.application.equals(otherApplicationAnalysis.application)
                 && this.answersAverage.equals(otherApplicationAnalysis.answersAverage)
-                && this.totalAverage == otherApplicationAnalysis.totalAverage;
+                && Math.abs(this.totalAverage - otherApplicationAnalysis.totalAverage) < 0.01;
     }
 
     @Override

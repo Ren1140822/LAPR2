@@ -4,7 +4,6 @@
 package lapr.project.controller;
 
 import java.util.List;
-import javafx.util.Pair;
 import lapr.project.model.Actor;
 import lapr.project.model.ApplicationAnalysis;
 import lapr.project.model.Exhibition;
@@ -33,7 +32,7 @@ public class GenerateEvaluationsStatisticsController {
      * The actor logged in.
      */
     private final Actor actor;
-    
+
     /**
      * The selected exhibition.
      */
@@ -59,23 +58,23 @@ public class GenerateEvaluationsStatisticsController {
         } else if (this.actor instanceof Organizer) {
             exhibitions = exhibitionsRegister.getDecidedExhibitionsByOrganizer((Organizer) this.actor);
         }
-        
+
         return exhibitions;
     }
-    
+
     /**
      * Select an exhibition.
-     * 
+     *
      * @param exhibition selected exhibiton
      */
     public void selectExhibition(Exhibition exhibition) {
         this.exhibition = exhibition;
     }
-    
+
     public float getAcceptanceRate() {
         return this.exhibition.getAcceptanceRate();
     }
-    
+
     public List<ApplicationAnalysis> getApplicationsAnalysis() {
         return this.exhibition.getApplicationsAnalysis();
     }
