@@ -91,6 +91,14 @@ public class DecideApplicationUI extends JFrame {
      * The list of evaluations.
      */
     private List<Evaluation> evaluationsList;
+    /**
+     * The exhibition center.
+     */
+    private ExhibitionCenter exhibitionCenter;
+    /**
+     * The organizer.
+     */
+    private Organizer organizer;
 
     /**
      * Creates an instance of this class receiving an organizer and exhibition
@@ -101,14 +109,16 @@ public class DecideApplicationUI extends JFrame {
      */
     public DecideApplicationUI(Organizer organizer, ExhibitionCenter exhibitionCenter) {
         super(WINDOW_TITLE);
-        this.decideApplicationController = new DecideApplicationController(organizer, exhibitionCenter);
+        this.exhibitionCenter=exhibitionCenter;
+        this.organizer=organizer;
+        this.decideApplicationController = new DecideApplicationController(this.organizer,this. exhibitionCenter);
         this.applicationsList = decideApplicationController.getDecisablesByOrganizer();
         DialogSelectable dialogSelectable = new DialogSelectable(this, applicationsList);
         if (dialogSelectable.getSelectedItem() != null) {
             this.decideApplicationController.setDecisable(((Decisable) dialogSelectable.getSelectedItem()));
             evaluationsList = decideApplicationController.getEvaluationsList();
             createComponents();
-            CustomMenuBar customMenuBar = new CustomMenuBar(exhibitionCenter, this);
+            CustomMenuBar customMenuBar = new CustomMenuBar(this.exhibitionCenter, this);
             setJMenuBar(customMenuBar);
             addWindowListener(new WindowAdapter() {
                 @Override
@@ -126,7 +136,7 @@ public class DecideApplicationUI extends JFrame {
         }
         else {
             dispose();
-            new DashboardUI(exhibitionCenter, organizer);
+            new DashboardUI(this.exhibitionCenter, this.organizer);
         }
     }
 
@@ -237,11 +247,28 @@ public class DecideApplicationUI extends JFrame {
      */
     public JPanel createButtonsPanel() {
         JButton button = createInsertDecisionJButton();
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(new FlowLayout());
         panel.add(button);
+        panel.add(createBackButton());
         return panel;
     }
+   /**
+    * Creates the back button.
+    * @return  the back button
+    */
+ public JButton createBackButton(){
+        JButton button = new JButton("Back");
+             button.setPreferredSize(new Dimension(150, 40));
+        button.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new DashboardUI(exhibitionCenter, organizer);
+            }
+        });
+        return button;
+    }
     /**
      * Creates the insert decision button.
      *

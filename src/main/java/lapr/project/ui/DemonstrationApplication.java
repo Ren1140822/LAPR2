@@ -438,9 +438,11 @@ public class DemonstrationApplication extends JFrame {
         JPanel p = new JPanel(new FlowLayout());
         p.add(createConfirmButton());
         p.add(createCancelButton());
-
+     
         return p;
     }
+
+    
 
     /**
      * Creates confirm button
@@ -535,7 +537,7 @@ public class DemonstrationApplication extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new DemonstrationApplication(exhibitorResponsible, exhibitionCenter);
+                new DashboardUI( exhibitionCenter,exhibitorResponsible);
 
             }
         });

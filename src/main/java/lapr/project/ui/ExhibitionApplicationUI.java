@@ -436,6 +436,7 @@ public class ExhibitionApplicationUI extends JFrame {
         return p;
     }
 
+    
     /**
      * Creates confirm button
      *

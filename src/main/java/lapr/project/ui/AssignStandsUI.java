@@ -110,6 +110,14 @@ public class AssignStandsUI extends JFrame {
      * The list model of selectables.
      */
     ModelListSelectable modelSelectableStands;
+    /**
+     * The exhibition center.
+     */
+    private ExhibitionCenter exhibitionCenter;
+    /**
+     * The organizer.
+     */
+    private Organizer organizer;
 
     /**
      * Builds instance of this class receiving organizer and exhibition center
@@ -119,7 +127,9 @@ public class AssignStandsUI extends JFrame {
      * @param exhibitionCenter the exhibition center
      */
     public AssignStandsUI(Organizer organizer, ExhibitionCenter exhibitionCenter) {
-        this.assignStandsController = new AssignStandsController(organizer, exhibitionCenter);
+        this.exhibitionCenter=exhibitionCenter;
+        this.organizer=organizer;
+        this.assignStandsController = new AssignStandsController(this.organizer, this.exhibitionCenter);
         List<Submittable> submittableList = new ArrayList(assignStandsController.getExhibitionsListByOrganizerInApplicationsDecidedState(organizer));
         setTitle("Assign Stands");
         DialogSelectable dialogSelectable = new DialogSelectable(this, submittableList);
@@ -133,7 +143,9 @@ public class AssignStandsUI extends JFrame {
             addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosing(WindowEvent e) {
+                   
                     customMenuBar.exit();
+                     
                 }
             });
 
@@ -146,7 +158,7 @@ public class AssignStandsUI extends JFrame {
         }
         else {
             dispose();
-            new DashboardUI(exhibitionCenter, organizer);
+            new DashboardUI(this.exhibitionCenter, this.organizer);
         }
     }
 
@@ -220,10 +232,29 @@ public class AssignStandsUI extends JFrame {
     public JPanel createButtonPanel() {
         JPanel panel = new JPanel(new FlowLayout());
         JButton button = createConfirmJButton();
+        JButton buttonBack =createBackButton();
         panel.add(button);
+        panel.add(buttonBack);
         return panel;
     }
 
+    /**
+     * Createsthe back button.
+     * @return the button
+     */
+    public JButton createBackButton(){
+        JButton button = new JButton("Back");
+             button.setPreferredSize(new Dimension(150, 40));
+        button.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new DashboardUI(exhibitionCenter, organizer);
+            }
+        });
+        return button;
+    }
     /**
      * Creates the JList of applications.
      *

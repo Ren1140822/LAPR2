@@ -13,6 +13,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -142,6 +143,10 @@ public class ImportExhibitionUI extends JFrame {
      * The exhibitions center.
      */
     ExhibitionCenter exhibitionCenter;
+    /**
+     * The exhibitions manager.
+     */
+    ExhibitionsManager exhibitionsManager;
 
     /**
      * Creates instance of this class.
@@ -152,6 +157,7 @@ public class ImportExhibitionUI extends JFrame {
     public ImportExhibitionUI(ExhibitionsManager manager, ExhibitionCenter exhibitionCenter) {
         super(WINDOW_TITLE);
         this.exhibitionCenter = exhibitionCenter;
+        this.exhibitionsManager=manager;
         this.importExhibitionController = new ImportExhibitionController(manager, this.exhibitionCenter);
 
         this.setSize(WINDOW_SIZE);
@@ -178,6 +184,7 @@ public class ImportExhibitionUI extends JFrame {
         JPanel panel = createListsPanel();
         add(menu, BorderLayout.NORTH);
         add(panel, BorderLayout.CENTER);
+        add(createBackButton(),BorderLayout.SOUTH);
     }
 
     /**
@@ -307,7 +314,20 @@ public class ImportExhibitionUI extends JFrame {
         conflictsJList.setModel(new ModelListSelectable(conflictsList));
 
     }
+ 
+    public JButton createBackButton(){
+        JButton button = new JButton("Back");
+             button.setPreferredSize(new Dimension(100, 40));
+        button.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new DashboardUI(exhibitionCenter, exhibitionsManager);
+            }
+        });
+        return button;
+    }
     public static void main(String[] args) {
         ExhibitionCenter exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
         ExhibitionsManager manager = new ExhibitionsManager();
