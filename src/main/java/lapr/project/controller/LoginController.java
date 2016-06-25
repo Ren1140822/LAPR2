@@ -63,9 +63,12 @@ public class LoginController {
      */
     public User verifyLogin(String userName, String password) {
         usersRegister = this.exhibitionCenter.getUsersRegister();
+
         for (User user : usersRegister.getUsersList()) {
-            if (userName.equals(user.getUsername()) && password.equals(user.getPassword())) {
-                return user;
+            if (user.getConfirmedStatus()) {
+                if (userName.equals(user.getUsername()) && user.comparePassword(password)) {
+                    return user;
+                }
             }
         }
         return null;
@@ -113,7 +116,7 @@ public class LoginController {
      * @param user the user
      * @return true if user is an Exhibitor responsible, false otherwise
      */
-    public boolean  verifyUserByExhibitorResponsible(User user) {
+    public boolean verifyUserByExhibitorResponsible(User user) {
         for (Exhibition exhibition : exhibitionsRegister.getExhibitionsList()) {
             ApplicationsList applicationsList = exhibition.getApplicationsList();
             for (Application application : applicationsList.getApplicationsList()) {
@@ -136,6 +139,7 @@ public class LoginController {
 
     /**
      * Verifies user by exhibitions Manager.
+     *
      * @param user the user
      * @return the exhibitions manager if user is one
      */

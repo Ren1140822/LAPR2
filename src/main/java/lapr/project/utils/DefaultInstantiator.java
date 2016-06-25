@@ -46,7 +46,7 @@ import lapr.project.model.mechanisms.attribution.EquitableLoadMechanism;
 /**
  * Util class to create instances to tests.
  *
- * @author Daniel Gonçalves 1151452
+ * @author Daniel Goncalves 1151452
  * @author Eric Amaral 1141570
  * @author Ivo Ferro 1151159
  * @author Renato Oliveira 1140822

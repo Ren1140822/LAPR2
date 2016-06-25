@@ -19,7 +19,7 @@ public class Encrypter {
     public Encrypter() {
 
     }
-    private static final String alphabet = ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,_!?@");
+    private static final String alphabet = ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890ÁáÃãÂâÀàÇçÉéÊêÍíÓóÔôÕõÚú.,_!?@ ");
 
     /**
      * Encrypts a string using ceasers cypher.
@@ -33,9 +33,13 @@ public class Encrypter {
         for (char letter : word.toCharArray()) {
             int index = alphabet.indexOf(letter);
             if (index + shift >= alphabet.length()) {
-                index = (index + shift) - alphabet.length() - 1;
+                index = (index + shift) - alphabet.length();
+                encryptedWord += alphabet.charAt(index);
+
+            } else {
+                encryptedWord += alphabet.charAt(index + shift);
             }
-            encryptedWord += alphabet.charAt(index + shift);
+            ;
         }
         return encryptedWord;
     }
@@ -51,10 +55,14 @@ public class Encrypter {
         String decryptedWord = "";
         for (char letter : word.toCharArray()) {
             int index = alphabet.indexOf(letter);
-            if (index - shift <= 0) {
-                index = (index - shift) + alphabet.length() + 1;
+            if (index - shift < 0) {
+                index = (index - shift) + alphabet.length();
+                decryptedWord += alphabet.charAt(index);
+
+            } else {
+                decryptedWord += alphabet.charAt(index - shift);
             }
-            decryptedWord += alphabet.charAt(index - shift);
+
         }
         return decryptedWord;
     }
@@ -80,9 +88,12 @@ public class Encrypter {
         for (char letter : word.toCharArray()) {
             int index = keywordAlphabet.indexOf(letter);
             if (index + shift >= keywordAlphabet.length()) {
-                index = (index + shift) - keywordAlphabet.length() - 1;
+                index = (index + shift) - keywordAlphabet.length();
+                encryptedWord += keywordAlphabet.charAt(index);
+            } else {
+                encryptedWord += keywordAlphabet.charAt(index + shift);
             }
-            encryptedWord += keywordAlphabet.charAt(index + shift);
+
         }
         return encryptedWord;
     }
@@ -98,7 +109,7 @@ public class Encrypter {
     public static String decryptStringKeyword(String word, int shift, String keyword) {
         String decryptedWord = "";
         String keywordAlphabet = keyword;
-        for (int i = 0; i< alphabet.length(); i++) {
+        for (int i = 0; i < alphabet.length(); i++) {
             keywordAlphabet += alphabet.charAt(i);
             if (keywordAlphabet.length() == alphabet.length()) {
                 break;
@@ -106,16 +117,20 @@ public class Encrypter {
         }
         for (char letter : word.toCharArray()) {
             int index = keywordAlphabet.indexOf(letter);
-            if (index - shift <= 0) {
-                index = (index - shift) + keywordAlphabet.length() + 1;
+            if (index - shift < 0) {
+
+                index = (index - shift) + keywordAlphabet.length();
+                decryptedWord += keywordAlphabet.charAt(index);
+            } else {
+                decryptedWord += keywordAlphabet.charAt(index-shift);
             }
-            decryptedWord += keywordAlphabet.charAt(index - shift);
+
         }
         return decryptedWord;
     }
 
     public static void main(String[] args) {
         Encrypter enc = new Encrypter();
-        System.out.println(enc.decryptStringKeyword("fffffffffffffff", 15, "lolololol"));
+        System.out.println(enc.decryptStringCaesar("HermipdKsrêepziw", 4));
     }
 }

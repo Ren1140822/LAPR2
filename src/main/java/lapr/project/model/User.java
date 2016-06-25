@@ -124,7 +124,7 @@ public class User implements Selectable, Serializable {
         this.email = email;
         this.password = password;
         this.relatedUsers = new ArrayList<>(relatedUsers);
-        this.userShift =  new Random().nextInt(20);
+        this.userShift =  new Random().nextInt(19)+1;
         this.userCypher = userCypher;
     }
 
@@ -260,6 +260,10 @@ public class User implements Selectable, Serializable {
         this.relatedUsers = new ArrayList<>(relatedUsers);
     }
 
+    
+    public boolean comparePassword(String password){
+       return password.equals(Encrypter.decryptStringCaesar(getPassword(), userShift));
+    }
     /**
      * Validates the user.
      *

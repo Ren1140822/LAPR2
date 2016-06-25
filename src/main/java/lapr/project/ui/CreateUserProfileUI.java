@@ -194,8 +194,8 @@ public class CreateUserProfileUI extends JFrame {
         JLabel usernameLabel = new JLabel("Username:", JLabel.RIGHT);
         JLabel emailLabel = new JLabel("Email:", JLabel.RIGHT);
         JLabel passwordLabel = new JLabel("Password:", JLabel.RIGHT);
-        JLabel confirmPasswordLabel = new JLabel("ConfirmPassword:", JLabel.RIGHT);
-        JLabel userCypherLabel = new JLabel("UserCypher:", JLabel.RIGHT);
+        JLabel confirmPasswordLabel = new JLabel("Confirm Password:", JLabel.RIGHT);
+        JLabel userCypherLabel = new JLabel("User Cypher:", JLabel.RIGHT);
         
         textFieldName = new JTextField(FIELD_WIDTH);
         textFieldUsername = new JTextField(FIELD_WIDTH);
@@ -507,7 +507,7 @@ public class CreateUserProfileUI extends JFrame {
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               
+                 dispose();
             }
         });
         return confirmButton;

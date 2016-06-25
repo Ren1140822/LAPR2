@@ -170,7 +170,7 @@ public class LoginUI extends JFrame {
                 DialogLogin dialog = new DialogLogin(thisJframe, user, exhibitionCenter);
                 }
                 catch(NullPointerException exception){
-                    JOptionPane.showMessageDialog(rootPane, "Wrong credentials!","Error!",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "Wrong credentials or user not yet confirmed!","Error!",JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -187,7 +187,7 @@ public class LoginUI extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                    new CreateUserProfileUI(exhibitionCenter);
             }
         });
         return button;
