@@ -79,4 +79,24 @@ public class MechanismsRegister implements Serializable {
         return s.toString();
     }
 
+    /**
+     * Compares if the given object is equal to this mechanisms register.
+     *
+     * @param otherObject Object to compare
+     * @return true if the objects are equals, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || getClass() != otherObject.getClass()) {
+            return false;
+        }
+        MechanismsRegister otherMechanismsRegister = (MechanismsRegister) otherObject;
+
+        return this.attributionMechanismList.equals(otherMechanismsRegister.attributionMechanismList);
+    }
+
 }

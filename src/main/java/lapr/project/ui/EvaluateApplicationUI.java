@@ -28,6 +28,7 @@ import lapr.project.model.StaffAttribution;
 import lapr.project.model.StaffMember;
 import lapr.project.model.Submittable;
 import lapr.project.model.application.ApplicationInEvaluationState;
+import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.DialogEvaluateApplication;
 import lapr.project.ui.components.DialogSeeApplication;
 import lapr.project.ui.components.ModelListSelectable;
@@ -124,6 +125,8 @@ public class EvaluateApplicationUI extends JFrame {
 
         this.controller = new EvaluateApplicationsController(this.exhibitionCenter);
         this.submittablesList = this.controller.getSubmittablesByStaff(staffMember);
+
+        setJMenuBar(new CustomMenuBar(this.exhibitionCenter, this));
 
         createComponents();
 

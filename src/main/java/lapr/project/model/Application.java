@@ -70,4 +70,5 @@ public interface Application extends Selectable {
      * @return returns the exhibitor
      */
     public Exhibitor getExhibitor();
+    
 }

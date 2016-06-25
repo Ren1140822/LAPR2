@@ -3,6 +3,8 @@
  */
 package lapr.project.model;
 
+import java.util.List;
+
 /**
  * Interface for removable applications.
  *
@@ -49,4 +51,6 @@ public interface Removable extends Selectable {
      * @return the exhibitor responsible
      */
     ExhibitorResponsible getExhibitorResponsible();
+    
+    
 }

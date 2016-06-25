@@ -56,7 +56,7 @@ public class ExhibitionCenterFile {
      * @param exhibitionCenter exhibition center
      * @return true if it is successful saved, false otherwise
      */
-    public static boolean guardar(String fileName, ExhibitionCenter exhibitionCenter) {
+    public static boolean save(String fileName, ExhibitionCenter exhibitionCenter) {
         try {
             ObjectOutputStream out = new ObjectOutputStream(
                     new FileOutputStream(fileName));

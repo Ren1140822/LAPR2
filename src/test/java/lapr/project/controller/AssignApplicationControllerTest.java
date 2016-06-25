@@ -3,7 +3,6 @@
  */
 package lapr.project.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
@@ -48,7 +47,7 @@ public class AssignApplicationControllerTest {
 
     /**
      * Test of getSubmittablesInChangedConflictsByOrganizer method, of class
-     * AssignApplicationControllerTest.
+     * AssignApplicationController.
      */
     @Test
     public void getSubmittablesInChangedConflictsByOrganizer() {
@@ -56,10 +55,18 @@ public class AssignApplicationControllerTest {
 
         AssignApplicationController instance = controller;
 
-        List<Submittable> expectedResult = new ArrayList();
-        expectedResult.add(eInCorrectState);
+        int expectedResult = 0;
 
-        List<Submittable> result = instance.getSubmittablesInChangedConflictsByOrganizer(this.organizer);
+        List<Submittable> resultList = instance.getSubmittablesInChangedConflictsByOrganizer(this.organizer);
+        int result = 0;
+        
+        for (Submittable submitable: resultList) {
+            Exhibition exhibition = (Exhibition)submitable;
+            if (!exhibition.hasOrganizer(organizer) || !exhibition.getState().isChangedConflitcts()) {
+                result++;
+            }
+        }
+        
         assertEquals(expectedResult, result);
     }
 }

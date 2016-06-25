@@ -25,6 +25,7 @@ import javax.swing.event.ListSelectionListener;
 import lapr.project.controller.DefineResourceController;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.Resource;
+import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 
@@ -91,6 +92,8 @@ public class DefineResourceUI extends JFrame {
         this.controller = new DefineResourceController(this.exhibitionCenter);
 
         this.resourcesList = this.controller.getResources();
+
+        setJMenuBar(new CustomMenuBar(this.exhibitionCenter, this));
 
         createComponents();
 

@@ -58,7 +58,7 @@ public class DefineTypeConflictsControllerTest {
             }
         };
 
-        this.expResult = new ConflictType(conflictDetectionMechanism, "TipoConflitoFamiliar");
+        //this.expResult = new ConflictType(conflictDetectionMechanism, "TipoConflitoFamiliar");
     }
 
     /**
@@ -67,9 +67,33 @@ public class DefineTypeConflictsControllerTest {
     @Test
     public void testNewConflictType() {
         System.out.println("newConflictType");
-        ConflictType result;
-        assertTrue(this.defineTypeConflictsController.newConflictType(conflictDetectionMechanism, "TipoConflitoFamiliar"));
+        boolean resultNew = this.defineTypeConflictsController.newConflictType();
+        assertTrue(resultNew);
+    }
+    
 
+    /**
+     * Test of newConflictType method, of class DefineTypeConflictsController.
+     */
+    @Test
+    public void testConflictTypeSetData() {
+        System.out.println("newConflictType");
+        this.defineTypeConflictsController.newConflictType();
+        boolean resultData = this.defineTypeConflictsController.setDataConflictType("cenas");
+        assertTrue(resultData);
+    }
+    
+
+    /**
+     * Test of newConflictType method, of class DefineTypeConflictsController.
+     */
+    @Test
+    public void testNewConflictTypeAddToRegister() {
+        System.out.println("newConflictType");
+        this.defineTypeConflictsController.newConflictType();
+        this.defineTypeConflictsController.setDataConflictType("cenas");
+        boolean resultAdd = this.defineTypeConflictsController.registerTypeConflict();
+        assertTrue(resultAdd);
     }
 
 }
