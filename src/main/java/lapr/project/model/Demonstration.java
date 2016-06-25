@@ -59,7 +59,7 @@ public class Demonstration implements Submittable, Selectable, Serializable {
     /**
      * The exhibition's timer.
      */
-    private final Timer timer;
+    private transient final Timer timer;
 
     /**
      * The demonstration's staff list.
