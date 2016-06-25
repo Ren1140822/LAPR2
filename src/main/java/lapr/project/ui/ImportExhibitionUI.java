@@ -58,6 +58,11 @@ public class ImportExhibitionUI extends JFrame {
      */
     private Exhibition selectedExhibition;
 
+    
+    /**
+     * The window title.
+     */
+     final static String WINDOW_TITLE= "Import exhibition";
     /**
      * Label size.
      */
@@ -134,6 +139,10 @@ public class ImportExhibitionUI extends JFrame {
      * JList of conflicts.
      */
     JList conflictsJList;
+    /**
+     * The exhibitions center.
+     */
+    ExhibitionCenter exhibitionCenter;
 
     /**
      * Creates instance of this class.
@@ -142,7 +151,10 @@ public class ImportExhibitionUI extends JFrame {
      * @param exhibitionCenter the exhibitions center
      */
     public ImportExhibitionUI(ExhibitionsManager manager, ExhibitionCenter exhibitionCenter) {
-        this.importExhibitionController = new ImportExhibitionController(manager, exhibitionCenter);
+        super(WINDOW_TITLE);
+        this.exhibitionCenter =exhibitionCenter;
+        this.importExhibitionController = new ImportExhibitionController(manager,this. exhibitionCenter);
+        
         this.setSize(WINDOW_SIZE);
         this.staffList = new ArrayList();
         this.organizersList = new ArrayList();
@@ -150,15 +162,9 @@ public class ImportExhibitionUI extends JFrame {
         this.applicationsList = new ArrayList();
         this.staffAttributionsList = new ArrayList();
         this.conflictsList = new ArrayList();
-        createComponents();
-        CustomMenuBar customMenuBar = new CustomMenuBar(exhibitionCenter, this);
-        setJMenuBar(customMenuBar);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                customMenuBar.exit();
-            }
-        });
+       
+        
+         createComponents();
         pack();
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setVisible(true);
@@ -169,6 +175,7 @@ public class ImportExhibitionUI extends JFrame {
      */
     public void createComponents() {
         JMenuBar menu = createJMenuBar();
+        
         JPanel panel = createListsPanel();
         add(menu, BorderLayout.NORTH);
         add(panel, BorderLayout.CENTER);
@@ -180,10 +187,18 @@ public class ImportExhibitionUI extends JFrame {
      * @return The jmenu bar
      */
     public JMenuBar createJMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
+       CustomMenuBar customMenuBar = new CustomMenuBar(exhibitionCenter, this);
+       
+        setJMenuBar(customMenuBar);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                customMenuBar.exit();
+            }
+        });
         JMenu menu = createJMenu();
-        menuBar.add(menu);
-        return menuBar;
+        customMenuBar.add(menu);
+        return customMenuBar;
     }
 
     /**
