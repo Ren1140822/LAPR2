@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -95,5 +96,12 @@ public class ExhibitorResponsible implements Actor, Serializable {
         ExhibitorResponsible otherExhibitorResponsible = (ExhibitorResponsible) otherObject;
 
         return this.user.equals(otherExhibitorResponsible.user);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 61 * hash + Objects.hashCode(this.user);
+        return hash;
     }
 }

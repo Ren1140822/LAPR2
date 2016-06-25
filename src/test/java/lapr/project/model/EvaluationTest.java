@@ -34,7 +34,7 @@ public class EvaluationTest {
         answers.add(4);
         answers.add(1);
         answers.add(3);
-        evaluation = new Evaluation(answers, new StaffAttribution());
+        evaluation = new Evaluation(answers, new StaffMember());
     }
 
     /**
@@ -57,7 +57,7 @@ public class EvaluationTest {
         answers.add(3);
         answers.add(4);
         answers.add(1);
-        Evaluation invalidInstance = new Evaluation(answers, new StaffAttribution());
+        Evaluation invalidInstance = new Evaluation(answers, new StaffMember());
         assertFalse(invalidInstance.validate());
     }
 

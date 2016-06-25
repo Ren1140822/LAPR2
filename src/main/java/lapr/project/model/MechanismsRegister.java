@@ -6,6 +6,7 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Representsa mechanism register for attribution mechanism list.
@@ -97,6 +98,13 @@ public class MechanismsRegister implements Serializable {
         MechanismsRegister otherMechanismsRegister = (MechanismsRegister) otherObject;
 
         return this.attributionMechanismList.equals(otherMechanismsRegister.attributionMechanismList);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.attributionMechanismList);
+        return hash;
     }
 
 }

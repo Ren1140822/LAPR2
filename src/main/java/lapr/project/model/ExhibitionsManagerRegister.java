@@ -6,6 +6,7 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a users register to store exhibition managers.
@@ -104,6 +105,13 @@ public class ExhibitionsManagerRegister implements Serializable {
         ExhibitionsManagerRegister otherExhibitionsManagerRegister = (ExhibitionsManagerRegister) otherObject;
 
         return this.exhibitionsManagerList.equals(otherExhibitionsManagerRegister.exhibitionsManagerList);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.exhibitionsManagerList);
+        return hash;
     }
 
 }

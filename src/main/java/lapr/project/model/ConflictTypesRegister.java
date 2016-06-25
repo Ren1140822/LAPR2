@@ -6,6 +6,7 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a conflict types register to store conflict types.
@@ -127,5 +128,32 @@ public class ConflictTypesRegister implements Serializable {
         }
         s.append("}");
         return s.toString();
+    }
+
+    /**
+     * Compares two Conflicts Types Register objects.
+     *
+     * @param otherObject Object to compare
+     * @return true if the objects are equals.
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || getClass() != otherObject.getClass()) {
+            return false;
+        }
+        ConflictTypesRegister otherConflictsTypesRegister = (ConflictTypesRegister) otherObject;
+
+        return this.conflictTypesList.equals(otherConflictsTypesRegister.conflictTypesList);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 89 * hash + Objects.hashCode(this.conflictTypesList);
+        return hash;
     }
 }

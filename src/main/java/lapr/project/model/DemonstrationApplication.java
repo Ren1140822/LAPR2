@@ -6,6 +6,7 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -188,7 +189,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      */
     @Override
     public void setKeywordsList(List<Keyword> keywordsList) {
-        this.keywordsList = keywordsList;
+        this.keywordsList = new ArrayList<>(keywordsList);
     }
 
     /**
@@ -283,7 +284,7 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
      * @param evaluationsList evaluations list
      */
     public void setEvaluationsList(List<Evaluation> evaluationsList) {
-        this.evaluationsList = evaluationsList;
+        this.evaluationsList = new ArrayList<>(evaluationsList);
     }
 
     /**
@@ -525,6 +526,18 @@ public class DemonstrationApplication implements Application, Conflictable, Assi
                 && this.evaluationsList.equals(otherDemonstrationApplication.evaluationsList)
                 && this.productsList.equals(otherDemonstrationApplication.productsList) && this.exhibitorArea == otherDemonstrationApplication.exhibitorArea
                 && this.numberInvitations == otherDemonstrationApplication.numberInvitations;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 11 * hash + Objects.hashCode(this.title);
+        hash = 11 * hash + Objects.hashCode(this.exhibitor);
+        hash = 11 * hash + Float.floatToIntBits(this.exhibitorArea);
+        hash = 11 * hash + this.numberInvitations;
+        hash = 11 * hash + Objects.hashCode(this.productsList);
+        hash = 11 * hash + Objects.hashCode(this.evaluationsList);
+        return hash;
     }
 
     @Override

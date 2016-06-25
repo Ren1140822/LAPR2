@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import javafx.util.Pair;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -411,5 +412,12 @@ public class ApplicationsList implements Serializable {
         ApplicationsList otherApplicationsList = (ApplicationsList) otherObject;
 
         return this.applicationsList.equals(otherApplicationsList.applicationsList);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.applicationsList);
+        return hash;
     }
 }

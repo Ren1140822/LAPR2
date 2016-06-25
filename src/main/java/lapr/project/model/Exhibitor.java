@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -173,6 +174,15 @@ public class Exhibitor implements Serializable {
         }
         Exhibitor otherExhibitor = (Exhibitor) otherObject;
         return (this.mobileNumber.equals(otherExhibitor.mobileNumber) && this.address.equals(otherExhibitor.address) && this.name.equals(otherExhibitor.name));
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 11 * hash + Objects.hashCode(this.name);
+        hash = 11 * hash + Objects.hashCode(this.address);
+        hash = 11 * hash + Objects.hashCode(this.mobileNumber);
+        return hash;
     }
 
     public boolean validate() {

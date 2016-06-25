@@ -6,6 +6,7 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -127,6 +128,13 @@ public class Keyword implements Selectable, Comparable<Keyword>, Serializable {
         }
         Keyword otherKeyword = (Keyword) otherObject;
         return this.description.equals(otherKeyword.description);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.description);
+        return hash;
     }
 
     /**

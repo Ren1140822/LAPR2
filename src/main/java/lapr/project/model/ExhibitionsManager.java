@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Represents a exhibitions manager.
@@ -87,5 +88,12 @@ public class ExhibitionsManager implements Actor, Serializable {
         ExhibitionsManager otherExhibitionsManager = (ExhibitionsManager) otherObject;
 
         return this.user.equals(otherExhibitionsManager.user);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(this.user);
+        return hash;
     }
 }

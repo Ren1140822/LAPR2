@@ -6,6 +6,7 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a stands register to store stands.
@@ -99,6 +100,16 @@ public class StandsRegister implements Serializable {
     private boolean addStand(Stand stand) {
         return this.standsList.add(stand);
     }
+    
+    /**
+     * Removes a given stand.
+     * 
+     * @param stand stand to be removed
+     * @return true if is successfully removed and false otherwise
+     */
+    public boolean removeStand(Stand stand) {
+        return this.standsList.contains(stand) ? this.standsList.remove(stand) : false;
+    }
 
     /**
      * Return the textual representation of a standsRegister.
@@ -114,5 +125,32 @@ public class StandsRegister implements Serializable {
         }
         s.append("}");
         return s.toString();
+    }
+
+    /**
+     * Compares if the given object is equal to this stands register.
+     *
+     * @param otherObject Object to compare
+     * @return true if the objects are equals, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || getClass() != otherObject.getClass()) {
+            return false;
+        }
+        StandsRegister otherStandsRegister = (StandsRegister) otherObject;
+
+        return this.standsList.equals(otherStandsRegister.standsList);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.standsList);
+        return hash;
     }
 }

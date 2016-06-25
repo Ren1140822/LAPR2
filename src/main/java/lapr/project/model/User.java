@@ -6,6 +6,7 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -298,6 +299,14 @@ public class User implements Selectable, Serializable {
         User otherUser = (User) otherObject;
 
         return this.username.equals(otherUser.username) || this.email.equals(otherUser.email);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.username);
+        hash = 37 * hash + Objects.hashCode(this.email);
+        return hash;
     }
 
     @Override

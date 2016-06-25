@@ -6,6 +6,7 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -190,5 +191,12 @@ public class ConflictsList implements Serializable {
         ConflictsList otherConflictsList = (ConflictsList) otherObject;
 
         return this.conflictsList.equals(otherConflictsList.conflictsList);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.conflictsList);
+        return hash;
     }
 }

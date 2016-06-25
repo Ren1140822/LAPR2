@@ -74,5 +74,14 @@ public class DefineStandController {
         return this.standsRegister.registerStand(this.stand);
     }
     
+    /**
+     * Remove a stand
+     * 
+     * @param stand stand to be removed
+     * @return true is if removed with success, and false otherwise
+     */
+    public boolean removeStand(Stand stand) {
+        return this.standsRegister.removeStand(stand);
+    }
     
 }

@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -181,6 +182,15 @@ public class Conflict implements Selectable, Serializable {
         Conflict otherConflict = (Conflict) otherObject;
 
         return this.conflictType.equals(otherConflict.conflictType) && this.staffMember.equals(otherConflict.staffMember) && this.application.equals(otherConflict.application);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.conflictType);
+        hash = 47 * hash + Objects.hashCode(this.staffMember);
+        hash = 47 * hash + Objects.hashCode(this.application);
+        return hash;
     }
 
     @Override

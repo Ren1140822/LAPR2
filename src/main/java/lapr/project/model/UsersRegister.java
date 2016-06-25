@@ -6,6 +6,7 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a users register to store users.
@@ -159,4 +160,30 @@ public class UsersRegister implements Serializable {
         return null;
     }
 
+    /**
+     * Compares if the given object is equal to this users register.
+     *
+     * @param otherObject Object to compare
+     * @return true if the objects are equals, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || getClass() != otherObject.getClass()) {
+            return false;
+        }
+        UsersRegister otherUsersRegister = (UsersRegister) otherObject;
+
+        return this.usersList.equals(otherUsersRegister.usersList);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.usersList);
+        return hash;
+    }
 }

@@ -5,6 +5,8 @@ package lapr.project.ui.components;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -18,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import lapr.project.controller.GenerateKeywordRankingsController;
 import lapr.project.model.ExhibitionCenter;
@@ -95,7 +98,19 @@ public class GenerateKeywordsRankingPanel extends JPanel {
         controller = new GenerateKeywordRankingsController(exhibitionCenter);
         submittablesList = controller.getDecidedSubmittables();
 
-        setLayout(new BorderLayout());
+        if (submittablesList.size() > 0) {
+            createComponents();
+        } else {
+            createNoExhibitionsComponents();
+        }
+
+    }
+
+    /**
+     * Creates the components of the user interface.
+     */
+    private void createComponents() {
+        setLayout(new BorderLayout(0, 10));
 
         add(createTopPanel(), BorderLayout.NORTH);
 
@@ -103,11 +118,23 @@ public class GenerateKeywordsRankingPanel extends JPanel {
         controller.setApplicationsList(submittable);
 
         JPanel statisticsPanel = new JPanel(new GridLayout(2, 1));
-        
+
         statisticsPanel.add(createRankingAccepted());
         statisticsPanel.add(createRankingRejected());
-        
+
         add(statisticsPanel, BorderLayout.CENTER);
+    }
+
+    /**
+     * Creates the no exhibitions components.
+     */
+    private void createNoExhibitionsComponents() {
+        setLayout(new GridBagLayout());
+        JPanel componentsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+
+        componentsPanel.add(new JLabel("No exhibitions available.", SwingConstants.CENTER));
+
+        add(componentsPanel, new GridBagConstraints());
     }
 
     /**
@@ -275,7 +302,7 @@ public class GenerateKeywordsRankingPanel extends JPanel {
         JFreeChart chartAccepted = createPieChart(dataSetAccepted, Color.GREEN);
         acceptedKeywordsChart.setChart(chartAccepted);
         acceptedKeywordsChart.repaint();
-        
+
         rejectedKeywordsTable.setModel(new ModelTableKeywordRanking(rejectedRanking));
         PieDataset dataSetRejected = new DefaultPieDataset(createDataset(rejectedRanking));
         JFreeChart chartRejected = createPieChart(dataSetRejected, Color.RED);

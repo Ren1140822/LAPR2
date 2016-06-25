@@ -85,7 +85,6 @@ public class DashboardUI extends JFrame {
             }
         });
 
-
         if (this.actor instanceof ExhibitionsManager || this.actor instanceof Organizer) {
             createComponentsAdmin();
         } else if (this.actor instanceof StaffMember || this.actor instanceof ExhibitorResponsible) {
@@ -122,10 +121,9 @@ public class DashboardUI extends JFrame {
 
         tabPane.add("Applications Analysis", new GenerateEvaluationsStatisticsPanel(this.exhibitionCenter, this.actor));
         if (this.actor instanceof ExhibitionsManager) {
-            // TODO review this
-            //tabPane.add("Keywords Ranking", new GenerateKeywordsRankingPanel(this.exhibitionCenter));
+            tabPane.add("Keywords Ranking", new GenerateKeywordsRankingPanel(this.exhibitionCenter));
         } else if (this.actor instanceof Organizer) {
-            //tabPane.add("Staff Evaluations analysis", new StaffEvaluationsAnalysisPanel(this.exhibitionCenter));
+            tabPane.add("Staff Evaluations analysis", new StaffEvaluationsAnalysisPanel(this.exhibitionCenter));
         }
 
         return this.tabPane;
