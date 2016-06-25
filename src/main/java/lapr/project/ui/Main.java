@@ -41,7 +41,7 @@ class Main {
         if (exhibitionsManagerRegister.hasAnyExhibitionManager()) {
             new LoginUI(exhibitionCenter);
         } else {
-            new CreateUserProfileUI(exhibitionCenter);
+            new CreateUserProfileUI(exhibitionCenter,null);
             
         }
     }

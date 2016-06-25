@@ -37,7 +37,7 @@ import lapr.project.ui.components.ModelListSelectable;
 import lapr.project.utils.DefaultInstantiator;
 
 /**
- * Represents an evaluation.
+ * Represents a stand assignment.
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
