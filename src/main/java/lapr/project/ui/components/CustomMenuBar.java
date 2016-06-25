@@ -13,6 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.ui.LoginUI;
+import lapr.project.utils.ExhibitionCenterFile;
 
 /**
  * A cutom menu bar with log out and exit options.
@@ -29,7 +30,7 @@ public class CustomMenuBar extends JMenuBar {
      * The exhibition center.
      */
     private final ExhibitionCenter exhibitionCenter;
-    
+
     /**
      * The parent JFrame.
      */
@@ -98,8 +99,13 @@ public class CustomMenuBar extends JMenuBar {
     /**
      * Exit from application.
      */
-    private void exit() {
-        this.parentFrame.dispose();
-        // TODO guardar em ficheiro binário
+    public void exit() {
+        boolean isSaved = ExhibitionCenterFile.save(ExhibitionCenterFile.NAME, this.exhibitionCenter);
+
+        if (isSaved) {
+            System.exit(0);
+        } else {
+            System.exit(1);
+        }
     }
 }
