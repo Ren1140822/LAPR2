@@ -6,6 +6,7 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -44,16 +45,19 @@ public class User implements Selectable, Serializable {
 
     /**
      * The user's password.
-     */
+     */    
     private String password;
+    
     /**
      * The users shift for encryption.
-     */
-   private int userShift;
-   /**
+     */    
+    private int userShift;
+    
+    /**
     * The user's cypher.
     */
-   private String userCypher;
+    private String userCypher;
+    
     /**
      * The user's confirmed register status.
      *
@@ -85,6 +89,7 @@ public class User implements Selectable, Serializable {
      * The user's password by default.
      */
     private static final String DEFAULT_PASSWORD = "password";
+    
     /**
      * The default Cypher.
      */
@@ -100,7 +105,7 @@ public class User implements Selectable, Serializable {
         this.password = DEFAULT_PASSWORD;
         this.relatedUsers = new ArrayList<>();
         this.userShift =  new Random().nextInt(20);
-        this.userCypher=DEFAULT_CYPHER;
+        this.userCypher = DEFAULT_CYPHER;
     }
 
     /**
@@ -119,8 +124,8 @@ public class User implements Selectable, Serializable {
         this.email = email;
         this.password = password;
         this.relatedUsers = new ArrayList<>(relatedUsers);
-         this.userShift =  new Random().nextInt(20);
-         this.userCypher =userCypher;
+        this.userShift =  new Random().nextInt(20);
+        this.userCypher = userCypher;
     }
 
     /**
@@ -135,8 +140,8 @@ public class User implements Selectable, Serializable {
         this.password = user.password;
         this.confirmedStatus = user.confirmedStatus;
         this.relatedUsers = new ArrayList<>(user.getRelatedUsers());
-         this.userShift =  user.userShift;
-         this.userCypher = user.userCypher;
+        this.userShift =  user.userShift;
+        this.userCypher = user.userCypher;
     }
 
     /**
@@ -294,6 +299,14 @@ public class User implements Selectable, Serializable {
         User otherUser = (User) otherObject;
 
         return this.username.equals(otherUser.username) || this.email.equals(otherUser.email);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.username);
+        hash = 37 * hash + Objects.hashCode(this.email);
+        return hash;
     }
 
     @Override

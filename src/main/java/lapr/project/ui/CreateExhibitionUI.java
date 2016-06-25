@@ -10,6 +10,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,11 +31,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import lapr.project.controller.CreateExhibitionController;
 import lapr.project.model.ExhibitionCenter;
-import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.Organizer;
 import lapr.project.model.Place;
 import lapr.project.model.User;
 import lapr.project.model.UsersRegister;
+import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.DialogSelectable;
 import lapr.project.ui.components.ModelListSelectable;
 
@@ -53,17 +55,6 @@ public class CreateExhibitionUI extends JFrame {
      */
     private final CreateExhibitionController controller;
 
-    /**
-     * The exhibitions center.
-     */
-    private final ExhibitionCenter exhibitionCenter;
-
-    /**
-     * The logged exhibition manager.
-     */
-    private final ExhibitionsManager exhibitionsManager;
-
-//    private List<User> usersList;
     /**
      * Title Textfield component.
      */
@@ -168,17 +159,24 @@ public class CreateExhibitionUI extends JFrame {
      * Constructor of a Create Exhibition UI Class.
      *
      * @param exhibitionCenter the exhibition center
-     * @param exhibitionsManager the exhibitions manager logged in
      */
-    public CreateExhibitionUI(ExhibitionCenter exhibitionCenter, ExhibitionsManager exhibitionsManager) {
+    public CreateExhibitionUI(ExhibitionCenter exhibitionCenter) {
         super(WINDOW_TITLE);
 
-        this.exhibitionCenter = exhibitionCenter;
-        this.exhibitionsManager = exhibitionsManager;
         this.controller = new CreateExhibitionController(exhibitionCenter);
 
         // Create a new exhibition
         this.controller.newExhibition();
+
+        CustomMenuBar customMenuBar = new CustomMenuBar(exhibitionCenter, this);
+        setJMenuBar(customMenuBar);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                customMenuBar.exit();
+            }
+        });
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         setLayout(new GridLayout(1, 2));
         createComponents();
@@ -549,8 +547,7 @@ public class CreateExhibitionUI extends JFrame {
 
                     if (confirma == JOptionPane.YES_OPTION) {
                         controller.registerExhibition();
-//                        dispose();
-                        // TODO:
+                        dispose();
                     }
                 } catch (IllegalArgumentException ex) {
 
@@ -563,7 +560,7 @@ public class CreateExhibitionUI extends JFrame {
             }
         });
         this.rootPane.setDefaultButton(confirmBtn);
-        
+
         return confirmBtn;
     }
 
@@ -580,8 +577,7 @@ public class CreateExhibitionUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-//                dispose();
-                // TODO
+                dispose();
             }
         });
         return cancelBtn;
@@ -603,13 +599,12 @@ public class CreateExhibitionUI extends JFrame {
         ExhibitionCenter ec = new ExhibitionCenter();
 
         List<User> lu = new ArrayList<>();
-        lu.add(new User("Daniel", "daniell", "email@dd23", "password", new ArrayList<>(),""));
-        lu.add(new User("Fabio", "fabioA", "email@dd24", "password", new ArrayList<>(),""));
-        lu.add(new User("Andre", "andree", "email@dd25", "password", new ArrayList<>(),""));
-        lu.add(new User("Jonas", "pistolas", "email@dd26", "password", new ArrayList<>(),""));
+        lu.add(new User("Daniel", "daniell", "email@dd23", "password", new ArrayList<>(), ""));
+        lu.add(new User("Fabio", "fabioA", "email@dd24", "password", new ArrayList<>(), ""));
+        lu.add(new User("Andre", "andree", "email@dd25", "password", new ArrayList<>(), ""));
+        lu.add(new User("Jonas", "pistolas", "email@dd26", "password", new ArrayList<>(), ""));
         ec.setUsersRegister(new UsersRegister(lu));
 
-        ExhibitionsManager em = new ExhibitionsManager();
-        new CreateExhibitionUI(ec, em);
+        new CreateExhibitionUI(ec);
     }
 }

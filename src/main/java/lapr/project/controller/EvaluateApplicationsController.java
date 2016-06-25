@@ -122,7 +122,7 @@ public class EvaluateApplicationsController {
      * @return true if the evaluation is valida, false otherwise
      */
     public boolean setEvaluation(List<Integer> answersList) {
-        this.evaluation.setStaffAttribution(this.staffAttribution);
+        this.evaluation.setStaffMember(this.staffAttribution.getStaffMember());
         this.evaluation.setAnswersList(answersList);
         return this.evaluation.validate();
     }

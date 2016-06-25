@@ -6,6 +6,7 @@ package lapr.project.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a Resources Register.
@@ -160,6 +161,13 @@ public class ResourcesRegister implements Serializable {
         ResourcesRegister otherResourcesRegister = (ResourcesRegister) otherObject;
 
         return this.resourcesList.equals(otherResourcesRegister.resourcesList);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 13 * hash + Objects.hashCode(this.resourcesList);
+        return hash;
     }
 
 }

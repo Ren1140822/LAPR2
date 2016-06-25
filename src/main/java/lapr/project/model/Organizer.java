@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -106,6 +107,13 @@ public class Organizer implements Actor, Selectable, Serializable {
         Organizer otherOrganizer = (Organizer) otherObject;
 
         return this.user.equals(otherOrganizer.user);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.user);
+        return hash;
     }
 
     @Override

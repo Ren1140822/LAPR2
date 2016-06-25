@@ -5,6 +5,7 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents an application analysis
@@ -187,6 +188,15 @@ public class ApplicationAnalysis {
         return this.application.equals(otherApplicationAnalysis.application)
                 && this.answersAverage.equals(otherApplicationAnalysis.answersAverage)
                 && this.totalAverage == otherApplicationAnalysis.totalAverage;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.application);
+        hash = 67 * hash + Objects.hashCode(this.answersAverage);
+        hash = 67 * hash + Float.floatToIntBits(this.totalAverage);
+        return hash;
     }
 
 }

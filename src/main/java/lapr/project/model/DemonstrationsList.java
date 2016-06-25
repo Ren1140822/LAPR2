@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -495,5 +496,16 @@ public class DemonstrationsList implements Serializable {
                 && this.subEndDate.equals(otherDemonstrationsList.subEndDate)
                 && this.conflictLimitDate.equals(otherDemonstrationsList.conflictLimitDate)
                 && this.evaluationLimitDate.equals(otherDemonstrationsList.evaluationLimitDate);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.demonstrationList);
+        hash = 79 * hash + Objects.hashCode(this.subStartDate);
+        hash = 79 * hash + Objects.hashCode(this.subEndDate);
+        hash = 79 * hash + Objects.hashCode(this.conflictLimitDate);
+        hash = 79 * hash + Objects.hashCode(this.evaluationLimitDate);
+        return hash;
     }
 }

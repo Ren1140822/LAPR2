@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Represents an exhibition center.
@@ -120,7 +121,7 @@ public class ExhibitionCenter implements Serializable {
      * @return exhibitions register
      */
     public ExhibitionsRegister getExhibitionsRegister() {
-        return new ExhibitionsRegister(exhibitionsRegister);
+        return exhibitionsRegister;
     }
 
     /**
@@ -138,7 +139,7 @@ public class ExhibitionCenter implements Serializable {
      * @return users register
      */
     public UsersRegister getUsersRegister() {
-        return new UsersRegister(usersRegister);
+        return usersRegister;
     }
 
     /**
@@ -156,7 +157,7 @@ public class ExhibitionCenter implements Serializable {
      * @return users register
      */
     public ResourcesRegister getResourcesRegister() {
-        return new ResourcesRegister(resourcesRegister);
+        return resourcesRegister;
     }
 
     /**
@@ -174,7 +175,7 @@ public class ExhibitionCenter implements Serializable {
      * @return stands register
      */
     public StandsRegister getStandsRegister() {
-        return new StandsRegister(standsRegister);
+        return standsRegister;
     }
 
     /**
@@ -192,7 +193,7 @@ public class ExhibitionCenter implements Serializable {
      * @return mechanisms register
      */
     public MechanismsRegister getMechanismsRegister() {
-        return new MechanismsRegister(mechanismsRegister);
+        return mechanismsRegister;
     }
 
     /**
@@ -238,7 +239,7 @@ public class ExhibitionCenter implements Serializable {
      * manager register.
      */
     public void setExhibitionsManagerRegister(ExhibitionsManagerRegister exhibitionsManagerRegister) {
-        this.exhibitionsManagerRegister = exhibitionsManagerRegister;
+        this.exhibitionsManagerRegister = new ExhibitionsManagerRegister(exhibitionsManagerRegister);
     }
 
     /**
@@ -285,5 +286,19 @@ public class ExhibitionCenter implements Serializable {
 
         return this.exhibitionsRegister.equals(otherExhibitionCenter.exhibitionsRegister); // TODO : Implement all equals related to ExhibitionCenter attributes
 
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.exhibitionsRegister);
+        hash = 73 * hash + Objects.hashCode(this.usersRegister);
+        hash = 73 * hash + Objects.hashCode(this.resourcesRegister);
+        hash = 73 * hash + Objects.hashCode(this.standsRegister);
+        hash = 73 * hash + Objects.hashCode(this.mechanismsRegister);
+        hash = 73 * hash + Objects.hashCode(this.conflictTypesRegister);
+        hash = 73 * hash + Objects.hashCode(this.exhibitionsManagerRegister);
+        hash = 73 * hash + Objects.hashCode(this.record);
+        return hash;
     }
 }

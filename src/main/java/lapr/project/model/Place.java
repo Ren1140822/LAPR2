@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -95,5 +96,12 @@ public class Place implements Serializable {
         Place otherPlace = (Place) otherObject;
 
         return this.location.equalsIgnoreCase(otherPlace.location);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 19 * hash + Objects.hashCode(this.location);
+        return hash;
     }
 }

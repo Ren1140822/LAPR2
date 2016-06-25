@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -59,7 +60,7 @@ public class Demonstration implements Submittable, Selectable, Serializable {
     /**
      * The exhibition's timer.
      */
-    private final Timer timer;
+    private transient final Timer timer;
 
     /**
      * The demonstration's staff list.
@@ -630,6 +631,19 @@ public class Demonstration implements Submittable, Selectable, Serializable {
                 && this.applicationsList.equals(otherDemonstration.applicationsList)
                 && this.resourcesList.equals(otherDemonstration.resourcesList)
                 && this.staffAttributionsList.equals(otherDemonstration.staffAttributionsList);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + Objects.hashCode(this.description);
+        hash = 17 * hash + Objects.hashCode(this.place);
+        hash = 17 * hash + Objects.hashCode(this.staffList);
+        hash = 17 * hash + Objects.hashCode(this.organizersList);
+        hash = 17 * hash + Objects.hashCode(this.applicationsList);
+        hash = 17 * hash + Objects.hashCode(this.resourcesList);
+        hash = 17 * hash + Objects.hashCode(this.staffAttributionsList);
+        return hash;
     }
 
     /**

@@ -156,7 +156,7 @@ public class DefaultInstantiator {
         answerListNodeJs1.add(1);
         answerListNodeJs1.add(3);
         StaffAttribution staffAttributionNodeJs1 = new StaffAttribution(exhibitionApplicationNodeJs, staffMemberRenato);
-        Evaluation evaluationNodeJs1 = new Evaluation(answerListNodeJs1, staffAttributionNodeJs1);
+        Evaluation evaluationNodeJs1 = new Evaluation(answerListNodeJs1, staffAttributionNodeJs1.getStaffMember());
 
         List<Integer> answerListNodeJs2 = new ArrayList<>();
         answerListNodeJs2.add(2);
@@ -165,7 +165,7 @@ public class DefaultInstantiator {
         answerListNodeJs2.add(2);
         answerListNodeJs2.add(2);
         StaffAttribution staffAttributionNodeJs2 = new StaffAttribution(exhibitionApplicationNodeJs, staffMemberRicardo);
-        Evaluation evaluationNodeJs2 = new Evaluation(answerListNodeJs2, staffAttributionNodeJs2);
+        Evaluation evaluationNodeJs2 = new Evaluation(answerListNodeJs2, staffAttributionNodeJs2.getStaffMember());
 
         List<Evaluation> evaluationsNodeJs = new ArrayList<>();
         evaluationsNodeJs.add(evaluationNodeJs1);
@@ -204,7 +204,7 @@ public class DefaultInstantiator {
         answerListNodeJs1.add(3);
         answerListNodeJs1.add(4);
         StaffAttribution staffAttributionAngularJs1 = new StaffAttribution(demonstrationApplicationAngularJs, staffMemberRenato);
-        Evaluation evaluationAngularJs1 = new Evaluation(answerListAngularJs1, staffAttributionAngularJs1);
+        Evaluation evaluationAngularJs1 = new Evaluation(answerListAngularJs1, staffAttributionAngularJs1.getStaffMember());
 
         List<Evaluation> evaluationsAngularJs = new ArrayList<>();
         evaluationsAngularJs.add(evaluationAngularJs1);

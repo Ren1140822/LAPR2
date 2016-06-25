@@ -38,7 +38,7 @@ public class UseCaseButtonsGenerator {
         useCase1Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                new CreateExhibitionUI(exhibitionCenter, exhibitionsManager);
+                new CreateExhibitionUI(exhibitionCenter);
             }
         });
 
@@ -118,7 +118,7 @@ public class UseCaseButtonsGenerator {
         useCase5Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                new ExhibitionApplicationUI( exhibitorResponsible,exhibitionCenter);
+                new ExhibitionApplicationUI(exhibitorResponsible, exhibitionCenter);
             }
         });
 
@@ -159,8 +159,7 @@ public class UseCaseButtonsGenerator {
         useCase8Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                // TODO implement UC8
-                //new CreateDemonstrationApplicationUI(exhibitionCenter, organizer);
+                new CreateDemonstrationUI(exhibitionCenter, organizer);
             }
         });
 
@@ -381,8 +380,7 @@ public class UseCaseButtonsGenerator {
         useCase20Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                // TODO implement UC20
-                //new DecideDemonstrationUI(exhibitionCenter, organizer);
+                new DefineEffectiveDemonstrationsUI(exhibitionCenter, organizer);
             }
         });
 

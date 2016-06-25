@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javafx.util.Pair;
 import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBContext;
@@ -741,6 +742,13 @@ public class ExhibitionsRegister implements Importable, Serializable {
         ExhibitionsRegister otherExhibitionsRegister = (ExhibitionsRegister) otherObject;
 
         return this.exhibitionsList.equals(otherExhibitionsRegister.exhibitionsList);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.exhibitionsList);
+        return hash;
     }
 
 }

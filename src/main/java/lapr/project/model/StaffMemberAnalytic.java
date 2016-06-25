@@ -4,6 +4,7 @@
 package lapr.project.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Represents a staff member evaluations analytic compared to all staff.
@@ -318,5 +319,17 @@ public class StaffMemberAnalytic implements Serializable {
                 && (Math.abs(this.evaluationsAverage - otherAnalytic.evaluationsAverage) < ACCEPTABLE_ERROR)
                 && (Math.abs(this.deviationsAverage - otherAnalytic.deviationsAverage) < ACCEPTABLE_ERROR)
                 && (Math.abs(this.hypothesisTestValue - otherAnalytic.hypothesisTestValue) < ACCEPTABLE_ERROR);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.staffMember);
+        hash = 79 * hash + this.numApplications;
+        hash = 79 * hash + Float.floatToIntBits(this.evaluationsAverage);
+        hash = 79 * hash + Float.floatToIntBits(this.deviationsAverage);
+        hash = 79 * hash + Float.floatToIntBits(this.hypothesisTestValue);
+        hash = 79 * hash + (this.warning ? 1 : 0);
+        return hash;
     }
 }

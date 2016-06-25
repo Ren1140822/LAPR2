@@ -71,7 +71,7 @@ public class DemonstrationApplicationTest {
         answers.add(4);
         answers.add(1);
         answers.add(3);
-        Evaluation evaluation = new Evaluation(answers, new StaffAttribution());
+        Evaluation evaluation = new Evaluation(answers, new StaffAttribution().getStaffMember());
         assertTrue(demonstrationApplication.validateEvaluation(evaluation));
     }
 
