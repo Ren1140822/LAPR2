@@ -17,32 +17,31 @@ import lapr.project.model.UsersRegister;
  * @author Ricardo Correia 1151231
  */
 public class CreateUserProfileController {
-    
+
     /**
      * The exhibition center.
      */
     private final ExhibitionCenter exhibitionCenter;
-    
+
     /**
      * The users register.
      */
     private UsersRegister usersRegister;
-    
-    
+
     /**
      * The user.
      */
     private User user;
-    
+
     /**
      * Constructs a create user profile controller.
-     * 
+     *
      * @param exhibitionCenter
      */
     public CreateUserProfileController(ExhibitionCenter exhibitionCenter) {
         this.exhibitionCenter = exhibitionCenter;
     }
-    
+
     /**
      * Creates a new user.
      */
@@ -53,24 +52,26 @@ public class CreateUserProfileController {
 
     /**
      * Sets the user.
+     *
      * @param user the user
      */
     public void setUser(User user) {
-            this.usersRegister = this.exhibitionCenter.getUsersRegister();
+        this.usersRegister = this.exhibitionCenter.getUsersRegister();
         this.user = user;
     }
-    
+
     /**
      * Gets the user
-     * @return  the user
+     *
+     * @return the user
      */
     public User getUser() {
         return this.user;
     }
-    
+
     /**
      * Sets user information data
-     * 
+     *
      * @param name
      * @param username
      * @param email
@@ -78,39 +79,39 @@ public class CreateUserProfileController {
      * @param userCypher
      * @return true if a user is valid and false otherwise
      */
-    public boolean setUserData( String name, String username, String email, String password, String userCypher) {
+    public boolean setUserData(String name, String username, String email, String password, String userCypher) {
+        this.user.setUserCypher(userCypher);
         this.user.setName(name);
         this.user.setUsername(username);
         this.user.setEmail(email);
         this.user.setPassword(password);
-        this.user.setUserCypher(userCypher);
-        
+
         return this.user.validate();
     }
-    
+
     /**
      * Gets the user's register.
-     * 
+     *
      * @return the user's register
      */
-    public UsersRegister getUsersRegister(){
+    public UsersRegister getUsersRegister() {
         return this.usersRegister;
     }
-    
+
     /**
      * Register a user
-     * 
+     *
      * @return true if it successful registered, and false otherwise
      */
     public boolean registerUser() {
         boolean result = this.usersRegister.registerUser(this.user);
-        
+
         exhibitionCenter.setUsersRegister(usersRegister);
-        if(! exhibitionCenter.getExhibitionsManagerRegister().hasAnyExhibitionManager()){
+        if (!exhibitionCenter.getExhibitionsManagerRegister().hasAnyExhibitionManager()) {
             exhibitionCenter.getExhibitionsManagerRegister().addExhibitionManager(user);
             user.setConfirmedStatus(true);
         }
         return result;
     }
-    
+
 }
