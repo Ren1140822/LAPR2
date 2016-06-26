@@ -51,4 +51,22 @@ public class RelatedUserConflictMechanism implements ConflictDetectionMechanism,
         return MECHANISM_DESCRIPTION;
     }
 
+    /**
+     * Compares if this object is equal to otherObject.
+     *
+     * @param otherObject other object to compare with
+     * @return true if it represents the same object, false otherwise
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null || this.getClass() != otherObject.getClass()) {
+            return false;
+        }
+
+        return true;
+    }
+
 }

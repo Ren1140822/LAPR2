@@ -40,7 +40,7 @@ public class DemonstrationInicialState implements DemonstrationState, Serializab
 
     @Override
     public boolean isCreated() {
-        return true;
+        return false;
     }
 
     @Override
