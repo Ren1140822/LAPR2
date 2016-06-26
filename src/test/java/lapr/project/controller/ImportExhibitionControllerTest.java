@@ -66,7 +66,7 @@ public class ImportExhibitionControllerTest {
         catch(JAXBException ex){
             
         }
-//
+
     }
 
     @After
@@ -91,18 +91,18 @@ public class ImportExhibitionControllerTest {
      * Test of readExhibitionFromFile method, of class
      * ImportExhibitionController.
      */
-//    @Test
-//    public void testReadExhibitionFromFile() {
-//        System.out.println("readExhibitionFromFile");
-//        String filePath = "exhibitionTest.xml";
-//        ImportExhibitionController instance = controller;
-//
-//        instance.readExhibitionFromFile(filePath);
-//        Exhibition exhibition = instance.getExhibition();
-//        Exhibition expectedExhibition = new Exhibition();
-//        assertEquals(exhibition, expectedExhibition);
-//
-//    }
+    @Test
+    public void testReadExhibitionFromFile() {
+        System.out.println("readExhibitionFromFile");
+        String filePath = "exhibitionTest.xml";
+        ImportExhibitionController instance = controller;
+
+        instance.readExhibitionFromFile(filePath);
+        Exhibition exhibition = instance.getExhibition();
+        Exhibition expectedExhibition = new Exhibition();
+        assertEquals(exhibition, expectedExhibition);
+
+    }
 
     /**
      * Test of registerExhibition method, of class ImportExhibitionController.
