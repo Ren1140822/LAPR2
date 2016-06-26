@@ -8,6 +8,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Date;
+import java.util.List;
+import java.util.Timer;
+import lapr.project.model.Demonstration;
+import lapr.project.model.DemonstrationsList;
+import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 
 /**
@@ -40,6 +46,7 @@ public class ExhibitionCenterFile {
                     new FileInputStream(fileName));
             try {
                 exhibitionCenter = (ExhibitionCenter) in.readObject();
+                renewTimers(exhibitionCenter);
             } finally {
                 in.close();
             }
@@ -68,6 +75,36 @@ public class ExhibitionCenterFile {
             return true;
         } catch (IOException ex) {
             return false;
+        }
+    }
+
+    /**
+     * Re-create timers from dates.
+     *
+     * @param exhibitionCenter the exhibition center.
+     */
+    private static void renewTimers(ExhibitionCenter exhibitionCenter) {
+
+        List<Exhibition> exhibitionsList = exhibitionCenter.getExhibitionsRegister().getExhibitionsList();
+
+        for (Exhibition exhibition : exhibitionsList) {
+
+            exhibition.setTimer(new Timer());
+            exhibition.createTimers(exhibitionCenter);
+
+            if (exhibition.isApplicationsDecided()) {
+
+                DemonstrationsList demonstrationsList = exhibition.getDemonstrationsList();
+                for (Demonstration demonstration : demonstrationsList.getDecidedDemonstrations()) {
+                    Date[] dates = {demonstrationsList.getSubStartDate(),
+                        demonstrationsList.getSubEndDate(),
+                        demonstrationsList.getConflictLimitDate(),
+                        demonstrationsList.getEvaluationLimitDate()};
+
+                    demonstration.setTimer(new Timer());
+                    demonstration.createTimers(exhibitionCenter, dates);
+                }
+            }
         }
     }
 }
