@@ -12,9 +12,13 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import javax.swing.GroupLayout;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -22,8 +26,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableCellRenderer;
 import lapr.project.controller.StaffEvaluationsAnalysisController;
+import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.StaffMemberAnalytic.ConfidenceIntervals;
+import static lapr.project.ui.components.GenerateEvaluationsStatisticsPanel.PADDING_BORDER;
+import lapr.project.utils.CSVParser;
 
 /**
  * Represents a panel with the staff evaluations analysis.
@@ -146,9 +153,59 @@ public class StaffEvaluationsAnalysisPanel extends JPanel {
         );
 
         topPanel.add(comboPanel);
-        topPanel.add(new JPanel());
+        topPanel.add(createExportButton());
 
         return topPanel;
+    }
+
+    /**
+     * Panel with a export button.
+     *
+     * @return Panel with a export button
+     */
+    private JPanel createExportButton() {
+
+        JPanel btnPanel = new JPanel(new BorderLayout());
+
+        JButton exportBtn = new JButton("Export to CSV");
+        exportBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                ConfidenceIntervals interval = (ConfidenceIntervals) signLvlcomboBox.getSelectedItem();
+                
+                String filename = "ExhibitionsCenter"+interval.getText()+"_StaffEvaluationsStatistics.csv";
+
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Specify where to save csv");
+                fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+                int userSelection = fileChooser.showSaveDialog(null);
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+
+                    String acceptedPath = fileChooser.getSelectedFile().getAbsoluteFile().getPath() + File.separator + filename;
+                    File csvFile = new File(acceptedPath);
+
+                    if (csvFile.exists()) {
+                        csvFile.delete();
+                    }
+                    CSVParser.writeToCSV(analyticsTable, csvFile);
+
+                    String success = "File saved. " + csvFile.toString();
+
+                    JOptionPane.showMessageDialog(StaffEvaluationsAnalysisPanel.this, success, "File Saved", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            }
+        });
+
+        btnPanel.setBorder(PADDING_BORDER);
+
+        btnPanel.add(new JPanel(), BorderLayout.CENTER);
+        btnPanel.add(exportBtn, BorderLayout.WEST);
+
+        return btnPanel;
     }
 
     /**

@@ -208,6 +208,7 @@ public class DashboardUI extends JFrame {
      */
     public static void main(String[] args) {
         ExhibitionCenter exhibitionCenter = DefaultInstantiator.createExhibitionCenter();
+
         exhibitionCenter.getExhibitionsRegister().getExhibitionsList().get(0)
                 .setState(new ExhibitionDecidedApplicationsState(exhibitionCenter
                         .getExhibitionsRegister().getExhibitionsList().get(0)));

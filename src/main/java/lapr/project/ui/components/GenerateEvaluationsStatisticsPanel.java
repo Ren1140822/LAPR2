@@ -9,9 +9,13 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -21,8 +25,8 @@ import lapr.project.controller.GenerateEvaluationsStatisticsController;
 import lapr.project.model.Actor;
 import lapr.project.model.ApplicationAnalysis;
 import lapr.project.model.Exhibition;
-import lapr.project.model.ExhibitionApplication;
 import lapr.project.model.ExhibitionCenter;
+import lapr.project.utils.CSVParser;
 
 /**
  * Represents a panel with the generate keywords rankings.
@@ -59,17 +63,17 @@ public class GenerateEvaluationsStatisticsPanel extends JPanel {
      * List with the application analysis.
      */
     private List<ApplicationAnalysis> applicationAnalysisesList;
-    
+
     /**
      * The acceptance rate.
      */
     private float acceptanceRate;
-    
+
     /**
      * Table mode list.
      */
     private ModelTableApplicationsAnalysis modelTableApplicationsAnalysis;
-    
+
     /**
      * Evaluations statistics table.
      */
@@ -122,7 +126,7 @@ public class GenerateEvaluationsStatisticsPanel extends JPanel {
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
         acceptanceRateJLabel = new JLabel(String.format("Acceptance rate: %.2f", acceptanceRate), SwingConstants.CENTER);
-        
+
         String[] exhibitionsChoices = new String[this.exhibitionsList.size()];
         for (int i = 0; i < exhibitionsChoices.length; i++) {
             exhibitionsChoices[i] = this.exhibitionsList.get(i).getDisplayInfo();
@@ -142,8 +146,60 @@ public class GenerateEvaluationsStatisticsPanel extends JPanel {
 
         topPanel.add(this.exhibitionsJComboBox);
         topPanel.add(this.acceptanceRateJLabel);
+        topPanel.add(createExportButton());
 
         return topPanel;
+    }
+
+    /**
+     * Panel with a export button.
+     *
+     * @return Panel with a export button
+     */
+    private JPanel createExportButton() {
+
+        JPanel btnPanel = new JPanel(new BorderLayout());
+
+        JButton exportBtn = new JButton("Export to CSV");
+        exportBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int selectedIndex = exhibitionsJComboBox.getSelectedIndex();
+                Exhibition selectedExhibition = exhibitionsList.get(selectedIndex);
+
+                String filename = selectedExhibition.getTitle() + "_EvaluationsStatistics.csv";
+
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Specify where to save csv");
+                fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+                int userSelection = fileChooser.showSaveDialog(null);
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+
+                    String acceptedPath = fileChooser.getSelectedFile().getAbsoluteFile().getPath() + File.separator + filename;
+                    File csvFile = new File(acceptedPath);
+
+                    if (csvFile.exists()) {
+                        csvFile.delete();
+                    }
+                    CSVParser.writeToCSV(evaluationsStatisticsJTable, csvFile);
+                    
+                    String success = "File saved. "+csvFile.toString();
+                    
+                    JOptionPane.showMessageDialog(GenerateEvaluationsStatisticsPanel.this, success, "File Saved", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            }
+        });
+
+        btnPanel.setBorder(PADDING_BORDER);
+
+        btnPanel.add(new JPanel(), BorderLayout.CENTER);
+        btnPanel.add(exportBtn, BorderLayout.WEST);
+
+        return btnPanel;
     }
 
     /**
@@ -155,11 +211,10 @@ public class GenerateEvaluationsStatisticsPanel extends JPanel {
 
         this.modelTableApplicationsAnalysis = new ModelTableApplicationsAnalysis(this.applicationAnalysisesList);
         this.evaluationsStatisticsJTable = new JTable(this.modelTableApplicationsAnalysis);
-        
 
         JScrollPane scrollPane = new JScrollPane(this.evaluationsStatisticsJTable);
         scrollPane.setBorder(PADDING_BORDER);
-        
+
         return scrollPane;
     }
 
@@ -174,7 +229,7 @@ public class GenerateEvaluationsStatisticsPanel extends JPanel {
 
         add(componentsPanel, new GridBagConstraints());
     }
-    
+
     private void updateTable() {
         this.applicationAnalysisesList = this.controller.getApplicationsAnalysis();
         this.modelTableApplicationsAnalysis = new ModelTableApplicationsAnalysis(this.applicationAnalysisesList);

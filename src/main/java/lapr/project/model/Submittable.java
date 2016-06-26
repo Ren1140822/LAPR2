@@ -51,6 +51,13 @@ public interface Submittable extends Selectable {
      */
     @Override
     String getDisplayInfo();
+    
+    /**
+     * Returns the name of the submittable.
+     *
+     * @return the name of the submittable.
+     */
+    String getName();
 
     String[] getInfo();
 

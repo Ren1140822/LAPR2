@@ -943,4 +943,9 @@ public class Exhibition implements Submittable, Exportable, Serializable {
         return hash;
     }
 
+    @Override
+    public String getName() {
+        return getTitle();
+    }
+
 }

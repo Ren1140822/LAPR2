@@ -11,12 +11,16 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.text.DecimalFormat;
 import java.util.List;
 import javafx.util.Pair;
 import javax.swing.GroupLayout;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,6 +30,7 @@ import lapr.project.controller.GenerateKeywordRankingsController;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.Keyword;
 import lapr.project.model.Submittable;
+import lapr.project.utils.CSVParser;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -185,9 +190,68 @@ public class GenerateKeywordsRankingPanel extends JPanel {
         );
 
         topPanel.add(comboPanel);
-        topPanel.add(new JPanel());
+        topPanel.add(createExportButton());
 
         return topPanel;
+    }
+
+    /**
+     * Panel with a export button.
+     *
+     * @return Panel with a export button
+     */
+    private JPanel createExportButton() {
+
+        JPanel btnPanel = new JPanel(new BorderLayout());
+
+        JButton exportBtn = new JButton("Export to CSV");
+        exportBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int selectedIndex = submittableCombo.getSelectedIndex();
+                Submittable selectedSubmittable = submittablesList.get(selectedIndex);
+
+                String acceptedFilename = selectedSubmittable.getName() + "_AcceptedKeywordsRanking.csv";
+                String rejectedFilename = selectedSubmittable.getName() + "_RejectKeywordsRanking.csv";
+
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Specify where to save csv");
+                fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+                int userSelection = fileChooser.showSaveDialog(null);
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+
+                    String acceptedPath = fileChooser.getSelectedFile().getAbsoluteFile().getPath() + File.separator + acceptedFilename;
+                    File acceptedCsvFile = new File(acceptedPath);
+                    String rejectedPath = fileChooser.getSelectedFile().getAbsoluteFile().getPath() + File.separator + rejectedFilename;
+                    File rejectedCsvFile = new File(rejectedPath);
+
+                    if (acceptedCsvFile.exists()) {
+                        acceptedCsvFile.delete();
+                    } else if (rejectedCsvFile.exists()) {
+                        rejectedCsvFile.delete();
+                    }
+                    CSVParser.writeToCSV(acceptedKeywordsTable, acceptedCsvFile);
+                    CSVParser.writeToCSV(rejectedKeywordsTable, rejectedCsvFile);
+
+                    String success = String.format("Files saved.%n" + acceptedCsvFile.toString() + "%n"
+                            + rejectedCsvFile.toString());
+
+                    JOptionPane.showMessageDialog(GenerateKeywordsRankingPanel.this, success, "File Saved", JOptionPane.INFORMATION_MESSAGE);
+
+                }
+
+            }
+        });
+
+        btnPanel.setBorder(PADDING_BORDER);
+
+        btnPanel.add(new JPanel(), BorderLayout.CENTER);
+        btnPanel.add(exportBtn, BorderLayout.WEST);
+
+        return btnPanel;
     }
 
     /**
