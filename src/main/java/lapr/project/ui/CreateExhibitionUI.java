@@ -561,6 +561,7 @@ public class CreateExhibitionUI extends JFrame {
                     if (confirma == JOptionPane.YES_OPTION) {
                         controller.registerExhibition();
                         dispose();
+                        new DashboardUI(CreateExhibitionUI.this.exhibitionCenter, CreateExhibitionUI.this.exhibitionsManager);
                     }
                 } catch (IllegalArgumentException ex) {
 

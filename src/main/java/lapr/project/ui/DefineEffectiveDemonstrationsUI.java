@@ -502,6 +502,7 @@ public class DefineEffectiveDemonstrationsUI extends JFrame {
                     if (confirma == JOptionPane.YES_OPTION) {
                         controller.updateDemosntrationList();
                         dispose();
+                        new DashboardUI(exhibitionCenter, organizer);
                     }
                 } catch (IllegalArgumentException ex) {
 
