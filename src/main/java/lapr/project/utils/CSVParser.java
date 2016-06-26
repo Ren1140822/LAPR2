@@ -12,7 +12,7 @@ import javax.swing.table.TableModel;
  */
 public class CSVParser {
 
-    private static final String CELL_SEPARATOR = ",";
+    private static final String CELL_SEPARATOR = ";";
     private static final String LINE_SEPARATOR = String.format("%n");
 
     /**
