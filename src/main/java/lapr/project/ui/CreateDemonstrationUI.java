@@ -58,12 +58,12 @@ public class CreateDemonstrationUI extends JFrame {
      * The exhibition center.
      */
     private final ExhibitionCenter exhibitionCenter;
-    
+
     /**
      * The organizer logged in.
      */
     private final Organizer organizer;
-    
+
     /**
      * The controller to create demonstrations.
      */
@@ -474,6 +474,7 @@ public class CreateDemonstrationUI extends JFrame {
                     if (confirma == JOptionPane.YES_OPTION && controller.setDemonstrationDefined()) {
                         controller.registerDemonstration();
                         dispose();
+                        new DashboardUI(CreateDemonstrationUI.this.exhibitionCenter, CreateDemonstrationUI.this.organizer);
                     }
                 } catch (IllegalArgumentException ex) {
 
