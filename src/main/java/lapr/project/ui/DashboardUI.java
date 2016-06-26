@@ -90,6 +90,8 @@ public class DashboardUI extends JFrame {
             createComponentsAdmin();
         } else if (this.actor instanceof StaffMember || this.actor instanceof ExhibitorResponsible) {
             createComponents();
+        } else {
+            createComponentsNonActor();
         }
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -186,6 +188,15 @@ public class DashboardUI extends JFrame {
             componentsPanel.add(UseCaseButtonsGenerator.generateUseCase19Button(this.exhibitionCenter, (ExhibitorResponsible) this.actor, this));
             componentsPanel.add(UseCaseButtonsGenerator.generateUseCase10Button(this.exhibitionCenter, this.actor, this));
         }
+
+        add(componentsPanel, new GridBagConstraints());
+    }
+
+    private void createComponentsNonActor() {
+        setLayout(new GridBagLayout());
+        JPanel componentsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+
+        componentsPanel.add(UseCaseButtonsGenerator.generateUseCase10Button(this.exhibitionCenter, this.actor, this));
 
         add(componentsPanel, new GridBagConstraints());
     }
