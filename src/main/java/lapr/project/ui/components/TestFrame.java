@@ -6,7 +6,6 @@
 package lapr.project.ui.components;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,6 @@ import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
 import lapr.project.model.Keyword;
 import lapr.project.model.application.ApplicationAcceptedState;
-import lapr.project.model.application.ApplicationAssignedStandState;
 import lapr.project.model.application.ApplicationDeclinedState;
 import lapr.project.model.exhibition.ExhibitionDecidedApplicationsState;
 import lapr.project.utils.DefaultInstantiator;
