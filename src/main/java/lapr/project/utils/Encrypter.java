@@ -81,9 +81,8 @@ public class Encrypter {
 
         for (int i = 0; i < alphabet.length(); i++) {
 
-            keywordAlphabet.replace(Character.toString(alphabet.charAt(i)), "");
-            keywordAlphabet += alphabet.charAt(i);
-            if (keywordAlphabet.length() == alphabet.length()) {
+            if (!keywordAlphabet.contains(String.valueOf(alphabet.charAt(i)))) {
+                keywordAlphabet += alphabet.charAt(i);
 
             }
         }
@@ -112,8 +111,10 @@ public class Encrypter {
         String decryptedWord = "";
         String keywordAlphabet = keyword;
         for (int i = 0; i < alphabet.length(); i++) {
-            keywordAlphabet.replace(Character.toString(alphabet.charAt(i)), "");
-            keywordAlphabet += alphabet.charAt(i);
+            if (!keywordAlphabet.contains(String.valueOf(alphabet.charAt(i)))) {
+                keywordAlphabet += alphabet.charAt(i);
+
+            }
             if (keywordAlphabet.length() == alphabet.length()) {
 
             }
@@ -134,7 +135,10 @@ public class Encrypter {
 
     public static void main(String[] args) {
         Encrypter enc = new Encrypter();
-        System.out.println(Encrypter.decryptStringKeyword("ÃJpwICHpoÃCFPpoAIH?PFyMozLyCNpMoxIopGpõLpFCI", 20, "aaaaa"));
+        for (int i = 1; i < 20; i++) {
+            System.out.println(Encrypter.encryptStringKeyword("Estácionáncio Hillbilli Da silva Vesúvio Preservativo", i, "zoa"));
+            System.out.println(Encrypter.decryptStringKeyword(Encrypter.encryptStringKeyword("Estácionáncio Hillbilli Da silva Vesúvio Preservativo", i, "zoa"), i, "zoa"));
+        }
 
     }
 }
