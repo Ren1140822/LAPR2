@@ -105,6 +105,10 @@ public class DefineStaffMemberUI extends JFrame {
      * The users list.
      */
     private List<User> userList;
+    /**
+     * The user model.
+     */
+    private ModelListSelectable modelUser;
 
     public DefineStaffMemberUI(ExhibitionCenter exhibitionCenter, Organizer organizer) {
         super(WINDOW_TITLE);
@@ -117,6 +121,7 @@ public class DefineStaffMemberUI extends JFrame {
 
         if (this.selectedExhibition != null) {
             defineStaffController.setExhibition(selectedExhibition);
+           
             createComponents();
             pack();
             setSize(WINDOW_SIZE);
@@ -141,12 +146,14 @@ public class DefineStaffMemberUI extends JFrame {
                 "Users list", TitledBorder.LEFT, TitledBorder.TOP));
 
         this.userList = defineStaffController.getUserList();
-        this.jListUsers = new JList(new ModelListSelectable(this.userList));
+        modelUser = new ModelListSelectable(this.userList);
+        this.jListUsers = new JList(modelUser);
         this.jListUsers.addMouseListener(new MouseListener() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (jListUsers.getSelectedValue() != null) {
+                     defineStaffController.newStaffMember((User)modelUser.getObject(jListUsers.getSelectedIndex()));
                     int response = JOptionPane.showConfirmDialog(rootPane, "Do you wish to define this user as Staff member?", "Define Staff member", JOptionPane.YES_NO_OPTION);
                     if (response == JOptionPane.YES_OPTION) {
 
@@ -221,7 +228,8 @@ public class DefineStaffMemberUI extends JFrame {
      */
     private void updateStaffList() {
         this.userList = defineStaffController.getUserList();
-        this.jListUsers.setModel(new ModelListSelectable(this.userList));
+        modelUser= new ModelListSelectable(this.userList);
+        this.jListUsers.setModel(modelUser);
     }
 
     public static void main(String[] args) {

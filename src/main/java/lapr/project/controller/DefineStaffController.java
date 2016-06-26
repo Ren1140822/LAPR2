@@ -122,6 +122,7 @@ public class DefineStaffController {
     
     /**
      * Adds staff member.
+     * @return True if added
      */
     public boolean addStaffMember(){
        return this.staffList.addStaffMember(staffMember);
