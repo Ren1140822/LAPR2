@@ -13,6 +13,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -232,7 +234,9 @@ public class CreateUserProfileUI extends JFrame {
         passwordFieldPassword = new JPasswordField(FIELD_WIDTH);
         passwordFieldConfirmPassword = new JPasswordField(FIELD_WIDTH);
         textFieldUserCypher = new JTextField(FIELD_WIDTH);
-
+        if(changeUser){
+            getUserInfo();
+        }
         // Set the main panel
         JPanel panel = new JPanel();
         GroupLayout layout = new GroupLayout(panel);
@@ -287,6 +291,16 @@ public class CreateUserProfileUI extends JFrame {
 
         return panel;
 
+    }
+
+    /**
+     * Gets the user info into the textboxes.
+     */
+    private void getUserInfo() {
+        textFieldName.setText(user.getName());
+        textFieldEmail.setText(user.getEmail());
+        textFieldUsername.setText(user.getUsername());
+        
     }
 
     /**
@@ -486,11 +500,14 @@ public class CreateUserProfileUI extends JFrame {
                     String password = passwordFieldPassword.getText();
                     String passwordConfirm = passwordFieldConfirmPassword.getText();
                     String userCypher = textFieldUserCypher.getText();
-
+                     Pattern pattern =Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@+])(?=\\S+$).{5,}$");
+                     Matcher matcher = pattern.matcher(password);
                     if (!password.equals(passwordConfirm)) {
                         throw new IllegalArgumentException("Passwords do not match");
                     }
-
+                    if(!matcher.find()){
+                           throw new IllegalArgumentException("Passwords must have an upper case letter, a lower case letter, a number, a special character (@ or +) and at least 5 in length.");
+                    }
                     if (controller.setUserData(name, username, email, password, userCypher)) {
                         if (controller.registerUser() && !changeUser) {
 
@@ -559,12 +576,11 @@ public class CreateUserProfileUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-            
+
                 if (changeUser) {
                     new DashboardUI(exhibitionCenter, actorUser);
-                }
-                else{
-                        new LoginUI(exhibitionCenter);
+                } else {
+                    new LoginUI(exhibitionCenter);
                 }
             }
         });
