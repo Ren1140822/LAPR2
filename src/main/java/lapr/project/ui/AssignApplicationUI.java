@@ -322,6 +322,7 @@ public class AssignApplicationUI extends JFrame {
 
                     if (confirm == JOptionPane.YES_OPTION) {
                         controller.staffAttributionsRegister(staffAttributionList);
+                        new DashboardUI(exhibitionsCenter, organizer);
                         dispose();
                         // TODO : Implement after use case is finished.
 
