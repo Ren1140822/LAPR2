@@ -23,7 +23,6 @@ class Main {
      */
     private Main(ExhibitionCenter exhibitionCenter) {
         ExhibitionsManagerRegister exhibitionManagerRegister = exhibitionCenter.getExhibitionsManagerRegister();
-
     }
 
     /**

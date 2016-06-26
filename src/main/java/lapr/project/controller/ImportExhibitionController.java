@@ -14,6 +14,7 @@ import lapr.project.model.ExhibitionsRegister;
 import lapr.project.model.Organizer;
 import lapr.project.model.StaffAttribution;
 import lapr.project.model.StaffMember;
+import lapr.project.model.UsersRegister;
 
 /**
  * Represents a import exhibitions controller.
@@ -29,7 +30,7 @@ public class ImportExhibitionController {
     /**
      * The exhibition center.
      */
-    private ExhibitionCenter exhibitionCenter;
+    private final ExhibitionCenter exhibitionCenter;
 
 //    /**
 //     * The exhibition manager.
@@ -72,7 +73,7 @@ public class ImportExhibitionController {
      */
     public boolean readExhibitionFromFile(String filePath) {
         getExhibitionsRegister();
-        this.exhibition = this.exhibitionsRegister.importByFileName(filePath,this.exhibitionCenter);
+        this.exhibition = this.exhibitionsRegister.importByFileName(filePath, this.exhibitionCenter);
         return exhibition != null;
     }
 
@@ -82,7 +83,30 @@ public class ImportExhibitionController {
      * @param exhibition The exhibition to register
      */
     public boolean registerExhibition(Exhibition exhibition) {
-        return this.exhibitionsRegister.registerImportedExhibition(exhibition);
+
+        boolean registered = this.exhibitionsRegister.registerImportedExhibition(exhibition);
+
+        if (registered) {
+            registerUsers(exhibition);
+        }
+
+        return registered;
+    }
+
+    private void registerUsers(Exhibition exhibition) {
+
+        UsersRegister usersRegister = exhibitionCenter.getUsersRegister();
+
+        for (Organizer organizer : exhibition.getOrganizersList().getOrganizersList()) {
+
+            usersRegister.registerUser(organizer.getUser());
+        }
+        for (StaffMember member : exhibition.getStaffList().getStaffList()) {
+            usersRegister.registerUser(member.getUser());
+        }
+        for (Application application : exhibition.getApplicationsList().getApplicationsList()) {
+            usersRegister.registerUser(application.getExhibitor().getExhibitorResponsible().getUser());
+        }
 
     }
 
@@ -97,53 +121,62 @@ public class ImportExhibitionController {
 
     /**
      * Gets the staff list.
+     *
      * @param exhibition the exhibition
      * @return the staff list
      */
-    public List<StaffMember> getStaffList(Exhibition exhibition){
+    public List<StaffMember> getStaffList(Exhibition exhibition) {
         return exhibition.getStaffList().getStaffList();
     }
+
     /**
      * Gets the organizers list.
+     *
      * @param exhibition the exhibition
      * @return the organizers list
      */
-    public List<Organizer> getOrganizersList(Exhibition exhibition){
+    public List<Organizer> getOrganizersList(Exhibition exhibition) {
         return exhibition.getOrganizersList().getOrganizersList();
     }
+
     /**
      * Gets the applications list.
+     *
      * @param exhibition the exhibition
      * @return the applications list
      */
-    public List<Application> getApplicationsList(Exhibition exhibition){
+    public List<Application> getApplicationsList(Exhibition exhibition) {
         return exhibition.getApplicationsList().getApplicationsList();
     }
+
     /**
      * Gets the demonstrations list.
+     *
      * @param exhibition the exhibition
      * @return the demonstrations list
      */
-    public List<Demonstration> getDemonstrationsList(Exhibition exhibition){
+    public List<Demonstration> getDemonstrationsList(Exhibition exhibition) {
         return exhibition.getDemonstrationsList().getDemonstrationsList();
     }
+
     /**
      * Gets the staff attributions list.
+     *
      * @param exhibition the exhibition
-     * @return the staff attributions  list
+     * @return the staff attributions list
      */
-    public List<StaffAttribution> getStaffAttributionsList(Exhibition exhibition){
+    public List<StaffAttribution> getStaffAttributionsList(Exhibition exhibition) {
         return exhibition.getStaffAttributionsList().getStaffAttributionsList();
     }
+
     /**
-     * Gets the conflicts  list.
+     * Gets the conflicts list.
+     *
      * @param exhibition the exhibition
      * @return the conflicts list
      */
-    public List<Conflict> getConflictsList(Exhibition exhibition){
+    public List<Conflict> getConflictsList(Exhibition exhibition) {
         return exhibition.getConflictsList().getConflictsList();
     }
-    
-  
-    
+
 }

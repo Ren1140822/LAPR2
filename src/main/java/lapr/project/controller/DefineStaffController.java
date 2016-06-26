@@ -80,7 +80,6 @@ public class DefineStaffController {
         
     }
     
-    
     /**
      * Return a users list.
      * 
