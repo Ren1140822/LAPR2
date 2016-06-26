@@ -498,7 +498,7 @@ public class DemonstrationApplication extends JFrame {
                         if (demonstrationApplicationController.registerDemonstrationApplication()) {
                             message = String.format("Application submitted sucessfully!");
                             confirm = JOptionPane.showConfirmDialog(rootPane, message, "Sucess!", JOptionPane.PLAIN_MESSAGE);
-                            new LoginUI(exhibitionCenter);
+                            new DashboardUI(exhibitionCenter, exhibitorResponsible);
                             dispose();
                         }
                         //new LoginUI(centroExposicoes);

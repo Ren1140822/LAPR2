@@ -60,9 +60,8 @@ public class ApplicationAcceptedStateTest {
     public void testSetInSubmission() {
         System.out.println("setInSubmission");
         ApplicationAcceptedState instance = new ApplicationAcceptedState(new ExhibitionApplication());
-        boolean expResult = false;
         boolean result = instance.setInSubmission();
-        assertEquals(expResult, result);
+        assertFalse(result);
     }
 
     /**

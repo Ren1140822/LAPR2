@@ -90,7 +90,7 @@ public class CreateExhibitionController {
 
         UsersRegister usersRegister = exhibitionCenter.getUsersRegister();
 
-        return usersRegister.getUsersList();
+        return usersRegister.getUsersList(true);
     }
 
     /**
