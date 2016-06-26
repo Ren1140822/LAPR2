@@ -70,7 +70,7 @@ public class DemonstrationDiscontinuedState implements DemonstrationState, Seria
 
     @Override
     public boolean isOpenedApplications() {
-        return true;
+        return false;
     }
 
     @Override
