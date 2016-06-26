@@ -80,9 +80,11 @@ public class Encrypter {
         String keywordAlphabet = keyword;
 
         for (int i = 0; i < alphabet.length(); i++) {
+
+            keywordAlphabet.replace(Character.toString(alphabet.charAt(i)), "");
             keywordAlphabet += alphabet.charAt(i);
             if (keywordAlphabet.length() == alphabet.length()) {
-            
+
             }
         }
         for (char letter : word.toCharArray()) {
@@ -110,9 +112,10 @@ public class Encrypter {
         String decryptedWord = "";
         String keywordAlphabet = keyword;
         for (int i = 0; i < alphabet.length(); i++) {
+            keywordAlphabet.replace(Character.toString(alphabet.charAt(i)), "");
             keywordAlphabet += alphabet.charAt(i);
             if (keywordAlphabet.length() == alphabet.length()) {
-              
+
             }
         }
         for (char letter : word.toCharArray()) {
@@ -122,7 +125,7 @@ public class Encrypter {
                 index = (index - shift) + keywordAlphabet.length();
                 decryptedWord += keywordAlphabet.charAt(index);
             } else {
-                decryptedWord += keywordAlphabet.charAt(index-shift);
+                decryptedWord += keywordAlphabet.charAt(index - shift);
             }
 
         }
@@ -131,7 +134,7 @@ public class Encrypter {
 
     public static void main(String[] args) {
         Encrypter enc = new Encrypter();
-        System.out.println(Encrypter.decryptStringKeyword("UHuqMCFPu",20,"zoo"));
-       
+        System.out.println(Encrypter.decryptStringKeyword("ÃJpwICHpoÃCFPpoAIH?PFyMozLyCNpMoxIopGpõLpFCI", 20, "aaaaa"));
+
     }
 }
