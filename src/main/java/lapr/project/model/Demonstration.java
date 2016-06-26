@@ -60,7 +60,7 @@ public class Demonstration implements Submittable, Selectable, Serializable {
     /**
      * The exhibition's timer.
      */
-    private transient final Timer timer;
+    private transient Timer timer;
 
     /**
      * The demonstration's staff list.
@@ -245,6 +245,15 @@ public class Demonstration implements Submittable, Selectable, Serializable {
         this.currentState = demonstration.currentState;
         this.conflictsList = new ConflictsList(demonstration.conflictsList);
         this.timer = new Timer();
+    }
+
+    /**
+     * Set the timer.
+     *
+     * @param timer the timer to set
+     */
+    public void setTimer(Timer timer) {
+        this.timer = timer;
     }
 
     /**

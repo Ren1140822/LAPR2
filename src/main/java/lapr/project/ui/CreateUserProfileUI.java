@@ -559,9 +559,12 @@ public class CreateUserProfileUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new LoginUI(exhibitionCenter);
+            
                 if (changeUser) {
                     new DashboardUI(exhibitionCenter, actorUser);
+                }
+                else{
+                        new LoginUI(exhibitionCenter);
                 }
             }
         });

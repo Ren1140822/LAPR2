@@ -42,8 +42,7 @@ class Main {
             new LoginUI(exhibitionCenter);
         } else {
             new CreateUserProfileUI(exhibitionCenter, null);
-            
+
         }
     }
-
 }
