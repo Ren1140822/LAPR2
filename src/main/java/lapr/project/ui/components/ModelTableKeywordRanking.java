@@ -7,7 +7,6 @@ import java.util.List;
 import javafx.util.Pair;
 import javax.swing.table.AbstractTableModel;
 import lapr.project.model.Keyword;
-import lapr.project.model.StaffMemberAnalytic;
 
 /**
  * Model of communication for a keyword ranking

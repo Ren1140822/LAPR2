@@ -3,12 +3,6 @@
  */
 package lapr.project.ui.components;
 
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.border.EmptyBorder;
-import lapr.project.model.User;
-
 /**
  * Dialog to see an user profile info.
  *

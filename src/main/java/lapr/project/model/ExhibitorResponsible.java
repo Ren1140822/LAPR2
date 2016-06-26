@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -54,6 +53,7 @@ public class ExhibitorResponsible implements Actor, Serializable {
     /**
      * returns this instance of user.
      */
+    @Override
     public User getUser() {
         return this.user;
     }
@@ -61,6 +61,7 @@ public class ExhibitorResponsible implements Actor, Serializable {
     /**
      * sets the current value of this user
      */
+    @Override
     public void setUser(User u) {
         this.user = new User(u);
     }

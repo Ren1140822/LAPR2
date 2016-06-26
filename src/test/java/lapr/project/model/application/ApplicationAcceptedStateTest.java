@@ -3,7 +3,6 @@
  */
 package lapr.project.model.application;
 
-import lapr.project.model.Application;
 import lapr.project.model.ExhibitionApplication;
 import org.junit.After;
 import org.junit.AfterClass;

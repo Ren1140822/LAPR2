@@ -4,7 +4,6 @@
 package lapr.project.controller;
 
 import java.util.List;
-import lapr.project.model.ConflictDetectionMechanism;
 import lapr.project.model.ConflictType;
 import lapr.project.model.ConflictTypesRegister;
 import lapr.project.model.ExhibitionCenter;

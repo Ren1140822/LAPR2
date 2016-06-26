@@ -6,7 +6,6 @@ package lapr.project.controller;
 import static junit.framework.Assert.assertEquals;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.utils.DefaultInstantiator;
-import lapr.project.utils.Encrypter;
 import org.junit.Before;
 import org.junit.Test;
 

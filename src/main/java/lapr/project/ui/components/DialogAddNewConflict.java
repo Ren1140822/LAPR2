@@ -25,7 +25,6 @@ import lapr.project.controller.UpdateDetectedConflictsController;
 import lapr.project.model.Application;
 import lapr.project.model.Conflict;
 import lapr.project.model.ConflictType;
-import lapr.project.model.Submittable;
 
 /**
  * Represents a dialog to add new conflict.

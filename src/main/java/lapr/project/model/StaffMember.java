@@ -57,6 +57,7 @@ public class StaffMember implements Actor, Selectable, Serializable {
      *
      * @return the user associated to the staff member
      */
+    @Override
     public User getUser() {
         return user;
     }
@@ -66,6 +67,7 @@ public class StaffMember implements Actor, Selectable, Serializable {
      *
      * @param user the user associated to the staff member to set
      */
+    @Override
     public void setUser(User user) {
         this.user = user;
     }

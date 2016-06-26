@@ -11,7 +11,6 @@ import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsManager;
 import lapr.project.model.ExhibitionsRegister;
-import lapr.project.model.ExhibitorResponsible;
 import lapr.project.model.Organizer;
 import lapr.project.model.OrganizersList;
 import lapr.project.model.StaffList;

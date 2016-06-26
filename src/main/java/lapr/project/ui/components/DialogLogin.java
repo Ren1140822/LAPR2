@@ -28,7 +28,6 @@ import lapr.project.model.StaffMember;
 import lapr.project.model.User;
 import lapr.project.ui.DashboardUI;
 import lapr.project.ui.LoginUI;
-import lapr.project.ui.UpdateUserProfileUI;
 import lapr.project.utils.DefaultInstantiator;
 
 /**

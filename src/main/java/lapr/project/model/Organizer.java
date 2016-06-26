@@ -57,6 +57,7 @@ public class Organizer implements Actor, Selectable, Serializable {
      *
      * @return user of the organizer
      */
+    @Override
     public User getUser() {
         return user;
     }
@@ -66,6 +67,7 @@ public class Organizer implements Actor, Selectable, Serializable {
      *
      * @param user user of the organizer
      */
+    @Override
     public void setUser(User user) {
         this.user = user;
     }

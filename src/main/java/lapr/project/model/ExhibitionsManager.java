@@ -53,6 +53,7 @@ public class ExhibitionsManager implements Actor, Serializable {
      *
      * @return user of the exhibitionsManager
      */
+    @Override
     public User getUser() {
         return user;
     }
@@ -63,6 +64,7 @@ public class ExhibitionsManager implements Actor, Serializable {
      * @param user user of the exhibitionManager
      */
  
+    @Override
     public void setUser(User user) {
         this.user = user;
     }
