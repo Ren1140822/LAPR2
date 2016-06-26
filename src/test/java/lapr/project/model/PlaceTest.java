@@ -1,3 +1,4 @@
+
 /**
  * Package location for Model concept tests.
  */
@@ -8,7 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Tests a place.
+ * Tests a place,
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
@@ -61,3 +62,4 @@ public class PlaceTest {
     }
 
 }
+

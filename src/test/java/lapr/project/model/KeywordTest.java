@@ -5,12 +5,15 @@ package lapr.project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Tests a keyword.
+ * Tests a keyword,
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570
@@ -19,15 +22,15 @@ import static org.junit.Assert.*;
  * @author Ricardo Correia 1151231
  */
 public class KeywordTest {
-
-    /**
-     * The keyword to be tested.
-     */
+    
     private Keyword keyword;
-
+    
+    public KeywordTest() {
+        this.keyword = new Keyword("super");
+    }
+    
     @Before
     public void setUp() {
-        this.keyword = new Keyword("super");
     }
 
     /**
@@ -95,5 +98,5 @@ public class KeywordTest {
         String result = this.keyword.getDisplayInfo();
         assertEquals(expResult, result);
     }
-
+    
 }
