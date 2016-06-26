@@ -31,8 +31,8 @@ class Main {
      */
     public static void main(String[] args) {
 
-        ExhibitionCenter exhibitionCenter = ExhibitionCenterFile.read(ExhibitionCenterFile.NAME);
-    
+//        ExhibitionCenter exhibitionCenter = ExhibitionCenterFile.read(ExhibitionCenterFile.NAME);
+     ExhibitionCenter exhibitionCenter=null;
         if (exhibitionCenter == null) {
             exhibitionCenter = new ExhibitionCenter();
         }
