@@ -90,7 +90,11 @@ public class DefineStaffController {
         
         UsersRegister usersRegister = this.exhibitionCenter.getUsersRegister();
         
-        List<User> usersList = usersRegister.getUsersList();
+        List<User> usersList = usersRegister.getUsersList(true);
+        
+        for (Organizer organizer : exhibition.getOrganizersList().getOrganizersList()) {
+            usersList.remove(organizer.getUser());
+        }
         
         return usersList;
         
