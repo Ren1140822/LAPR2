@@ -508,6 +508,8 @@ public class CreateUserProfileUI extends JFrame {
 
                             controller.newUser();
                             updateRelatedUsersList();
+                            new LoginUI(exhibitionCenter);
+                            dispose();
 
                         } else {
                             if (changeUser) {
@@ -524,6 +526,8 @@ public class CreateUserProfileUI extends JFrame {
                                 textFieldUserCypher.setText("");
 
                                 updateRelatedUsersList();
+                                new DashboardUI(exhibitionCenter, actorUser);
+                                dispose();
                             } else {
                                 throw new Exception("repeated user");
                             }

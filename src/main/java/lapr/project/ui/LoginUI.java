@@ -188,6 +188,7 @@ public class LoginUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                     new CreateUserProfileUI(exhibitionCenter, null);
+                    dispose();
             }
         });
         return button;

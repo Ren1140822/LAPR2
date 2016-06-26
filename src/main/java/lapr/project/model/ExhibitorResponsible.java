@@ -5,6 +5,8 @@ package lapr.project.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -18,12 +20,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Ricardo Correia 1151231
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ExhibitorResponsible implements Actor, Serializable {
 
     /**
      * the instance of user in this class
      */
-    @XmlElement
+  
     private User user;
 
     /**
