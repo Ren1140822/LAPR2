@@ -3,7 +3,8 @@
  */
 package lapr.project.utils;
 
-import java.util.Random;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Represents a Encrypter
@@ -78,7 +79,15 @@ public class Encrypter {
     public static String encryptStringKeyword(String word, int shift, String keyword) {
         String encryptedWord = "";
         String keywordAlphabet = keyword;
-
+        char[] chars = keywordAlphabet.toCharArray();
+        Set<Character> charSet = new LinkedHashSet<Character>();
+        for (char c : chars) {
+            charSet.add(c);
+        }
+        keywordAlphabet = "";
+        for (Character character : charSet) {
+            keywordAlphabet += character;
+        }
         for (int i = 0; i < alphabet.length(); i++) {
 
             if (!keywordAlphabet.contains(String.valueOf(alphabet.charAt(i)))) {
@@ -110,6 +119,15 @@ public class Encrypter {
     public static String decryptStringKeyword(String word, int shift, String keyword) {
         String decryptedWord = "";
         String keywordAlphabet = keyword;
+        char[] chars = keywordAlphabet.toCharArray();
+        Set<Character> charSet = new LinkedHashSet<Character>();
+        for (char c : chars) {
+            charSet.add(c);
+        }
+        keywordAlphabet = "";
+        for (Character character : charSet) {
+            keywordAlphabet += character;
+        }
         for (int i = 0; i < alphabet.length(); i++) {
             if (!keywordAlphabet.contains(String.valueOf(alphabet.charAt(i)))) {
                 keywordAlphabet += alphabet.charAt(i);
@@ -136,8 +154,8 @@ public class Encrypter {
     public static void main(String[] args) {
         Encrypter enc = new Encrypter();
         for (int i = 1; i < 20; i++) {
-            System.out.println(Encrypter.encryptStringKeyword("Estácionáncio Hillbilli Da silva Vesúvio Preservativo", i, "zoa"));
-            System.out.println(Encrypter.decryptStringKeyword(Encrypter.encryptStringKeyword("Estácionáncio Hillbilli Da silva Vesúvio Preservativo", i, "zoa"), i, "zoa"));
+            System.out.println(Encrypter.encryptStringKeyword("aaaaáááééé", i, "asdasd"));
+            System.out.println(Encrypter.decryptStringKeyword(Encrypter.encryptStringKeyword("aaaaáááééé", i, "asdasd"), i, "asdasd"));
         }
 
     }
