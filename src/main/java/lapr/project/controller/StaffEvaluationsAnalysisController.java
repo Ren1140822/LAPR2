@@ -41,7 +41,12 @@ public class StaffEvaluationsAnalysisController {
         this.exhibitionCenter = exhibitionCenter;
         
         Record record = this.exhibitionCenter.getRecord();
-        this.analytics = record.calculateStaffAnalytics();
+        if (record.getStaffList().size() > 0) {
+            this.analytics = record.calculateStaffAnalytics();
+        } else {
+            this.analytics = new ArrayList<>();
+        }
+        
         
     }
     
