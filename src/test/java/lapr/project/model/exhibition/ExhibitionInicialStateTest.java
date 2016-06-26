@@ -23,7 +23,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests a the initial state class.
+ * Tests an exhibition at the initial state class.
  *
  * @author Daniel Gonçalves 1151452
  * @author Eric Amaral 1141570

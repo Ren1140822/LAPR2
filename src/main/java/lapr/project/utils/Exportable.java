@@ -33,33 +33,5 @@ public interface Exportable extends Selectable {
      * @param path the path where the file will be saved
      */
     void jaxbObjectExportableToXML(String path);
-
-//	/**
-//	 * Exports the object content to a string format.
-//	 *
-//	 * @return Structured String containing content.
-//	 */
-//	default String exportContentToString() {
-//		String content = "";
-//
-//		Node node = exportContentToXMLNode();
-//
-//		XMLParser xmlParser = new XMLParser();
-//
-//		try {
-//			//It exports only the element representation to XML, ommiting the XML header
-//			content = xmlParser.convertToString(node);
-//		} catch (TransformerException e) {
-//			e.printStackTrace();
-//		}
-//
-//		return content;
-//	}
-//
-//	/**
-//	 * Exports the object content to a string format.
-//	 *
-//	 * @return Structured String containing content.
-//	 */
-//	Node exportContentToXMLNode();
+    
 }
