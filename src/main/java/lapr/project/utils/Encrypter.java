@@ -82,7 +82,7 @@ public class Encrypter {
         for (int i = 0; i < alphabet.length(); i++) {
             keywordAlphabet += alphabet.charAt(i);
             if (keywordAlphabet.length() == alphabet.length()) {
-                break;
+            
             }
         }
         for (char letter : word.toCharArray()) {
@@ -112,7 +112,7 @@ public class Encrypter {
         for (int i = 0; i < alphabet.length(); i++) {
             keywordAlphabet += alphabet.charAt(i);
             if (keywordAlphabet.length() == alphabet.length()) {
-                break;
+              
             }
         }
         for (char letter : word.toCharArray()) {
@@ -131,7 +131,7 @@ public class Encrypter {
 
     public static void main(String[] args) {
         Encrypter enc = new Encrypter();
-      
+        System.out.println(Encrypter.decryptStringKeyword("UHuqMCFPu",20,"zoo"));
        
     }
 }
