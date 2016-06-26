@@ -143,7 +143,7 @@ public class Exhibition implements Submittable, Exportable, Serializable {
     /**
      * The exhibition's timer.
      */
-    private transient final Timer timer;
+    private transient Timer timer;
 
     /**
      * Exhibition's default title.
@@ -278,6 +278,15 @@ public class Exhibition implements Submittable, Exportable, Serializable {
         this.conflictsList = new ConflictsList(exhibition.conflictsList);
         this.currentState = exhibition.currentState;
         this.timer = new Timer();
+    }
+
+    /**
+     * Set the timer.
+     * 
+     * @param timer the timer to set
+     */
+    public void setTimer(Timer timer) {
+        this.timer = timer;
     }
 
     /**

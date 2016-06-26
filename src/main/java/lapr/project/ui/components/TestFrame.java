@@ -34,8 +34,8 @@ public class TestFrame extends JFrame {
         super("TEST");
 
         setLayout(new BorderLayout());
-        add(new StaffEvaluationsAnalysisPanel(exhibitionCenter), BorderLayout.CENTER);
-//        add(new GenerateKeywordsRankingPanel(exhibitionCenter), BorderLayout.CENTER);
+//        add(new StaffEvaluationsAnalysisPanel(exhibitionCenter), BorderLayout.CENTER);
+        add(new GenerateKeywordsRankingPanel(exhibitionCenter), BorderLayout.CENTER);
 
         pack();
 //        setMinimumSize(new Dimension(getWidth(), 270));
