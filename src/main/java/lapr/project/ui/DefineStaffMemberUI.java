@@ -187,6 +187,8 @@ public class DefineStaffMemberUI extends JFrame {
 
         return panelScroll;
     }
+    
+
   /**
      * Createsthe back button.
      * @return the button

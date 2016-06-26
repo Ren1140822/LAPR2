@@ -123,20 +123,7 @@ public class Exhibition implements Submittable, Exportable, Serializable {
     /**
      * The exhibition's current state.
      */
-//    @XmlElements({
-//        @XmlElement(name = "exhibition_state", type = ExhibitionInicialState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionApplicationsInDecisionState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionApplicationsInEvaluationState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionChangedConflictsState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionClosedApplicationsState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionCreatedState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionDecidedApplicationsState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionDemosWithoutStaffState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionStaffWithoutDemosState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionOpenApplicationsState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionDetectedConflictsState.class),
-//        @XmlElement(name = "exhibition_state", type = ExhibitionCompleteState.class)
-//    })
+
     @XmlTransient
     private ExhibitionState currentState;
 
