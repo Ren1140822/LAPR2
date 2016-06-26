@@ -157,7 +157,7 @@ public class ConfirmUserProfileUI extends JFrame {
         unconfirmedUserProfilesJList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (unconfirmedUserProfilesJList.getSelectedIndex() > 0) {
+                if (unconfirmedUserProfilesJList.getSelectedValue()!=null) {
                     confirmUserProfileButton.setEnabled(true);
                 }
             }

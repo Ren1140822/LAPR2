@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -26,6 +27,7 @@ import lapr.project.model.Organizer;
 import lapr.project.model.StaffMember;
 import lapr.project.model.User;
 import lapr.project.ui.DashboardUI;
+import lapr.project.ui.LoginUI;
 import lapr.project.ui.UpdateUserProfileUI;
 import lapr.project.utils.DefaultInstantiator;
 
@@ -168,24 +170,27 @@ public class DialogLogin extends JDialog {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                switch (comboBoxLogin.getSelectedItem().toString()) {
-                
-                    case "Staff Member":
-                        new DashboardUI(exhibitionsCenter, new StaffMember(user));
-                        break;
-                    case "Organizer":
-                         new DashboardUI(exhibitionsCenter, new Organizer(user));
-                        
-                        break;
-                    case "Exhibitor Responsible":
-                       new DashboardUI(exhibitionsCenter, new ExhibitorResponsible(user));
-                        break;
-                    case "Exhibitions Manager":
-                       new DashboardUI(exhibitionsCenter, new ExhibitionsManager(user));
-                        break;
-                    default:
-                        new UpdateUserProfileUI(exhibitionsCenter, thisActor);
-                        break;
+                try {
+                    switch (comboBoxLogin.getSelectedItem().toString()) {
+
+                        case "Staff Member":
+                            new DashboardUI(exhibitionsCenter, new StaffMember(user));
+                            break;
+                        case "Organizer":
+                            new DashboardUI(exhibitionsCenter, new Organizer(user));
+
+                            break;
+                        case "Exhibitor Responsible":
+                            new DashboardUI(exhibitionsCenter, new ExhibitorResponsible(user));
+                            break;
+                        case "Exhibitions Manager":
+                            new DashboardUI(exhibitionsCenter, new ExhibitionsManager(user));
+                            break;
+
+                    }
+                } catch (NullPointerException ex) {
+                    JOptionPane.showMessageDialog(rootPane,"You cant login if you dont have a role on the system.","Error!",JOptionPane.ERROR_MESSAGE);
+                    new LoginUI(exhibitionsCenter);
                 }
                 parentFrame.dispose();
                 dispose();
