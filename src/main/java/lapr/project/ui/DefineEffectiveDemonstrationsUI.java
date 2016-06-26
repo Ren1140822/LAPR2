@@ -365,7 +365,7 @@ public class DefineEffectiveDemonstrationsUI extends JFrame {
                             throw new IllegalArgumentException("Invalid common dates! please enter valid dates.");
                         }
                         String message = "Do you confirm your common dates?";
-                        int confirma = JOptionPane.showConfirmDialog(rootPane, message);
+                        int confirma = JOptionPane.showConfirmDialog(rootPane, message, "Confirmation", JOptionPane.YES_NO_OPTION);
 
                         if (confirma == JOptionPane.YES_OPTION) {
                             lockCommonDates();
@@ -497,7 +497,7 @@ public class DefineEffectiveDemonstrationsUI extends JFrame {
                     if (controller.getEffectiveDemosList().size() < 1) {
                         throw new IllegalArgumentException("You need to define at least one demonstration.");
                     }
-                    int confirma = JOptionPane.showConfirmDialog(rootPane, "Confirm");
+                    int confirma = JOptionPane.showConfirmDialog(rootPane, "Confirm?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
                     if (confirma == JOptionPane.YES_OPTION) {
                         controller.updateDemosntrationList();
