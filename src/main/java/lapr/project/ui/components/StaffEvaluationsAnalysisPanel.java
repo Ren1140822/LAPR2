@@ -26,10 +26,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableCellRenderer;
 import lapr.project.controller.StaffEvaluationsAnalysisController;
-import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.StaffMemberAnalytic.ConfidenceIntervals;
-import static lapr.project.ui.components.GenerateEvaluationsStatisticsPanel.PADDING_BORDER;
 import lapr.project.utils.CSVParser;
 
 /**

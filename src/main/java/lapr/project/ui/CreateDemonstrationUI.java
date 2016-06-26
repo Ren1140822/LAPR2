@@ -471,8 +471,9 @@ public class CreateDemonstrationUI extends JFrame {
 
                     int confirma = JOptionPane.showConfirmDialog(rootPane, message);
 
-                    if (confirma == JOptionPane.YES_OPTION && controller.setDemonstrationDefined()) {
-                        controller.registerDemonstration();
+                    if (confirma == JOptionPane.YES_OPTION && controller.registerDemonstration()) {
+                        controller.setDemonstrationDefined();
+                        
                         dispose();
                         new DashboardUI(CreateDemonstrationUI.this.exhibitionCenter, CreateDemonstrationUI.this.organizer);
                     }
