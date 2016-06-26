@@ -230,9 +230,9 @@ public class DialogLogin extends JDialog {
         if (loginController.verifyUserByOrganizer(user)) {
             userPossibilities.add("Organizer");
         }
-        if (loginController.verifyUserByExhibitorResponsible(user)) {
+//        if (loginController.verifyUserByExhibitorResponsible(user)) {
             userPossibilities.add("Exhibitor Responsible");
-        }
+//        }
 
         if (loginController.verifyUserByExhibitionsManager(user)) {
             userPossibilities.add("Exhibitions Manager");

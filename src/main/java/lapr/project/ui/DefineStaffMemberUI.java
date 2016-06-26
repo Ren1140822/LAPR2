@@ -6,11 +6,14 @@ package lapr.project.ui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -31,6 +34,7 @@ import lapr.project.model.UsersRegister;
 import lapr.project.model.exhibition.ExhibitionOpenApplicationsState;
 import lapr.project.ui.components.DialogSelectable;
 import lapr.project.ui.components.ModelListSelectable;
+import lapr.project.utils.DefaultInstantiator;
 
 /**
  * GUI for DefineStaffMember
@@ -128,6 +132,7 @@ public class DefineStaffMemberUI extends JFrame {
     public void createComponents() {
         JPanel panelUsers = createPanelUsers();
         add(panelUsers, BorderLayout.WEST);
+        add(createBackButton(),BorderLayout.SOUTH);
     }
 
     public JPanel createPanelUsers() {
@@ -182,7 +187,23 @@ public class DefineStaffMemberUI extends JFrame {
 
         return panelScroll;
     }
+  /**
+     * Createsthe back button.
+     * @return the button
+     */
+    public JButton createBackButton(){
+        JButton button = new JButton("Back");
+             button.setPreferredSize(new Dimension(150, 40));
+        button.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new DashboardUI(exhibitionCenter, organizer);
+            }
+        });
+        return button;
+    }
     /**
      * Modifies the selected exhibition
      *
@@ -202,28 +223,9 @@ public class DefineStaffMemberUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        ExhibitionCenter ex = new ExhibitionCenter();
-        Exhibition a = new Exhibition();
-        List<User> userlist = new ArrayList();
-        User u = new User();
-        userlist.add(u);
-        UsersRegister userReg = new UsersRegister(userlist);
-        ex.setUsersRegister(userReg);
-        Organizer o = new Organizer();
-        List<Organizer> list3 = new ArrayList();
-        list3.add(o);
-        OrganizersList orglist = new OrganizersList(list3);
-        a.setOrganizersList(orglist);
-        Demonstration a2 = new Demonstration();
-        List<Demonstration> list2 = new ArrayList();
-        list2.add(a2);
-        DemonstrationsList demoList = new DemonstrationsList(list2);
-        a.setDemonstrationsList(demoList);
-        List<Exhibition> list = new ArrayList();
-        a.setState(new ExhibitionOpenApplicationsState(a));
-        list.add(a);
-        ExhibitionsRegister exReg = new ExhibitionsRegister(list);
-        ex.setExhibitionsRegister(exReg);
+        ExhibitionCenter ex = DefaultInstantiator.createExhibitionCenter();
+        Organizer o = ex.getExhibitionsRegister().getExhibitionsList().get(0).getOrganizersList().getOrganizersList().get(1);
+     
 
         DefineStaffMemberUI test = new DefineStaffMemberUI(ex, o);
     }
