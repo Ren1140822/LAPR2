@@ -5,11 +5,15 @@ package lapr.project.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -121,6 +125,7 @@ public class ExportExhibitionUI extends JFrame {
         JPanel componentsPanel = new JPanel(new BorderLayout(10, 10));
         componentsPanel.add(createTitleLabel(), BorderLayout.NORTH);
         componentsPanel.add(createExportablesListPanel(), BorderLayout.CENTER);
+        componentsPanel.add(createButtonsPanel(), BorderLayout.SOUTH);
         componentsPanel.setBorder(PADDING_BORDER);
         add(componentsPanel);
     }
@@ -191,6 +196,38 @@ public class ExportExhibitionUI extends JFrame {
         exportablesListPanel.add(exportablesJScrollPane, BorderLayout.CENTER);
 
         return exportablesListPanel;
+    }
+
+    /**
+     * Create the buttons panel.
+     *
+     * @return buttons panel
+     */
+    private JPanel createButtonsPanel() {
+        JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+
+        buttonsPanel.add(createBackButton());
+
+        return buttonsPanel;
+    }
+
+    /**
+     * Creates the back button.
+     *
+     * @return back button
+     */
+    private JButton createBackButton() {
+        JButton backButton = new JButton("Back");
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                dispose();
+                new DashboardUI(exhibitionCenter, organizer);
+            }
+        });
+
+        return backButton;
     }
 
     /**
