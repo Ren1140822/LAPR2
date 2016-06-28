@@ -553,4 +553,28 @@ public class UseCaseButtonsGenerator {
 
         return useCase24Button;
     }
+
+    /**
+     * Creates a button to the manually trigger timer tasks.
+     *
+     * @param exhibitionCenter exhibition center
+     * @param exhibitionsManager exhibitions manager logged in
+     * @param parentFrame the parent jframe to dispose or null
+     * @return a button to the manually trigger timer tasks
+     */
+    public static JButton generateTriggerTask(ExhibitionCenter exhibitionCenter, ExhibitionsManager exhibitionsManager, JFrame parentFrame) {
+        JButton taskTriggerButton = new JButton("Trigger Task");
+
+        taskTriggerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (parentFrame != null) {
+                    parentFrame.dispose();
+                }
+                new ManualActivateTimerTasksUI(exhibitionCenter, exhibitionsManager);
+            }
+        });
+
+        return taskTriggerButton;
+    }
 }

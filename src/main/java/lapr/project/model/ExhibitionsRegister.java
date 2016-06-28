@@ -751,4 +751,19 @@ public class ExhibitionsRegister implements Importable, Serializable {
         return hash;
     }
 
+    public List<Submittable> getAllSubmittables() {
+
+        List<Submittable> submittables = new ArrayList<>();
+
+        for (Exhibition exhibition : this.exhibitionsList) {
+
+            submittables.add(exhibition);
+
+            for (Demonstration demo : exhibition.getDemonstrationsList().getDemonstrationsList()) {
+                submittables.add(demo);
+            }
+        }
+        return submittables;
+    }
+
 }
