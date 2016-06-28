@@ -499,7 +499,7 @@ public class Demonstration implements Submittable, Selectable, Serializable {
      */
     @Override
     public ApplicationsList getApplicationsList() {
-        return new ApplicationsList(this.applicationsList);
+        return this.applicationsList;
     }
 
     /**

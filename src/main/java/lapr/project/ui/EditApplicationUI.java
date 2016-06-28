@@ -39,6 +39,7 @@ import lapr.project.model.Keyword;
 import lapr.project.model.Product;
 import lapr.project.model.Submittable;
 import lapr.project.model.application.ApplicationInSubmissionState;
+import lapr.project.model.DemonstrationApplication;
 import lapr.project.ui.components.CustomMenuBar;
 import lapr.project.ui.components.DialogSelectable;
 import lapr.project.ui.components.ModelListSelectable;
@@ -609,7 +610,6 @@ public class EditApplicationUI extends JFrame {
                     // Get the data
                     String title = EditApplicationUI.this.titleTextField.getText();
                     int invitationsNumber = Integer.parseInt(EditApplicationUI.this.invitationsNumberTextField.getText());
-                    float exhibitorArea = Float.parseFloat(EditApplicationUI.this.exhibitorAreaTextField.getText());
                     List<Keyword> keywords = Keyword.toKeywordsList(EditApplicationUI.this.keywordsTextArea.getText());
 
                     // Set the data
@@ -618,6 +618,7 @@ public class EditApplicationUI extends JFrame {
                     EditApplicationUI.this.editable.setKeywordsList(keywords);
                     EditApplicationUI.this.editable.setProductsList(EditApplicationUI.this.productsList);
                     if (EditApplicationUI.this.editable instanceof ExhibitionApplication) {
+                        float exhibitorArea = Float.parseFloat(EditApplicationUI.this.exhibitorAreaTextField.getText());
                         ((ExhibitionApplication) EditApplicationUI.this.editable).setExhibitorArea(exhibitorArea);
                         ((ExhibitionApplication) EditApplicationUI.this.editable).setDemonstrationsList(EditApplicationUI.this.demonstrationsList);
                     }
@@ -693,6 +694,10 @@ public class EditApplicationUI extends JFrame {
     public static void main(String[] args) {
         ExhibitionCenter ec = DefaultInstantiator.createExhibitionCenter();
         ExhibitorResponsible er = ((ExhibitionApplication) ec.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList().get(0)).getExhibitor().getExhibitorResponsible();
+        ((DemonstrationApplication) ec.getExhibitionsRegister().getExhibitionsList().get(0).getDemonstrationsList()
+                .getDemonstrationsList().get(0).getApplicationsList().getApplicationsList().get(0)).getExhibitor().setExhibitorResponsible(er);
+        ((DemonstrationApplication)ec.getExhibitionsRegister().getExhibitionsList().get(0).getDemonstrationsList().getDemonstrationsList().get(0).getApplicationsList().getApplicationsList().get(0))
+                .setState(new ApplicationInSubmissionState(ec.getExhibitionsRegister().getExhibitionsList().get(0).getDemonstrationsList().getDemonstrationsList().get(0).getApplicationsList().getApplicationsList().get(0)));
         ((ExhibitionApplication) ec.getExhibitionsRegister().getExhibitionsList().get(0).getApplicationsList().getApplicationsList()
                 .get(0)).setState(new ApplicationInSubmissionState(ec.getExhibitionsRegister().getExhibitionsList().get(0)
                 .getApplicationsList().getApplicationsList().get(0)));
