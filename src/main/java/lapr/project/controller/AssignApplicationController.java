@@ -4,6 +4,8 @@
 package lapr.project.controller;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
 import lapr.project.model.MechanismsRegister;
@@ -116,7 +118,16 @@ public class AssignApplicationController {
      */
     public List<StaffAttributionMechanism> getStaffAttributionMechanism() {
         this.mechanismsRegister = this.exhibitionCenter.getMechanismsRegister();
-        return this.mechanismsRegister.getAttributionMechanismList();
+        try {
+            return this.mechanismsRegister.getAttributionMechanismList();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AssignApplicationController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(AssignApplicationController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(AssignApplicationController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     /**
