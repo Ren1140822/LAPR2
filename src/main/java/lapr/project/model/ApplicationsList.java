@@ -72,7 +72,7 @@ public class ApplicationsList implements Serializable {
      */
     @XmlTransient
     public List<Application> getApplicationsList() {
-        return new ArrayList<>(this.applicationsList);
+        return this.applicationsList;
     }
 
     /**

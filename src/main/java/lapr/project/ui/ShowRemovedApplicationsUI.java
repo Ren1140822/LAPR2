@@ -109,7 +109,7 @@ public class ShowRemovedApplicationsUI extends JFrame {
                 customMenuBar.exit();
             }
         });
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         createComponents();
 

@@ -61,7 +61,7 @@ public class ExhibitionApplicationController {
      *
      * @param exhibitionCenter the exhibition center received by parameter.
      */
-    public ExhibitionApplicationController(ExhibitorResponsible exhibitorResponsible ,ExhibitionCenter exhibitionCenter) {
+    public ExhibitionApplicationController(ExhibitorResponsible exhibitorResponsible, ExhibitionCenter exhibitionCenter) {
         this.exhibitonCenter = exhibitionCenter;
         this.exhibitorResponsible = exhibitorResponsible;
     }
@@ -97,9 +97,9 @@ public class ExhibitionApplicationController {
     /**
      * Sets the data of the new application.
      */
-    public void setData(String title, String companyName, String companyAddress, String companyCellphone, float exhibitorArea, int numberInvitations,ExhibitorResponsible exhibitorResponsible) {
+    public void setData(String title, String companyName, String companyAddress, String companyCellphone, float exhibitorArea, int numberInvitations, ExhibitorResponsible exhibitorResponsible) {
         this.exhibitionApplication.setTitle(title);
-        this.exhibitionApplication.newExhibitor(companyName, companyAddress, companyCellphone,exhibitorResponsible);
+        this.exhibitionApplication.newExhibitor(companyName, companyAddress, companyCellphone, exhibitorResponsible);
         this.exhibitionApplication.setExhibitorArea(exhibitorArea);
         this.exhibitionApplication.setNumberInvitations(numberInvitations);
     }
@@ -178,9 +178,12 @@ public class ExhibitionApplicationController {
      * @return true if all O.K.
      */
     public boolean registerExhibitionApplication() {
-        if (validateExhibitionApplication() && this.exhibitionApplication.getCurrentState().setInSubmission()) {
-            this.applicationList.getApplicationsList().add(exhibitionApplication);
-            return true;
+        if (this.exhibitionApplication.getCurrentState().setInSubmission()) {
+            if (validateExhibitionApplication()) {
+                this.applicationList.getApplicationsList().add(exhibitionApplication);
+                 return true;
+            }
+           
         }
         return false;
     }

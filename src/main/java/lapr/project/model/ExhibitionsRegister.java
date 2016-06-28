@@ -14,6 +14,9 @@ import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import lapr.project.model.exhibition.ExhibitionApplicationsInDecisionState;
+import lapr.project.model.exhibition.ExhibitionChangedConflictsState;
+import lapr.project.model.exhibition.ExhibitionClosedApplicationsState;
 import lapr.project.model.exhibition.ExhibitionCompleteState;
 import lapr.project.model.exhibition.ExhibitionInicialState;
 import lapr.project.model.exhibition.ExhibitionOpenApplicationsState;
@@ -569,12 +572,12 @@ public class ExhibitionsRegister implements Importable, Serializable {
 
         exhibition.createTimers(exhibitionCenter);
         if (exhibition.getEvaluationLimitDate().before(date)) {
-            exhibition.getState().setApplicationsInDecision();
+            exhibition.setState(new ExhibitionApplicationsInDecisionState(exhibition));
             exhibition.getState().setApplicationsDecided();
         } else if (exhibition.getConflictLimitDate().before(date)) {
-            exhibition.getState().setChangedConflicts();
+            exhibition.setState(new ExhibitionChangedConflictsState(exhibition));
         } else if (exhibition.getSubEndDate().before(date)) {
-            exhibition.getState().setClosedApplications();
+            exhibition.setState(new ExhibitionClosedApplicationsState(exhibition));
         } else if (exhibition.getSubStartDate().before(date)) {
             exhibition.setState(new ExhibitionOpenApplicationsState(exhibition));
         } else {
