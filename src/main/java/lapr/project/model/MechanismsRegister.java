@@ -3,10 +3,12 @@
  */
 package lapr.project.model;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import lapr.project.model.mechanisms.attribution.EquitableLoadMechanism;
 
 /**
  * Representsa mechanism register for attribution mechanism list.
@@ -56,7 +58,16 @@ public class MechanismsRegister implements Serializable {
      *
      * @return List of attribution mechanisms
      */
-    public List<StaffAttributionMechanism> getAttributionMechanismList() {
+    public List<StaffAttributionMechanism> getAttributionMechanismList() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        File file = new File("src/main/java/lapr/project/model/mechanisms/attribution");
+        for(File f:file.listFiles()){
+            String className = "lapr.project.model.mechanisms.attribution.EquitableLoadMechanism";
+           
+           
+            Object object = Class.forName(className).newInstance();
+            StaffAttributionMechanism mechanism = (StaffAttributionMechanism)object;
+            attributionMechanismList.add(mechanism);
+        }
         return new ArrayList<>(attributionMechanismList);
     }
 

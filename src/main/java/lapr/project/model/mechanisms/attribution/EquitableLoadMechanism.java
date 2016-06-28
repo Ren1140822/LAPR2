@@ -26,6 +26,9 @@ import lapr.project.model.Submittable;
  */
 public class EquitableLoadMechanism implements StaffAttributionMechanism, Serializable {
 
+    public EquitableLoadMechanism() {
+
+    }
     /**
      * Mechanism description
      */
