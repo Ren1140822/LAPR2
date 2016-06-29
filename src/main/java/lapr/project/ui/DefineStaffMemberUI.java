@@ -152,6 +152,7 @@ public class DefineStaffMemberUI extends JFrame {
 
                         response = JOptionPane.showConfirmDialog(rootPane, "User added as Staff Member. Do you wish to confirm?", "Define Staff member", JOptionPane.YES_NO_OPTION);
                         if (response == JOptionPane.YES_OPTION) {
+                            defineStaffController.setDefinedStaffMember(selectedExhibition);
                             JOptionPane.showConfirmDialog(rootPane, defineStaffController.addStaffMember() ? "Operation completed sucessfully." : "An error occured while performing this operation or this user is already a Staff Member.", "Confirm", JOptionPane.PLAIN_MESSAGE);
                             updateStaffList();
                         }
