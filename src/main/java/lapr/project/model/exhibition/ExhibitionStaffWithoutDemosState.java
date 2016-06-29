@@ -161,7 +161,7 @@ public class ExhibitionStaffWithoutDemosState implements ExhibitionState, Serial
     public boolean validate() {
 
         // Verifies if there is at least one demonstration defined.
-        return exhibition.getDemonstrationsList().getDemonstrationsList().isEmpty();
+        return !exhibition.getDemonstrationsList().getDemonstrationsList().isEmpty();
     }
 
 }
