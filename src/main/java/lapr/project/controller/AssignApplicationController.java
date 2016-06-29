@@ -154,6 +154,8 @@ public class AssignApplicationController {
      */
     public void staffAttributionsRegister(List<StaffAttribution> staffAttributionsList) {
         this.selectedSubmittable.setStaffAttributionsList(new StaffAttributionsList(staffAttributionsList));
+        setApplicationsInEvaluationState();
+        setSubmittableSelectedInApplicationsInEvaluationState();
     }
  
     
