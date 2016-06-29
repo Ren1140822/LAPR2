@@ -5,6 +5,7 @@ package lapr.project.model.exhibition;
 
 import java.io.Serializable;
 import javax.xml.bind.annotation.XmlRootElement;
+import lapr.project.model.Application;
 import lapr.project.model.Exhibition;
 import lapr.project.model.ExhibitionState;
 
@@ -143,8 +144,7 @@ public class ExhibitionApplicationsInDecisionState implements ExhibitionState, S
     public boolean setApplicationsDecided() {
 
         if (validate()) {
-            // TODO : Implement next state
-//            this.exhibition.setState(this);
+            
             return true;
         } else {
             return false;
@@ -158,8 +158,14 @@ public class ExhibitionApplicationsInDecisionState implements ExhibitionState, S
 
     @Override
     public boolean validate() {
-
-        return true;
+        boolean flag =false;
+        for(Application application : exhibition.getApplicationsList().getApplicationsList()){
+            flag = application.isDecided();
+            if(!flag){
+                return false;
+            }
+        }
+       return true;
     }
 
 }
