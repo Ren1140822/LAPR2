@@ -50,19 +50,6 @@ public class MechanismsRegisterTest {
     }
 
     /**
-     * Test of setAttributionMechanismList method, of class MechanismsRegister.
-     */
-    @Test
-    public void testSetAttributionMechanismList() {
-        System.out.println("setAttributionMechanismList");
-        List<StaffAttributionMechanism> attributionMechanismList = new ArrayList<>();
-        attributionMechanismList.add(new EquitableLoadMechanism());
-
-        this.mechanismsRegister.setAttributionMechanismList(attributionMechanismList);
-        assertEquals(this.mechanismsRegister.getAttributionMechanismList(), attributionMechanismList);
-    }
-
-    /**
      * Test of equals method, of class MechanismsRegister.
      */
     @Test

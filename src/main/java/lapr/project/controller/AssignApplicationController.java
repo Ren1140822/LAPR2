@@ -3,9 +3,8 @@
  */
 package lapr.project.controller;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import lapr.project.model.ExhibitionCenter;
 import lapr.project.model.ExhibitionsRegister;
 import lapr.project.model.MechanismsRegister;
@@ -14,6 +13,7 @@ import lapr.project.model.StaffAttribution;
 import lapr.project.model.StaffAttributionMechanism;
 import lapr.project.model.StaffAttributionsList;
 import lapr.project.model.Submittable;
+import lapr.project.model.mechanisms.attribution.EquitableLoadMechanism;
 
 /**
  * Represents the controller to assign applications.
@@ -118,16 +118,19 @@ public class AssignApplicationController {
      */
     public List<StaffAttributionMechanism> getStaffAttributionMechanism() {
         this.mechanismsRegister = this.exhibitionCenter.getMechanismsRegister();
-        try {
-            return this.mechanismsRegister.getAttributionMechanismList();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AssignApplicationController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(AssignApplicationController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(AssignApplicationController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+//        try {
+//            return this.mechanismsRegister.getAttributionMechanismList();
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(AssignApplicationController.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            Logger.getLogger(AssignApplicationController.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            Logger.getLogger(AssignApplicationController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        EquitableLoadMechanism mechanism = new EquitableLoadMechanism();
+        List<StaffAttributionMechanism> attributionMechanisms = new ArrayList<>();
+        attributionMechanisms.add(mechanism);
+        return attributionMechanisms;
     }
 
     /**
@@ -147,7 +150,7 @@ public class AssignApplicationController {
     public List<StaffAttribution> getAttributionsList() {
         return this.staffAttributionMechanism.toAssign(this.selectedSubmittable);
     }
-    
+
     /**
      * Saves list of staff attributions
      *
@@ -157,8 +160,7 @@ public class AssignApplicationController {
         setApplicationsInEvaluationState();
         setSubmittableSelectedInApplicationsInEvaluationState();
     }
- 
-    
+
     /**
      * set applications in evaluation state
      */

@@ -58,17 +58,21 @@ public class MechanismsRegister implements Serializable {
      *
      * @return List of attribution mechanisms
      */
-    public List<StaffAttributionMechanism> getAttributionMechanismList() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public List<StaffAttributionMechanism> getAttributionMechanismList() {
         attributionMechanismList.clear();
         File file = new File("src/main/java/lapr/project/model/mechanisms/attribution");
-        for (File f : file.listFiles()) {
-            String className = "lapr.project.model.mechanisms.attribution.EquitableLoadMechanism";
+        try {
+            for (File f : file.listFiles()) {
+                String className = "lapr.project.model.mechanisms.attribution.EquitableLoadMechanism";
 
-            Object object = Class.forName(className).newInstance();
-            StaffAttributionMechanism mechanism = (StaffAttributionMechanism) object;
-            if (!attributionMechanismList.contains(mechanism)) {
-                attributionMechanismList.add(mechanism);
+                Object object = Class.forName(className).newInstance();
+                StaffAttributionMechanism mechanism = (StaffAttributionMechanism) object;
+                if (!attributionMechanismList.contains(mechanism)) {
+                    attributionMechanismList.add(mechanism);
+                }
             }
+        } catch (Exception e) {
+            return null;
         }
         return (attributionMechanismList);
     }
